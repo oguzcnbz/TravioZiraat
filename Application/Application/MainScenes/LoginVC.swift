@@ -3,6 +3,9 @@ import SnapKit
 import TinyConstraints
 
 class LoginVC: UIViewController {
+
+    
+//MARK: -- Views
     
     private lazy var loginView: DefaultView = {
             let scene = DefaultView()
@@ -14,27 +17,13 @@ class LoginVC: UIViewController {
         return sv
     }()
     
-    private lazy var emailStackView: UIStackView = {
-        let sv = UIStackView()
-        sv.axis = .vertical
-        sv.backgroundColor = .white
-        sv.layer.cornerRadius = 16
-        sv.layer.borderColor = UIColor.black.cgColor
-        sv.layer.shadowRadius = 20.0
-        sv.layer.shadowOpacity = 0.15
-        sv.spacing = 8
+    private lazy var emailStackView: DefaultStackView = {
+        let sv = DefaultStackView()
         return sv
     }()
     
-    private lazy var passwordStackView: UIStackView = {
-        let sv = UIStackView()
-        sv.axis = .vertical
-        sv.backgroundColor = .white
-        sv.layer.cornerRadius = 16
-        sv.layer.borderColor = UIColor.black.cgColor
-        sv.layer.shadowRadius = 20.0
-        sv.layer.shadowOpacity = 0.15
-        sv.spacing = 8
+    private lazy var passwordStackView: DefaultStackView = {
+        let sv = DefaultStackView()
         return sv
     }()
     
@@ -43,6 +32,8 @@ class LoginVC: UIViewController {
         imageView.image = UIImage(named: "Travio")
         return imageView
     }()
+    
+//MARK: -- Labels
     
     private lazy var lblTitle: DefaultLabel = {
         let label = DefaultLabel(text: "Welcome to Travio", fontStyle: .poppinsMedium(size: 24))
@@ -65,6 +56,8 @@ class LoginVC: UIViewController {
         return label
     }()
     
+//MARK: -- TextFields
+    
     private lazy var txtEmail: DefaultTextField = {
         let txt = DefaultTextField(text: "developer@bilgeadam.com")
         return txt
@@ -74,9 +67,11 @@ class LoginVC: UIViewController {
         let txt = DefaultTextField(text: "************")
         return txt
     }()
+
+//MARK: -- Buttons
     
     private lazy var buttonLogin: DefaultButton = {
-        let btn = DefaultButton(title: "Login", background: .green)
+        let btn = DefaultButton(title: "Login", background: .customgreen)
         
         return btn
     }()
@@ -92,17 +87,19 @@ class LoginVC: UIViewController {
     }()
     
     @objc func btnSignTapped() {
-        let SignUpVC = SignUp()
-        SignUpVC.modalPresentationStyle = .fullScreen
-        self.present(SignUpVC, animated: true)
+        let SignUpVC = SignUpVC()
+        self.navigationController?.pushViewController(SignUpVC, animated: true)
     }
-
-
+    
+//MARK: -- Loads
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupViews()
     }
+
+//MARK: -- SetUpViews
     
     private func setupViews() {
         self.view.addSubview(loginView)
@@ -124,6 +121,8 @@ class LoginVC: UIViewController {
                                       txtPassword)
         layout()
     }
+    
+//MARK: -- Layout
     
     private func layout() {
         loginView.snp.makeConstraints { view in
@@ -163,17 +162,17 @@ class LoginVC: UIViewController {
         
         lblEmail.snp.makeConstraints { lbl in
             lbl.leading.equalTo(emailStackView.snp.leading).offset(12)
-            lbl.trailing.equalTo(emailStackView.snp.trailing).offset(-291)
+            lbl.trailing.equalTo(emailStackView.snp.trailing).offset(0)
             lbl.top.equalTo(emailStackView.snp.top).offset(8)
             lbl.height.equalTo(21)
         }
         
         txtEmail.snp.makeConstraints({txt in
             txt.leading.equalTo(emailStackView.snp.leading).offset(12)
+            txt.trailing.equalTo(emailStackView.snp.trailing).offset(0)
             txt.top.equalTo(lblEmail.snp.bottom).offset(8)
             txt.height.equalTo(18)
         })
-        
 
         passwordStackView.snp.makeConstraints { view in
             view.top.equalTo(emailStackView.snp.bottom).offset(24)
@@ -184,18 +183,18 @@ class LoginVC: UIViewController {
         
         lblPassword.snp.makeConstraints { lbl in
             lbl.leading.equalTo(passwordStackView.snp.leading).offset(12)
-            lbl.trailing.equalTo(passwordStackView.snp.trailing).offset(-261)
+            lbl.trailing.equalTo(passwordStackView.snp.trailing).offset(0)
             lbl.top.equalTo(passwordStackView.snp.top).offset(8)
             lbl.height.equalTo(21)
         }
         
         txtPassword.snp.makeConstraints({txt in
             txt.leading.equalTo(passwordStackView.snp.leading).offset(12)
+            txt.trailing.equalTo(passwordStackView.snp.trailing).offset(0)
             txt.top.equalTo(lblPassword.snp.bottom).offset(8)
             txt.height.equalTo(18)
         })
 
-        
         buttonLogin.snp.makeConstraints { btn in
             btn.top.equalTo(passwordStackView.snp.bottom).offset(48)
             btn.trailing.equalToSuperview().offset(-24)
@@ -222,15 +221,3 @@ class LoginVC: UIViewController {
 }
 
     
-#if DEBUG
-import SwiftUI
-
-@available(iOS 13, *)
-struct HomeVC_Preview: PreviewProvider {
-    static var previews: some View{
-
-        LoginVC().showPreview()
-    }
-}
-#endif
-
