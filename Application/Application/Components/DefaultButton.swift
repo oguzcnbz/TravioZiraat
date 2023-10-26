@@ -2,13 +2,13 @@ import UIKit
 
 enum ButtonBackground {
     case lightGray
-    case green
+    case customgreen
     
     var backgroundColor: UIColor {
         switch self {
         case .lightGray:
             return UIColor(hex: "999999")
-        case .green:
+        case .customgreen:
             return UIColor(hex: "38ADA9")
         }
     }
