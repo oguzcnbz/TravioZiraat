@@ -6,6 +6,7 @@ class LoginVC: UIViewController {
 
     
 //MARK: -- Views
+    //deneme
     
     private lazy var loginView: DefaultView = {
             let scene = DefaultView()
