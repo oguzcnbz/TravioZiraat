@@ -184,20 +184,6 @@ class LoginVC: UIViewController,LoginResponseDelegate {
             view.leading.equalToSuperview().offset(24)
             view.height.equalTo(74)
         }
-        
-        lblPassword.snp.makeConstraints { lbl in
-            lbl.leading.equalTo(passwordStackView.snp.leading).offset(12)
-            lbl.trailing.equalTo(passwordStackView.snp.trailing).offset(0)
-            lbl.top.equalTo(passwordStackView.snp.top).offset(8)
-            lbl.height.equalTo(21)
-        }
-        
-        txtPassword.snp.makeConstraints({txt in
-            txt.leading.equalTo(passwordStackView.snp.leading).offset(12)
-            txt.trailing.equalTo(passwordStackView.snp.trailing).offset(0)
-            txt.top.equalTo(lblPassword.snp.bottom).offset(8)
-            txt.height.equalTo(18)
-        })
 
         buttonLogin.snp.makeConstraints { btn in
             btn.top.equalTo(passwordStackView.snp.bottom).offset(48)
