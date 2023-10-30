@@ -4,8 +4,37 @@ import SnapKit
 import TinyConstraints
 import IQKeyboardManagerSwift
 
-class SignUpVC: UIViewController{
+class SignUpVC: UIViewController,SignUpResponseDelegate{
     
+    func signUpResponseGet(isSignUp: Bool, message: String) {
+            
+            if isSignUp == false {
+                
+                    print("hatali giris")
+                    showAlert(title: "Registration Failed", message: message)
+                
+               
+               
+            }
+            if isSignUp == true {
+                let vc = HomeVC()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+
+    
+    func showAlert(title:String,message:String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let btnCancel = UIAlertAction(title: "Vazgeç", style: .destructive)
+       
+        
+        alert.addAction(btnCancel)
+       
+        
+        self.present(alert, animated: true)
+    }
     
     //MARK: -- Views
     
@@ -40,6 +69,10 @@ class SignUpVC: UIViewController{
         return sv
     }()
     
+    lazy var SignUpViewModel: SignUpViewModel = {
+        return Application.SignUpViewModel()
+    }()
+    
     
     //MARK: -- Labels
     
@@ -60,8 +93,20 @@ class SignUpVC: UIViewController{
         return btn
     }()
     
+    
+    
     @objc func btnSignTapped() {
+          guard let userName = usernameStackView.defaultTextField.text else {return}
+        guard let email = emailStackView.defaultTextField.text else {return}
+        guard let password = passwordStackView.defaultTextField.text else {return}
         
+        if emailStackView.defaultTextField.hasValidEmail == false {
+            showAlert(title: "Registration Failed", message: "Sorry, we dont recognise this email address")
+            return
+        }
+        
+        SignUpViewModel.setDelegate(output: self)
+        SignUpViewModel.signUpUser(fullName: userName, email: email, password: password)
     }
     
     @objc func backButtonTapped(){

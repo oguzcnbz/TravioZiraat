@@ -2,8 +2,35 @@ import UIKit
 import SnapKit
 import TinyConstraints
 
-class LoginVC: UIViewController {
+class LoginVC: UIViewController,LoginResponseDelegate {
 
+    func loginResponseGet(isLogin: Bool) {
+       print("sonuc \(isLogin ?? false)")
+        if isLogin == false {
+            print("hatali giris")
+            showAlert(title: "Giris Yapilamadi",message: "Bilgiler uyusmuyor")
+        }
+        if isLogin == true{
+            print("Giris  delegate dogru")
+            let vc = HomeVC()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+    }
+    func showAlert(title:String,message:String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let btnCancel = UIAlertAction(title: "Vazgeç", style: .destructive)
+        let btnRetry = UIAlertAction(title: "Yeniden Dene", style: .default, handler: { action in
+            self.showAlert(title: "Hata", message: "Yine olmadı")
+        })
+        
+        alert.addAction(btnCancel)
+        alert.addAction(btnRetry)
+        
+        self.present(alert, animated: true)
+    }
     
 //MARK: -- Views-StackViews
     
@@ -33,6 +60,10 @@ class LoginVC: UIViewController {
         return imageView
     }()
     
+    lazy var loginViewModel: LoginViewModel = {
+        return LoginViewModel()
+    }()
+    
 //MARK: -- Labels
     
     private lazy var lblTitle: UILabel = {
@@ -58,10 +89,17 @@ class LoginVC: UIViewController {
     
     private lazy var buttonLogin: DefaultButton = {
         let btn = DefaultButton(title: "Login", background: .customgreen)
-        
+        btn.addTarget(self, action: #selector(btnLoginTapped), for: .touchUpInside)
         return btn
     }()
     
+    @objc func btnLoginTapped() {
+        guard let email = emailStackView.defaultTextField.text else {return}
+        guard let password = passwordStackView.defaultTextField.text else {return}
+        
+        loginViewModel.setDelegate(output: self)
+        loginViewModel.loginUser(email: email, password: password)
+    }
     private lazy var signButton: UIButton = {
         let button = UIButton()
         button.setTitle("SignUp", for: .normal)
