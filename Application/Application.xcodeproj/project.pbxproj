@@ -41,6 +41,9 @@
 		6041B7B32AEF95950076E0CC /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7B22AEF95950076E0CC /* MapVC.swift */; };
 		6041B7B52AEF959B0076E0CC /* PlaceDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7B42AEF959B0076E0CC /* PlaceDetailVC.swift */; };
 		6041B7B72AEF95A10076E0CC /* MyVisitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7B62AEF95A10076E0CC /* MyVisitVC.swift */; };
+		6041B7B92AEF98880076E0CC /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7B82AEF98880076E0CC /* HomeVC.swift */; };
+		6041B7BC2AEF98D90076E0CC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6041B7BB2AEF98D90076E0CC /* Alamofire */; };
+		6041B7BF2AEF98EE0076E0CC /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6041B7BE2AEF98EE0076E0CC /* IQKeyboardManagerSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +100,7 @@
 		6041B7B22AEF95950076E0CC /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		6041B7B42AEF959B0076E0CC /* PlaceDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceDetailVC.swift; sourceTree = "<group>"; };
 		6041B7B62AEF95A10076E0CC /* MyVisitVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyVisitVC.swift; sourceTree = "<group>"; };
+		6041B7B82AEF98880076E0CC /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6041B7BC2AEF98D90076E0CC /* Alamofire in Frameworks */,
+				6041B7BF2AEF98EE0076E0CC /* IQKeyboardManagerSwift in Frameworks */,
 				5AE50BFA2ADA7727004E1FD3 /* SnapKit in Frameworks */,
 				5AE50BFD2ADA773A004E1FD3 /* TinyConstraints in Frameworks */,
 			);
@@ -207,6 +213,7 @@
 				6041B7AA2AEF93E90076E0CC /* UserModel.swift */,
 				5A03FD832AEA66D500520AFE /* SignUpVC.swift */,
 				6041B7AC2AEF94830076E0CC /* SingUpViewModel.swift */,
+				6041B7B82AEF98880076E0CC /* HomeVC.swift */,
 				6041B7AE2AEF95810076E0CC /* MainTabbar.swift */,
 				6041B7B02AEF95870076E0CC /* SettingsVC.swift */,
 				6041B7B22AEF95950076E0CC /* MapVC.swift */,
@@ -235,6 +242,8 @@
 			packageProductDependencies = (
 				5AE50BF92ADA7727004E1FD3 /* SnapKit */,
 				5AE50BFC2ADA773A004E1FD3 /* TinyConstraints */,
+				6041B7BB2AEF98D90076E0CC /* Alamofire */,
+				6041B7BE2AEF98EE0076E0CC /* IQKeyboardManagerSwift */,
 			);
 			productName = Application;
 			productReference = 5AE50BBB2ADA6D37004E1FD3 /* Application.app */;
@@ -311,6 +320,8 @@
 			packageReferences = (
 				5AE50BF82ADA7727004E1FD3 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				5AE50BFB2ADA773A004E1FD3 /* XCRemoteSwiftPackageReference "TinyConstraints" */,
+				6041B7BA2AEF98D90076E0CC /* XCRemoteSwiftPackageReference "Alamofire" */,
+				6041B7BD2AEF98EE0076E0CC /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 5AE50BBC2ADA6D37004E1FD3 /* Products */;
 			projectDirPath = "";
@@ -367,6 +378,7 @@
 				6041B7A92AEF93E20076E0CC /* LoginViewModel.swift in Sources */,
 				5AE50BBF2ADA6D37004E1FD3 /* AppDelegate.swift in Sources */,
 				5A4567262AE6729100DD75E0 /* DefaultMainStackView.swift in Sources */,
+				6041B7B92AEF98880076E0CC /* HomeVC.swift in Sources */,
 				5A4567222AE64A1000DD75E0 /* DefaultView.swift in Sources */,
 				6041B7B52AEF959B0076E0CC /* PlaceDetailVC.swift in Sources */,
 				6041B7AB2AEF93E90076E0CC /* UserModel.swift in Sources */,
@@ -740,6 +752,22 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		6041B7BA2AEF98D90076E0CC /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
+		6041B7BD2AEF98EE0076E0CC /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.16;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -752,6 +780,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5AE50BFB2ADA773A004E1FD3 /* XCRemoteSwiftPackageReference "TinyConstraints" */;
 			productName = TinyConstraints;
+		};
+		6041B7BB2AEF98D90076E0CC /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6041B7BA2AEF98D90076E0CC /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		6041B7BE2AEF98EE0076E0CC /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6041B7BD2AEF98EE0076E0CC /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

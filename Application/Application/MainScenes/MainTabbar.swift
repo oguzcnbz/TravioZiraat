@@ -15,6 +15,10 @@ class MainTabbar: UITabBarController {
         
         self.viewControllers = setupControllers()
         self.selectedIndex = 0
+        self.tabBar.tintColor = UIColor(hex: "38ADA9")
+        self.tabBar.unselectedItemTintColor = UIColor(hex: "999999")
+        self.tabBar.backgroundColor = UIColor(white: 1, alpha: 0.9)
+        self.tabBar.isTranslucent = false
        
 
     }
@@ -25,16 +29,16 @@ class MainTabbar: UITabBarController {
         
         let homeVC = HomeVC()
         let homeNC = UINavigationController(rootViewController: homeVC)
-        let imageHome =  UIImage(systemName: "house.fill")
-        let selectedImageHome = UIImage(systemName: "house.fill")
+        let imageHome =  UIImage(named: "icHome")
+        let selectedImageHome = UIImage(named: "icHome")
        
         homeVC.tabBarItem = UITabBarItem(title: "Home", image: imageHome, selectedImage: selectedImageHome)
         
         
         let mapVC = MapVC()
         let mapNC = UINavigationController(rootViewController: mapVC)
-        let imageMap =  UIImage(systemName: "clock.fill")
-        let selectedImageMap = UIImage(systemName: "clock.fill")
+        let imageMap =  UIImage(named: "icMap")
+        let selectedImageMap = UIImage(named: "icMap")
         mapVC.tabBarItem = UITabBarItem(title: "Map", image: imageMap, selectedImage: selectedImageMap)
         
         
@@ -42,14 +46,14 @@ class MainTabbar: UITabBarController {
         
         let settingsVC = SettingsVC()
         let settingsNC = UINavigationController(rootViewController: settingsVC)
-        let imageSettings =  UIImage(systemName: "person.circle")
-        let selectedImageSettings = UIImage(systemName: "person.circle")
+        let imageSettings =  UIImage(named: "icMenu")
+        let selectedImageSettings = UIImage(named: "icMenu")
         settingsVC.tabBarItem = UITabBarItem(title: "Settings", image: imageSettings, selectedImage: selectedImageSettings)
         
         let myVistVC = MyVisitVC()
         let myVistNC = UINavigationController(rootViewController: myVistVC)
-        let imageVisit =  UIImage(systemName: "circle.grid.3x3.fill")
-        let selectedImageMyVisit = UIImage(systemName: "circle.grid.3x3.fill")
+        let imageVisit = UIImage(named: "icVisit")
+        let selectedImageMyVisit = UIImage(named: "icVisit")
         myVistVC.tabBarItem = UITabBarItem(title: "My Visit", image: imageVisit, selectedImage: selectedImageMyVisit)
         
             /*  let addSegmentedVC1 = AddSegmentedVC()
@@ -59,7 +63,7 @@ class MainTabbar: UITabBarController {
         addSegmentedVC.tabBarItem = UITabBarItem(title: "VoiceMail", image: imageAddSegmented1, selectedImage: selectedImageAddSegmented1)
         */
         
-       //MARK:  return [alertNC, buttonNC, textFieldNC,V6KeyPaddNC]
+        return [homeNC, myVistVC, mapVC,settingsVC]
     }
     
 

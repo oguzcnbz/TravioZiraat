@@ -34,6 +34,7 @@ class SettingsVC: UIViewController {
     //MARK: -- UI Methods
     func setupViews() {
         // Add here the setup for the UI
+        self.view.backgroundColor = .red
         self.view.addSubviews()
         setupLayout()
     }

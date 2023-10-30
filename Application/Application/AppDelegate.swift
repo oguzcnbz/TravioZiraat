@@ -1,21 +1,18 @@
-//
-//  AppDelegate.swift
-//  Homework2
-//
-//  Created by Oğuz Canbaz on 11.10.2023.
-//
-
 import UIKit
+import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    
+    var window: UIWindow?
 
+       func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        return true
-    }
+         IQKeyboardManager.shared.enable = true
+
+         return true
+       }
 
     // MARK: UISceneSession Lifecycle
 

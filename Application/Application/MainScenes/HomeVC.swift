@@ -16,6 +16,25 @@ class HomeVC: UIViewController {
     
     //MARK: -- Views
     
+    private lazy var containerView:UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor(named: "background")
+        v.clipsToBounds = true
+        v.layer.cornerRadius = 65
+        v.layer.maskedCorners = [.layerMinXMinYCorner] // Top right corner, Top left corner respectively Top right corner, Top left corner respectively
+        return v
+    }()
+    private lazy var logoImageView:UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.image = #imageLiteral(resourceName: "homeLogo")
+        return iv
+        
+        
+    }()
+    
+
+    
     
     //MARK: -- Life Cycles
     override func viewDidLoad() {
@@ -34,12 +53,27 @@ class HomeVC: UIViewController {
     //MARK: -- UI Methods
     func setupViews() {
         // Add here the setup for the UI
+        self.view.backgroundColor = UIColor(named: "primary")
+        self.view.addSubview(logoImageView)
+        self.view.addSubview(containerView)
+        
         self.view.addSubviews()
         setupLayout()
     }
     
     func setupLayout() {
         // Add here the setup for layout
+        logoImageView.topToSuperview(offset: 30)
+        //logoImageView.horizontalToSuperview(.left(20))
+        //logoImageView.centerXToSuperview()
+       // logoImageView.topToSuperview(offset: 5,usingSafeArea: true)
+        
+       // logoImageView.height(50)
+        
+        
+        containerView.edgesToSuperview(excluding: .top)
+        containerView.heightToSuperview(multiplier: 0.85)
+      
        
     }
   
