@@ -1,46 +1,53 @@
-//
-//  LoginViewModel.swift
-//  Application
-//
-//  Created by Ada on 26.10.2023.
-//
 
 import Foundation
+import UIKit
 
-protocol SignupResponseDelegate{
-    func SignupResponseGet(isLogin:Bool, message:String)
+protocol SignUpResponseDelegate{
+    func signUpResponseGet(isSignUp:Bool,message:String)
 }
 
-class SignupViewModel {
- 
-    var delegate: SignupResponseDelegate?
-    func setDelegate(output: SignupResponseDelegate) {
+class SignUpViewModel {
+
+    var delegate: SignUpResponseDelegate?
+    func setDelegate(output: SignUpResponseDelegate) {
         delegate = output
     }
-    
-    func SignUser(email:String?,password:String?){
 
+    func signUpUser(fullName: String?, email: String?, password: String?) {
+        guard let fullName = fullName, let email = email, let password = password else {
+            delegate?.signUpResponseGet(isSignUp: false, message: "Invalid input data")
+            return
+        }
 
-        let params = ["email": "johndoe@example1.com", "password": "secretpassword", ]
-        var isLogin:Bool = false
-        NetworkingHelper.shared.getDataFromRemote(urlRequest: .userLogin(params: params), callback:{ (result:Result<UserModel,Error>) in
+        let params = ["full_name": fullName, "email": email, "password": password]
+
+        NetworkingHelper.shared.getDataFromRemote(urlRequest: .userRegister(params: params)) { (result: Result<UserModel, Error>) in
             switch result {
             case .success(let success):
-               // print(success)
-               let accessToken = success.accessToken
-                let refreshToken = success.refreshToken
-                isLogin = true
-            case .failure(let failure):
-            //    print(failure)
-                isLogin = false
-            failure.localizedDescription
-                
-                        }
-            self.delegate?.SignupResponseGet(isLogin: isLogin, message: "")
-            
-            
-        })
-    }
-    
-}
+                guard let message = success.message else {return}
+                let status = success.status
+                let isSuccess = (status == "success")
 
+                self.delegate?.signUpResponseGet(isSignUp: isSuccess, message: message)
+
+            case .failure(let error):
+                print(error.localizedDescription)
+                print(error)
+
+                var errMessage = ""
+                switch error.localizedDescription{
+                case "Response status code was unacceptable: 500.":
+                    errMessage = "User with that email already exists"
+                case "Response status code was unacceptable: 400.":
+                    errMessage = "Password must be more than 6 characters"
+                default:
+                    errMessage
+                }
+                
+                self.delegate?.signUpResponseGet(isSignUp: false, message: errMessage)
+            }
+        }
+    }
+
+
+}
