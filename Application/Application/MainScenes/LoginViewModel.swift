@@ -1,11 +1,6 @@
-//
-//  LoginViewModel.swift
-//  Application
-//
-//  Created by Ada on 26.10.2023.
-//
 
 import Foundation
+import UIKit
 
 protocol LoginResponseDelegate{
     func loginResponseGet(isLogin:Bool)
@@ -19,26 +14,30 @@ class LoginViewModel {
     }
     
     func loginUser(email:String?,password:String?){
+       
+        guard let email = email else {return}
+        guard let password = password else {return}
 
-
-        let params = ["email": "johndoe@example1.com", "password": "secretpassword", ]
+        let params = ["email": email, "password": password]
         var isLogin:Bool = false
+        
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .userLogin(params: params), callback:{ (result:Result<UserModel,Error>) in
+            
             switch result {
             case .success(let success):
-               // print(success)
-               let accessToken = success.accessToken
+              
+                let accessToken = success.accessToken
                 let refreshToken = success.refreshToken
                 isLogin = true
+                
             case .failure(let failure):
-            //    print(failure)
+                    
                 isLogin = false
                 
-                        }
+            }
             self.delegate?.loginResponseGet(isLogin: isLogin)
-            
-            
         })
     }
+    
     
 }
