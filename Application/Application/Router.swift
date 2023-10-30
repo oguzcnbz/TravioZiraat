@@ -1,9 +1,3 @@
-//
-//  Router.swift
-//  Bilge_Adam_iOS2
-//
-//  Created by İsmail Caferoğlu on 20.10.2023.
-//
 
 import Foundation
 import Alamofire

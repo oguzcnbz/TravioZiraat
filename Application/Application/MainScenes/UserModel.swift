@@ -1,10 +1,3 @@
-//
-//  UserModel.swift
-//  Application
-//
-//  Created by Ada on 26.10.2023.
-//
-
 import UIKit
 
 struct UserModel:Codable {
@@ -14,6 +7,8 @@ struct UserModel:Codable {
     var accessToken:String?
     var refreshToken:String?
     var errMessage:String?
+    var message: String?
+    var status: String?
 }
 
 
