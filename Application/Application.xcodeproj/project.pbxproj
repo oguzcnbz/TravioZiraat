@@ -36,6 +36,11 @@
 		6041B7A92AEF93E20076E0CC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7A82AEF93E20076E0CC /* LoginViewModel.swift */; };
 		6041B7AB2AEF93E90076E0CC /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7AA2AEF93E90076E0CC /* UserModel.swift */; };
 		6041B7AD2AEF94830076E0CC /* SingUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7AC2AEF94830076E0CC /* SingUpViewModel.swift */; };
+		6041B7AF2AEF95810076E0CC /* MainTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7AE2AEF95810076E0CC /* MainTabbar.swift */; };
+		6041B7B12AEF95870076E0CC /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7B02AEF95870076E0CC /* SettingsVC.swift */; };
+		6041B7B32AEF95950076E0CC /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7B22AEF95950076E0CC /* MapVC.swift */; };
+		6041B7B52AEF959B0076E0CC /* PlaceDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7B42AEF959B0076E0CC /* PlaceDetailVC.swift */; };
+		6041B7B72AEF95A10076E0CC /* MyVisitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7B62AEF95A10076E0CC /* MyVisitVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +92,11 @@
 		6041B7A82AEF93E20076E0CC /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		6041B7AA2AEF93E90076E0CC /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		6041B7AC2AEF94830076E0CC /* SingUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingUpViewModel.swift; sourceTree = "<group>"; };
+		6041B7AE2AEF95810076E0CC /* MainTabbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabbar.swift; sourceTree = "<group>"; };
+		6041B7B02AEF95870076E0CC /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		6041B7B22AEF95950076E0CC /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		6041B7B42AEF959B0076E0CC /* PlaceDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceDetailVC.swift; sourceTree = "<group>"; };
+		6041B7B62AEF95A10076E0CC /* MyVisitVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyVisitVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +207,11 @@
 				6041B7AA2AEF93E90076E0CC /* UserModel.swift */,
 				5A03FD832AEA66D500520AFE /* SignUpVC.swift */,
 				6041B7AC2AEF94830076E0CC /* SingUpViewModel.swift */,
+				6041B7AE2AEF95810076E0CC /* MainTabbar.swift */,
+				6041B7B02AEF95870076E0CC /* SettingsVC.swift */,
+				6041B7B22AEF95950076E0CC /* MapVC.swift */,
+				6041B7B42AEF959B0076E0CC /* PlaceDetailVC.swift */,
+				6041B7B62AEF95A10076E0CC /* MyVisitVC.swift */,
 			);
 			path = MainScenes;
 			sourceTree = "<group>";
@@ -343,20 +358,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6041B7B72AEF95A10076E0CC /* MyVisitVC.swift in Sources */,
 				5A03FD842AEA66D500520AFE /* SignUpVC.swift in Sources */,
 				5AE50BC32ADA6D37004E1FD3 /* ViewController.swift in Sources */,
 				5AE50BF72ADA6DF9004E1FD3 /* LaunchScreen.swift in Sources */,
 				5AE50BFF2ADA8A87004E1FD3 /* LoginVC.swift in Sources */,
+				6041B7B32AEF95950076E0CC /* MapVC.swift in Sources */,
 				6041B7A92AEF93E20076E0CC /* LoginViewModel.swift in Sources */,
 				5AE50BBF2ADA6D37004E1FD3 /* AppDelegate.swift in Sources */,
 				5A4567262AE6729100DD75E0 /* DefaultMainStackView.swift in Sources */,
 				5A4567222AE64A1000DD75E0 /* DefaultView.swift in Sources */,
+				6041B7B52AEF959B0076E0CC /* PlaceDetailVC.swift in Sources */,
 				6041B7AB2AEF93E90076E0CC /* UserModel.swift in Sources */,
+				6041B7B12AEF95870076E0CC /* SettingsVC.swift in Sources */,
 				6041B7A72AEF93D70076E0CC /* NetworkHelper.swift in Sources */,
 				5AE50C012ADB3121004E1FD3 /* DefaultButton.swift in Sources */,
 				5AE50BF42ADA6DCD004E1FD3 /* DefaultLabel.swift in Sources */,
 				6041B7AD2AEF94830076E0CC /* SingUpViewModel.swift in Sources */,
 				5AE50BC12ADA6D37004E1FD3 /* SceneDelegate.swift in Sources */,
+				6041B7AF2AEF95810076E0CC /* MainTabbar.swift in Sources */,
 				6041B7A52AEF93CF0076E0CC /* Router.swift in Sources */,
 				5A03FD822AEA65A000520AFE /* DefaultStackView.swift in Sources */,
 				5AE50BF22ADA6DBB004E1FD3 /* DefaultTextField.swift in Sources */,
