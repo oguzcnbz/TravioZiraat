@@ -53,7 +53,7 @@ class HomeVC: UIViewController {
     //MARK: -- UI Methods
     func setupViews() {
         // Add here the setup for the UI
-        self.view.backgroundColor = UIColor(named: "primary")
+        self.view.backgroundColor = UIColor(hex: "38ada9")
         self.view.addSubview(logoImageView)
         self.view.addSubview(containerView)
         
@@ -79,14 +79,3 @@ class HomeVC: UIViewController {
   
 }
 
-#if DEBUG
-import SwiftUI
-
-@available(iOS 13, *)
-struct HomeVCVC_Preview: PreviewProvider {
-    static var previews: some View{
-         
-        HomeVC().showPreview()
-    }
-}
-#endif

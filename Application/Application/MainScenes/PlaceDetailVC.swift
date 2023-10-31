@@ -1,11 +1,4 @@
-//
-//  
-//  PlaceDetailVC.swift
-//  Application
-//
-//  Created by Ada on 27.10.2023.
-//
-//
+
 import UIKit
 import TinyConstraints
 
@@ -33,7 +26,7 @@ class PlaceDetailVC: UIViewController {
     
     //MARK: -- UI Methods
     func setupViews() {
-        // Add here the setup for the UI
+        self.view.backgroundColor = UIColor(hex: "38ada9")
         self.view.addSubviews()
         setupLayout()
     }
@@ -45,14 +38,3 @@ class PlaceDetailVC: UIViewController {
   
 }
 
-#if DEBUG
-import SwiftUI
-
-@available(iOS 13, *)
-struct PlaceDetailVC_Preview: PreviewProvider {
-    static var previews: some View{
-         
-        PlaceDetailVC().showPreview()
-    }
-}
-#endif

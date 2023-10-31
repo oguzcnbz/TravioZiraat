@@ -211,14 +211,3 @@ class LoginVC: UIViewController,LoginResponseDelegate {
 
     
 
-#if DEBUG
-import SwiftUI
-
-@available(iOS 13, *)
-struct HomeVC_Preview: PreviewProvider {
-    static var previews: some View{
-
-        SignUpVC().showPreview()
-    }
-}
-#endif

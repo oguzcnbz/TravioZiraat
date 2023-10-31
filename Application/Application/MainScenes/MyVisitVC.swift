@@ -44,15 +44,3 @@ class MyVisitVC: UIViewController {
     }
   
 }
-
-#if DEBUG
-import SwiftUI
-
-@available(iOS 13, *)
-struct MyVisitVC_Preview: PreviewProvider {
-    static var previews: some View{
-         
-        MyVisitVC().showPreview()
-    }
-}
-#endif

@@ -46,14 +46,4 @@ class SettingsVC: UIViewController {
   
 }
 
-#if DEBUG
-import SwiftUI
 
-@available(iOS 13, *)
-struct SettingsVC_Preview: PreviewProvider {
-    static var previews: some View{
-         
-        SettingsVC().showPreview()
-    }
-}
-#endif
