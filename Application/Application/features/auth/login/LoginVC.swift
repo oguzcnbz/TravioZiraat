@@ -12,7 +12,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         }
         if isLogin == true{
             print("Giris  delegate dogru")
-            let vc = HomeVC()
+            let vc = MainTabbar()
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
