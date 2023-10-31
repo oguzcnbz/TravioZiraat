@@ -40,6 +40,7 @@
 		6041B7BC2AEF98D90076E0CC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6041B7BB2AEF98D90076E0CC /* Alamofire */; };
 		6041B7BF2AEF98EE0076E0CC /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6041B7BE2AEF98EE0076E0CC /* IQKeyboardManagerSwift */; };
 		6041B7C32AEFC8530076E0CC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7C22AEFC8530076E0CC /* CustomTextField.swift */; };
+		60DECAD12AF0E13900A0EC49 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60DECAD02AF0E13900A0EC49 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		6041B7B62AEF95A10076E0CC /* MyVisitVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyVisitVC.swift; sourceTree = "<group>"; };
 		6041B7B82AEF98880076E0CC /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		6041B7C22AEFC8530076E0CC /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		60DECAD02AF0E13900A0EC49 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,9 +152,13 @@
 		5AE50BBD2ADA6D37004E1FD3 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				5AE50BBE2ADA6D37004E1FD3 /* AppDelegate.swift */,
+				5AE50BC02ADA6D37004E1FD3 /* SceneDelegate.swift */,
 				60DECABE2AF0D9A800A0EC49 /* core */,
 				60DECAC32AF0DAF500A0EC49 /* features */,
 				60DECABF2AF0D9B900A0EC49 /* product */,
+				5AE50BCC2ADA6D38004E1FD3 /* Info.plist */,
+				5AE50BC72ADA6D38004E1FD3 /* Assets.xcassets */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -188,15 +194,12 @@
 		60DECABE2AF0D9A800A0EC49 /* core */ = {
 			isa = PBXGroup;
 			children = (
-				5AE50BBE2ADA6D37004E1FD3 /* AppDelegate.swift */,
-				5AE50BC02ADA6D37004E1FD3 /* SceneDelegate.swift */,
 				5AE50BEE2ADA6D5F004E1FD3 /* Extensions.swift */,
 				60DECAC82AF0DBE000A0EC49 /* helper */,
 				60DECAC72AF0DBD300A0EC49 /* utils */,
-				5AE50BC72ADA6D38004E1FD3 /* Assets.xcassets */,
 				5AE50BC92ADA6D38004E1FD3 /* LaunchScreen.storyboard */,
+				60DECAD02AF0E13900A0EC49 /* Main.storyboard */,
 				5AE50BF62ADA6DF9004E1FD3 /* LaunchScreen.swift */,
-				5AE50BCC2ADA6D38004E1FD3 /* Info.plist */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				5AE50BCB2ADA6D38004E1FD3 /* LaunchScreen.storyboard in Resources */,
 				5A03FD782AEA3D8F00520AFE /* Poppins-SemiBold.ttf in Resources */,
 				5A03FD792AEA3D8F00520AFE /* Poppins-Light.ttf in Resources */,
+				60DECAD12AF0E13900A0EC49 /* Main.storyboard in Resources */,
 				5A03FD7A2AEA3D8F00520AFE /* Poppins-Medium.ttf in Resources */,
 				5AE50BC82ADA6D38004E1FD3 /* Assets.xcassets in Resources */,
 			);
