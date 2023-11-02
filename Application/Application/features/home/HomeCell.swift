@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class MyVisitsCell: UICollectionViewCell {
+class HomeCell: UICollectionViewCell {
 
     weak var delegate:DataTransferDelegate?
     
@@ -23,14 +23,14 @@ class MyVisitsCell: UICollectionViewCell {
     private lazy var lblName:UILabel = {
         let lbl = UILabel()
         lbl.textColor = UIColor(hex: "FFFFFF")
-        lbl.font = FontStyle.poppinsSemiBold(size: 30).font
+        lbl.font = FontStyle.poppinsSemiBold(size: 24).font
         return lbl
     }()
     
     private lazy var lblPlace:UILabel = {
         let lbl = UILabel()
         lbl.textColor = UIColor(hex: "FFFFFF")
-        lbl.font = FontStyle.poppinsLight(size: 16).font
+        lbl.font = FontStyle.poppinsLight(size: 14).font
         return lbl
     }()
     
@@ -75,7 +75,7 @@ class MyVisitsCell: UICollectionViewCell {
         lblName.snp.makeConstraints({lbl in
             lbl.leading.equalTo(imgPlace.snp.leading).offset(8)
             lbl.bottom.equalTo(vector.snp.top).offset(2)
-          //  lbl.trailing.equalTo(imgPlace.snp.trailing).offset(-8)
+            lbl.trailing.equalTo(imgPlace.snp.trailing).offset(-8)
         })
         
         vector.snp.makeConstraints({img in
