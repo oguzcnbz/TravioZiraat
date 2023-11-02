@@ -77,20 +77,23 @@ class HomeVC: UIViewController {
         cv.delegate = self
         return cv
     }()
-    
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
 
     
     
     //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
        setupViews()
-       
+   
+        
     }
-    
+   
     //MARK: -- Component Actions
-    
+   
     
     //MARK: -- Private Methods
     
@@ -98,6 +101,7 @@ class HomeVC: UIViewController {
     //MARK: -- UI Methods
     func setupViews() {
         // Add here the setup for the UI
+        let leftBarButton = UIBarButtonItem()
         self.view.backgroundColor = UIColor(named: "primary")
         self.view.addSubview(logoImageView)
         self.view.addSubview(containerView)

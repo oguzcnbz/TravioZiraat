@@ -6,12 +6,16 @@ protocol SignUpResponseDelegate{
     func signUpResponseGet(isSignUp:Bool,message:String)
 }
 
+
 class SignUpViewModel {
 
     var delegate: SignUpResponseDelegate?
     func setDelegate(output: SignUpResponseDelegate) {
         delegate = output
     }
+    
+   
+    
 
     func signUpUser(fullName: String?, email: String?, password: String?) {
         guard let fullName = fullName, let email = email, let password = password else {
@@ -27,7 +31,12 @@ class SignUpViewModel {
                 guard let message = success.message else {return}
                 let status = success.status
                 let isSuccess = (status == "success")
-
+                
+             
+                lazy var loginViewModel: LoginViewModel = LoginViewModel()
+                //loginViewModel.setDelegate(output: loginViewModel)
+                loginViewModel.loginUser(email: email, password: password)
+                
                 self.delegate?.signUpResponseGet(isSignUp: isSuccess, message: message)
 
             case .failure(let error):

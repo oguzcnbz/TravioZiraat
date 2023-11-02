@@ -20,12 +20,40 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        let vc = MainTabbar()
-        let rootViewController = UINavigationController(rootViewController: vc)
-        window.rootViewController = rootViewController
-        window.makeKeyAndVisible()
-        self.window = window
+        
+        if hasUserLoggedIn() {
+            let vc = MainTabbar()
+            let rootViewController = UINavigationController(rootViewController: vc)
+            window.rootViewController = rootViewController
+            window.makeKeyAndVisible()
+            self.window = window
+            
+        }else { 
+            let vc = LoginVC()
+            let rootViewController = UINavigationController(rootViewController: vc)
+            window.rootViewController = rootViewController
+            window.makeKeyAndVisible()
+            self.window = window
+        }
+        
+       
     }
+    func hasUserLoggedIn() -> Bool {
+      
+        guard let accessToken = KeychainHelper.shared.read(service: "user-key", account: "accessToken") else {
+            print("accessToken bulunamadı")
+        
+            return false
+        }
+        guard let refreshToken = KeychainHelper.shared.read(service: "user-key", account: "refreshToken") else {
+            print("refreshToken bulunamadı")
+           
+            return false
+        }
+        
+        
+           return true
+       }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

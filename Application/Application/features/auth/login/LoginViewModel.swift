@@ -6,6 +6,7 @@ protocol LoginResponseDelegate{
     func loginResponseGet(isLogin:Bool)
 }
 
+
 class LoginViewModel {
  
     var delegate: LoginResponseDelegate?
@@ -18,17 +19,29 @@ class LoginViewModel {
         guard let email = email else {return}
         guard let password = password else {return}
 
-        let params = ["email": email, "password": password]
+        let params = ["email": "Ada@gmail.com", "password": "123123"]
+        //let params = ["email": email, "password": password]
         var isLogin:Bool = false
+        
         
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .userLogin(params: params), callback:{ (result:Result<UserModel,Error>) in
             
             switch result {
             case .success(let success):
               
-                let accessToken = success.accessToken
-                let refreshToken = success.refreshToken
+               let accessTokenOp = success.accessToken
+                let refreshTokenOp = success.refreshToken
+                if let accessToken = accessTokenOp {
+                      let data = Data(accessToken.utf8)
+                      KeychainHelper.shared.save(data, service: "user-key", account: "accessToken")
+                }
+                if let refreshToken = refreshTokenOp {
+                      let data = Data(refreshToken.utf8)
+                      KeychainHelper.shared.save(data, service: "user-key", account: "refreshToken")
+                }
+             
                 isLogin = true
+               
                 
             case .failure(let failure):
                     

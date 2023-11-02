@@ -4,7 +4,7 @@ import SnapKit
 import TinyConstraints
 import IQKeyboardManagerSwift
 
-class SignUpVC: UIViewController,SignUpResponseDelegate{
+class SignUpVC: UIViewController,SignUpResponseDelegate {
     
     func signUpResponseGet(isSignUp: Bool, message: String) {
             
@@ -17,6 +17,8 @@ class SignUpVC: UIViewController,SignUpResponseDelegate{
                
             }
             if isSignUp == true {
+                
+                
                 let vc = HomeVC()
                 self.navigationController?.pushViewController(vc, animated: true)
             }

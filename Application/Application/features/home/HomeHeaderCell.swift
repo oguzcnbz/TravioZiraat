@@ -43,6 +43,10 @@ class HomeHeaderCell: UICollectionReusableView {
         return button
     }()
     @objc func buttonTapped(){
+        print("exit girdi")
+        KeychainHelper.shared.delete("user-key", account: "accessToken")
+        KeychainHelper.shared.delete("user-key", account: "refreshToken")
+
        
        
     }
