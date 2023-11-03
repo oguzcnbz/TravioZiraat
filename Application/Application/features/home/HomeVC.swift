@@ -15,12 +15,19 @@ class HomeVC: UIViewController {
 
 
     //MARK: -- Properties
+    
+    lazy var homeViewModel: HomeViewModel = {
+        return HomeViewModel()
+    }()
+    
+    
     var users: [PlacesModel] = [
         PlacesModel(image: UIImage(named: "SüleymaniyeCamii"), name: "SüleymaniyeCamii",place: "İstanbul"),
         PlacesModel(image: UIImage(named: "Colleseum"), name: "Colleseum",place: "Rome"),
         PlacesModel(image: UIImage(named: "SüleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul"),
   
     ]
+    var populerArr: [Place] = []
     
     
     //MARK: -- Views
@@ -86,7 +93,9 @@ class HomeVC: UIViewController {
     //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        getData()
+        
+        
        setupViews()
    
         
@@ -96,7 +105,18 @@ class HomeVC: UIViewController {
    
     
     //MARK: -- Private Methods
-    
+    private func getData (){
+       
+        
+        homeViewModel.getPopulerPlaces()
+        homeViewModel.transferData = { [weak self] () in
+            let obj = self?.homeViewModel.populerPlace
+            print(obj)
+            
+           
+
+        }
+    }
     
     //MARK: -- UI Methods
     func setupViews() {
@@ -168,7 +188,7 @@ extension HomeVC:UICollectionViewDelegateFlowLayout {
 extension HomeVC:UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
