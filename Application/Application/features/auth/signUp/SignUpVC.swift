@@ -38,10 +38,6 @@ class SignUpVC: UIViewController,SignUpResponseDelegate{
     
     //MARK: -- Views
     
-    private lazy var loginView: DefaultView = {
-        let scene = DefaultView()
-        return scene
-    }()
     
     private lazy var mainStackView: DefaultMainStackView = {
         let sv = DefaultMainStackView()
@@ -124,8 +120,8 @@ class SignUpVC: UIViewController,SignUpResponseDelegate{
     //MARK: -- SetUpView
     
     private func setupViews() {
-        self.view.addSubview(loginView)
-        loginView.addSubviews(mainStackView)
+        self.view.backgroundColor = UIColor(hex: "38ada9")
+        self.view.addSubview(mainStackView)
         mainStackView.addSubviews(usernameStackView,
                                   emailStackView,
                                   passwordStackView,
@@ -146,52 +142,46 @@ class SignUpVC: UIViewController,SignUpResponseDelegate{
     //MARK: -- Layout
     
     private func layout() {
-        loginView.snp.makeConstraints { view in
-            view.leading.equalToSuperview()
-            view.trailing.equalToSuperview()
-            view.bottom.equalToSuperview()
-            view.top.equalToSuperview()
+        
+        mainStackView.snp.makeConstraints { v in
+            v.centerX.equalToSuperview()
+            v.leading.equalToSuperview()
+            v.trailing.equalToSuperview()
+            v.bottom.equalToSuperview()
+            v.height.equalToSuperview().multipliedBy(0.82)
         }
         
-        mainStackView.snp.makeConstraints { view in
-            view.centerX.equalToSuperview()
-            view.leading.equalToSuperview()
-            view.trailing.equalToSuperview()
-            view.bottom.equalToSuperview()
-            view.height.equalToSuperview().multipliedBy(0.85)
-        }
-        
-        usernameStackView.snp.makeConstraints { view in
-            view.top.equalTo(mainStackView.snp.top).offset(72)
-            view.trailing.equalToSuperview().offset(-24)
-            view.leading.equalToSuperview().offset(24)
-            view.height.equalTo(74)
+        usernameStackView.snp.makeConstraints { v in
+            v.top.equalTo(mainStackView.snp.top).offset(72)
+            v.trailing.equalToSuperview().offset(-24)
+            v.leading.equalToSuperview().offset(24)
+            v.height.equalTo(74)
         }
         
         
-        emailStackView.snp.makeConstraints { view in
-            view.top.equalTo(usernameStackView.snp.bottom).offset(24)
-            view.trailing.equalToSuperview().offset(-24)
-            view.leading.equalToSuperview().offset(24)
-            view.height.equalTo(74)
+        emailStackView.snp.makeConstraints { sv in
+            sv.top.equalTo(usernameStackView.snp.bottom).offset(24)
+            sv.trailing.equalToSuperview().offset(-24)
+            sv.leading.equalToSuperview().offset(24)
+            sv.height.equalTo(74)
         }
         
-        passwordStackView.snp.makeConstraints { view in
-            view.top.equalTo(emailStackView.snp.bottom).offset(24)
-            view.trailing.equalToSuperview().offset(-24)
-            view.leading.equalToSuperview().offset(24)
-            view.height.equalTo(74)
+        passwordStackView.snp.makeConstraints { sv in
+            sv.top.equalTo(emailStackView.snp.bottom).offset(24)
+            sv.trailing.equalToSuperview().offset(-24)
+            sv.leading.equalToSuperview().offset(24)
+            sv.height.equalTo(74)
         }
         
-        passwordConfirmStackView.snp.makeConstraints { view in
-            view.top.equalTo(passwordStackView.snp.bottom).offset(24)
-            view.trailing.equalToSuperview().offset(-24)
-            view.leading.equalToSuperview().offset(24)
-            view.height.equalTo(74)
+        passwordConfirmStackView.snp.makeConstraints { sv in
+            sv.top.equalTo(passwordStackView.snp.bottom).offset(24)
+            sv.trailing.equalToSuperview().offset(-24)
+            sv.leading.equalToSuperview().offset(24)
+            sv.height.equalTo(74)
         }
         
         buttonLogin.snp.makeConstraints { btn in
-            btn.top.equalTo(passwordConfirmStackView.snp.bottom).offset(202)
+            btn.bottom.equalTo(mainStackView.snp.bottom).offset(-23)
             btn.trailing.equalToSuperview().offset(-24)
             btn.leading.equalToSuperview().offset(24)
             btn.height.equalTo(54)
