@@ -18,90 +18,90 @@ extension DataTransferDelegate {
 class MyVisitVC: UIViewController {
     
     var users: [PlacesModel] = [
-        PlacesModel(image: UIImage(named: "SüleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul"),
-        PlacesModel(image: UIImage(named: "Colleseum"), name: "Colleseum",place: "Rome"),
-        PlacesModel(image: UIImage(named: "SüleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul"),
-  
+        PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul"),
+        PlacesModel(image: UIImage(named: "colleseum"), name: "Colleseum",place: "Rome"),
+        PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul"),
+        PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul")
+  // isimleri veri ismiyle değiştirmeyi unutmaa!!!!!!
     ]
-
     
-    private lazy var View: DefaultView = {
-        let scene = DefaultView()
-        return scene
-    }()
     
-    private lazy var mainStackView: DefaultMainStackView = {
+    private lazy var mainView: DefaultMainStackView = {
         let sv = DefaultMainStackView()
         return sv
     }()
     
     private lazy var collectionView:UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 10
-    
+       
         let lay = makeCollectionViewLayout()
-        
-        //layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: lay)
-       
+        
         cv.register(MyVisitsCell.self, forCellWithReuseIdentifier: "cell")
-       
+        cv.backgroundColor = .clear
+        cv.layer.cornerRadius = 80
+        cv.layoutIfNeeded()
+        cv.layer.maskedCorners = [.layerMinXMinYCorner]
         cv.dataSource = self
-        cv.delegate = self
+
         return cv
     }()
 
+    private lazy var headLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "My Visits"
+        lbl.font = FontStyle.poppinsSemiBold(size: 36).font
+        lbl.textColor = .white
+        return lbl
+    }()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupViews()
     }
     
     private func setupViews(){
-        self.view.backgroundColor = UIColor(named: "backgroundColor")
-        self.view.addSubviews(collectionView)
+        self.view.backgroundColor = UIColor(hex: "38ada9")
+        self.view.addSubviews(headLbl,mainView)
+        mainView.addSubview(collectionView)
         setupLayout()
     }
     
     private func setupLayout(){
-        collectionView.edgesToSuperview(excluding: .bottom,usingSafeArea: true)
-        collectionView.height(800)
+        
     
+        headLbl.snp.makeConstraints({ lbl in
+            lbl.leading.equalToSuperview().offset(24)
+            lbl.top.equalToSuperview().offset(60)
+        })
+
+
+        mainView.snp.makeConstraints { v in
+            v.centerX.equalToSuperview()
+            v.leading.equalToSuperview()
+            v.trailing.equalToSuperview()
+            v.bottom.equalToSuperview()
+            v.height.equalToSuperview().multipliedBy(0.82)
+        }
+        
+        collectionView.snp.makeConstraints({cv in
+            cv.leading.equalToSuperview()
+            cv.trailing.equalToSuperview()
+            cv.top.equalToSuperview()
+            cv.bottom.equalToSuperview()
+        })
         
     }
 }
 
 
-extension MyVisitVC:UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        //print(indexPath)
-    }
-    /*
-     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-         return
-     }
-     */
-    
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    
-        return CGSize(width: (collectionView.frame.width - 20), height: (collectionView.frame.height-10))
-    }
-}
 
 
 extension MyVisitVC:UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -111,13 +111,6 @@ extension MyVisitVC:UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MyVisitsCell
         let object = users[indexPath.row]
-        
-        //MARK: -- Bunlar başka konular. :)
-        //cell.delegate = self
-//        cell.closure = {
-//            self.navigationController?.pushViewController(AlertVC(), animated: true)
-//        }
-        
         cell.configure(object:object)
         
         return cell
@@ -131,45 +124,34 @@ extension MyVisitVC {
         
         UICollectionViewCompositionalLayout {
             [weak self] sectionIndex, environment in
-            
-            if sectionIndex == 0 {
+         
                 return self?.makeListLayoutSection()
-            }else {
-                return self?.makeSliderLayoutSection()
-            }
+          
             
         }
     
-        
-        //return UICollectionViewCompositionalLayout(section: layoutType.layout)
+         
+       //return UICollectionViewCompositionalLayout(section: layoutType.layout)
         
     }
     
-    func makeSliderLayoutSection() -> NSCollectionLayoutSection {
     
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
-        
-        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.5))
-        let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: layoutGroupSize, subitems: [item] )
-        
-        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        layoutSection.orthogonalScrollingBehavior = .groupPagingCentered
-        
-        return layoutSection
-    }
     
     func makeListLayoutSection() -> NSCollectionLayoutSection {
-    
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.3))
+        
+
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-       
-        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+//        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0 , trailing: 0)
+        
+        
+        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.34))
         let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [item] )
+//        layoutGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 24, bottom: 0 , trailing: 22)
+       
         
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16)
+        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 45, leading: 24, bottom: 0, trailing: 22)
         layoutSection.interGroupSpacing = 16
         
         return layoutSection
