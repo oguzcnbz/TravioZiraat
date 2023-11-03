@@ -1,13 +1,6 @@
-//
-//  MainTabbar.swift
-//  Application
-//
-//  Created by Ada on 27.10.2023.
-//
 
 import UIKit
 
-import UIKit
 
 class MainTabbar: UITabBarController {
     override func viewDidLoad() {
@@ -19,9 +12,11 @@ class MainTabbar: UITabBarController {
         self.tabBar.unselectedItemTintColor = UIColor(hex: "999999")
         self.tabBar.backgroundColor = UIColor(white: 1, alpha: 0.9)
         self.tabBar.isTranslucent = false
-       
-
     }
+    
+    
+  
+
     
     
     private func setupControllers()->[UIViewController]{
@@ -41,9 +36,7 @@ class MainTabbar: UITabBarController {
         let selectedImageMap = UIImage(named: "icMap")
         mapVC.tabBarItem = UITabBarItem(title: "Map", image: imageMap, selectedImage: selectedImageMap)
         
-        
-        
-        
+    
         let settingsVC = SettingsVC()
         let settingsNC = UINavigationController(rootViewController: settingsVC)
         let imageSettings =  UIImage(named: "icMenu")
@@ -52,8 +45,8 @@ class MainTabbar: UITabBarController {
         
         let myVistVC = MyVisitVC()
         let myVistNC = UINavigationController(rootViewController: myVistVC)
-        let imageVisit = UIImage(named: "icVisit")
-        let selectedImageMyVisit = UIImage(named: "icVisit")
+        let imageVisit = UIImage(named: "icVisitGray")
+        let selectedImageMyVisit = UIImage(named: "icVisitGray")
         myVistVC.tabBarItem = UITabBarItem(title: "My Visit", image: imageVisit, selectedImage: selectedImageMyVisit)
         
             /*  let addSegmentedVC1 = AddSegmentedVC()
@@ -63,7 +56,7 @@ class MainTabbar: UITabBarController {
         addSegmentedVC.tabBarItem = UITabBarItem(title: "VoiceMail", image: imageAddSegmented1, selectedImage: selectedImageAddSegmented1)
         */
         
-        return [homeNC, myVistVC, mapVC,settingsVC]
+        return [homeNC, myVistNC, mapNC,settingsNC]
     }
     
 

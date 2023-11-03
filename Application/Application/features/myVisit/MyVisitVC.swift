@@ -46,15 +46,9 @@ class MyVisitVC: UIViewController {
         return cv
     }()
 
-    private lazy var headLbl: UILabel = {
-        let lbl = UILabel()
-        lbl.text = "My Visits"
-        lbl.font = FontStyle.poppinsSemiBold(size: 36).font
-        lbl.textColor = .white
-        return lbl
-    }()
-    
-    
+    @objc func backButtonTapped(){
+        self.navigationController?.popViewController(animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,20 +57,20 @@ class MyVisitVC: UIViewController {
     
     private func setupViews(){
         self.view.backgroundColor = UIColor(hex: "38ada9")
-        self.view.addSubviews(headLbl,mainView)
+        self.view.addSubviews(mainView)
         mainView.addSubview(collectionView)
+        let leftButtonImage = UIImage(named:"backWard")
+        let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
+        leftBarButton.tintColor = UIColor(hex: "FFFFFF")
+        self.navigationItem.leftBarButtonItem = leftBarButton
+        setNavigationItems(leftBarButton: false, rightBarButton: nil, title: "My Visits")
         setupLayout()
+        
     }
     
     private func setupLayout(){
         
     
-        headLbl.snp.makeConstraints({ lbl in
-            lbl.leading.equalToSuperview().offset(24)
-            lbl.top.equalToSuperview().offset(60)
-        })
-
-
         mainView.snp.makeConstraints { v in
             v.centerX.equalToSuperview()
             v.leading.equalToSuperview()

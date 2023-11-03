@@ -40,6 +40,7 @@ class SettingsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
        setupViews()
 
     }
@@ -49,10 +50,14 @@ class SettingsVC: UIViewController {
         self.view.backgroundColor = UIColor(hex: "38ADA9")
         self.view.addSubviews(mainStackView)
         mainStackView.addSubview(collectionView)
+     
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
         
         let rightBarButton = UIBarButtonItem(image: UIImage(named: "off"), style: .plain, target: self, action: #selector(rightbartapped))
-        setNavigationItems(leftBarButton: true, rightBarButton: rightBarButton, title: "Settings")
-        
+        setNavigationItems(leftBarButton: false, rightBarButton: rightBarButton, title: "Settings")
+
         setupLayout()
     }
     @objc func rightbartapped(){
@@ -164,42 +169,3 @@ extension SettingsVC {
 }
 
 
-extension SettingsVC {
-    
-    @objc func leftbartapped(){
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    func setNavigationItems(leftBarButton: Bool, rightBarButton: UIBarButtonItem?, title: String?) {
-        if leftBarButton == true {
-            let leftBarButton = UIBarButtonItem(image: UIImage(named: "backWard"), style: .plain, target: self, action: #selector(leftbartapped))
-            leftBarButton.tintColor = .white
-            self.navigationItem.leftBarButtonItem = leftBarButton
-            if let title = title {
-                let titleLbl = UILabel()
-                titleLbl.text = title
-                titleLbl.textColor = .white
-                titleLbl.font = FontStyle.poppinsSemiBold(size: 36).font
-                self.navigationItem.titleView = titleLbl
-            } else {
-                self.navigationItem.titleView = nil
-            }
-        } else {
-            if let title = title {
-                let titleLbl = UILabel()
-                titleLbl.text = title
-                titleLbl.textColor = .white
-                titleLbl.font = FontStyle.poppinsSemiBold(size: 36).font
-                let customItem = UIBarButtonItem(customView: titleLbl)
-                self.navigationItem.leftBarButtonItem = customItem
-            }
-        }
-        
-        if let rightBarButton = rightBarButton {
-            self.navigationItem.rightBarButtonItem = rightBarButton
-            rightBarButton.tintColor = .white
-        } else {
-            self.navigationItem.rightBarButtonItem = nil
-        }
-    }
-}
