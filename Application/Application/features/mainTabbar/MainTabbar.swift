@@ -4,8 +4,8 @@ import UIKit
 
 class MainTabbar: UITabBarController {
     override func viewDidLoad() {
+        viewWillAppear(false)
         super.viewDidLoad()
-        
         self.viewControllers = setupControllers()
         self.selectedIndex = 0
         self.tabBar.tintColor = UIColor(hex: "38ADA9")
@@ -13,12 +13,13 @@ class MainTabbar: UITabBarController {
         self.tabBar.backgroundColor = UIColor(white: 1, alpha: 0.9)
         self.tabBar.isTranslucent = false
 
-        self.navigationItem.setHidesBackButton(true, animated: false)
-
-
+        //self.navigationItem.setHidesBackButton(true, animated: false)
+        
     }
-    
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.hidesBackButton = true
+    }
   
 
     

@@ -19,7 +19,7 @@ class LoginViewModel {
         guard let email = email else {return}
         guard let password = password else {return}
 
-        let params = ["email": "Ada@gmail.com", "password": "123123"]
+        let params = ["email": "ada123@example.com", "password": "123123"]
         //let params = ["email": email, "password": password]
         var isLogin:Bool = false
         
