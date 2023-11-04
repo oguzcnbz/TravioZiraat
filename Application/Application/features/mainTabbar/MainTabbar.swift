@@ -12,11 +12,10 @@ class MainTabbar: UITabBarController {
         self.tabBar.unselectedItemTintColor = UIColor(hex: "999999")
         self.tabBar.backgroundColor = UIColor(white: 1, alpha: 0.9)
         self.tabBar.isTranslucent = false
-<<<<<<< HEAD
+
         self.navigationItem.setHidesBackButton(true, animated: false)
 
-=======
->>>>>>> sprint2/myVisit2
+
     }
     
     

@@ -52,10 +52,10 @@ class HomeVC: UIViewController {
  
 
     
-    private lazy var View: DefaultView = {
-        let scene = DefaultView()
-        return scene
-    }()
+//    private lazy var View: DefaultView = {
+//        let scene = DefaultView()
+//        return scene
+//    }()
     
 //    private lazy var mainStackView: DefaultMainStackView = {
 //        let sv = DefaultMainStackView()

@@ -8,7 +8,7 @@ struct PlacesModel {
 }
 
 
-<<<<<<< HEAD
+
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
@@ -35,7 +35,7 @@ struct Place: Codable {
     let coverImageURL: String
     let latitude, longitude: Double
     let createdAt, updatedAt: String
-
+    
     enum CodingKeys: String, CodingKey {
         case id, creator, place, title, description
         case coverImageURL = "cover_image_url"
@@ -43,7 +43,10 @@ struct Place: Codable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
     }
-=======
+    
+ 
+ 
+}
 struct User {
     var image:UIImage?
     var name:String?
@@ -54,11 +57,4 @@ struct Settings{
     var icon:UIImage?
     var settingName:String
     
-}
-
-
-struct SettingUser{
-    var image:UIImage?
-    var name:String?
->>>>>>> sprint2/myVisit2
 }

@@ -20,32 +20,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-<<<<<<< HEAD
+
         
         if hasUserLoggedIn() {
             let vc = MainTabbar()
+
             let rootViewController = UINavigationController(rootViewController: vc)
-            window.rootViewController = rootViewController
+            window.rootViewController = vc
             window.makeKeyAndVisible()
             self.window = window
             
         }else { 
-            let vc = LoginVC()
+            let vc = MainTabbar()
+
             let rootViewController = UINavigationController(rootViewController: vc)
-            window.rootViewController = rootViewController
+            window.rootViewController = vc
             window.makeKeyAndVisible()
             self.window = window
         }
         
        
-=======
-        let vc = MainTabbar()
 
-        let rootViewController = UINavigationController(rootViewController: vc)
-        window.rootViewController = vc
-        window.makeKeyAndVisible()
-        self.window = window
->>>>>>> sprint2/myVisit2
+       
+
     }
     func hasUserLoggedIn() -> Bool {
       

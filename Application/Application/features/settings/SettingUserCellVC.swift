@@ -97,3 +97,9 @@ class SettingUserCell: UICollectionViewCell{
     
 }
 
+
+struct SettingUser{
+    var image:UIImage?
+    var name:String?
+    
+}
