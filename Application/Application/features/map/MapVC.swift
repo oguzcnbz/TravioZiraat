@@ -1,13 +1,7 @@
-//
-//  
-//  MapVC.swift
-//  Application
-//
-//  Created by Ada on 27.10.2023.
-//
-//
+
 import UIKit
 import TinyConstraints
+import SnapKit
 
 class MapVC: UIViewController {
     

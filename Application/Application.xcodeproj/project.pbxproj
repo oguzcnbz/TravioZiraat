@@ -136,6 +136,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A89AFE82AF51043000F2E4D /* termsOfUse */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = termsOfUse;
+			sourceTree = "<group>";
+		};
+		5A89AFE92AF5105A000F2E4D /* about */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = about;
+			sourceTree = "<group>";
+		};
+		5A89AFEA2AF5105D000F2E4D /* help&Support */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "help&Support";
+			sourceTree = "<group>";
+		};
+		5A89AFEB2AF5105F000F2E4D /* myAddedPlaces */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = myAddedPlaces;
+			sourceTree = "<group>";
+		};
+		5A89AFEC2AF51061000F2E4D /* appDefaults */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = appDefaults;
+			sourceTree = "<group>";
+		};
+		5A89AFED2AF51064000F2E4D /* securitySettings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = securitySettings;
+			sourceTree = "<group>";
+		};
 		5AE50BB22ADA6D37004E1FD3 = {
 			isa = PBXGroup;
 			children = (
@@ -311,6 +353,12 @@
 				6041B7B02AEF95870076E0CC /* SettingsVC.swift */,
 				5A89AFD92AF4D5B9000F2E4D /* SettingUserCellVC.swift */,
 				5A89AFDB2AF4D5D7000F2E4D /* SettingCellVC.swift */,
+				5A89AFED2AF51064000F2E4D /* securitySettings */,
+				5A89AFEC2AF51061000F2E4D /* appDefaults */,
+				5A89AFEB2AF5105F000F2E4D /* myAddedPlaces */,
+				5A89AFEA2AF5105D000F2E4D /* help&Support */,
+				5A89AFE92AF5105A000F2E4D /* about */,
+				5A89AFE82AF51043000F2E4D /* termsOfUse */,
 			);
 			path = settings;
 			sourceTree = "<group>";
