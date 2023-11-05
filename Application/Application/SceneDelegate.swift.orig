@@ -21,14 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
 <<<<<<< HEAD
-        let vc = LoginVC()
-
-        let rootViewController = UINavigationController(rootViewController: vc)
-        window.rootViewController = rootViewController
-        window.makeKeyAndVisible()
-        self.window = window
-=======
-
         
         if hasUserLoggedIn() {
             let vc = MainTabbar()
@@ -39,7 +31,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
         }else { 
             let vc = LoginVC()
-
             let rootViewController = UINavigationController(rootViewController: vc)
             window.rootViewController = rootViewController
             window.makeKeyAndVisible()
@@ -47,10 +38,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
        
+=======
+        let vc = MainTabbar()
 
-       
-
->>>>>>> development
+        let rootViewController = UINavigationController(rootViewController: vc)
+        window.rootViewController = vc
+        window.makeKeyAndVisible()
+        self.window = window
+>>>>>>> sprint2/myVisit2
     }
     func hasUserLoggedIn() -> Bool {
       

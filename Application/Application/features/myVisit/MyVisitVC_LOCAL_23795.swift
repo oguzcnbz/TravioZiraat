@@ -21,12 +21,16 @@ class MyVisitVC: UIViewController {
         PlacesModel(image: UIImage(named: "colleseum"), name: "Colleseum",place: "Rome"),
         PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul"),
         PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul")
-  // isimleri veri ismiyle değiştirmeyi unutmaa!!!!!!
+  
     ]
     
     
-    private lazy var mainView: DefaultMainStackView = {
-        let sv = DefaultMainStackView()
+    private lazy var mainView: UIView = {
+        let sv = UIView()
+        sv.backgroundColor = UIColor(hex: "F8F8F8")
+        sv.layer.cornerRadius = 80
+        sv.layoutIfNeeded()
+        sv.layer.maskedCorners = [.layerMinXMinYCorner]
         return sv
     }()
     
@@ -45,9 +49,15 @@ class MyVisitVC: UIViewController {
         return cv
     }()
 
-    @objc func backButtonTapped(){
-        self.navigationController?.popViewController(animated: true)
-    }
+    private lazy var headLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "My Visits"
+        lbl.font = FontStyle.poppinsSemiBold(size: 36).font
+        lbl.textColor = .white
+        return lbl
+    }()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,32 +66,26 @@ class MyVisitVC: UIViewController {
     
     private func setupViews(){
         self.view.backgroundColor = UIColor(hex: "38ada9")
-        self.view.addSubviews(mainView)
+        self.view.addSubviews(headLbl,mainView)
         mainView.addSubview(collectionView)
-        
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-        
-        let leftButtonImage = UIImage(named:"backWard")
-        let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
-        leftBarButton.tintColor = UIColor(hex: "FFFFFF")
-        self.navigationItem.leftBarButtonItem = leftBarButton
-        setNavigationItems(leftBarButton: false, rightBarButton: nil, title: "My Visits")
-        
         setupLayout()
-        
     }
     
     private func setupLayout(){
         
     
-        mainView.snp.makeConstraints { v in
-            v.centerX.equalToSuperview()
-            v.leading.equalToSuperview()
-            v.trailing.equalToSuperview()
-            v.bottom.equalToSuperview()
-            v.height.equalToSuperview().multipliedBy(0.82)
+        headLbl.snp.makeConstraints({ lbl in
+            lbl.leading.equalToSuperview().offset(24)
+            lbl.top.equalToSuperview().offset(48)
+        })
+
+
+        mainView.snp.makeConstraints { view in
+            view.centerX.equalToSuperview()
+            view.leading.equalToSuperview()
+            view.trailing.equalToSuperview()
+            view.bottom.equalToSuperview()
+            view.height.equalToSuperview().multipliedBy(0.85)
         }
         
         collectionView.snp.makeConstraints({cv in
@@ -144,7 +148,7 @@ extension MyVisitVC {
 //        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0 , trailing: 0)
         
         
-        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.34))
+        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.3))
         let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [item] )
 //        layoutGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 24, bottom: 0 , trailing: 22)
        

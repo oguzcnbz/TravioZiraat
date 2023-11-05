@@ -1,3 +1,5 @@
+
+
 import UIKit
 import SnapKit
 
@@ -9,31 +11,36 @@ class MyVisitsCell: UICollectionViewCell {
     
     private lazy var imgPlace:UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .scaleToFill
-        iv.layer.borderColor = UIColor.black.cgColor
-        iv.layer.shadowOpacity = 0.15
-        iv.layer.shadowRadius = 20
+        iv.contentMode = .scaleAspectFit
         return iv
     }()
-
+    
+    private lazy var imgStackview:UIStackView = {
+        let stack = UIStackView()
+        stack.layer.cornerRadius = 16
+        stack.layer.borderColor = UIColor.black.cgColor
+        stack.layer.shadowOpacity = 0.15
+        stack.layer.shadowRadius = 20
+        return stack
+    }()
     
     private lazy var vector:UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: "icVisitWhite")
+        img.image = UIImage(named: "icVisit-White")
         return img
     }()
     
     private lazy var lblName:UILabel = {
         let lbl = UILabel()
         lbl.textColor = UIColor(hex: "FFFFFF")
-        lbl.font = FontStyle.poppinsSemiBold(size: 30).font
+        lbl.font = UIFont(name: "Poppins-SemiBold", size: 30)
         return lbl
     }()
     
     private lazy var lblPlace:UILabel = {
         let lbl = UILabel()
         lbl.textColor = UIColor(hex: "FFFFFF")
-        lbl.font = FontStyle.poppinsLight(size: 16).font
+        lbl.font = UIFont(name: "Poppins-Light", size: 16)
         return lbl
     }()
     
@@ -58,32 +65,35 @@ class MyVisitsCell: UICollectionViewCell {
     }
     
     private func setupViews(){
-        self.contentView.backgroundColor = UIColor(hex: "F8F8F8")
         self.contentView.addSubviews(imgPlace)
-        imgPlace.addSubviews(lblName,vector,lblPlace)
-        
+        imgPlace.addSubview(imgStackview)
+        imgStackview.addSubviews(lblName,vector,lblPlace)
         setupLayout()
     }
     
     private func setupLayout(){
         
-        imgPlace.snp.makeConstraints({ img in
-            img.leading.equalToSuperview()
-            img.trailing.equalToSuperview()
-            img.top.equalToSuperview()
-            img.bottom.equalToSuperview()
-            
+        imgPlace.snp.makeConstraints({ image in
+            image.leading.equalToSuperview()
+            image.top.equalToSuperview()
+            image.bottom.equalToSuperview()
+        })
+        
+        imgStackview.snp.makeConstraints({image in
+            image.leading.equalTo(imgPlace.snp.leading)
+            image.trailing.equalTo(imgPlace.snp.trailing)
+            image.bottom.equalTo(imgPlace.snp.bottom)
+            image.top.equalTo(imgPlace.snp.top).offset(110)
         })
         
         lblName.snp.makeConstraints({lbl in
-            lbl.leading.equalTo(imgPlace.snp.leading).offset(8)
+            lbl.leading.equalTo(imgStackview.snp.leading).offset(8)
             lbl.bottom.equalTo(vector.snp.top).offset(2)
-          //  lbl.trailing.equalTo(imgPlace.snp.trailing).offset(-8)
         })
         
         vector.snp.makeConstraints({img in
-            img.leading.equalTo(imgPlace.snp.leading).offset(8)
-            img.bottom.equalTo(imgPlace.snp.bottom).offset(-20)
+            img.leading.equalTo(imgStackview.snp.leading).offset(8)
+            img.bottom.equalTo(imgStackview.snp.bottom).offset(-20)
         })
         
         lblPlace.snp.makeConstraints({lbl in
@@ -98,5 +108,3 @@ class MyVisitsCell: UICollectionViewCell {
     }
     
 }
-
-

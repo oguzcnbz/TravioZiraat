@@ -32,12 +32,12 @@
 		5AE50BFD2ADA773A004E1FD3 /* TinyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 5AE50BFC2ADA773A004E1FD3 /* TinyConstraints */; };
 		5AE50BFF2ADA8A87004E1FD3 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE50BFE2ADA8A87004E1FD3 /* LoginVC.swift */; };
 		5AE50C012ADB3121004E1FD3 /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE50C002ADB3121004E1FD3 /* DefaultButton.swift */; };
-		600C6C402AF529A10080BA35 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600C6C3F2AF529A10080BA35 /* KeychainHelper.swift */; };
-		600C6C412AF52C050080BA35 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60353D9A2AF4E1AB0059318E /* HomeViewModel.swift */; };
-		600C6C422AF52C740080BA35 /* HomeHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C65642AF38273003355EB /* HomeHeaderCell.swift */; };
-		600C6C432AF52C790080BA35 /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C65622AF37E8F003355EB /* ColorConstants.swift */; };
-		600C6C442AF52C800080BA35 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DECAD42AF0FDD600A0EC49 /* HomeCell.swift */; };
+		602C65632AF37E8F003355EB /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C65622AF37E8F003355EB /* ColorConstants.swift */; };
+		602C65652AF38273003355EB /* HomeHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C65642AF38273003355EB /* HomeHeaderCell.swift */; };
 		602C65672AF38F83003355EB /* HomeListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C65662AF38F83003355EB /* HomeListSection.swift */; };
+		602C65692AF39AB5003355EB /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C65682AF39AB5003355EB /* KeychainHelper.swift */; };
+		60353D982AF4D70E0059318E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 60353D972AF4D70E0059318E /* Kingfisher */; };
+		60353D9B2AF4E1AB0059318E /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60353D9A2AF4E1AB0059318E /* HomeViewModel.swift */; };
 		6041B7A52AEF93CF0076E0CC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7A42AEF93CF0076E0CC /* Router.swift */; };
 		6041B7A72AEF93D70076E0CC /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7A62AEF93D70076E0CC /* NetworkHelper.swift */; };
 		6041B7A92AEF93E20076E0CC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7A82AEF93E20076E0CC /* LoginViewModel.swift */; };
@@ -52,6 +52,7 @@
 		6041B7BF2AEF98EE0076E0CC /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6041B7BE2AEF98EE0076E0CC /* IQKeyboardManagerSwift */; };
 		6041B7C32AEFC8530076E0CC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7C22AEFC8530076E0CC /* CustomTextField.swift */; };
 		60DECAD12AF0E13900A0EC49 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60DECAD02AF0E13900A0EC49 /* Main.storyboard */; };
+		60DECAD52AF0FDD600A0EC49 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DECAD42AF0FDD600A0EC49 /* HomeCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,10 +99,10 @@
 		5AE50BF62ADA6DF9004E1FD3 /* LaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
 		5AE50BFE2ADA8A87004E1FD3 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		5AE50C002ADB3121004E1FD3 /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
-		600C6C3F2AF529A10080BA35 /* KeychainHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		602C65622AF37E8F003355EB /* ColorConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
 		602C65642AF38273003355EB /* HomeHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeHeaderCell.swift; sourceTree = "<group>"; };
 		602C65662AF38F83003355EB /* HomeListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListSection.swift; sourceTree = "<group>"; };
+		602C65682AF39AB5003355EB /* KeychainHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		60353D9A2AF4E1AB0059318E /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		6041B7A42AEF93CF0076E0CC /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		6041B7A62AEF93D70076E0CC /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
@@ -127,7 +128,11 @@
 				6041B7BF2AEF98EE0076E0CC /* IQKeyboardManagerSwift in Frameworks */,
 				5AE50BFA2ADA7727004E1FD3 /* SnapKit in Frameworks */,
 				5AE50BFD2ADA773A004E1FD3 /* TinyConstraints in Frameworks */,
+<<<<<<< HEAD
+				60353D982AF4D70E0059318E /* Kingfisher in Frameworks */,
+=======
 				5A89AFD62AF4D16E000F2E4D /* Kingfisher in Frameworks */,
+>>>>>>> sprint2/myVisit2
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,48 +153,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5A89AFE82AF51043000F2E4D /* termsOfUse */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = termsOfUse;
-			sourceTree = "<group>";
-		};
-		5A89AFE92AF5105A000F2E4D /* about */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = about;
-			sourceTree = "<group>";
-		};
-		5A89AFEA2AF5105D000F2E4D /* help&Support */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "help&Support";
-			sourceTree = "<group>";
-		};
-		5A89AFEB2AF5105F000F2E4D /* myAddedPlaces */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = myAddedPlaces;
-			sourceTree = "<group>";
-		};
-		5A89AFEC2AF51061000F2E4D /* appDefaults */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = appDefaults;
-			sourceTree = "<group>";
-		};
-		5A89AFED2AF51064000F2E4D /* securitySettings */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = securitySettings;
-			sourceTree = "<group>";
-		};
 		5AE50BB22ADA6D37004E1FD3 = {
 			isa = PBXGroup;
 			children = (
@@ -358,7 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				6041B7A62AEF93D70076E0CC /* NetworkHelper.swift */,
-				600C6C3F2AF529A10080BA35 /* KeychainHelper.swift */,
+				602C65682AF39AB5003355EB /* KeychainHelper.swift */,
 			);
 			path = helper;
 			sourceTree = "<group>";
@@ -387,12 +350,6 @@
 				6041B7B02AEF95870076E0CC /* SettingsVC.swift */,
 				5A89AFD92AF4D5B9000F2E4D /* SettingUserCellVC.swift */,
 				5A89AFDB2AF4D5D7000F2E4D /* SettingCellVC.swift */,
-				5A89AFED2AF51064000F2E4D /* securitySettings */,
-				5A89AFEC2AF51061000F2E4D /* appDefaults */,
-				5A89AFEB2AF5105F000F2E4D /* myAddedPlaces */,
-				5A89AFEA2AF5105D000F2E4D /* help&Support */,
-				5A89AFE92AF5105A000F2E4D /* about */,
-				5A89AFE82AF51043000F2E4D /* termsOfUse */,
 			);
 			path = settings;
 			sourceTree = "<group>";
@@ -451,7 +408,11 @@
 				5AE50BFC2ADA773A004E1FD3 /* TinyConstraints */,
 				6041B7BB2AEF98D90076E0CC /* Alamofire */,
 				6041B7BE2AEF98EE0076E0CC /* IQKeyboardManagerSwift */,
+<<<<<<< HEAD
+				60353D972AF4D70E0059318E /* Kingfisher */,
+=======
 				5A89AFD52AF4D16E000F2E4D /* Kingfisher */,
+>>>>>>> sprint2/myVisit2
 			);
 			productName = Application;
 			productReference = 5AE50BBB2ADA6D37004E1FD3 /* Application.app */;
@@ -530,7 +491,11 @@
 				5AE50BFB2ADA773A004E1FD3 /* XCRemoteSwiftPackageReference "TinyConstraints" */,
 				6041B7BA2AEF98D90076E0CC /* XCRemoteSwiftPackageReference "Alamofire" */,
 				6041B7BD2AEF98EE0076E0CC /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+<<<<<<< HEAD
+				60353D962AF4D70E0059318E /* XCRemoteSwiftPackageReference "Kingfisher" */,
+=======
 				5A89AFD42AF4D16E000F2E4D /* XCRemoteSwiftPackageReference "Kingfisher" */,
+>>>>>>> sprint2/myVisit2
 			);
 			productRefGroup = 5AE50BBC2ADA6D37004E1FD3 /* Products */;
 			projectDirPath = "";
@@ -578,23 +543,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				600C6C442AF52C800080BA35 /* HomeCell.swift in Sources */,
-				600C6C432AF52C790080BA35 /* ColorConstants.swift in Sources */,
-				600C6C422AF52C740080BA35 /* HomeHeaderCell.swift in Sources */,
-				600C6C412AF52C050080BA35 /* HomeViewModel.swift in Sources */,
 				5A03FD842AEA66D500520AFE /* SignUpVC.swift in Sources */,
 				5AE50BF72ADA6DF9004E1FD3 /* LaunchScreen.swift in Sources */,
 				5AE50BFF2ADA8A87004E1FD3 /* LoginVC.swift in Sources */,
 				5A89AFE42AF50CE8000F2E4D /* MyVisitVC.swift in Sources */,
-				600C6C402AF529A10080BA35 /* KeychainHelper.swift in Sources */,
 				6041B7B32AEF95950076E0CC /* MapVC.swift in Sources */,
 				6041B7A92AEF93E20076E0CC /* LoginViewModel.swift in Sources */,
 				5AE50BBF2ADA6D37004E1FD3 /* AppDelegate.swift in Sources */,
 				5A4567262AE6729100DD75E0 /* DefaultMainStackView.swift in Sources */,
 				6041B7B92AEF98880076E0CC /* HomeVC.swift in Sources */,
+<<<<<<< HEAD
+				602C65652AF38273003355EB /* HomeHeaderCell.swift in Sources */,
+				5A4567222AE64A1000DD75E0 /* DefaultView.swift in Sources */,
+				602C65692AF39AB5003355EB /* KeychainHelper.swift in Sources */,
+				60DECAD52AF0FDD600A0EC49 /* HomeCell.swift in Sources */,
+				6041B7B52AEF959B0076E0CC /* PlaceDetailVC.swift in Sources */,
+				6041B7C32AEFC8530076E0CC /* CustomTextField.swift in Sources */,
+				60353D9B2AF4E1AB0059318E /* HomeViewModel.swift in Sources */,
+				602C65632AF37E8F003355EB /* ColorConstants.swift in Sources */,
+=======
 				6041B7B52AEF959B0076E0CC /* HomeDetailPlacesVC.swift in Sources */,
 				6041B7C32AEFC8530076E0CC /* CustomTextField.swift in Sources */,
 				5A89AFDC2AF4D5D7000F2E4D /* SettingCellVC.swift in Sources */,
+>>>>>>> sprint2/myVisit2
 				6041B7AB2AEF93E90076E0CC /* UserModel.swift in Sources */,
 				6041B7B12AEF95870076E0CC /* SettingsVC.swift in Sources */,
 				6041B7A72AEF93D70076E0CC /* NetworkHelper.swift in Sources */,
@@ -968,6 +939,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		60353D962AF4D70E0059318E /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.0;
+			};
+		};
 		6041B7BA2AEF98D90076E0CC /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1001,6 +980,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5AE50BFB2ADA773A004E1FD3 /* XCRemoteSwiftPackageReference "TinyConstraints" */;
 			productName = TinyConstraints;
+		};
+		60353D972AF4D70E0059318E /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 60353D962AF4D70E0059318E /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		6041B7BB2AEF98D90076E0CC /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

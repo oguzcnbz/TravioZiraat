@@ -21,12 +21,25 @@ class MyVisitVC: UIViewController {
         PlacesModel(image: UIImage(named: "colleseum"), name: "Colleseum",place: "Rome"),
         PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul"),
         PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul")
+<<<<<<< HEAD
+  
+    ]
+    
+    
+    private lazy var mainView: UIView = {
+        let sv = UIView()
+        sv.backgroundColor = UIColor(hex: "F8F8F8")
+        sv.layer.cornerRadius = 80
+        sv.layoutIfNeeded()
+        sv.layer.maskedCorners = [.layerMinXMinYCorner]
+=======
   // isimleri veri ismiyle değiştirmeyi unutmaa!!!!!!
     ]
     
     
     private lazy var mainView: DefaultMainStackView = {
         let sv = DefaultMainStackView()
+>>>>>>> sprint2/myVisit2
         return sv
     }()
     
@@ -45,9 +58,21 @@ class MyVisitVC: UIViewController {
         return cv
     }()
 
+<<<<<<< HEAD
+    private lazy var headLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "My Visits"
+        lbl.font = FontStyle.poppinsSemiBold(size: 36).font
+        lbl.textColor = .white
+        return lbl
+    }()
+    
+    
+=======
     @objc func backButtonTapped(){
         self.navigationController?.popViewController(animated: true)
     }
+>>>>>>> sprint2/myVisit2
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +81,10 @@ class MyVisitVC: UIViewController {
     
     private func setupViews(){
         self.view.backgroundColor = UIColor(hex: "38ada9")
+<<<<<<< HEAD
+        self.view.addSubviews(headLbl,mainView)
+        mainView.addSubview(collectionView)
+=======
         self.view.addSubviews(mainView)
         mainView.addSubview(collectionView)
         
@@ -69,6 +98,7 @@ class MyVisitVC: UIViewController {
         self.navigationItem.leftBarButtonItem = leftBarButton
         setNavigationItems(leftBarButton: false, rightBarButton: nil, title: "My Visits")
         
+>>>>>>> sprint2/myVisit2
         setupLayout()
         
     }
@@ -76,12 +106,27 @@ class MyVisitVC: UIViewController {
     private func setupLayout(){
         
     
+<<<<<<< HEAD
+        headLbl.snp.makeConstraints({ lbl in
+            lbl.leading.equalToSuperview().offset(24)
+            lbl.top.equalToSuperview().offset(48)
+        })
+
+
+        mainView.snp.makeConstraints { view in
+            view.centerX.equalToSuperview()
+            view.leading.equalToSuperview()
+            view.trailing.equalToSuperview()
+            view.bottom.equalToSuperview()
+            view.height.equalToSuperview().multipliedBy(0.85)
+=======
         mainView.snp.makeConstraints { v in
             v.centerX.equalToSuperview()
             v.leading.equalToSuperview()
             v.trailing.equalToSuperview()
             v.bottom.equalToSuperview()
             v.height.equalToSuperview().multipliedBy(0.82)
+>>>>>>> sprint2/myVisit2
         }
         
         collectionView.snp.makeConstraints({cv in
@@ -144,7 +189,11 @@ extension MyVisitVC {
 //        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0 , trailing: 0)
         
         
+<<<<<<< HEAD
+        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.3))
+=======
         let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.34))
+>>>>>>> sprint2/myVisit2
         let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [item] )
 //        layoutGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 24, bottom: 0 , trailing: 22)
        

@@ -61,9 +61,12 @@ class SettingsVC: UIViewController {
         setupLayout()
     }
     @objc func rightbartapped(){
-
-    }
-   
+        print("exit girdi")
+        KeychainHelper.shared.delete("user-key", account: "accessToken")
+        KeychainHelper.shared.delete("user-key", account: "refreshToken")
+        let vc = LoginVC()
+        self.navigationController?.pushViewController(vc, animated: true )    }
+   // self.navigationController?.removeChildFromParent()
 
     func setupLayout() {
 

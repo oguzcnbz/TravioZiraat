@@ -20,7 +20,6 @@ class NetworkingHelper {
         
         
         AF.request(urlRequest).validate().responseDecodable(of:T.self) { response in
-            
             switch response.result {
             case .success(let success):
                 callback(.success(success))
