@@ -9,10 +9,12 @@ class MyVisitsCell: UICollectionViewCell {
     
     private lazy var imgPlace:UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .scaleToFill
+        iv.backgroundColor = .clear
         iv.layer.borderColor = UIColor.black.cgColor
         iv.layer.shadowOpacity = 0.15
         iv.layer.shadowRadius = 20
+        iv.layer.cornerRadius = 16
+        iv.layer.masksToBounds = true
         return iv
     }()
 
@@ -58,7 +60,6 @@ class MyVisitsCell: UICollectionViewCell {
     }
     
     private func setupViews(){
-        self.contentView.backgroundColor = UIColor(hex: "F8F8F8")
         self.contentView.addSubviews(imgPlace)
         imgPlace.addSubviews(lblName,vector,lblPlace)
         
@@ -72,7 +73,7 @@ class MyVisitsCell: UICollectionViewCell {
             img.trailing.equalToSuperview()
             img.top.equalToSuperview()
             img.bottom.equalToSuperview()
-            
+        
         })
         
         lblName.snp.makeConstraints({lbl in
