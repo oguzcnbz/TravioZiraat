@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class MyVisitsCell: UICollectionViewCell {
+class MapCell: UICollectionViewCell {
 
     weak var delegate:DataTransferDelegate?
     
@@ -73,7 +73,7 @@ class MyVisitsCell: UICollectionViewCell {
             img.trailing.equalToSuperview()
             img.top.equalToSuperview()
             img.bottom.equalToSuperview()
-        
+            
         })
         
         lblName.snp.makeConstraints({lbl in

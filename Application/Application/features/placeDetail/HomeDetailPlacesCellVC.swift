@@ -66,7 +66,6 @@ class HomeDetailPlacesCell: UICollectionViewCell {
     }
     
     private func setupViews(){
-        self.contentView.backgroundColor = UIColor(hex: "F8F8F8")
         self.contentView.addSubviews(ViewCell)
         ViewCell.addSubviews(imgPlace,lblName,vector,lblPlace)
         
