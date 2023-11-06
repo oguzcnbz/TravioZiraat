@@ -260,6 +260,24 @@
 			path = components;
 			sourceTree = "<group>";
 		};
+		600E17392AF8E5170016DD97 /* home */ = {
+			isa = PBXGroup;
+			children = (
+				60353D9A2AF4E1AB0059318E /* HomeViewModel.swift */,
+				6041B7B82AEF98880076E0CC /* HomeVC.swift */,
+				60353D992AF4DFB50059318E /* component */,
+			);
+			path = home;
+			sourceTree = "<group>";
+		};
+		600E173C2AF90CF50016DD97 /* component */ = {
+			isa = PBXGroup;
+			children = (
+				5A89AFD72AF4D59B000F2E4D /* HomeDetailPlacesCellVC.swift */,
+			);
+			path = component;
+			sourceTree = "<group>";
+		};
 		602C65612AF37E8F003355EB /* constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,7 +332,6 @@
 			isa = PBXGroup;
 			children = (
 				60DECACE2AF0DDE900A0EC49 /* myVisit */,
-				60DECACD2AF0DDD300A0EC49 /* placeDetail */,
 				60DECACC2AF0DDCA00A0EC49 /* map */,
 				60DECACB2AF0DDBC00A0EC49 /* settings */,
 				60DECACA2AF0DD9B00A0EC49 /* mainTabbar */,
@@ -372,9 +389,8 @@
 		60DECAC92AF0DC5600A0EC49 /* home */ = {
 			isa = PBXGroup;
 			children = (
-				60353D992AF4DFB50059318E /* component */,
-				6041B7B82AEF98880076E0CC /* HomeVC.swift */,
-				60353D9A2AF4E1AB0059318E /* HomeViewModel.swift */,
+				60DECACD2AF0DDD300A0EC49 /* placeDetail */,
+				600E17392AF8E5170016DD97 /* home */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -417,8 +433,8 @@
 		60DECACD2AF0DDD300A0EC49 /* placeDetail */ = {
 			isa = PBXGroup;
 			children = (
+				600E173C2AF90CF50016DD97 /* component */,
 				6041B7B42AEF959B0076E0CC /* HomeDetailPlacesVC.swift */,
-				5A89AFD72AF4D59B000F2E4D /* HomeDetailPlacesCellVC.swift */,
 			);
 			path = placeDetail;
 			sourceTree = "<group>";

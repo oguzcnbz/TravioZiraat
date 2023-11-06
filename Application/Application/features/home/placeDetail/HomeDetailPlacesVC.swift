@@ -8,20 +8,22 @@ import SnapKit
 class HomeDetailPlacesVC: UIViewController {
     
     
-    var userss: [PlacesModel] = [
-        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Selimiye Camii",place: "Rome"),
-        PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "Rome"),
-        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Fatih Camii",place: "Rome"),
-        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome")]
+//    var userss: [PlacesModel] = [
+//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Selimiye Camii",place: "Rome"),
+//        PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "Rome"),
+//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Fatih Camii",place: "Rome"),
+//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
+//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
+//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
+//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
+//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome")]
     
-   
+    var detailArr: [Place] = []
 
     //MARK: -- Properties
-    
+    lazy var homeViewModel: HomeViewModel = {
+        return HomeViewModel()
+    }()
    
     
     private lazy var collectionView:UICollectionView = {
@@ -63,12 +65,12 @@ class HomeDetailPlacesVC: UIViewController {
     @objc func btnSortTapped() {
         if sortButton.currentImage == UIImage(named: "sortSB") {
             
-            userss.sort { $0.name ?? "" < $1.name ?? "" }
+            detailArr.sort { $0.title ?? "" < $1.title ?? "" }
             sortButton.setImage(UIImage(named: "sortBS"), for: .normal)
             
         } else {
             
-            userss.sort { $0.name ?? "" > $1.name ?? "" }
+            detailArr.sort { $0.title ?? "" > $1.title ?? "" }
             sortButton.setImage(UIImage(named: "sortSB"), for: .normal)
         }
         collectionView.reloadData()
@@ -84,32 +86,49 @@ class HomeDetailPlacesVC: UIViewController {
     //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        getDetail()
        setupViews()
        
     }
     
-    @objc func backButtonTapped(){
-        self.navigationController?.popViewController(animated: true)
-    }
+  
     
     //MARK: -- UI Methods
     func setupViews() {
         self.view.backgroundColor = UIColor(hex: "38ada9")
         self.view.addSubview(mainStackView)
         mainStackView.addSubviews(sortButton,collectionView)
+        
+        
+//        let rightBarButton = UIBarButtonItem(image: UIImage(named: "off"), style: .plain, target: self, action: #selector(rightbartapped))
+//        setNavigationItems(leftBarButton: true, rightBarButton: rightBarButton, title: "Popular Places")
+//        
+        
         setupLayout()
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
 
-        let leftButtonImage = UIImage(named:"backWard")
-        let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
-        leftBarButton.tintColor = UIColor(hex: "FFFFFF")
-        self.navigationItem.leftBarButtonItem = leftBarButton
-        self.navigationItem.titleView = headLbl
+      
     }
+    @objc func rightbartapped(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    private func getDetail (){
+       
+        
+        homeViewModel.getPopulerPlace()
+        homeViewModel.transferData = { [weak self] () in
+            let obj = self?.homeViewModel.populerPlace
+            self?.detailArr = obj ?? []
+            print(self?.detailArr.count)
+            print("======")
+            self?.collectionView.reloadData()
+
+        }
+    }
+
     
     func setupLayout() {
         
@@ -146,12 +165,12 @@ extension HomeDetailPlacesVC:UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return userss.count
+        return detailArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! HomeDetailPlacesCell
-        let object = userss[indexPath.row]
+        let object = detailArr[indexPath.row]
         cell.configure(object:object)
         
         return cell

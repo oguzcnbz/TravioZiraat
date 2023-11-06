@@ -32,7 +32,7 @@ class HomeViewModel{
             case .success(let obj):
                 let response = obj.data
                 self.populerPlace = response.places
-                print(self.populerPlace.first?.coverImageURL)
+               // print(self.populerPlace.first?.coverImageURL)
                 
             case .failure(let err):
                 print(err.localizedDescription)

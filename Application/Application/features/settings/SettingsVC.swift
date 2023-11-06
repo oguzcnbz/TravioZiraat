@@ -56,7 +56,7 @@ class SettingsVC: UIViewController {
         navigationController?.navigationBar.isTranslucent = true
         
         let rightBarButton = UIBarButtonItem(image: UIImage(named: "off"), style: .plain, target: self, action: #selector(rightbartapped))
-        setNavigationItems(leftBarButton: false, rightBarButton: rightBarButton, title: "Settings")
+        setNavigationItems(leftBarButton: true, rightBarButton: rightBarButton, title: "Settings")
 
         setupLayout()
     }

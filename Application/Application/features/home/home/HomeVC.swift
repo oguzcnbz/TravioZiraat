@@ -10,6 +10,10 @@ import UIKit
 import TinyConstraints
 import SnapKit
 
+
+
+
+
 class HomeVC: UIViewController {
     static let sectionHeaderElementKind = "section-header-element-kind"
 
@@ -21,12 +25,12 @@ class HomeVC: UIViewController {
     }()
     
     
-    var users: [PlacesModel] = [
-        PlacesModel(image: UIImage(named: "SüleymaniyeCamii"), name: "SüleymaniyeCamii",place: "İstanbul"),
-        PlacesModel(image: UIImage(named: "Colleseum"), name: "Colleseum",place: "Rome"),
-        PlacesModel(image: UIImage(named: "SüleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul"),
-  
-    ]
+//    var users: [PlacesModel] = [
+//        PlacesModel(image: UIImage(named: "SüleymaniyeCamii"), name: "SüleymaniyeCamii",place: "İstanbul"),
+//        PlacesModel(image: UIImage(named: "Colleseum"), name: "Colleseum",place: "Rome"),
+//        PlacesModel(image: UIImage(named: "SüleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul"),
+//  
+//    ]
     var populerArr: [Place] = []
     
     
@@ -63,13 +67,14 @@ class HomeVC: UIViewController {
 //    }()
     
     private lazy var collectionView:UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-            //layout.minimumLineSpacing = 100
-      //  layout.minimumInteritemSpacing = 600
-//layout.collectionView?.backgroundColor = .green
+//        let layout = UICollectionViewFlowLayout()
+//        layout.scrollDirection = .horizontal
+//       
+//            //layout.minimumLineSpacing = 100
+//      //  layout.minimumInteritemSpacing = 600
+//layout.collectionView?.backgroundColor = .clear
         let lay = makeCollectionViewLayout()
-        
+        lay.collectionView?.backgroundColor = .clear
         //layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: lay)
        
@@ -120,6 +125,7 @@ class HomeVC: UIViewController {
         }
     }
     
+    
     //MARK: -- UI Methods
     func setupViews() {
         // Add here the setup for the UI
@@ -154,7 +160,7 @@ class HomeVC: UIViewController {
             view.leading.equalToSuperview()
             view.trailing.equalToSuperview()
             view.bottom.equalToSuperview()
-            view.height.equalToSuperview()
+            view.height.equalToSuperview().offset(-30)
         }
        
         
@@ -212,6 +218,19 @@ extension HomeVC:UICollectionViewDataSource {
             withReuseIdentifier: HomeHeaderCell.reuseIdentifier ,
             for: indexPath) as? HomeHeaderCell else { fatalError("Cannot create new supplementary")
         }
+        supplementaryView.closure = {
+            let vc = HomeDetailPlacesVC()
+           
+            //self.navigationController?.pushViewController(vc, animated: true)
+                
+            let navigationController = UINavigationController(rootViewController: vc)
+                
+            if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+                sceneDelegate.window?.rootViewController = navigationController
+                sceneDelegate.window?.makeKeyAndVisible()
+            }
+            
+        }
         return supplementaryView
     }
     
@@ -237,7 +256,7 @@ extension HomeVC {
         }
     
         
-        //return UICollectionViewCompositionalLayout(section: layoutType.layout)
+    
         
     }
     

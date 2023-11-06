@@ -58,11 +58,12 @@ class HomeDetailPlacesCell: UICollectionViewCell {
         delegate?.getData(data: "")
     }
     
-    public func configure(object:PlacesModel){
-        imgPlace.image = object.image
-        lblName.text = object.name
+    public func configure(object:Place){
+        let url = URL(string: object.coverImageURL)
+     imgPlace.kf.setImage(with: url)
+       
+        lblName.text = object.title
         lblPlace.text = object.place
-        
     }
     
     private func setupViews(){

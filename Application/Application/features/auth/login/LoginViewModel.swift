@@ -31,6 +31,7 @@ class LoginViewModel {
               
                let accessTokenOp = success.accessToken
                 let refreshTokenOp = success.refreshToken
+                print(accessTokenOp)
                 if let accessToken = accessTokenOp {
                       let data = Data(accessToken.utf8)
                       KeychainHelper.shared.save(data, service: "user-key", account: "accessToken")
