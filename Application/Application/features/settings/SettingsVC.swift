@@ -64,9 +64,14 @@ class SettingsVC: UIViewController {
         print("exit girdi")
         KeychainHelper.shared.delete("user-key", account: "accessToken")
         KeychainHelper.shared.delete("user-key", account: "refreshToken")
-        let vc = LoginVC()
-        self.navigationController?.pushViewController(vc, animated: true )    }
-   // self.navigationController?.removeChildFromParent()
+        let loginVC = LoginVC()
+        let navigationController = UINavigationController(rootViewController: loginVC)
+            
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            sceneDelegate.window?.rootViewController = navigationController
+            sceneDelegate.window?.makeKeyAndVisible()
+        }
+    }
 
     func setupLayout() {
 

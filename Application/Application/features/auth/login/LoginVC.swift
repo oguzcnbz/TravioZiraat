@@ -122,7 +122,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.hidesBackButton = true
         setupViews()
     }
 

@@ -20,14 +20,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-<<<<<<< HEAD
+
         let vc = LoginVC()
 
         let rootViewController = UINavigationController(rootViewController: vc)
         window.rootViewController = rootViewController
         window.makeKeyAndVisible()
         self.window = window
-=======
+
 
         
         if hasUserLoggedIn() {
@@ -46,11 +46,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
         }
         
-       
-
-       
-
->>>>>>> development
     }
     func hasUserLoggedIn() -> Bool {
       
@@ -69,6 +64,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
            return true
        }
 
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
