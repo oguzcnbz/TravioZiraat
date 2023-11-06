@@ -19,6 +19,9 @@
 		5A89AFDA2AF4D5B9000F2E4D /* SettingUserCellVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A89AFD92AF4D5B9000F2E4D /* SettingUserCellVC.swift */; };
 		5A89AFDC2AF4D5D7000F2E4D /* SettingCellVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A89AFDB2AF4D5D7000F2E4D /* SettingCellVC.swift */; };
 		5A89AFE42AF50CE8000F2E4D /* MyVisitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A89AFE32AF50CE8000F2E4D /* MyVisitVC.swift */; };
+		5A89AFEF2AF8C0AD000F2E4D /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A89AFEE2AF8C0AC000F2E4D /* MapCell.swift */; };
+		5A89AFF12AF8C8D0000F2E4D /* MapAddPlaceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A89AFF02AF8C8D0000F2E4D /* MapAddPlaceVC.swift */; };
+		5A89AFF32AF8DD8D000F2E4D /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A89AFF22AF8DD8D000F2E4D /* MapViewModel.swift */; };
 		5AE50BBF2ADA6D37004E1FD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE50BBE2ADA6D37004E1FD3 /* AppDelegate.swift */; };
 		5AE50BC12ADA6D37004E1FD3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE50BC02ADA6D37004E1FD3 /* SceneDelegate.swift */; };
 		5AE50BC82ADA6D38004E1FD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AE50BC72ADA6D38004E1FD3 /* Assets.xcassets */; };
@@ -83,6 +86,9 @@
 		5A89AFD92AF4D5B9000F2E4D /* SettingUserCellVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserCellVC.swift; sourceTree = "<group>"; };
 		5A89AFDB2AF4D5D7000F2E4D /* SettingCellVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCellVC.swift; sourceTree = "<group>"; };
 		5A89AFE32AF50CE8000F2E4D /* MyVisitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitVC.swift; sourceTree = "<group>"; };
+		5A89AFEE2AF8C0AC000F2E4D /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
+		5A89AFF02AF8C8D0000F2E4D /* MapAddPlaceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAddPlaceVC.swift; sourceTree = "<group>"; };
+		5A89AFF22AF8DD8D000F2E4D /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		5AE50BBB2ADA6D37004E1FD3 /* Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Application.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AE50BBE2ADA6D37004E1FD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5AE50BC02ADA6D37004E1FD3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -401,6 +407,9 @@
 			isa = PBXGroup;
 			children = (
 				6041B7B22AEF95950076E0CC /* MapVC.swift */,
+				5A89AFF22AF8DD8D000F2E4D /* MapViewModel.swift */,
+				5A89AFF02AF8C8D0000F2E4D /* MapAddPlaceVC.swift */,
+				5A89AFEE2AF8C0AC000F2E4D /* MapCell.swift */,
 			);
 			path = map;
 			sourceTree = "<group>";
@@ -584,12 +593,14 @@
 				600C6C412AF52C050080BA35 /* HomeViewModel.swift in Sources */,
 				5A03FD842AEA66D500520AFE /* SignUpVC.swift in Sources */,
 				5AE50BF72ADA6DF9004E1FD3 /* LaunchScreen.swift in Sources */,
+				5A89AFEF2AF8C0AD000F2E4D /* MapCell.swift in Sources */,
 				5AE50BFF2ADA8A87004E1FD3 /* LoginVC.swift in Sources */,
 				5A89AFE42AF50CE8000F2E4D /* MyVisitVC.swift in Sources */,
 				600C6C402AF529A10080BA35 /* KeychainHelper.swift in Sources */,
 				6041B7B32AEF95950076E0CC /* MapVC.swift in Sources */,
 				6041B7A92AEF93E20076E0CC /* LoginViewModel.swift in Sources */,
 				5AE50BBF2ADA6D37004E1FD3 /* AppDelegate.swift in Sources */,
+				5A89AFF32AF8DD8D000F2E4D /* MapViewModel.swift in Sources */,
 				5A4567262AE6729100DD75E0 /* DefaultMainStackView.swift in Sources */,
 				6041B7B92AEF98880076E0CC /* HomeVC.swift in Sources */,
 				6041B7B52AEF959B0076E0CC /* HomeDetailPlacesVC.swift in Sources */,
@@ -602,6 +613,7 @@
 				6041B7AD2AEF94830076E0CC /* SingUpViewModel.swift in Sources */,
 				5A89AFDA2AF4D5B9000F2E4D /* SettingUserCellVC.swift in Sources */,
 				5A88EBFF2AF0ECB60087D0D0 /* MyVisitsCell.swift in Sources */,
+				5A89AFF12AF8C8D0000F2E4D /* MapAddPlaceVC.swift in Sources */,
 				5AE50BC12ADA6D37004E1FD3 /* SceneDelegate.swift in Sources */,
 				5A88EC012AF0ECFA0087D0D0 /* PlacesModel.swift in Sources */,
 				6041B7AF2AEF95810076E0CC /* MainTabbar.swift in Sources */,
