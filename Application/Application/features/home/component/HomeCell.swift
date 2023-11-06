@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import Kingfisher
 
 class HomeCell: UICollectionViewCell {
 
@@ -9,6 +10,8 @@ class HomeCell: UICollectionViewCell {
     
     private lazy var imgPlace:UIImageView = {
         let iv = UIImageView()
+        iv.layer.cornerRadius = 16
+        iv.layer.masksToBounds = true
         iv.contentMode = .scaleToFill
         return iv
     }()
@@ -47,15 +50,18 @@ class HomeCell: UICollectionViewCell {
         delegate?.getData(data: "")
     }
     
-    public func configure(object:PlacesModel){
-        imgPlace.image = object.image
-        lblName.text = object.name
+    public func configure(object:Place){
+        
+        let url = URL(string: object.coverImageURL)
+     imgPlace.kf.setImage(with: url)
+       
+        lblName.text = object.title
         lblPlace.text = object.place
         
     }
     
     private func setupViews(){
-        self.contentView.backgroundColor = UIColor(hex: "F8F8F8")
+        //self.contentView.backgroundColor = UIColor(hex: "F8F8F8")
         self.contentView.addSubviews(imgPlace)
         imgPlace.addSubviews(lblName,vector,lblPlace)
         

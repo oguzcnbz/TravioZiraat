@@ -25,15 +25,31 @@ class HomeViewModel{
     //        })
     //    }
     
-    func getPopulerPlaces(){
+    func getPopulerPlaceParam(){
+        let params = ["limit": "5"]
+        NetworkingHelper.shared.getDataFromRemote(urlRequest: .placePopularGetParams(params: params), callback: { (result:Result<PlacesModelDatas,Error>) in
+            switch result {
+            case .success(let obj):
+                let response = obj.data
+                self.populerPlace = response.places
+                print(self.populerPlace.first?.coverImageURL)
+                
+            case .failure(let err):
+                print(err.localizedDescription)
+                print("boyle kod olmaz")
+            }
+        })
+        
+    }
+    func getPopulerPlace(){
+       
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .placePopularGet, callback: { (result:Result<PlacesModelDatas,Error>) in
             switch result {
             case .success(let obj):
                 let response = obj.data
                 self.populerPlace = response.places
-                print(self.populerPlace.first?.place)
-                print("self.populerPlace.first?.place")
-                //                print(self.kisiler)
+                print(self.populerPlace.first?.coverImageURL)
+                
             case .failure(let err):
                 print(err.localizedDescription)
                 print("boyle kod olmaz")

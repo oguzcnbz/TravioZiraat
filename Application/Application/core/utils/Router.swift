@@ -7,8 +7,9 @@ enum Router {
     case userRegister(params:Parameters)
     case userLogin(params:Parameters)
     case placePopularGet
+    case placePopularGetParams(params:Parameters)
     var baseURL:String {
-        return "https://api.iosclass.live"
+        return "https://ios-class-2f9672c5c549.herokuapp.com"
     }
     
     var path:String {
@@ -17,7 +18,7 @@ enum Router {
             return "/v1/auth/register"
         case .userLogin:
             return "/v1/auth/login"
-        case .placePopularGet:
+        case .placePopularGet,.placePopularGetParams:
             return "/v1/places/popular"
       
         }
@@ -28,7 +29,7 @@ enum Router {
         switch self {
         case .userLogin,.userRegister:
             return .post
-        case .placePopularGet:
+        case .placePopularGet,.placePopularGetParams:
             return .get
 //        case .userDelete:
 //            return .delete
@@ -40,14 +41,14 @@ enum Router {
     
     var headers:HTTPHeaders {
         switch self {
-        case .userLogin, .placePopularGet,.userRegister:
+        case .userLogin, .placePopularGet,.userRegister,.placePopularGetParams:
             return [:]
         }
     }
     
     var parameters:Parameters? {
         switch self {
-        case .userLogin(let params),.userRegister(let params):
+        case .userLogin(let params),.userRegister(let params),.placePopularGetParams(params: let params):
             return params
         case .placePopularGet:
             return nil

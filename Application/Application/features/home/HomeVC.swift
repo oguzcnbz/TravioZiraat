@@ -34,7 +34,7 @@ class HomeVC: UIViewController {
     
     private lazy var containerView:UIView = {
         let v = UIView()
-        v.backgroundColor = kcPrimary
+        v.backgroundColor = kcBackground
         v.clipsToBounds = true
         v.layer.cornerRadius = 80
         v.layer.maskedCorners = [.layerMinXMinYCorner] // Top right corner, Top left corner respectively Top right corner, Top left corner respectively
@@ -96,6 +96,7 @@ class HomeVC: UIViewController {
         getData()
         
         
+        
        setupViews()
    
         
@@ -108,12 +109,13 @@ class HomeVC: UIViewController {
     private func getData (){
        
         
-        homeViewModel.getPopulerPlaces()
+        homeViewModel.getPopulerPlaceParam()
         homeViewModel.transferData = { [weak self] () in
             let obj = self?.homeViewModel.populerPlace
-            print(obj)
-            
-           
+            self?.populerArr = obj ?? []
+            print(self?.populerArr.count)
+            print("======")
+            self?.collectionView.reloadData()
 
         }
     }
@@ -192,12 +194,14 @@ extension HomeVC:UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return users.count
+        //guard let tempValue = pageOptional else {return}
+        return populerArr.count
+        //MARK: todo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! HomeCell
-        let object = users[indexPath.row]
+        let object = populerArr[indexPath.row]
         cell.configure(object:object)
         
         return cell
