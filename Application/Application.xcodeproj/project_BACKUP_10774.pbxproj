@@ -384,6 +384,11 @@
 			isa = PBXGroup;
 			children = (
 				60DECACE2AF0DDE900A0EC49 /* myVisit */,
+<<<<<<< HEAD
+=======
+				60DECACD2AF0DDD300A0EC49 /* placesSeeAll */,
+				5A47A7D42AFA9AF300AE2D6F /* placeDetail */,
+>>>>>>> sprint3/map2
 				60DECACC2AF0DDCA00A0EC49 /* map */,
 				5A89AFF82AFA4504000F2E4D /* mapAddPlace */,
 				60DECACB2AF0DDBC00A0EC49 /* settings */,
