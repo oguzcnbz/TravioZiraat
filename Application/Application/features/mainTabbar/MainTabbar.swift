@@ -60,7 +60,7 @@ class MainTabbar: UITabBarController {
         addSegmentedVC.tabBarItem = UITabBarItem(title: "VoiceMail", image: imageAddSegmented1, selectedImage: selectedImageAddSegmented1)
         */
         
-        return [homeNC, myVistNC, mapNC,settingsNC]
+        return [homeNC, myVistVC, mapNC,settingsVC]
     }
     
 

@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if hasUserLoggedIn() {
             let vc = MainTabbar()
             let rootViewController = UINavigationController(rootViewController: vc)
-            window.rootViewController = rootViewController
+            window.rootViewController = vc
             window.makeKeyAndVisible()
             self.window = window
             

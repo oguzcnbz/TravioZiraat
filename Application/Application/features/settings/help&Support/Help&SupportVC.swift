@@ -24,7 +24,7 @@ class Help_SupportVC: UIViewController {
     }()
     
     private lazy var fifth:CustomStackView = {
-        let sv = CustomStackView(labelText: <#T##String#>, labelTexts: "")
+        let sv = CustomStackView(labelText: "", labelTexts: "")
         return sv
     }()
     
