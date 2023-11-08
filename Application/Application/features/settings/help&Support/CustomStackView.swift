@@ -23,7 +23,6 @@ class CustomStackView: UIView {
         stack.layer.borderColor = UIColor.black.cgColor
         stack.layer.shadowOpacity = 0.15
         stack.layer.shadowRadius = 20
-    
         return stack
     }()
     
@@ -43,37 +42,49 @@ class CustomStackView: UIView {
         return lbl
     }()
     
+    private lazy var vector:UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(named: "downArrawGreen"), for: .normal)
+        return btn
+    }()
+    
     private func setupAndLayout(mainlabelText: String, labelText: String) {
         addSubview(defaultStackView)
-        defaultStackView.addSubviews(mainLabel,Label)
+        defaultStackView.addSubviews(mainLabel,Label,vector)
         
         
         mainLabel.text = mainlabelText
         Label.text = labelText
         
-           defaultStackView.snp.makeConstraints { make in
-               make.top.equalToSuperview()
-               make.bottom.equalToSuperview()
-               make.leading.equalToSuperview()
-               make.trailing.equalToSuperview()
+           defaultStackView.snp.makeConstraints { sv in
+               sv.top.equalToSuperview()
+               sv.bottom.equalToSuperview()
+               sv.leading.equalToSuperview()
+               sv.trailing.equalToSuperview()
                
            }
            
-           
-        mainLabel.snp.makeConstraints { make in
-               make.leading.equalTo(defaultStackView.snp.leading).offset(12)
-               make .trailing.equalTo(defaultStackView.snp.trailing).offset(0)
-               make.top.equalTo(defaultStackView.snp.top).offset(8)
-               make.height.equalTo(21)
+        mainLabel.snp.makeConstraints { lbl in
+            lbl.leading.equalTo(defaultStackView.snp.leading).offset(12)
+            lbl .trailing.equalTo(defaultStackView.snp.trailing).offset(0)
+            lbl.top.equalTo(defaultStackView.snp.top).offset(8)
+            lbl.height.equalTo(21)
            }
            
            
-        Label.snp.makeConstraints { make in
-               make.leading.equalTo(defaultStackView.snp.leading).offset(12)
-               make.trailing.equalTo(defaultStackView.snp.trailing).offset(0)
-               make.top.equalTo(mainLabel.snp.bottom).offset(8)
-               make.height.equalTo(18)
+        Label.snp.makeConstraints { lbl in
+            lbl.leading.equalTo(defaultStackView.snp.leading).offset(12)
+            lbl.trailing.equalTo(defaultStackView.snp.trailing).offset(0)
+            lbl.top.equalTo(mainLabel.snp.bottom).offset(8)
+            lbl.height.equalTo(18)
            }
+        
+        vector.snp.makeConstraints({img in
+            img.centerY.equalTo(mainLabel)
+            img.trailing.equalTo(defaultStackView.snp.trailing).offset(-18.37)
+           
+        })
+        
        }
     
 }
