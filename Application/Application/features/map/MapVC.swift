@@ -2,12 +2,11 @@ import UIKit
 import MapKit
 import SnapKit
 
-class MapVC: UIViewController, MKMapViewDelegate {
+class MapVC: UIViewController {
     
     // MARK: - Properties
     
     var places: [Place] = []
-    var selectedAnnotation: CustomAnnotation?
     
     lazy var mapViewModel: MapViewModel = MapViewModel()
     
@@ -76,27 +75,6 @@ class MapVC: UIViewController, MKMapViewDelegate {
         }
     }
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let customAnnotation = annotation as? CustomAnnotation else { return nil }
-        
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "CustomAnnotation")
-        
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: customAnnotation, reuseIdentifier: "CustomAnnotation")
-            annotationView!.canShowCallout = true
-        }
-        
-        annotationView!.image = UIImage(named: "pin")
-        return annotationView
-    }
-    
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let annotation = view.annotation as? CustomAnnotation,
-           let index = places.firstIndex(where: { $0.latitude == annotation.coordinate.latitude && $0.longitude == annotation.coordinate.longitude }) {
-            let indexPath = IndexPath(item: index, section: 0)
-            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        }
-    }
     @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == .began {
           
@@ -189,6 +167,31 @@ extension MapVC: UICollectionViewDelegate {
             let region = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
             mapView.setRegion(region, animated: true)
             mapView.selectAnnotation(annotation, animated: true)
+        }
+    }
+}
+
+extension MapVC :MKMapViewDelegate{
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let customAnnotation = annotation as? CustomAnnotation else { return nil }
+        
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "CustomAnnotation")
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: customAnnotation, reuseIdentifier: "CustomAnnotation")
+            annotationView!.canShowCallout = true
+        }
+        
+        annotationView!.image = UIImage(named: "pin")
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let annotation = view.annotation as? CustomAnnotation,
+           let index = places.firstIndex(where: { $0.latitude == annotation.coordinate.latitude && $0.longitude == annotation.coordinate.longitude }) {
+            let indexPath = IndexPath(item: index, section: 0)
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
     }
 }

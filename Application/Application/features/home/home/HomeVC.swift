@@ -84,10 +84,7 @@ class HomeVC: UIViewController {
         cv.delegate = self
         return cv
     }()
-    override func viewDidAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true
-    }
-
+   
     
     
     //MARK: -- Life Cycles
@@ -213,17 +210,16 @@ extension HomeVC:UICollectionViewDataSource {
             withReuseIdentifier: HomeHeaderCell.reuseIdentifier ,
             for: indexPath) as? HomeHeaderCell else { fatalError("Cannot create new supplementary")
         }
+        
         supplementaryView.closure = {
             let vc = HomeDetailPlacesVC()
-           
-            //self.navigationController?.pushViewController(vc, animated: true)
-                
-            let navigationController = UINavigationController(rootViewController: vc)
-                
-            if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-                sceneDelegate.window?.rootViewController = navigationController
-                sceneDelegate.window?.makeKeyAndVisible()
-            }
+            self.navigationController?.pushViewController(vc, animated: true)
+//            let navigationController = UINavigationController(rootViewController: vc)
+//
+//            if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+//                sceneDelegate.window?.rootViewController = navigationController
+//                sceneDelegate.window?.makeKeyAndVisible()
+//            }
             
         }
         return supplementaryView

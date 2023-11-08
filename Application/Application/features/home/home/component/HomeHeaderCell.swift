@@ -43,7 +43,7 @@ class HomeHeaderCell: UICollectionReusableView {
         return button
     }()
     @objc func buttonTapped(){
-   
+        
         
         
         closure?()

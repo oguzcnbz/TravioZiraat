@@ -17,10 +17,10 @@ class MainTabbar: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-            self.navigationController?.setNavigationBarHidden(false, animated: false)
+            self.navigationController?.isNavigationBarHidden = true
     }
 
-
+    
     
     
     private func setupControllers()->[UIViewController]{
@@ -60,7 +60,7 @@ class MainTabbar: UITabBarController {
         addSegmentedVC.tabBarItem = UITabBarItem(title: "VoiceMail", image: imageAddSegmented1, selectedImage: selectedImageAddSegmented1)
         */
         
-        return [homeNC, myVistVC, mapNC,settingsVC]
+        return [homeNC, myVistNC, mapNC,settingsNC]
     }
     
 

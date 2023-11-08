@@ -57,7 +57,7 @@ class SettingsVC: UIViewController {
         navigationController?.navigationBar.isTranslucent = true
         
         let rightBarButton = UIBarButtonItem(image: UIImage(named: "off"), style: .plain, target: self, action: #selector(rightbartapped))
-        setNavigationItems(leftBarButton: true, rightBarButton: rightBarButton, title: "Settings")
+        setNavigationItems(leftBarButton: false, rightBarButton: rightBarButton, title: "Settings")
 
         setupLayout()
     }
@@ -115,13 +115,11 @@ extension SettingsVC:UICollectionViewDataSource {
             let object = usersss[indexPath.row]
             cell.configure(object:object)
             cell.closure = {
-//                let editProfileVC = EditProfileVC()
-//                self.navigationController?.pushViewController(editProfileVC, animated: true)
-//                
-                let editProfileVC = EditProfileVC()
-                editProfileVC.modalPresentationStyle = .popover
-                
-                self.present(editProfileVC, animated: true)
+     
+            let editProfileVC = EditProfileVC()
+            let rootViewController = UINavigationController(rootViewController: editProfileVC)
+            editProfileVC.modalPresentationStyle = .popover
+            self.present(rootViewController, animated: true)
                 
             }
             return cell

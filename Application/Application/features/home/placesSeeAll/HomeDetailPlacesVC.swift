@@ -64,7 +64,7 @@ class HomeDetailPlacesVC: UIViewController {
     
     @objc func btnSortTapped() {
         if sortButton.currentImage == UIImage(named: "sortSB") {
-            
+            self.navigationController?.popViewController(animated: true)
             detailArr.sort { $0.title ?? "" < $1.title ?? "" }
             sortButton.setImage(UIImage(named: "sortBS"), for: .normal)
             
@@ -76,10 +76,6 @@ class HomeDetailPlacesVC: UIViewController {
         collectionView.reloadData()
     }
 
-
-    
-
-    
     //MARK: -- Views
    
     
@@ -88,7 +84,6 @@ class HomeDetailPlacesVC: UIViewController {
         super.viewDidLoad()
         getDetail()
        setupViews()
-       
     }
     
   
@@ -98,12 +93,8 @@ class HomeDetailPlacesVC: UIViewController {
         self.view.backgroundColor = UIColor(hex: "38ada9")
         self.view.addSubview(mainStackView)
         mainStackView.addSubviews(sortButton,collectionView)
-        
-        
-//        let rightBarButton = UIBarButtonItem(image: UIImage(named: "off"), style: .plain, target: self, action: #selector(rightbartapped))
-//        setNavigationItems(leftBarButton: true, rightBarButton: rightBarButton, title: "Popular Places")
-//        
-        
+        setNavigationItems(leftBarButton: true, rightBarButton: nil, title: "Popular Places")
+     
         setupLayout()
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)

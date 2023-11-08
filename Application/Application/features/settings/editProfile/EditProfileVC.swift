@@ -119,7 +119,8 @@ class EditProfileVC: UIViewController {
     
     //MARK: -- Component Actions
     @objc func rightbartapped(){
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+        
     }
     @objc func changePhotofunc(){
     }
