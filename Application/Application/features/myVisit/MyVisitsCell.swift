@@ -7,17 +7,25 @@ class MyVisitsCell: UICollectionViewCell {
     
     var closure:(()->Void)?
     
-    private lazy var imgPlace:UIImageView = {
-        let iv = UIImageView()
-        iv.backgroundColor = .clear
-        iv.layer.borderColor = UIColor.black.cgColor
-        iv.layer.shadowOpacity = 0.15
-        iv.layer.shadowRadius = 20
-        iv.layer.cornerRadius = 16
-        iv.layer.masksToBounds = true
-        return iv
-    }()
-
+    private lazy var imgPlace: UIImageView = {
+            let iv = UIImageView()
+            iv.backgroundColor = .clear
+            iv.layer.cornerRadius = 16
+            iv.layer.masksToBounds = true
+            return iv
+        }()
+    
+    
+    private lazy var gradientLayer: CAGradientLayer = {
+        let gradientLayer = CAGradientLayer()
+        let startColor = UIColor(hex: "333333").withAlphaComponent(0)
+        let endColor = UIColor(hex: "3D3D3D").withAlphaComponent(1)
+        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+        return gradientLayer
+       }()
+    
     
     private lazy var vector:UIImageView = {
         let img = UIImageView()
@@ -52,6 +60,7 @@ class MyVisitsCell: UICollectionViewCell {
         delegate?.getData(data: "")
     }
     
+    
     public func configure(object:PlacesModel){
         imgPlace.image = object.image
         lblName.text = object.name
@@ -62,11 +71,17 @@ class MyVisitsCell: UICollectionViewCell {
     private func setupViews(){
         self.contentView.addSubviews(imgPlace)
         imgPlace.addSubviews(lblName,vector,lblPlace)
+        imgPlace.layer.addSublayer(gradientLayer)
         
+        imgPlace.bringSubviewToFront(lblName)
+        imgPlace.bringSubviewToFront(vector)
+        imgPlace.bringSubviewToFront(lblPlace)
         setupLayout()
     }
     
     private func setupLayout(){
+        
+        gradientLayer.frame = self.contentView.bounds
         
         imgPlace.snp.makeConstraints({ img in
             img.leading.equalToSuperview()
@@ -79,7 +94,7 @@ class MyVisitsCell: UICollectionViewCell {
         lblName.snp.makeConstraints({lbl in
             lbl.leading.equalTo(imgPlace.snp.leading).offset(8)
             lbl.bottom.equalTo(vector.snp.top).offset(2)
-          //  lbl.trailing.equalTo(imgPlace.snp.trailing).offset(-8)
+          
         })
         
         vector.snp.makeConstraints({img in
