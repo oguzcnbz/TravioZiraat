@@ -2,127 +2,193 @@ import UIKit
 import MapKit
 import SnapKit
 
-class MapVC: UIViewController {
-
+class MapVC: UIViewController, MKMapViewDelegate {
     
-    var users: [PlacesModel] = [
-        PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul"),
-        PlacesModel(image: UIImage(named: "colleseum"), name: "Colleseum",place: "Rome"),
-        PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul"),
-        PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul")
-  // isimleri veri ismiyle değiştirmeyi unutmaa!!!!!!
-    ]
+    // MARK: - Properties
+    
+    var places: [Place] = []
+    var selectedAnnotation: CustomAnnotation?
+    
+    lazy var mapViewModel: MapViewModel = MapViewModel()
     
     private lazy var mapView: MKMapView = {
-        let mapView = MKMapView()
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.overrideUserInterfaceStyle = .dark
-        return mapView
+        let map = MKMapView(frame: view.bounds)
+        map.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        map.overrideUserInterfaceStyle = .dark
+        map.delegate = self
+        return map
     }()
     
-    private lazy var collectionView:UICollectionView = {
-        let lay = makeCollectionViewLayout()
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: lay)
+    private lazy var collectionView: UICollectionView = {
+        let layout = makeCollectionViewLayout()
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = .clear
         cv.register(MapCell.self, forCellWithReuseIdentifier: "cell")
         cv.dataSource = self
-
+        cv.delegate = self
         return cv
     }()
-
+    
+    private lazy var longPressGesture: UILongPressGestureRecognizer = {
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+        
+        return gesture
+    }()
+    
+    
+    // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getData()
         setupViews()
+        
     }
     
-    private func setupViews(){
-        self.view.addSubviews(mapView)
-        mapView.addSubview(collectionView)
+    private func setupViews() {
+        view.addSubviews(mapView, collectionView)
+        mapView.addGestureRecognizer(longPressGesture)
         
         setupLayout()
-        
     }
     
-    func setupLayout() {
+    private func setupLayout() {
+        collectionView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.top.equalToSuperview().offset(621)
+        }
+    }
     
-        mapView.snp.makeConstraints { mv in
-            mv.top.equalToSuperview()
-            mv.leading.equalToSuperview()
-            mv.bottom.equalToSuperview()
-            mv.trailing.equalToSuperview()
+    // MARK: - Map Methods
+    
+    func addPinsToMap(array: [Place]) {
+        for place in array {
+            let location = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
+            let newAnnotation = CustomAnnotation(coordinate: location, title: place.title, subtitle: place.place)
+            mapView.addAnnotation(newAnnotation)
         }
         
-        collectionView.snp.makeConstraints({cv in
-            cv.leading.equalToSuperview()
-            cv.trailing.equalToSuperview()
-            cv.top.equalToSuperview().offset(565)
-            cv.bottom.equalToSuperview().offset(-101)
-           
-        })
-        
+        if let firstPlace = array.first {
+            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: firstPlace.latitude, longitude: firstPlace.longitude), latitudinalMeters: 500, longitudinalMeters: 500)
+            mapView.setRegion(region, animated: true)
+        }
     }
-}
-
-
-extension MapVC:UICollectionViewDataSource {
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let customAnnotation = annotation as? CustomAnnotation else { return nil }
+        
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "CustomAnnotation")
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: customAnnotation, reuseIdentifier: "CustomAnnotation")
+            annotationView!.canShowCallout = true
+        }
+        
+        annotationView!.image = UIImage(named: "pin")
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let annotation = view.annotation as? CustomAnnotation,
+           let index = places.firstIndex(where: { $0.latitude == annotation.coordinate.latitude && $0.longitude == annotation.coordinate.longitude }) {
+            let indexPath = IndexPath(item: index, section: 0)
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
+    }
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == .began {
+          
+            let touchPoint = gestureRecognizer.location(in: mapView)
+            let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+
+            let mapAddPlaceVC = MapAddPlaceVC()
+            CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
+                if let error = error {
+                    print("Hata: \(error)")
+                } else if let placemark = placemarks?.first {
+                    if let country = placemark.country, let city = placemark.locality {
+                        let address = "\(country), \(city)"
+                                           
+                       
+                        mapAddPlaceVC.countryCity.defaultTextField.text = address
+                       self.present(mapAddPlaceVC, animated: true, completion: nil)
+                    }
+                }
+            }
+            let newAnnotation = CustomAnnotation(coordinate: coordinate, title: mapAddPlaceVC.placeName.defaultTextField.text, subtitle: mapAddPlaceVC.countryCity.defaultTextField.text)
+            mapView.addAnnotation(newAnnotation)
+        }
+    }
+    
+
+    
+    // MARK: - Data Methods
+    
+    private func getData() {
+            mapViewModel.getPopulerPlace()
+            mapViewModel.transferData = { [weak self] () in
+                let obj = self?.mapViewModel.populerPlace
+                self?.places = obj ?? []
+                self?.collectionView.reloadData()
+                self?.addPinsToMap(array: self!.places)
+            }
+        }
+    }
+
+// MARK: - CollectionView DataSource
+extension MapVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return users.count
+        return places.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MapCell
-        let object = users[indexPath.row]
-        cell.configure(object:object)
-        
-        cell.closure = {
-            self.navigationController?.pushViewController(MapAddPlaceVC(), animated: true)
-        }
+        let object = places[indexPath.row]
+        cell.configure(object: object)
         return cell
     }
 }
 
-extension MapVC{
-    
+// MARK: - CollectionView Layout
+extension MapVC {
     func makeCollectionViewLayout() -> UICollectionViewLayout {
-        
-        UICollectionViewCompositionalLayout {
-            [weak self] sectionIndex, environment in
-         
-                return self?.makeListLayoutSection()
-          
-            
+        UICollectionViewCompositionalLayout { [weak self] _, _ in
+            return self?.makeSliderLayoutSection()
         }
-    
-         
-       //return UICollectionViewCompositionalLayout(section: layoutType.layout)
-        
     }
     
-    
-    
-    func makeListLayoutSection() -> NSCollectionLayoutSection {
-        
-
+    func makeSliderLayoutSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0 , trailing: 0)
         
-        
-        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalWidth(0.5))
         let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [item] )
-        layoutGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 18, bottom: 0, trailing: 18)
         
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 18, bottom: 0, trailing: 18)
         layoutSection.interGroupSpacing = 18
-        layoutSection.orthogonalScrollingBehavior = .groupPagingCentered
+        layoutSection.orthogonalScrollingBehavior = .groupPaging
         
         return layoutSection
+    }
+}
+
+// MARK: - CollectionView Delegate
+extension MapVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedPlace = places[indexPath.row]
+        
+        if let annotation = mapView.annotations.first(where: { $0.coordinate.latitude == selectedPlace.latitude && $0.coordinate.longitude == selectedPlace.longitude }) as? CustomAnnotation {
+            let region = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+            mapView.setRegion(region, animated: true)
+            mapView.selectAnnotation(annotation, animated: true)
+        }
     }
 }

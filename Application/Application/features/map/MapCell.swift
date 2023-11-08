@@ -10,9 +10,6 @@ class MapCell: UICollectionViewCell {
     private lazy var imgPlace:UIImageView = {
         let iv = UIImageView()
         iv.backgroundColor = .clear
-        iv.layer.borderColor = UIColor.black.cgColor
-        iv.layer.shadowOpacity = 0.15
-        iv.layer.shadowRadius = 20
         iv.layer.cornerRadius = 16
         iv.layer.masksToBounds = true
         return iv
@@ -52,9 +49,12 @@ class MapCell: UICollectionViewCell {
         delegate?.getData(data: "")
     }
     
-    public func configure(object:PlacesModel){
-        imgPlace.image = object.image
-        lblName.text = object.name
+    public func configure(object:Place){
+        
+        let url = URL(string: object.coverImageURL)
+        imgPlace.kf.setImage(with: url)
+       
+        lblName.text = object.title
         lblPlace.text = object.place
         
     }
