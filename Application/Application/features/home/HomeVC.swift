@@ -65,9 +65,9 @@ class HomeVC: UIViewController {
     private lazy var collectionView:UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-            //layout.minimumLineSpacing = 100
-      //  layout.minimumInteritemSpacing = 600
-//layout.collectionView?.backgroundColor = .green
+        //layout.minimumLineSpacing = 100
+        //  layout.minimumInteritemSpacing = 600
+        //layout.collectionView?.backgroundColor = .green
         let lay = makeCollectionViewLayout()
         
         //layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)

@@ -1,14 +1,11 @@
-import Foundation
 import UIKit
+import Foundation
 
 struct PlacesModel {
     var image:UIImage?
     var name:String?
     var place:String?
 }
-
-
-import Foundation
 
 // MARK: - PlacesModel
 struct PlacesModelDatas: Codable {
