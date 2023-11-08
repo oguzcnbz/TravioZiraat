@@ -24,7 +24,7 @@ class EditProfileVC: UIViewController {
     
     private lazy var containerView:UIView = {
         let v = UIView()
-        v.backgroundColor = kcBackgroundColor
+        v.backgroundColor = ColorStyle.background.color
         v.clipsToBounds = true
         v.layer.cornerRadius = 80
         v.layer.maskedCorners = [.layerMinXMinYCorner]
@@ -60,7 +60,7 @@ class EditProfileVC: UIViewController {
         let btn = UIButton()
         btn.setTitle("Change Photo", for: .normal)
         btn.titleLabel?.font = FontStyle.poppinsLight(size: 12).font
-        btn.setTitleColor(kcBlueRaspberryColor, for: .normal)
+        btn.setTitleColor(ColorStyle.blueRaspberry.color, for: .normal)
         btn.addTarget(self, action: #selector(changePhotofunc), for: .touchUpInside)
         btn.contentEdgeInsets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
         //btn.backgroundColor = kcBlueRaspberryColor
@@ -129,7 +129,7 @@ class EditProfileVC: UIViewController {
     //MARK: -- UI Methods
     func setupViews() {
        
-        self.view.backgroundColor = kcPrimaryColor
+        self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubview(containerView)
         
         containerView.addSubviews(photoView,nameLbl,editProfileBtn,dateStackView,userTypeStackView, usernameStackView,emailStackView,buttonSave)
