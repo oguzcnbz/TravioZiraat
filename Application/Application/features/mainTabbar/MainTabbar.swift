@@ -11,12 +11,13 @@ class MainTabbar: UITabBarController {
         self.tabBar.unselectedItemTintColor = UIColor(hex: "999999")
         self.tabBar.backgroundColor = UIColor(white: 1, alpha: 0.9)
         self.tabBar.isTranslucent = false
+        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-            self.navigationController?.setNavigationBarHidden(true, animated: false)
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
 

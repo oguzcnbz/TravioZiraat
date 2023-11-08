@@ -51,6 +51,7 @@ class SettingsVC: UIViewController {
         self.view.addSubviews(mainStackView)
         mainStackView.addSubview(collectionView)
      
+         //    self.navigationController?.setNavigationBarHidden(true, animated: false)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
@@ -113,6 +114,16 @@ extension SettingsVC:UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userCell", for: indexPath) as! SettingUserCell
             let object = usersss[indexPath.row]
             cell.configure(object:object)
+            cell.closure = {
+//                let editProfileVC = EditProfileVC()
+//                self.navigationController?.pushViewController(editProfileVC, animated: true)
+//                
+                let editProfileVC = EditProfileVC()
+                editProfileVC.modalPresentationStyle = .popover
+                
+                self.present(editProfileVC, animated: true)
+                
+            }
             return cell
 
         }else{

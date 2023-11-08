@@ -5,7 +5,7 @@ import SnapKit
 
 class SettingUserCell: UICollectionViewCell{
     
-    weak var delegate:DataTransferDelegate?
+    
     
     var closure:(()->Void)?
     
@@ -33,9 +33,17 @@ class SettingUserCell: UICollectionViewCell{
         btn.setTitle("Edit Profile", for: .normal)
         btn.titleLabel?.font = FontStyle.poppinsLight(size: 12).font
         btn.setTitleColor(UIColor(hex: "17C0EB"), for: .normal)
+        btn.addTarget(self, action: #selector(editProfilefunc), for: .touchUpInside)
         return btn
     }()
-
+    @objc func editProfilefunc(){
+        closure?()
+        let homevc = HomeVC()
+        let vc = HomeDetailPlacesVC()
+        homevc.navigationController?.pushViewController(vc, animated: true)
+        print("deneme")
+    
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,10 +51,7 @@ class SettingUserCell: UICollectionViewCell{
     }
     
     
-    @objc func btnTapped(){
-        closure?()
-        delegate?.getData(data: "")
-    }
+  
     
     public func configure(object:SettingUser){
         photoView.image = object.image

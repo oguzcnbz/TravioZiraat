@@ -36,7 +36,7 @@ class HomeHeaderCell: UICollectionReusableView {
     private lazy var btnPlaces:UIButton = {
       let  button =  UIButton(type: .system)
         button.setTitle("See All", for: .normal)
-        button.tintColor = kcBlueRaspberry
+        button.tintColor = kcBlueRaspberryColor
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
 
         
@@ -47,11 +47,11 @@ class HomeHeaderCell: UICollectionReusableView {
         
         
         closure?()
-       let vc = HomeDetailPlacesVC()
-        let homevc = HomeVC()
-       
-        homevc.navigationController?.pushViewController(vc, animated: true)
-        //print("deneme")
+     //  let vc = HomeDetailPlacesVC()
+//        let homevc = HomeVC()
+//       
+//        homevc.navigationController?.pushViewController(vc, animated: true)
+//        print("deneme")
        
        
        

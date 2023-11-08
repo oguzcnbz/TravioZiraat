@@ -38,7 +38,7 @@ class HomeVC: UIViewController {
     
     private lazy var containerView:UIView = {
         let v = UIView()
-        v.backgroundColor = kcBackground
+        v.backgroundColor = kcBackgroundColor
         v.clipsToBounds = true
         v.layer.cornerRadius = 80
         v.layer.maskedCorners = [.layerMinXMinYCorner] // Top right corner, Top left corner respectively Top right corner, Top left corner respectively
@@ -67,17 +67,12 @@ class HomeVC: UIViewController {
 //    }()
     
     private lazy var collectionView:UICollectionView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .horizontal
-//       
-//            //layout.minimumLineSpacing = 100
-//      //  layout.minimumInteritemSpacing = 600
-//layout.collectionView?.backgroundColor = .clear
+
         let lay = makeCollectionViewLayout()
-        lay.collectionView?.backgroundColor = .clear
-        //layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: lay)
        
+
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: lay)
+        cv.backgroundColor = .clear
         cv.register(HomeCell.self, forCellWithReuseIdentifier: "cell")
      
         cv.register(
@@ -130,7 +125,7 @@ class HomeVC: UIViewController {
     func setupViews() {
         // Add here the setup for the UI
         let leftBarButton = UIBarButtonItem()
-        self.view.backgroundColor = UIColor(named: "primary")
+        self.view.backgroundColor = kcPrimaryColor
         self.view.addSubview(logoImageView)
         self.view.addSubview(containerView)
         

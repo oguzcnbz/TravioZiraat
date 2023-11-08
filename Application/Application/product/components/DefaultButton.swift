@@ -25,6 +25,7 @@ class DefaultButton: UIButton {
         self.backgroundColor = background.backgroundColor
         self.titleLabel?.font = UIFont(name: "Poppins-SemiBold", size: 16)
         self.layer.cornerRadius = 12
+        
     }
     
     required init?(coder: NSCoder) {
