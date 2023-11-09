@@ -21,6 +21,18 @@ class PlaceDetailVC: UIViewController {
         
         return cv
     }()
+    
+    private lazy var pageControl: UIPageControl = {
+            let pc = UIPageControl()
+            pc.numberOfPages = userss.count
+            pc.currentPage = 0
+            pc.pageIndicatorTintColor = .gray
+            pc.currentPageIndicatorTintColor = .black
+            return pc
+        }()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
@@ -28,7 +40,8 @@ class PlaceDetailVC: UIViewController {
     }
     func setupViews() {
         self.view.backgroundColor = UIColor(hex: "F8F8F8")
-        self.view.addSubviews(collectionView)
+        self.view.addSubviews(collectionView, pageControl)
+     //   self.view.addSubviews(collectionView)
         setupLayout()
     }
     
@@ -40,6 +53,11 @@ class PlaceDetailVC: UIViewController {
             cv.top.equalToSuperview()
             cv.height.equalTo(249)
         }
+        
+        pageControl.snp.makeConstraints { pc in
+                   pc.centerX.equalToSuperview()
+                   pc.top.equalTo(collectionView.snp.bottom).offset(8)
+               }
     }
 }
 

@@ -16,6 +16,7 @@ class PlaceDetailCell: UICollectionViewCell {
     
     public func configure(object:PlaceDetailModel){
         imgPlace.image = object.image
+        print(object.image)
     }
     
     private func setupViews(){
