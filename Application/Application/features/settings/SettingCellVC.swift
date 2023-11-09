@@ -5,8 +5,6 @@ import SnapKit
 
 class SettingCell: UICollectionViewCell{
     
-    weak var delegate:DataTransferDelegate?
-    
     var closure:(()->Void)?
     
     private lazy var sttngscell:UIView = {
@@ -32,7 +30,7 @@ class SettingCell: UICollectionViewCell{
     
     private lazy var vector2:UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: "forwardArrowGreen")
+        img.image = UIImage(named: "arrowGreenForward")
         return img
     }()
     
@@ -42,10 +40,7 @@ class SettingCell: UICollectionViewCell{
     }
     
     
-    @objc func btnTapped(){
-        closure?()
-        delegate?.getData(data: "")
-    }
+    
     
     public func configure(object:Settings){
         vector.image = object.icon
