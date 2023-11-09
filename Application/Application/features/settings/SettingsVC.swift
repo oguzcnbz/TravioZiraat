@@ -7,11 +7,11 @@ class SettingsVC: UIViewController {
     var usersss:[SettingUser] = [SettingUser(image: UIImage(named: "face"), name: "Bruce Wills")]
 
     var settingCells:[Settings] = [Settings(icon: UIImage(named: "user"), settingName: "Security Settings"),
-                                      Settings(icon: UIImage(named: "binoculars"), settingName: "App Defaults"),
-                                      Settings(icon: UIImage(named: "icMap"), settingName: "My Added Places"),
-                                      Settings(icon: UIImage(named: "headPhone"), settingName: "Help&Support"),
-                                      Settings(icon: UIImage(named: "info"), settingName: "About"),
-                                      Settings(icon: UIImage(named: "hands"), settingName: "Terms of Use"),
+                                   Settings(icon: UIImage(named: "binoculars"), settingName: "App Defaults"),
+                                   Settings(icon: UIImage(named: "icMap"), settingName: "My Added Places"),
+                                   Settings(icon: UIImage(named: "headPhone"), settingName: "Help&Support"),
+                                   Settings(icon: UIImage(named: "info"), settingName: "About"),
+                                   Settings(icon: UIImage(named: "hands"), settingName: "Terms of Use"),
     ]
 
     private lazy var collectionView:UICollectionView = {
@@ -26,7 +26,7 @@ class SettingsVC: UIViewController {
         cv.layoutIfNeeded()
         cv.layer.maskedCorners = [.layerMinXMinYCorner]
         cv.dataSource = self
-
+        cv.delegate = self
         return cv
     }()
 
@@ -93,6 +93,49 @@ class SettingsVC: UIViewController {
     }
 
 }
+
+extension SettingsVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 1:
+            switch indexPath.row {
+            case 0:
+                let vc = SecuritySettingsVC()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            case 1:
+                let vc = AppDefaultsVC()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+               
+            case 2:
+                let vc = MyAddedPlacesVC()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            case 3:
+                let vc = HelpAndSupportVC()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            case 4:
+                let vc = AboutVC()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            case 5:
+                let vc = TermOfUseVC()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            default:
+                break
+            }
+        default:
+            break
+        }
+    }
+}
+
 
 extension SettingsVC:UICollectionViewDataSource {
 
