@@ -43,18 +43,8 @@ class HomeHeaderCell: UICollectionReusableView {
         return button
     }()
     @objc func buttonTapped(){
-        
-        
-        
+
         closure?()
-     //  let vc = HomeDetailPlacesVC()
-//        let homevc = HomeVC()
-//       
-//        homevc.navigationController?.pushViewController(vc, animated: true)
-//        print("deneme")
-       
-       
-       
     }
    
     
