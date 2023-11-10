@@ -1,48 +1,37 @@
-//
-//  
-//  AppDefaultsVC.swift
-//  Application
-//
-//  Created by Oğuz Canbaz on 9.11.2023.
-//
-//
+
 import UIKit
 import TinyConstraints
+import SnapKit
 
 class AppDefaultsVC: UIViewController {
     
-    //MARK: -- Properties
+    private lazy var mainStackView:DefaultMainStackView = {
+        let sv = DefaultMainStackView()
+        return sv
+    }()
     
-    
-    //MARK: -- Views
-    
-    
-    //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         
        setupViews()
        
     }
-    
-    //MARK: -- Component Actions
-    
-    
-    //MARK: -- Private Methods
-    
-    
-    //MARK: -- UI Methods
+  
     func setupViews() {
-        // Add here the setup for the UI
-        self.view.addSubviews()
+        self.view.backgroundColor = UIColor(hex: "38ada9")
+        self.view.addSubviews(mainStackView)
         setupLayout()
+        setNavigationItems(leftBarButton: true, rightBarButton: nil, title: "App Defaults")
     }
     
     func setupLayout() {
-        // Add here the setup for layout
-       
+        mainStackView.snp.makeConstraints { v in
+            v.leading.equalToSuperview()
+            v.trailing.equalToSuperview()
+            v.bottom.equalToSuperview()
+            v.height.equalToSuperview().multipliedBy(0.82)
+        }
     }
-  
 }
 
 #if DEBUG
