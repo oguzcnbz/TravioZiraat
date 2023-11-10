@@ -21,6 +21,8 @@ enum ColorStyle {
     case background
    case blackRaven
   case blueRaspberry
+  case white
+  case greySpanish
     
     var color: UIColor? {
         switch self {
@@ -32,6 +34,10 @@ enum ColorStyle {
             return UIColor(hex: "3d3d3d")
         case .blueRaspberry:
             return UIColor(hex: "17C0EB")
+        case .greySpanish:
+            return UIColor(hex: "999999")
+        case .white:
+            return .white
  
         }
     }
