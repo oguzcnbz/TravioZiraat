@@ -7,17 +7,6 @@ import SnapKit
 
 class HomeDetailPlacesVC: UIViewController {
     
-    
-//    var userss: [PlacesModel] = [
-//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Selimiye Camii",place: "Rome"),
-//        PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "Rome"),
-//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Fatih Camii",place: "Rome"),
-//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome")]
-    
     var detailArr: [Place] = []
 
     //MARK: -- Properties

@@ -16,7 +16,7 @@ class HelpAndSupportCell: UICollectionViewCell {
         return v
     }()
     
-    lazy var firstLbl: UILabel = {
+    lazy var questionLbl: UILabel = {
         let lbl = UILabel()
         lbl.font = FontStyle.poppinsMedium(size: 14).font
         lbl.textColor = .black
@@ -24,7 +24,7 @@ class HelpAndSupportCell: UICollectionViewCell {
         return lbl
     }()
    
-    lazy var secondLbl: UILabel = {
+    lazy var answerLbl: UILabel = {
         let lbl = UILabel()
         lbl.font = FontStyle.poppinsLight(size: 10).font
         lbl.textColor = UIColor(hex: "3D3D3D")
@@ -45,8 +45,8 @@ class HelpAndSupportCell: UICollectionViewCell {
     }
     
     public func configure(object:HelpAndSupportModel){
-        firstLbl.text = object.firstlbl
-        secondLbl.text = object.secondlbl
+        questionLbl.text = object.questionLbl
+        answerLbl.text = object.answerLbl
     }
     
     override init(frame: CGRect) {
@@ -58,7 +58,7 @@ class HelpAndSupportCell: UICollectionViewCell {
     private func setupViews() {
         
         self.contentView.addSubviews(defaultStackView)
-        defaultStackView.addSubviews(firstLbl,secondLbl,vector)
+        defaultStackView.addSubviews(questionLbl,answerLbl,vector)
         
         setupLayout()
     }
@@ -72,7 +72,7 @@ class HelpAndSupportCell: UICollectionViewCell {
 
             }
             
-            firstLbl.snp.makeConstraints { lbl in
+            questionLbl.snp.makeConstraints { lbl in
                 lbl.leading.equalToSuperview().offset(12)
                 lbl .trailing.equalToSuperview()
                 lbl.top.equalToSuperview().offset(16)
@@ -81,15 +81,15 @@ class HelpAndSupportCell: UICollectionViewCell {
             
             vector.snp.makeConstraints({img in
 
-                img.centerY.equalTo(firstLbl)
+                img.centerY.equalTo(questionLbl)
                 img.trailing.equalToSuperview().offset(-18.37)
 
             })
 
-            secondLbl.snp.makeConstraints { lbl in
+            answerLbl.snp.makeConstraints { lbl in
                 lbl.leading.equalToSuperview().offset(12)
                 lbl.trailing.equalToSuperview().offset(-15)
-                lbl.top.equalTo(firstLbl.snp.bottom).offset(14)
+                lbl.top.equalTo(questionLbl.snp.bottom).offset(14)
                 
             }
             
