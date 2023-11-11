@@ -10,12 +10,12 @@ class HelpAndSupportVC: UIViewController {
     private lazy var expandedHeight: CGFloat = 140
     private lazy var collapsedHeight: CGFloat = 52
 
-    var cells:[HelpAndSupportModel] = [HelpAndSupportModel(firstlbl: "How can I create a new account on Travio?", secondlbl: ""),
-                                       HelpAndSupportModel(firstlbl: "How can I create a new account on Travio?", secondlbl: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
-                                       HelpAndSupportModel(firstlbl: "How does Travio work?", secondlbl: ""),
-                                       HelpAndSupportModel(firstlbl: "How does Travio work?", secondlbl: ""),
-                                       HelpAndSupportModel(firstlbl: "How does Travio work?", secondlbl: ""),
-                                       HelpAndSupportModel(firstlbl: "How does Travio work?", secondlbl: "")]
+    var cells:[HelpAndSupportModel] = [HelpAndSupportModel(questionLbl: "How can I create a new account on Travio?", answerLbl: ""),
+                                       HelpAndSupportModel(questionLbl: "How can I create a new account on Travio?", answerLbl: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
+                                       HelpAndSupportModel(questionLbl: "How does Travio work?", answerLbl: ""),
+                                       HelpAndSupportModel(questionLbl: "How does Travio work?", answerLbl: ""),
+                                       HelpAndSupportModel(questionLbl: "How does Travio work?", answerLbl: ""),
+                                       HelpAndSupportModel(questionLbl: "How does Travio work?", answerLbl: "")]
     
     
     private lazy var mainStackView: DefaultMainStackView = {
