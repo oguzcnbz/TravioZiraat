@@ -149,6 +149,7 @@ extension SettingsVC:UICollectionViewDataSource {
         }else{
             return settingCells.count
         }
+       
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -183,6 +184,7 @@ extension SettingsVC:UICollectionViewDataSource {
 extension SettingsVC {
 
     func makeCollectionViewLayout() -> UICollectionViewLayout {
+        
         let layout = UICollectionViewCompositionalLayout { [weak self] sectionIndex, environment in
             if sectionIndex == 0 {
                 return self?.makeUserLayoutSection()
@@ -190,8 +192,13 @@ extension SettingsVC {
                 return self?.makeSettingsLayoutSection()
             }
         }
+    
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        config.interSectionSpacing = 24
+        layout.configuration = config
         return layout
     }
+
 
     func makeUserLayoutSection() -> NSCollectionLayoutSection {
         // Define layout for the user section
@@ -220,10 +227,10 @@ extension SettingsVC {
 
 
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 12, leading:16 , bottom:0 , trailing: 16)
+        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading:16 , bottom:0 , trailing: 16)
         layoutSection.interGroupSpacing = 8
-
-
+        
+        
         return layoutSection
     }
 }
