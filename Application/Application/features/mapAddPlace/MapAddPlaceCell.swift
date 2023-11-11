@@ -10,7 +10,6 @@ class MapAddPlaceCell: UICollectionViewCell {
         iv.backgroundColor = .clear
         iv.layer.cornerRadius = 16
         iv.layer.masksToBounds = true
-        
         return iv
     }()
     
@@ -36,9 +35,11 @@ class MapAddPlaceCell: UICollectionViewCell {
     private func setupViews(){
         self.contentView.backgroundColor = .white
         self.contentView.layer.cornerRadius = 16
+        
         self.contentView.layer.borderColor = UIColor.black.cgColor
         self.contentView.layer.shadowOpacity = 0.15
         self.contentView.layer.shadowRadius = 20
+        
         self.contentView.addSubviews(imgPlace)
         imgPlace.addSubviews(vector,addPhotolbl)
         

@@ -12,7 +12,6 @@ class HomeCell: UICollectionViewCell {
         let iv = UIImageView()
         iv.layer.cornerRadius = 16
         iv.layer.masksToBounds = true
-        iv.contentMode = .scaleToFill
         return iv
     }()
 
@@ -61,7 +60,10 @@ class HomeCell: UICollectionViewCell {
     }
     
     private func setupViews(){
-        //self.contentView.backgroundColor = UIColor(hex: "F8F8F8")
+        self.contentView.layer.borderColor = UIColor.black.cgColor
+        self.contentView.layer.shadowOpacity = 0.15
+        self.contentView.layer.shadowRadius = 20
+        
         self.contentView.addSubviews(imgPlace)
         imgPlace.addSubviews(lblName,vector,lblPlace)
         

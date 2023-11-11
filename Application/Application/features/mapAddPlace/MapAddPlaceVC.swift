@@ -4,6 +4,12 @@ import SnapKit
 
 class MapAddPlaceVC: UIViewController {
     
+    private lazy var stick: UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor(hex: "D9D9D9")
+        v.layer.cornerRadius = 6
+        return v
+    }()
     
      lazy var placeName: CustomTextField = {
         let sv = CustomTextField(labelText: "Place Name", textFieldPlaceholder: "Please write a place name")
@@ -24,6 +30,8 @@ class MapAddPlaceVC: UIViewController {
         let layout = makeCollectionViewLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(MapAddPlaceCell.self, forCellWithReuseIdentifier: "cell")
+        cv.backgroundColor = .clear
+        cv.isScrollEnabled = false
         cv.dataSource = self
         return cv
     }()
@@ -45,11 +53,19 @@ class MapAddPlaceVC: UIViewController {
     
     private func setupViews() {
         self.view.backgroundColor = UIColor(hex: "F8F8F8")
-        view.addSubviews(placeName,visitDescription,countryCity, collectionView,btnaddPlace)
+        self.view.layer.cornerRadius = 24
+        view.addSubviews(stick,placeName,visitDescription,countryCity, collectionView,btnaddPlace)
         setupLayout()
     }
     
     private func setupLayout() {
+        
+        stick.snp.makeConstraints({s in
+            s.centerX.equalToSuperview()
+            s.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(10)
+            s.width.equalTo(70)
+            s.height.equalTo(8)
+        })
         
         placeName.snp.makeConstraints {sv in
             sv.leading.equalToSuperview().offset(23)
@@ -75,14 +91,14 @@ class MapAddPlaceVC: UIViewController {
         collectionView.snp.makeConstraints { cv in
             cv.leading.equalToSuperview()
             cv.trailing.equalToSuperview()
-            cv.height.equalTo(215)
-            cv.top.equalTo(countryCity.snp.bottom).offset(16)
+            cv.height.equalTo(275)
+            cv.top.equalTo(countryCity.snp.bottom).offset(-20)
         }
         
         btnaddPlace.snp.makeConstraints({btn in
             btn.leading.equalToSuperview().offset(23)
             btn.trailing.equalToSuperview().offset(-25)
-            btn.top.equalTo(collectionView.snp.bottom).offset(16)
+            btn.bottom.equalToSuperview().offset(-24)
             btn.height.equalTo(54)
         })
     }
@@ -121,7 +137,7 @@ extension MapAddPlaceVC {
         let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [item] )
         
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 18)
+        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 36, leading: 24, bottom: 40, trailing: 18)
         layoutSection.interGroupSpacing = 18
         layoutSection.orthogonalScrollingBehavior = .groupPaging
         

@@ -9,8 +9,8 @@ class MyVisitsCell: UICollectionViewCell {
     
     private lazy var imgPlace: UIImageView = {
             let iv = UIImageView()
-            iv.layer.cornerRadius = 16
-            iv.layer.masksToBounds = true
+        iv.layer.cornerRadius = 16
+        iv.layer.masksToBounds = true
             return iv
         }()
     
@@ -71,6 +71,7 @@ class MyVisitsCell: UICollectionViewCell {
         self.contentView.layer.borderColor = UIColor.black.cgColor
         self.contentView.layer.shadowOpacity = 0.15
         self.contentView.layer.shadowRadius = 20
+        
         
         self.contentView.addSubviews(imgPlace)
         imgPlace.addSubviews(lblName,vector,lblPlace)
