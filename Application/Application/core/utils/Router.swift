@@ -8,6 +8,7 @@ enum Router {
     case userLogin(params:Parameters)
     case placePopularGet
     case placePopularGetParams(params:Parameters)
+    case placeDetailGetGalleryImages(placeId:String)
     var baseURL:String {
         return "https://ios-class-2f9672c5c549.herokuapp.com"
     }
@@ -20,6 +21,8 @@ enum Router {
             return "/v1/auth/login"
         case .placePopularGet,.placePopularGetParams:
             return "/v1/places/popular"
+        case .placeDetailGetGalleryImages(let placeId):
+            return "/v1/galleries/:\(placeId) "
       
         }
     }
@@ -29,7 +32,7 @@ enum Router {
         switch self {
         case .userLogin,.userRegister:
             return .post
-        case .placePopularGet,.placePopularGetParams:
+        case .placePopularGet,.placePopularGetParams,.placeDetailGetGalleryImages:
             return .get
 //        case .userDelete:
 //            return .delete
@@ -41,7 +44,7 @@ enum Router {
     
     var headers:HTTPHeaders {
         switch self {
-        case .userLogin, .placePopularGet,.userRegister,.placePopularGetParams:
+        case .userLogin, .placePopularGet,.userRegister,.placePopularGetParams,.placeDetailGetGalleryImages:
             return [:]
         }
     }
@@ -50,7 +53,7 @@ enum Router {
         switch self {
         case .userLogin(let params),.userRegister(let params),.placePopularGetParams(params: let params):
             return params
-        case .placePopularGet:
+        case .placePopularGet,.placeDetailGetGalleryImages:
             return nil
 //        case .userUpdate(userId: _, params: let params):
 //            return params
