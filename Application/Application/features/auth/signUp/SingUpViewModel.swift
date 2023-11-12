@@ -34,10 +34,11 @@ class SignUpViewModel {
                 
              
                 lazy var loginViewModel: LoginViewModel = LoginViewModel()
-                //loginViewModel.setDelegate(output: loginViewModel)
-                loginViewModel.loginUser(email: email, password: password)
+               
+                
                 
                 self.delegate?.signUpResponseGet(isSignUp: isSuccess, message: message)
+                loginViewModel.loginUser(email: email, password: password)
 
             case .failure(let error):
                 print(error.localizedDescription)

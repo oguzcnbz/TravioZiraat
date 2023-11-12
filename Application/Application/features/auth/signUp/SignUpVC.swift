@@ -19,7 +19,7 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
             if isSignUp == true {
                 
                 
-                let vc = HomeVC()
+                let vc = MainTabbar()
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
