@@ -62,11 +62,7 @@ class MyVisitVC: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
-        
-        let leftButtonImage = UIImage(named:"backWard")
-        let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
-        leftBarButton.tintColor = UIColor(hex: "FFFFFF")
-        self.navigationItem.leftBarButtonItem = leftBarButton
+       
         setNavigationItems(leftBarButton: false, rightBarButton: nil, title: "My Visits")
         
         setupLayout()
