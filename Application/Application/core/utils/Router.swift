@@ -8,6 +8,8 @@ enum Router {
     case userLogin(params:Parameters)
     case placePopularGet
     case placePopularGetParams(params:Parameters)
+    case placeLastGet
+    case placeLastGetParams(params:Parameters)
     case placeDetailGetGalleryImages(placeId:String)
     var baseURL:String {
         return "https://ios-class-2f9672c5c549.herokuapp.com"
@@ -19,6 +21,8 @@ enum Router {
             return "/v1/auth/register"
         case .userLogin:
             return "/v1/auth/login"
+        case .placeLastGet,.placeLastGetParams:
+            return "/v1/places/last"
         case .placePopularGet,.placePopularGetParams:
             return "/v1/places/popular"
         case .placeDetailGetGalleryImages(let placeId):
@@ -32,7 +36,7 @@ enum Router {
         switch self {
         case .userLogin,.userRegister:
             return .post
-        case .placePopularGet,.placePopularGetParams,.placeDetailGetGalleryImages:
+        case .placePopularGet,.placePopularGetParams,.placeLastGet,.placeLastGetParams,.placeDetailGetGalleryImages:
             return .get
 //        case .userDelete:
 //            return .delete
@@ -44,16 +48,16 @@ enum Router {
     
     var headers:HTTPHeaders {
         switch self {
-        case .userLogin, .placePopularGet,.userRegister,.placePopularGetParams,.placeDetailGetGalleryImages:
+        case .userLogin, .placePopularGet,.userRegister,.placePopularGetParams,.placeDetailGetGalleryImages,.placeLastGet,.placeLastGetParams:
             return [:]
         }
     }
     
     var parameters:Parameters? {
         switch self {
-        case .userLogin(let params),.userRegister(let params),.placePopularGetParams(params: let params):
+        case .userLogin(let params),.userRegister(let params),.placePopularGetParams(params: let params),.placeLastGetParams(params: let params):
             return params
-        case .placePopularGet,.placeDetailGetGalleryImages:
+        case .placePopularGet,.placeLastGet,.placeDetailGetGalleryImages:
             return nil
 //        case .userUpdate(userId: _, params: let params):
 //            return params

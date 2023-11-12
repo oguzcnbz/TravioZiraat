@@ -108,7 +108,7 @@ class MyAddedPlacesVC: UIViewController {
        
         
         homeViewModel.getPopulerPlace()
-        homeViewModel.transferData = { [weak self] () in
+        homeViewModel.transferPopulerData = { [weak self] () in
             let obj = self?.homeViewModel.populerPlace
             self?.detailArr = obj ?? []
             print(self?.detailArr.count)

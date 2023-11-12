@@ -26,6 +26,7 @@ class HomeVC: UIViewController {
     
 
     var populerArr: [Place] = []
+    var lastArr: [Place] = []
     
     
     //MARK: -- Views
@@ -88,10 +89,20 @@ class HomeVC: UIViewController {
        
         
         homeViewModel.getPopulerPlaceParam()
-        homeViewModel.transferData = { [weak self] () in
+        homeViewModel.transferPopulerData = { [weak self] () in
             let obj = self?.homeViewModel.populerPlace
             self?.populerArr = obj ?? []
 //            print(self?.populerArr.count)
+//            print("======")
+            self?.collectionView.reloadData()
+
+        }
+        
+        homeViewModel.getLastParam()
+        homeViewModel.transferLastData = { [weak self] () in
+            let obj = self?.homeViewModel.lastPlace
+            self?.lastArr = obj ?? []
+            print(self?.lastArr.count)
 //            print("======")
             self?.collectionView.reloadData()
 
@@ -140,35 +151,70 @@ class HomeVC: UIViewController {
 extension HomeVC:UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return populerArr.count
+        if section == 0 { return populerArr.count }
+        
+        else{ return lastArr.count}
+        
 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! HomeCell
-        let object = populerArr[indexPath.row]
-        cell.configure(object:object)
+        if indexPath.section == 0 {
+            
+            let object = populerArr[indexPath.row]
+            cell.configure(object:object)
+            return cell
+        }else{
+            let object = lastArr[indexPath.row]
+            cell.configure(object:object)
+            return cell
+        }
         
-        return cell
+        
+        
+      
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
-            ofKind: "section-header-element-kind",
-            withReuseIdentifier: HomeHeaderCell.reuseIdentifier ,
-            for: indexPath) as? HomeHeaderCell else { fatalError("Cannot create new supplementary")
+        if indexPath.section == 0 {
+            
+            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: "section-header-element-kind",
+                withReuseIdentifier: HomeHeaderCell.reuseIdentifier ,
+                for: indexPath) as? HomeHeaderCell else { fatalError("Cannot create new supplementary")
+            }
+            supplementaryView.configure(title: "Populer Place")
+            
+            supplementaryView.closure = {
+                let vc = HomeDetailPlacesVC()
+                vc.titleHeader = "Populer Place"
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            return supplementaryView
         }
-        
-        supplementaryView.closure = {
-            let vc = HomeDetailPlacesVC()
-            vc.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(vc, animated: true)
+        else{
+            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: "section-header-element-kind",
+                withReuseIdentifier: HomeHeaderCell.reuseIdentifier ,
+                for: indexPath) as? HomeHeaderCell else { fatalError("Cannot create new supplementary")
+            }
+            supplementaryView.configure(title: "Last Place")
+            
+            supplementaryView.closure = {
+                let vc = HomeDetailPlacesVC()
+                vc.titleHeader = "Last Place"
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            return supplementaryView
         }
-        return supplementaryView
+     
     }
    
 }

@@ -6,6 +6,7 @@ import SnapKit
 
 
 class HomeDetailPlacesVC: UIViewController {
+    var titleHeader: String?
     
     var detailArr: [Place] = []
 
@@ -81,7 +82,7 @@ class HomeDetailPlacesVC: UIViewController {
         self.view.backgroundColor = UIColor(hex: "38ada9")
         self.view.addSubview(mainStackView)
         mainStackView.addSubviews(sortButton,collectionView)
-        setNavigationItems(leftBarButton: true, rightBarButton: nil, title: "Popular Places")
+        setNavigationItems(leftBarButton: true, rightBarButton: nil, title: titleHeader)
      
         setupLayout()
         
@@ -95,17 +96,32 @@ class HomeDetailPlacesVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     private func getDetail (){
-       
-        
-        homeViewModel.getPopulerPlace()
-        homeViewModel.transferData = { [weak self] () in
-            let obj = self?.homeViewModel.populerPlace
-            self?.detailArr = obj ?? []
-            print(self?.detailArr.count)
-            print("======")
-            self?.collectionView.reloadData()
+        if titleHeader == "Populer Place" { 
+            homeViewModel.getPopulerPlace()
+            homeViewModel.transferPopulerData = { [weak self] () in
+                let obj = self?.homeViewModel.populerPlace
+                self?.detailArr = obj ?? []
+                print(self?.detailArr.count)
+                print("======")
+                self?.collectionView.reloadData()
 
+            }
+            
+        }else {
+            homeViewModel.getLastPlace()
+            homeViewModel.transferLastData = { [weak self] () in
+                let obj = self?.homeViewModel.lastPlace
+                self?.detailArr = obj ?? []
+                print(self?.detailArr.count)
+                print("======")
+                self?.collectionView.reloadData()
+
+            }
+            
+            
         }
+        
+      
     }
 
     

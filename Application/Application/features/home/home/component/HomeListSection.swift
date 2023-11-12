@@ -4,16 +4,16 @@
 ////
 ////  Created by Ada on 2.11.2023.
 ////
-//
-//
-//import Foundation
-//
+
+
+import Foundation
+
 //enum ListSection {
-//    case stories([ListItem])
-//    case popular([ListItem])
-//    case comingSoon([ListItem])
+//    case popularPlace([Place])
+//    case visitPlace([Place])
+//   
 //    
-//    var items: [ListItem] {
+//    var items: [Place] {
 //        switch self {
 //        case .stories(let items),
 //                .popular(let items),
@@ -38,4 +38,4 @@
 //        }
 //    }
 //}
-//
+

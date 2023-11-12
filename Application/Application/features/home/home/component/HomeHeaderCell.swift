@@ -9,6 +9,7 @@ class HomeHeaderCell: UICollectionReusableView {
     
     var closure:(()->Void)?
     
+    
  
     
     private lazy var stkRowPlaces:UIStackView = {
@@ -21,7 +22,7 @@ class HomeHeaderCell: UICollectionReusableView {
     
     private lazy var lblName:UILabel = {
         let lbl = UILabel()
-        lbl.text = "Places"
+     //   lbl.text = "Places"
       //  lbl.textColor = UIColor(hex: "FFFFFF")
         lbl.font = UIFont(name: "Poppins", size: 20)
         return lbl
@@ -53,7 +54,8 @@ class HomeHeaderCell: UICollectionReusableView {
         setupViews()
     }
     
-    public func configure(){
+    public func configure(title:String){
+        lblName.text = title
         
     }
     
