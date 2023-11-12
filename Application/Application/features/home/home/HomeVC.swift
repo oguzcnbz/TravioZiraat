@@ -24,13 +24,7 @@ class HomeVC: UIViewController {
         return HomeViewModel()
     }()
     
-    
-//    var users: [PlacesModel] = [
-//        PlacesModel(image: UIImage(named: "SüleymaniyeCamii"), name: "SüleymaniyeCamii",place: "İstanbul"),
-//        PlacesModel(image: UIImage(named: "Colleseum"), name: "Colleseum",place: "Rome"),
-//        PlacesModel(image: UIImage(named: "SüleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul"),
-//  
-//    ]
+
     var populerArr: [Place] = []
     
     
@@ -41,7 +35,7 @@ class HomeVC: UIViewController {
         v.backgroundColor = ColorStyle.background.color
         v.clipsToBounds = true
         v.layer.cornerRadius = 80
-        v.layer.maskedCorners = [.layerMinXMinYCorner] // Top right corner, Top left corner respectively Top right corner, Top left corner respectively
+        v.layer.maskedCorners = [.layerMinXMinYCorner]
         return v
     }()
     private lazy var logoImageView:UIImageView = {
@@ -54,18 +48,6 @@ class HomeVC: UIViewController {
     }()
     
  
-
-    
-//    private lazy var View: DefaultView = {
-//        let scene = DefaultView()
-//        return scene
-//    }()
-    
-//    private lazy var mainStackView: DefaultMainStackView = {
-//        let sv = DefaultMainStackView()
-//        return sv
-//    }()
-    
     private lazy var collectionView:UICollectionView = {
 
         let lay = makeCollectionViewLayout()
@@ -81,7 +63,6 @@ class HomeVC: UIViewController {
             withReuseIdentifier: HomeHeaderCell.reuseIdentifier)
        
         cv.dataSource = self
-        cv.delegate = self
         return cv
     }()
    
@@ -133,56 +114,27 @@ class HomeVC: UIViewController {
     }
     
     func setupLayout() {
-        // Add here the setup for layout
+       
         logoImageView.topToSuperview(offset: 60)
         logoImageView.leadingToSuperview(offset: 20)
         logoImageView.height(24)
-        //logoImageView.horizontalToSuperview(.left(20))
-        //logoImageView.centerXToSuperview()
-       // logoImageView.topToSuperview(offset: 5,usingSafeArea: true)
-        
-       // logoImageView.height(50)
+       
         
         
         containerView.edgesToSuperview(excluding: .top)
         containerView.heightToSuperview(multiplier: 0.85)
         
         collectionView.snp.makeConstraints { view in
-           // view.centerX.equalToSuperview()
             view.leading.equalToSuperview()
             view.trailing.equalToSuperview()
             view.bottom.equalToSuperview()
             view.height.equalToSuperview().offset(-30)
         }
-       
-        
-        
-      
-       
+
     }
   
 }
-extension HomeVC:UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        //print(indexPath)
-    }
-    /*
-     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-         return
-     }
-     */
-    
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    
-        return CGSize(width: (collectionView.frame.width - 20), height: (collectionView.frame.height-10))
-    }
-}
+
 
 
 extension HomeVC:UICollectionViewDataSource {
@@ -192,9 +144,8 @@ extension HomeVC:UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //guard let tempValue = pageOptional else {return}
         return populerArr.count
-        //MARK: todo
+
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -204,6 +155,7 @@ extension HomeVC:UICollectionViewDataSource {
         
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
             ofKind: "section-header-element-kind",
@@ -213,21 +165,11 @@ extension HomeVC:UICollectionViewDataSource {
         
         supplementaryView.closure = {
             let vc = HomeDetailPlacesVC()
+            vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
-//            let navigationController = UINavigationController(rootViewController: vc)
-//
-//            if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-//                sceneDelegate.window?.rootViewController = navigationController
-//                sceneDelegate.window?.makeKeyAndVisible()
-//            }
-            
         }
         return supplementaryView
     }
-    
-
-       
-    
    
 }
 
@@ -240,15 +182,8 @@ extension HomeVC {
             [weak self] sectionIndex, environment in
             
             return self?.makeSliderLayoutSection()
-
-            
-            
-            
+   
         }
-    
-        
-    
-        
     }
     
     func makeSliderLayoutSection() -> NSCollectionLayoutSection {

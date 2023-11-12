@@ -5,17 +5,12 @@ import SnapKit
 
 class SettingCell: UICollectionViewCell{
     
-    weak var delegate:DataTransferDelegate?
-    
     var closure:(()->Void)?
     
     private lazy var sttngscell:UIView = {
         let v = UIView()
         v.backgroundColor = .white
         v.layer.cornerRadius = 16
-        v.layer.borderColor = UIColor.black.cgColor
-        v.layer.shadowOpacity = 0.15
-        v.layer.shadowRadius = 20
         return v
     }()
     
@@ -32,7 +27,7 @@ class SettingCell: UICollectionViewCell{
     
     private lazy var vector2:UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: "forwardArrowGreen")
+        img.image = UIImage(named: "arrowGreenForward")
         return img
     }()
     
@@ -42,10 +37,7 @@ class SettingCell: UICollectionViewCell{
     }
     
     
-    @objc func btnTapped(){
-        closure?()
-        delegate?.getData(data: "")
-    }
+    
     
     public func configure(object:Settings){
         vector.image = object.icon
@@ -53,6 +45,11 @@ class SettingCell: UICollectionViewCell{
     }
     
     private func setupViews(){
+        self.contentView.layer.borderColor = UIColor.black.cgColor
+        self.contentView.layer.shadowOpacity = 0.15
+        self.contentView.layer.shadowRadius = 20
+        self.contentView.layer.cornerRadius = 16
+       
         self.contentView.backgroundColor = UIColor(hex: "F8F8F8")
         self.contentView.addSubviews(sttngscell)
         sttngscell.addSubviews(vector,sttngsLbl,vector2)

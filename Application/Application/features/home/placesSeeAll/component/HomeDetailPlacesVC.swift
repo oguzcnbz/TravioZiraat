@@ -7,17 +7,6 @@ import SnapKit
 
 class HomeDetailPlacesVC: UIViewController {
     
-    
-//    var userss: [PlacesModel] = [
-//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Selimiye Camii",place: "Rome"),
-//        PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "Rome"),
-//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Fatih Camii",place: "Rome"),
-//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-//        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome")]
-    
     var detailArr: [Place] = []
 
     //MARK: -- Properties
@@ -64,7 +53,6 @@ class HomeDetailPlacesVC: UIViewController {
     
     @objc func btnSortTapped() {
         if sortButton.currentImage == UIImage(named: "sortSB") {
-            self.navigationController?.popViewController(animated: true)
             detailArr.sort { $0.title ?? "" < $1.title ?? "" }
             sortButton.setImage(UIImage(named: "sortBS"), for: .normal)
             

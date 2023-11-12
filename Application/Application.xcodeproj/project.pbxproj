@@ -14,8 +14,17 @@
 		5A4567262AE6729100DD75E0 /* DefaultMainStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4567252AE6729100DD75E0 /* DefaultMainStackView.swift */; };
 		5A47A7D32AFA531100AE2D6F /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7D22AFA531100AE2D6F /* CustomTextView.swift */; };
 		5A47A7DC2AFB5CE900AE2D6F /* PlaceDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7DB2AFB5CE900AE2D6F /* PlaceDetailModel.swift */; };
-		5A47A7DE2AFB66BA00AE2D6F /* Help&SupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7DD2AFB66BA00AE2D6F /* Help&SupportVC.swift */; };
-		5A47A7E02AFB681800AE2D6F /* CustomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7DF2AFB681800AE2D6F /* CustomStackView.swift */; };
+		5A47A7DE2AFB66BA00AE2D6F /* HelpAndSupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7DD2AFB66BA00AE2D6F /* HelpAndSupportVC.swift */; };
+		5A47A7E02AFB681800AE2D6F /* HelpAndSupportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7DF2AFB681800AE2D6F /* HelpAndSupportCell.swift */; };
+		5A47A7E22AFBA35800AE2D6F /* SettingUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7E12AFBA35800AE2D6F /* SettingUserModel.swift */; };
+		5A47A7E42AFBA92600AE2D6F /* HelpAndSupportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7E32AFBA92600AE2D6F /* HelpAndSupportModel.swift */; };
+		5A47A7E62AFD01AC00AE2D6F /* SecuritySettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7E52AFD01AC00AE2D6F /* SecuritySettingsVC.swift */; };
+		5A47A7E82AFD01B900AE2D6F /* AppDefaultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7E72AFD01B900AE2D6F /* AppDefaultsVC.swift */; };
+		5A47A7EA2AFD01CA00AE2D6F /* MyAddedPlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7E92AFD01CA00AE2D6F /* MyAddedPlacesVC.swift */; };
+		5A47A7EC2AFD01D500AE2D6F /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7EB2AFD01D500AE2D6F /* AboutVC.swift */; };
+		5A47A7EE2AFD01E500AE2D6F /* TermOfUseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7ED2AFD01E500AE2D6F /* TermOfUseVC.swift */; };
+		5A47A7F02AFD118400AE2D6F /* MyAddedPlacesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7EF2AFD118400AE2D6F /* MyAddedPlacesCell.swift */; };
+		5A47A7F22AFE022700AE2D6F /* SecuritySettingsCustomSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7F12AFE022700AE2D6F /* SecuritySettingsCustomSV.swift */; };
 		5A88EBFF2AF0ECB60087D0D0 /* MyVisitsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88EBFE2AF0ECB60087D0D0 /* MyVisitsCell.swift */; };
 		5A88EC012AF0ECFA0087D0D0 /* PlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88EC002AF0ECFA0087D0D0 /* PlacesModel.swift */; };
 		5A89AFD62AF4D16E000F2E4D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 5A89AFD52AF4D16E000F2E4D /* Kingfisher */; };
@@ -93,8 +102,17 @@
 		5A4567252AE6729100DD75E0 /* DefaultMainStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainStackView.swift; sourceTree = "<group>"; };
 		5A47A7D22AFA531100AE2D6F /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		5A47A7DB2AFB5CE900AE2D6F /* PlaceDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailModel.swift; sourceTree = "<group>"; };
-		5A47A7DD2AFB66BA00AE2D6F /* Help&SupportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Help&SupportVC.swift"; sourceTree = "<group>"; };
-		5A47A7DF2AFB681800AE2D6F /* CustomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStackView.swift; sourceTree = "<group>"; };
+		5A47A7DD2AFB66BA00AE2D6F /* HelpAndSupportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAndSupportVC.swift; sourceTree = "<group>"; };
+		5A47A7DF2AFB681800AE2D6F /* HelpAndSupportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAndSupportCell.swift; sourceTree = "<group>"; };
+		5A47A7E12AFBA35800AE2D6F /* SettingUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserModel.swift; sourceTree = "<group>"; };
+		5A47A7E32AFBA92600AE2D6F /* HelpAndSupportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAndSupportModel.swift; sourceTree = "<group>"; };
+		5A47A7E52AFD01AC00AE2D6F /* SecuritySettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuritySettingsVC.swift; sourceTree = "<group>"; };
+		5A47A7E72AFD01B900AE2D6F /* AppDefaultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaultsVC.swift; sourceTree = "<group>"; };
+		5A47A7E92AFD01CA00AE2D6F /* MyAddedPlacesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddedPlacesVC.swift; sourceTree = "<group>"; };
+		5A47A7EB2AFD01D500AE2D6F /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		5A47A7ED2AFD01E500AE2D6F /* TermOfUseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermOfUseVC.swift; sourceTree = "<group>"; };
+		5A47A7EF2AFD118400AE2D6F /* MyAddedPlacesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddedPlacesCell.swift; sourceTree = "<group>"; };
+		5A47A7F12AFE022700AE2D6F /* SecuritySettingsCustomSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuritySettingsCustomSV.swift; sourceTree = "<group>"; };
 		5A88EBFE2AF0ECB60087D0D0 /* MyVisitsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitsCell.swift; sourceTree = "<group>"; };
 		5A88EC002AF0ECFA0087D0D0 /* PlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesModel.swift; sourceTree = "<group>"; };
 		5A89AFD92AF4D5B9000F2E4D /* SettingUserCellVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserCellVC.swift; sourceTree = "<group>"; };
@@ -179,6 +197,7 @@
 		5A89AFE82AF51043000F2E4D /* termsOfUse */ = {
 			isa = PBXGroup;
 			children = (
+				5A47A7ED2AFD01E500AE2D6F /* TermOfUseVC.swift */,
 			);
 			path = termsOfUse;
 			sourceTree = "<group>";
@@ -186,6 +205,7 @@
 		5A89AFE92AF5105A000F2E4D /* about */ = {
 			isa = PBXGroup;
 			children = (
+				5A47A7EB2AFD01D500AE2D6F /* AboutVC.swift */,
 			);
 			path = about;
 			sourceTree = "<group>";
@@ -193,8 +213,9 @@
 		5A89AFEA2AF5105D000F2E4D /* help&Support */ = {
 			isa = PBXGroup;
 			children = (
-				5A47A7DD2AFB66BA00AE2D6F /* Help&SupportVC.swift */,
-				5A47A7DF2AFB681800AE2D6F /* CustomStackView.swift */,
+				5A47A7DD2AFB66BA00AE2D6F /* HelpAndSupportVC.swift */,
+				5A47A7DF2AFB681800AE2D6F /* HelpAndSupportCell.swift */,
+				5A47A7E32AFBA92600AE2D6F /* HelpAndSupportModel.swift */,
 			);
 			path = "help&Support";
 			sourceTree = "<group>";
@@ -202,6 +223,8 @@
 		5A89AFEB2AF5105F000F2E4D /* myAddedPlaces */ = {
 			isa = PBXGroup;
 			children = (
+				5A47A7E92AFD01CA00AE2D6F /* MyAddedPlacesVC.swift */,
+				5A47A7EF2AFD118400AE2D6F /* MyAddedPlacesCell.swift */,
 			);
 			path = myAddedPlaces;
 			sourceTree = "<group>";
@@ -209,6 +232,7 @@
 		5A89AFEC2AF51061000F2E4D /* appDefaults */ = {
 			isa = PBXGroup;
 			children = (
+				5A47A7E72AFD01B900AE2D6F /* AppDefaultsVC.swift */,
 			);
 			path = appDefaults;
 			sourceTree = "<group>";
@@ -216,6 +240,8 @@
 		5A89AFED2AF51064000F2E4D /* securitySettings */ = {
 			isa = PBXGroup;
 			children = (
+				5A47A7E52AFD01AC00AE2D6F /* SecuritySettingsVC.swift */,
+				5A47A7F12AFE022700AE2D6F /* SecuritySettingsCustomSV.swift */,
 			);
 			path = securitySettings;
 			sourceTree = "<group>";
@@ -308,6 +334,7 @@
 		600E173C2AF90CF50016DD97 /* component */ = {
 			isa = PBXGroup;
 			children = (
+				6019453E2AFB75860077D3FC /* HomeDetailPlacesVC.swift */,
 				6019453C2AFB75700077D3FC /* HomeDetailPlacesCellVC.swift */,
 			);
 			path = component;
@@ -394,6 +421,7 @@
 				6041B7AA2AEF93E90076E0CC /* UserModel.swift */,
 				5A88EC002AF0ECFA0087D0D0 /* PlacesModel.swift */,
 				5A47A7DB2AFB5CE900AE2D6F /* PlaceDetailModel.swift */,
+				5A47A7E12AFBA35800AE2D6F /* SettingUserModel.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -461,8 +489,8 @@
 		60DECAC92AF0DC5600A0EC49 /* home */ = {
 			isa = PBXGroup;
 			children = (
-				60DECACD2AF0DDD300A0EC49 /* placesSeeAll */,
 				600E17392AF8E5170016DD97 /* home */,
+				60DECACD2AF0DDD300A0EC49 /* placesSeeAll */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -507,7 +535,6 @@
 			isa = PBXGroup;
 			children = (
 				600E173C2AF90CF50016DD97 /* component */,
-				6019453E2AFB75860077D3FC /* HomeDetailPlacesVC.swift */,
 			);
 			path = placesSeeAll;
 			sourceTree = "<group>";
@@ -676,11 +703,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A47A7E82AFD01B900AE2D6F /* AppDefaultsVC.swift in Sources */,
 				5A89AFF72AFA334B000F2E4D /* MapAddPlaceCell.swift in Sources */,
+				5A47A7EA2AFD01CA00AE2D6F /* MyAddedPlacesVC.swift in Sources */,
 				600C6C442AF52C800080BA35 /* HomeCell.swift in Sources */,
 				600C6C432AF52C790080BA35 /* ColorConstants.swift in Sources */,
 				600C6C422AF52C740080BA35 /* HomeHeaderCell.swift in Sources */,
+				5A47A7F22AFE022700AE2D6F /* SecuritySettingsCustomSV.swift in Sources */,
 				600C6C412AF52C050080BA35 /* HomeViewModel.swift in Sources */,
+				5A47A7EC2AFD01D500AE2D6F /* AboutVC.swift in Sources */,
 				5A03FD842AEA66D500520AFE /* SignUpVC.swift in Sources */,
 				5AE50BF72ADA6DF9004E1FD3 /* LaunchScreen.swift in Sources */,
 				5A89AFEF2AF8C0AD000F2E4D /* MapCell.swift in Sources */,
@@ -689,6 +720,7 @@
 				600C6C402AF529A10080BA35 /* KeychainHelper.swift in Sources */,
 				6019454D2AFBC3A40077D3FC /* PlaceDetailViewModel.swift in Sources */,
 				6041B7B32AEF95950076E0CC /* MapVC.swift in Sources */,
+				5A47A7E62AFD01AC00AE2D6F /* SecuritySettingsVC.swift in Sources */,
 				6041B7A92AEF93E20076E0CC /* LoginViewModel.swift in Sources */,
 				6019453D2AFB75700077D3FC /* HomeDetailPlacesCellVC.swift in Sources */,
 				5AE50BBF2ADA6D37004E1FD3 /* AppDelegate.swift in Sources */,
@@ -700,12 +732,14 @@
 				6019453F2AFB75860077D3FC /* HomeDetailPlacesVC.swift in Sources */,
 				6019454E2AFBC3A40077D3FC /* PlaceDetailCell.swift in Sources */,
 				6041B7C32AEFC8530076E0CC /* CustomTextField.swift in Sources */,
+				5A47A7E42AFBA92600AE2D6F /* HelpAndSupportModel.swift in Sources */,
 				5A89AFDC2AF4D5D7000F2E4D /* SettingCellVC.swift in Sources */,
 				6041B7AB2AEF93E90076E0CC /* UserModel.swift in Sources */,
 				6041B7B12AEF95870076E0CC /* SettingsVC.swift in Sources */,
 				6041B7A72AEF93D70076E0CC /* NetworkHelper.swift in Sources */,
 				5AE50C012ADB3121004E1FD3 /* DefaultButton.swift in Sources */,
-				5A47A7E02AFB681800AE2D6F /* CustomStackView.swift in Sources */,
+				5A47A7F02AFD118400AE2D6F /* MyAddedPlacesCell.swift in Sources */,
+				5A47A7E02AFB681800AE2D6F /* HelpAndSupportCell.swift in Sources */,
 				6041B7AD2AEF94830076E0CC /* SingUpViewModel.swift in Sources */,
 				5A89AFDA2AF4D5B9000F2E4D /* SettingUserCellVC.swift in Sources */,
 				605C82982AFA266C00808E1D /* EditProfileVC.swift in Sources */,
@@ -714,6 +748,7 @@
 				5A47A7DE2AFB66BA00AE2D6F /* Help&SupportVC.swift in Sources */,
 				60D6A3E22B010E3E00C5BF3B /* PlaceDetailImageUrl.swift in Sources */,
 				5AE50BC12ADA6D37004E1FD3 /* SceneDelegate.swift in Sources */,
+				5A47A7EE2AFD01E500AE2D6F /* TermOfUseVC.swift in Sources */,
 				5A88EC012AF0ECFA0087D0D0 /* PlacesModel.swift in Sources */,
 				5A89AFF52AF91340000F2E4D /* CustomPin.swift in Sources */,
 				6041B7AF2AEF95810076E0CC /* MainTabbar.swift in Sources */,

@@ -36,6 +36,7 @@ class SettingUserCell: UICollectionViewCell{
         btn.addTarget(self, action: #selector(editProfilefunc), for: .touchUpInside)
         return btn
     }()
+    
     @objc func editProfilefunc(){
         closure?()
 //        let homevc = HomeVC()
@@ -103,8 +104,3 @@ class SettingUserCell: UICollectionViewCell{
 }
 
 
-struct SettingUser{
-    var image:UIImage?
-    var name:String?
-    
-}

@@ -7,11 +7,11 @@ class SettingsVC: UIViewController {
     var usersss:[SettingUser] = [SettingUser(image: UIImage(named: "face"), name: "Bruce Wills")]
 
     var settingCells:[Settings] = [Settings(icon: UIImage(named: "user"), settingName: "Security Settings"),
-                                      Settings(icon: UIImage(named: "binoculars"), settingName: "App Defaults"),
-                                      Settings(icon: UIImage(named: "icMap"), settingName: "My Added Places"),
-                                      Settings(icon: UIImage(named: "headPhone"), settingName: "Help&Support"),
-                                      Settings(icon: UIImage(named: "info"), settingName: "About"),
-                                      Settings(icon: UIImage(named: "hands"), settingName: "Terms of Use"),
+                                   Settings(icon: UIImage(named: "binoculars"), settingName: "App Defaults"),
+                                   Settings(icon: UIImage(named: "icMap"), settingName: "My Added Places"),
+                                   Settings(icon: UIImage(named: "headPhone"), settingName: "Help&Support"),
+                                   Settings(icon: UIImage(named: "info"), settingName: "About"),
+                                   Settings(icon: UIImage(named: "hands"), settingName: "Terms of Use"),
     ]
 
     private lazy var collectionView:UICollectionView = {
@@ -26,7 +26,7 @@ class SettingsVC: UIViewController {
         cv.layoutIfNeeded()
         cv.layer.maskedCorners = [.layerMinXMinYCorner]
         cv.dataSource = self
-
+        cv.delegate = self
         return cv
     }()
 
@@ -94,6 +94,49 @@ class SettingsVC: UIViewController {
 
 }
 
+extension SettingsVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 1:
+            switch indexPath.row {
+            case 0:
+                let vc = SecuritySettingsVC()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            case 1:
+                let vc = AppDefaultsVC()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+               
+            case 2:
+                let vc = MyAddedPlacesVC()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            case 3:
+                let vc = HelpAndSupportVC()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            case 4:
+                let vc = AboutVC()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            case 5:
+                let vc = TermOfUseVC()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            default:
+                break
+            }
+        default:
+            break
+        }
+    }
+}
+
+
 extension SettingsVC:UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -106,6 +149,7 @@ extension SettingsVC:UICollectionViewDataSource {
         }else{
             return settingCells.count
         }
+       
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -140,6 +184,7 @@ extension SettingsVC:UICollectionViewDataSource {
 extension SettingsVC {
 
     func makeCollectionViewLayout() -> UICollectionViewLayout {
+        
         let layout = UICollectionViewCompositionalLayout { [weak self] sectionIndex, environment in
             if sectionIndex == 0 {
                 return self?.makeUserLayoutSection()
@@ -147,8 +192,13 @@ extension SettingsVC {
                 return self?.makeSettingsLayoutSection()
             }
         }
+    
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        config.interSectionSpacing = 24
+        layout.configuration = config
         return layout
     }
+
 
     func makeUserLayoutSection() -> NSCollectionLayoutSection {
         // Define layout for the user section
@@ -177,10 +227,10 @@ extension SettingsVC {
 
 
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 12, leading:16 , bottom:0 , trailing: 16)
+        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading:16 , bottom:0 , trailing: 16)
         layoutSection.interGroupSpacing = 8
-
-
+        
+        
         return layoutSection
     }
 }
