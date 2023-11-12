@@ -22,7 +22,7 @@ enum Router {
         case .placePopularGet,.placePopularGetParams:
             return "/v1/places/popular"
         case .placeDetailGetGalleryImages(let placeId):
-            return "/v1/galleries/:\(placeId) "
+            return "/v1/galleries/\(placeId)"
       
         }
     }

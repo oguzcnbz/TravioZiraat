@@ -1,5 +1,5 @@
 //
-//  PlaceDetailModel.swift
+//  PlaceDetailImageUrl.swift
 //  Application
 //
 //  Created by Ada on 12.11.2023.
@@ -7,20 +7,20 @@
 
 import Foundation
 
-// MARK: - PlaceDeatilImagesURLModel
-struct PlaceDeatilImagesURLModel: Codable {
-    let data: DataClassPlaceDetail
+
+struct PlaceDetailImagesURLModel: Codable {
+    let data: PelaceDetailDataClass
     let status: String
 }
 
 // MARK: - DataClass
-struct DataClassPlaceDetail: Codable {
+struct PelaceDetailDataClass: Codable {
     let count: Int
-    let images: [Image]
+    let images: [PlaceDetailImage]
 }
 
 // MARK: - Image
-struct Image: Codable {
+struct PlaceDetailImage: Codable {
     let id, placeID: String
     let imageURL: String
     let createdAt, updatedAt: String
@@ -33,4 +33,3 @@ struct Image: Codable {
         case updatedAt = "updated_at"
     }
 }
-
