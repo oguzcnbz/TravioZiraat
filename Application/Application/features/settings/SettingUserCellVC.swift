@@ -38,10 +38,10 @@ class SettingUserCell: UICollectionViewCell{
     }()
     @objc func editProfilefunc(){
         closure?()
-        let homevc = HomeVC()
-        let vc = HomeDetailPlacesVC()
-        homevc.navigationController?.pushViewController(vc, animated: true)
-        print("deneme")
+//        let homevc = HomeVC()
+//        let vc = HomeDetailPlacesVC()
+//        homevc.navigationController?.pushViewController(vc, animated: true)
+//        print("deneme")
     
     }
     

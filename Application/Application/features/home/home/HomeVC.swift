@@ -110,8 +110,8 @@ class HomeVC: UIViewController {
         homeViewModel.transferData = { [weak self] () in
             let obj = self?.homeViewModel.populerPlace
             self?.populerArr = obj ?? []
-            print(self?.populerArr.count)
-            print("======")
+//            print(self?.populerArr.count)
+//            print("======")
             self?.collectionView.reloadData()
 
         }

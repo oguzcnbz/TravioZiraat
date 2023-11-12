@@ -25,6 +25,8 @@ class MapVC: UIViewController {
         cv.register(MapCell.self, forCellWithReuseIdentifier: "cell")
         cv.dataSource = self
         cv.delegate = self
+        cv.contentInsetAdjustmentBehavior = .never
+        cv.isScrollEnabled = false
         return cv
     }()
     
@@ -55,8 +57,9 @@ class MapVC: UIViewController {
         collectionView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.top.equalToSuperview().offset(621)
+            make.bottom.equalToSuperview().offset(-10)
+            make.height.equalTo(178)
+           // make.top.equalToSuperview().offset(621)
         }
     }
     
@@ -168,6 +171,11 @@ extension MapVC: UICollectionViewDelegate {
             mapView.setRegion(region, animated: true)
             mapView.selectAnnotation(annotation, animated: true)
         }
+        let vc = PlaceDetailVC()
+        vc.placeModel = places[indexPath.row]
+        self.navigationController?.pushViewController(vc, animated: true)
+    
+        
     }
 }
 
