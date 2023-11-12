@@ -13,7 +13,6 @@
 		5A03FD842AEA66D500520AFE /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A03FD832AEA66D500520AFE /* SignUpVC.swift */; };
 		5A4567262AE6729100DD75E0 /* DefaultMainStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4567252AE6729100DD75E0 /* DefaultMainStackView.swift */; };
 		5A47A7D32AFA531100AE2D6F /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7D22AFA531100AE2D6F /* CustomTextView.swift */; };
-		5A47A7DC2AFB5CE900AE2D6F /* PlaceDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7DB2AFB5CE900AE2D6F /* PlaceDetailModel.swift */; };
 		5A47A7DE2AFB66BA00AE2D6F /* HelpAndSupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7DD2AFB66BA00AE2D6F /* HelpAndSupportVC.swift */; };
 		5A47A7E02AFB681800AE2D6F /* HelpAndSupportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7DF2AFB681800AE2D6F /* HelpAndSupportCell.swift */; };
 		5A47A7E42AFBA92600AE2D6F /* HelpAndSupportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7E32AFBA92600AE2D6F /* HelpAndSupportModel.swift */; };
@@ -101,7 +100,6 @@
 		5A03FD832AEA66D500520AFE /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		5A4567252AE6729100DD75E0 /* DefaultMainStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainStackView.swift; sourceTree = "<group>"; };
 		5A47A7D22AFA531100AE2D6F /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
-		5A47A7DB2AFB5CE900AE2D6F /* PlaceDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailModel.swift; sourceTree = "<group>"; };
 		5A47A7DD2AFB66BA00AE2D6F /* HelpAndSupportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAndSupportVC.swift; sourceTree = "<group>"; };
 		5A47A7DF2AFB681800AE2D6F /* HelpAndSupportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAndSupportCell.swift; sourceTree = "<group>"; };
 		5A47A7E12AFBA35800AE2D6F /* SettingUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserModel.swift; sourceTree = "<group>"; };
@@ -334,7 +332,6 @@
 		600E173C2AF90CF50016DD97 /* component */ = {
 			isa = PBXGroup;
 			children = (
-				60D6A3E62B0120EA00C5BF3B /* HomeDetailPlacesVC.swift */,
 				6019453C2AFB75700077D3FC /* HomeDetailPlacesCellVC.swift */,
 			);
 			path = component;
@@ -420,7 +417,6 @@
 			children = (
 				6041B7AA2AEF93E90076E0CC /* UserModel.swift */,
 				5A88EC002AF0ECFA0087D0D0 /* PlacesModel.swift */,
-				5A47A7DB2AFB5CE900AE2D6F /* PlaceDetailModel.swift */,
 				5A47A7E12AFBA35800AE2D6F /* SettingUserModel.swift */,
 			);
 			path = models;
@@ -490,7 +486,7 @@
 			isa = PBXGroup;
 			children = (
 				600E17392AF8E5170016DD97 /* home */,
-				60DECACD2AF0DDD300A0EC49 /* placesSeeAll */,
+				60DECACD2AF0DDD300A0EC49 /* homeDetail */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -531,12 +527,13 @@
 			path = map;
 			sourceTree = "<group>";
 		};
-		60DECACD2AF0DDD300A0EC49 /* placesSeeAll */ = {
+		60DECACD2AF0DDD300A0EC49 /* homeDetail */ = {
 			isa = PBXGroup;
 			children = (
+				60D6A3E62B0120EA00C5BF3B /* HomeDetailPlacesVC.swift */,
 				600E173C2AF90CF50016DD97 /* component */,
 			);
-			path = placesSeeAll;
+			path = homeDetail;
 			sourceTree = "<group>";
 		};
 		60DECACE2AF0DDE900A0EC49 /* myVisit */ = {
@@ -727,7 +724,6 @@
 				6019453D2AFB75700077D3FC /* HomeDetailPlacesCellVC.swift in Sources */,
 				5AE50BBF2ADA6D37004E1FD3 /* AppDelegate.swift in Sources */,
 				5A89AFF32AF8DD8D000F2E4D /* MapViewModel.swift in Sources */,
-				5A47A7DC2AFB5CE900AE2D6F /* PlaceDetailModel.swift in Sources */,
 				5A4567262AE6729100DD75E0 /* DefaultMainStackView.swift in Sources */,
 				6041B7B92AEF98880076E0CC /* HomeVC.swift in Sources */,
 				5A47A7D32AFA531100AE2D6F /* CustomTextView.swift in Sources */,
