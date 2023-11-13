@@ -107,7 +107,7 @@ class HomeDetailPlacesVC: UIViewController {
 
             }
             
-        }else {
+        }else if titleHeader == "Last Place"  {
             homeViewModel.getLastPlace()
             homeViewModel.transferLastData = { [weak self] () in
                 let obj = self?.homeViewModel.lastPlace
@@ -118,6 +118,17 @@ class HomeDetailPlacesVC: UIViewController {
 
             }
             
+            
+        }else {
+            homeViewModel.getUserPlace()
+            homeViewModel.transferUserData = { [weak self] () in
+                let obj = self?.homeViewModel.userPlace
+                self?.detailArr = obj ?? []
+                print(self?.detailArr.count)
+                print("======")
+                self?.collectionView.reloadData()
+
+            }
             
         }
         

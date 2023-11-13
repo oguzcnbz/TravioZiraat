@@ -27,6 +27,7 @@ class HomeVC: UIViewController {
 
     var populerArr: [Place] = []
     var lastArr: [Place] = []
+    var userArr: [Place] = []
     
     
     //MARK: -- Views
@@ -72,9 +73,9 @@ class HomeVC: UIViewController {
     //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        getData()
-        
-        
+        getPopulerPlaceData()
+        getLastPlaceData ()
+        getUserPlaceData ()
         
        setupViews()
    
@@ -85,7 +86,7 @@ class HomeVC: UIViewController {
    
     
     //MARK: -- Private Methods
-    private func getData (){
+    private func getPopulerPlaceData (){
        
         
         homeViewModel.getPopulerPlaceParam()
@@ -98,16 +99,31 @@ class HomeVC: UIViewController {
 
         }
         
+     
+    }
+    private func getLastPlaceData (){
         homeViewModel.getLastParam()
         homeViewModel.transferLastData = { [weak self] () in
             let obj = self?.homeViewModel.lastPlace
             self?.lastArr = obj ?? []
-            print(self?.lastArr.count)
-//            print("======")
+            
+
             self?.collectionView.reloadData()
 
         }
     }
+    private func getUserPlaceData (){
+        homeViewModel.getUserPlace()
+        homeViewModel.transferUserData = { [weak self] () in
+            let obj = self?.homeViewModel.userPlace
+            self?.userArr = obj ?? []
+            
+
+            self?.collectionView.reloadData()
+
+        }
+    }
+    
     
     
     //MARK: -- UI Methods
@@ -151,13 +167,18 @@ class HomeVC: UIViewController {
 extension HomeVC:UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 { return populerArr.count }
         
-        else{ return lastArr.count}
+        else if section == 1{ return lastArr.count}
+        
+        else{
+            return userArr.count
+            
+        }
         
 
     }
@@ -169,10 +190,15 @@ extension HomeVC:UICollectionViewDataSource {
             let object = populerArr[indexPath.row]
             cell.configure(object:object)
             return cell
-        }else{
+        }else if indexPath.section == 1{
             let object = lastArr[indexPath.row]
             cell.configure(object:object)
             return cell
+        }else {
+            let object = userArr[indexPath.row]
+            cell.configure(object:object)
+            return cell
+            
         }
         
         
@@ -198,7 +224,7 @@ extension HomeVC:UICollectionViewDataSource {
             }
             return supplementaryView
         }
-        else{
+        else if indexPath.section == 1 {
             guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: "section-header-element-kind",
                 withReuseIdentifier: HomeHeaderCell.reuseIdentifier ,
@@ -213,6 +239,22 @@ extension HomeVC:UICollectionViewDataSource {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             return supplementaryView
+        }else {
+            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: "section-header-element-kind",
+                withReuseIdentifier: HomeHeaderCell.reuseIdentifier ,
+                for: indexPath) as? HomeHeaderCell else { fatalError("Cannot create new supplementary")
+            }
+            supplementaryView.configure(title: "My Added Place")
+            
+            supplementaryView.closure = {
+                let vc = HomeDetailPlacesVC()
+                vc.titleHeader = "My Added Place"
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            return supplementaryView
+            
         }
      
     }

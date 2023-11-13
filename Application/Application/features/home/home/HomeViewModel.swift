@@ -16,9 +16,15 @@ class HomeViewModel{
             self.transferLastData?()
         }
     }
+    var userPlace:[Place] = [] {
+        didSet {
+            self.transferUserData?()
+        }
+    }
     
     var transferPopulerData: (()->())?
     var transferLastData: (()->())?
+    var transferUserData: (()->())?
     
     
 //MARK: Populer place
@@ -86,5 +92,24 @@ class HomeViewModel{
         })
         
     }
+    
+    //MARK: user place
+    func getUserPlace(){
+       
+        NetworkingHelper.shared.getDataFromRemote(urlRequest: .placeAllUserGet, callback: { (result:Result<PlacesModelDatas,Error>) in
+            switch result {
+            case .success(let obj):
+                let response = obj.data
+                self.userPlace = response.places
+                print(self.userPlace)
+            
+            case .failure(let err):
+                print(err.localizedDescription)
+                print("boyle kod olmaz")
+            }
+        })
+        
+    }
+    
     
 }
