@@ -54,6 +54,9 @@ final class KeychainHelper {
         
         
         return (result as? Data)
+        
+     //   var accesStr = String(data: (result as? Data)!, encoding: .utf8)
+        
     }
     
     
