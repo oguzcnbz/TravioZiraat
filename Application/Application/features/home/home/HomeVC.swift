@@ -73,10 +73,10 @@ class HomeVC: UIViewController {
     //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        getPopulerPlaceData()
+getPopulerPlaceData()
         getLastPlaceData ()
         getUserPlaceData ()
-        
+           
        setupViews()
    
         
@@ -86,6 +86,38 @@ class HomeVC: UIViewController {
    
     
     //MARK: -- Private Methods
+//    private func getData (){
+//       
+//        
+//        homeViewModel.getPopulerPlaceParam()
+//        homeViewModel.transferPopulerData = { [weak self] () in
+//            let obj = self?.homeViewModel.populerPlace
+//            self?.populerArr = obj ?? []
+//           print(self?.populerArr.count)
+//           self?.collectionView.reloadData()
+//
+//        }
+//        
+//        homeViewModel.getLastParam()
+//        homeViewModel.transferLastData = { [weak self] () in
+//            let obj = self?.homeViewModel.lastPlace
+//            self?.lastArr = obj ?? []
+//            
+//
+//            self?.collectionView.reloadData()
+//
+//        }
+//        
+//        
+//        homeViewModel.getUserPlace()
+//        homeViewModel.transferUserData = { [weak self] () in
+//            let obj = self?.homeViewModel.userPlace
+//            self?.userArr = obj ?? []
+//            self?.collectionView.reloadData()
+//        }
+//        
+//     
+//    }
     private func getPopulerPlaceData (){
        
         
@@ -93,9 +125,9 @@ class HomeVC: UIViewController {
         homeViewModel.transferPopulerData = { [weak self] () in
             let obj = self?.homeViewModel.populerPlace
             self?.populerArr = obj ?? []
-//            print(self?.populerArr.count)
-//            print("======")
-            self?.collectionView.reloadData()
+           print(self?.populerArr.count)
+           print("======")
+           self?.collectionView.reloadData()
 
         }
         
@@ -117,11 +149,9 @@ class HomeVC: UIViewController {
         homeViewModel.transferUserData = { [weak self] () in
             let obj = self?.homeViewModel.userPlace
             self?.userArr = obj ?? []
-            
-
             self?.collectionView.reloadData()
-
         }
+        
     }
     
     
