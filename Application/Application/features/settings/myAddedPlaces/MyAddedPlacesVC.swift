@@ -7,24 +7,12 @@ import SnapKit
 
 class MyAddedPlacesVC: UIViewController {
     
-    
-    var userss: [PlacesModel] = [
-        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Selimiye Camii",place: "Rome"),
-        PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "Rome"),
-        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Fatih Camii",place: "Rome"),
-        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome"),
-        PlacesModel(image: UIImage(named: "colleseumMini"), name: "Colleseum",place: "Rome")]
-    
-    var detailArr: [Place] = []
+    var myAddedPlaces: [Place] = []
 
     //MARK: -- Properties
-    lazy var homeViewModel: HomeViewModel = {
-        return HomeViewModel()
-    }()
-   
+    
+    
+    lazy var myAddedPlacesViewModel: MyAddedPlacesViewModel = MyAddedPlacesViewModel()
     
     private lazy var collectionView:UICollectionView = {
        
@@ -64,15 +52,42 @@ class MyAddedPlacesVC: UIViewController {
     
     @objc func btnSortTapped() {
         if sortButton.currentImage == UIImage(named: "sortAZ") {
-            detailArr.sort { $0.title < $1.title }
+            myAddedPlaces.sort { $0.title < $1.title }
             sortButton.setImage(UIImage(named: "sortZA"), for: .normal)
             
         } else {
-            detailArr.sort { $0.title > $1.title }
+            myAddedPlaces.sort { $0.title > $1.title }
             sortButton.setImage(UIImage(named: "sortAZ"), for: .normal)
         }
         collectionView.reloadData()
     }
+    
+    func checkVisit(placeId: String, place:Place){
+        let vc = PlaceDetailVC()
+        vc.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
+        vc.placeDetailViewModel.checkclosure = {[weak self] status in
+            if status == "success" {
+                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
+            }
+            else{
+                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
+            }
+            vc.placeModel = place
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func getData() {
+        myAddedPlacesViewModel.myAddedPlacesGet()
+        myAddedPlacesViewModel.transferData = { [weak self] () in
+            let obj = self?.myAddedPlacesViewModel.myaddedplaces
+                self?.myAddedPlaces = obj ?? []
+                self?.collectionView.reloadData()
+        
+            }
+       
+        }
+    
 
     //MARK: -- Views
    
@@ -80,8 +95,8 @@ class MyAddedPlacesVC: UIViewController {
     //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        getDetail()
-       setupViews()
+        getData()
+        setupViews()
     }
     
   
@@ -104,19 +119,7 @@ class MyAddedPlacesVC: UIViewController {
     @objc func rightbartapped(){
         self.navigationController?.popViewController(animated: true)
     }
-    private func getDetail (){
-       
-        
-        homeViewModel.getPopulerPlace()
-        homeViewModel.transferPopulerData = { [weak self] () in
-            let obj = self?.homeViewModel.populerPlace
-            self?.detailArr = obj ?? []
-            print(self?.detailArr.count)
-            print("======")
-            self?.collectionView.reloadData()
-
-        }
-    }
+    
 
     
     func setupLayout() {
@@ -154,18 +157,25 @@ extension MyAddedPlacesVC:UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return detailArr.count
+        return myAddedPlaces.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! HomeDetailPlacesCell
-        let object = detailArr[indexPath.row]
+        let object = myAddedPlaces[indexPath.row]
         cell.configure(object:object)
         
         return cell
     }
 }
 
+extension MyAddedPlacesVC:UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let place = myAddedPlaces[indexPath.row]
+        print(place)
+        self.checkVisit(placeId: place.id, place: place)
+    }
+}
 
 extension MyAddedPlacesVC {
     
