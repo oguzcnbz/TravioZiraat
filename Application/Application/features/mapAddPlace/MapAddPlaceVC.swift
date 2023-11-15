@@ -4,6 +4,9 @@ import SnapKit
 
 class MapAddPlaceVC: UIViewController {
     
+    var imageArray: [UIImage?] = [nil,nil,nil]
+    let hasImgArr:[Bool] = [false,false,false]
+    
     private lazy var stick: UIView = {
         let v = UIView()
         v.backgroundColor = UIColor(hex: "D9D9D9")
@@ -43,6 +46,15 @@ class MapAddPlaceVC: UIViewController {
     }()
     
     @objc func btnAddPlaceTapped() {
+        let filterImg = imageArray.compactMap(({ $0 }))
+       // print(filterImg.count)
+        
+        if filterImg.count > 0 { 
+            let networkHelper = NetworkingHelper()
+            networkHelper.uploadImage(image: filterImg.first!, path: "/upload")
+        }
+        
+
          
     }
     override func viewDidLoad() {
@@ -117,6 +129,15 @@ extension MapAddPlaceVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MapAddPlaceCell
+        
+      
+        cell.closure = { image in
+            self.imageArray[indexPath.row] = image
+        
+          
+           
+        }
+       
     
         return cell
     }

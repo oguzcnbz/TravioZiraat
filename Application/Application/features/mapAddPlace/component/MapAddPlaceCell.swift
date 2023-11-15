@@ -4,8 +4,10 @@ import SnapKit
 
 class MapAddPlaceCell: UICollectionViewCell {
     
-    var closure:(()->Void)?
+   // var imageArr:[UIImage] = []
+    var closure:((UIImage)->Void)?
     var hasImage:Bool = false
+    var indexRow:Int?
     
     
     private lazy var imgPlace:UIImageView = {
@@ -38,13 +40,14 @@ class MapAddPlaceCell: UICollectionViewCell {
                 self.contentView.isUserInteractionEnabled = true
         
     }
+   
     @objc private func cellTapped() {
             // Add your desired action when the cell is tapped
-            print("Cell tapped!")
+            print("Cell tapped! \(indexRow)")
         showChooseSourceTypeAlertController()
         }
     
- 
+   
     
     
     private func setupViews(){
@@ -118,6 +121,8 @@ extension MapAddPlaceCell: UIImagePickerControllerDelegate, UINavigationControll
         }
         self.addPhotolbl.text = ""
         self.vector.image = nil
+        
+        closure!(imgPlace.image!)
         picker.dismiss(animated: true, completion: nil)
     }
 }
