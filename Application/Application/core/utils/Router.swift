@@ -6,6 +6,7 @@ enum Router {
     
     case userRegister(params:Parameters)
     case userLogin(params:Parameters)
+    case placeAllGet
     case placePopularGet
     case placePopularGetParams(params:Parameters)
     case placeLastGet
@@ -13,6 +14,11 @@ enum Router {
     case placeDetailGetGalleryImages(placeId:String)
     case placeAllUserGet
     case placePost
+    case visitsGet
+    case visitPost(params:Parameters)
+    case visitDelete(placeId:String)
+    case visitByPlaceIdCheck(placeId:String)
+    case myAddedPlacesGet
     //case placeUser(
     
     
@@ -36,21 +42,28 @@ enum Router {
             return "/v1/galleries/\(placeId)"
         case .placeAllUserGet:
             return "/v1/places/user"
-        case .placePost:
+        case .placeAllGet,.placePost:
             return "/v1/places"
-            
+        case .visitsGet,.visitPost:
+            return "/v1/visits"
+        case .visitDelete(let placeId):
+            return "/v1/visits/\(placeId)"
+        case.visitByPlaceIdCheck(let placeId):
+            return "/v1/visits/user/\(placeId)"
+        case .myAddedPlacesGet:
+            return "/v1/places/user"
         }
     }
     
     
     var method:HTTPMethod {
         switch self {
-        case .userLogin,.userRegister,.placePost:
+        case .userLogin,.userRegister,.placePost,.visitPost:
             return .post
-        case .placePopularGet,.placePopularGetParams,.placeLastGet,.placeLastGetParams,.placeDetailGetGalleryImages,.placeAllUserGet:
+        case .placeAllGet,.placePopularGet,.placePopularGetParams,.placeLastGet,.placeLastGetParams,.placeDetailGetGalleryImages,.placeAllUserGet,.visitsGet,.visitByPlaceIdCheck,.myAddedPlacesGet:
             return .get
-            //        case .userDelete:
-            //            return .delete
+        case .visitDelete:
+            return .delete
             //        case .userUpdate:
             //            return .put
         }
@@ -59,23 +72,21 @@ enum Router {
     
     var headers:HTTPHeaders {
         switch self {
-        case .userLogin, .placePopularGet,.userRegister,.placePopularGetParams,.placeDetailGetGalleryImages,.placeLastGet,.placeLastGetParams:
+        case .userLogin,.placeAllGet ,.placePopularGet,.userRegister,.placePopularGetParams,.placeDetailGetGalleryImages,.placeLastGet,.placeLastGetParams,.myAddedPlacesGet:
             return [:]
-        case .placeAllUserGet,.placePost:
+        case .placeAllUserGet,.placePost,.visitPost,.visitsGet,.visitDelete,.visitByPlaceIdCheck:
             guard let accessToken = KeychainHelper.shared.read(service: "user-key", account: "accessToken") else {return [:] }
             var accesTmp = String(data: accessToken, encoding: .utf8)
             guard let accesStr = accesTmp else {return [:]}
             return ["Authorization": "Bearer \(accesStr)"]
-
-            
-            
         }
     }
+    
         var parameters:Parameters? {
             switch self {
-            case .userLogin(let params),.userRegister(let params),.placePopularGetParams(params: let params),.placeLastGetParams(params: let params):
+            case .userLogin(let params),.userRegister(let params),.placePopularGetParams(params: let params),.placeLastGetParams(params: let params),.visitPost(params: let params):
                 return params
-            case .placePopularGet,.placeLastGet,.placeDetailGetGalleryImages,.placeAllUserGet,.placePost:
+            case .placeAllGet,.placePopularGet,.placeLastGet,.placeDetailGetGalleryImages,.placeAllUserGet,.placePost,.visitsGet,.visitDelete,.visitByPlaceIdCheck,.myAddedPlacesGet:
                 return nil
                 //        case .userUpdate(userId: _, params: let params):
                 //            return params
@@ -98,7 +109,7 @@ enum Router {
             
             let encoding:ParameterEncoding = {
                 switch method {
-                case .post,.put:
+                case .post,.put,.delete:
                     return JSONEncoding.default
                 default:
                     return URLEncoding.default

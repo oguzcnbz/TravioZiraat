@@ -23,6 +23,10 @@
 		5A47A7EE2AFD01E500AE2D6F /* TermOfUseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7ED2AFD01E500AE2D6F /* TermOfUseVC.swift */; };
 		5A47A7F02AFD118400AE2D6F /* MyAddedPlacesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7EF2AFD118400AE2D6F /* MyAddedPlacesCell.swift */; };
 		5A47A7F22AFE022700AE2D6F /* SecuritySettingsCustomSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7F12AFE022700AE2D6F /* SecuritySettingsCustomSV.swift */; };
+		5A5C5E452B034BD9004B0151 /* PlaceDetailPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5C5E442B034BD9004B0151 /* PlaceDetailPostModel.swift */; };
+		5A5C5E472B034F0A004B0151 /* MyVisitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5C5E462B034F0A004B0151 /* MyVisitModel.swift */; };
+		5A5C5E492B03542D004B0151 /* MyVisitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5C5E482B03542D004B0151 /* MyVisitsViewModel.swift */; };
+		5A5C5E4B2B03F914004B0151 /* MyAddedPlacesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5C5E4A2B03F914004B0151 /* MyAddedPlacesViewModel.swift */; };
 		5A88EBFF2AF0ECB60087D0D0 /* MyVisitsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88EBFE2AF0ECB60087D0D0 /* MyVisitsCell.swift */; };
 		5A88EC012AF0ECFA0087D0D0 /* PlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88EC002AF0ECFA0087D0D0 /* PlacesModel.swift */; };
 		5A89AFD62AF4D16E000F2E4D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 5A89AFD52AF4D16E000F2E4D /* Kingfisher */; };
@@ -114,6 +118,10 @@
 		5A47A7ED2AFD01E500AE2D6F /* TermOfUseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermOfUseVC.swift; sourceTree = "<group>"; };
 		5A47A7EF2AFD118400AE2D6F /* MyAddedPlacesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddedPlacesCell.swift; sourceTree = "<group>"; };
 		5A47A7F12AFE022700AE2D6F /* SecuritySettingsCustomSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuritySettingsCustomSV.swift; sourceTree = "<group>"; };
+		5A5C5E442B034BD9004B0151 /* PlaceDetailPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailPostModel.swift; sourceTree = "<group>"; };
+		5A5C5E462B034F0A004B0151 /* MyVisitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitModel.swift; sourceTree = "<group>"; };
+		5A5C5E482B03542D004B0151 /* MyVisitsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitsViewModel.swift; sourceTree = "<group>"; };
+		5A5C5E4A2B03F914004B0151 /* MyAddedPlacesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddedPlacesViewModel.swift; sourceTree = "<group>"; };
 		5A88EBFE2AF0ECB60087D0D0 /* MyVisitsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitsCell.swift; sourceTree = "<group>"; };
 		5A88EC002AF0ECFA0087D0D0 /* PlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesModel.swift; sourceTree = "<group>"; };
 		5A89AFD92AF4D5B9000F2E4D /* SettingUserCellVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserCellVC.swift; sourceTree = "<group>"; };
@@ -228,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				5A47A7E92AFD01CA00AE2D6F /* MyAddedPlacesVC.swift */,
+				5A5C5E4A2B03F914004B0151 /* MyAddedPlacesViewModel.swift */,
 				5A47A7EF2AFD118400AE2D6F /* MyAddedPlacesCell.swift */,
 			);
 			path = myAddedPlaces;
@@ -410,6 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				60D6A3E12B010E3E00C5BF3B /* PlaceDetailImageUrl.swift */,
+				5A5C5E442B034BD9004B0151 /* PlaceDetailPostModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -565,6 +575,8 @@
 			isa = PBXGroup;
 			children = (
 				5A89AFE32AF50CE8000F2E4D /* MyVisitVC.swift */,
+				5A5C5E462B034F0A004B0151 /* MyVisitModel.swift */,
+				5A5C5E482B03542D004B0151 /* MyVisitsViewModel.swift */,
 				5A88EBFE2AF0ECB60087D0D0 /* MyVisitsCell.swift */,
 			);
 			path = myVisit;
@@ -731,9 +743,12 @@
 				5A47A7EA2AFD01CA00AE2D6F /* MyAddedPlacesVC.swift in Sources */,
 				600C6C442AF52C800080BA35 /* HomeCell.swift in Sources */,
 				600C6C432AF52C790080BA35 /* ColorConstants.swift in Sources */,
+				5A5C5E492B03542D004B0151 /* MyVisitsViewModel.swift in Sources */,
 				600C6C422AF52C740080BA35 /* HomeHeaderCell.swift in Sources */,
+				5A5C5E472B034F0A004B0151 /* MyVisitModel.swift in Sources */,
 				5A47A7F22AFE022700AE2D6F /* SecuritySettingsCustomSV.swift in Sources */,
 				600C6C412AF52C050080BA35 /* HomeViewModel.swift in Sources */,
+				5A5C5E4B2B03F914004B0151 /* MyAddedPlacesViewModel.swift in Sources */,
 				5A47A7EC2AFD01D500AE2D6F /* AboutVC.swift in Sources */,
 				5A03FD842AEA66D500520AFE /* SignUpVC.swift in Sources */,
 				5AE50BF72ADA6DF9004E1FD3 /* LaunchScreen.swift in Sources */,
@@ -764,6 +779,7 @@
 				60E3C2932B0258B000890FA6 /* AlertService.swift in Sources */,
 				5AE50C012ADB3121004E1FD3 /* DefaultButton.swift in Sources */,
 				5A47A7F02AFD118400AE2D6F /* MyAddedPlacesCell.swift in Sources */,
+				5A5C5E452B034BD9004B0151 /* PlaceDetailPostModel.swift in Sources */,
 				5A47A7E02AFB681800AE2D6F /* HelpAndSupportCell.swift in Sources */,
 				6041B7AD2AEF94830076E0CC /* SingUpViewModel.swift in Sources */,
 				5A89AFDA2AF4D5B9000F2E4D /* SettingUserCellVC.swift in Sources */,

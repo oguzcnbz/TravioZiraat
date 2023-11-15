@@ -2,9 +2,9 @@
 import UIKit
 import Alamofire
 
-class MapViewModel{
+class MyAddedPlacesViewModel{
 
-    var populerPlace:[Place] = [] {
+    var myaddedplaces:[Place] = [] {
         didSet {
             self.transferData?()
         }
@@ -12,15 +12,13 @@ class MapViewModel{
     
     var transferData: (()->())?
     
-    func getPopulerPlace(){
+    func myAddedPlacesGet(){
        
-        NetworkingHelper.shared.getDataFromRemote(urlRequest: .placeAllGet, callback: { (result:Result<PlacesModelDatas,Error>) in
+        NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitsGet, callback: { (result:Result<PlacesModelDatas,Error>) in
             switch result {
             case .success(let obj):
                 let response = obj.data
-                let sortedPlaces = response.places.sorted { $0.title < $1.title }
-                self.populerPlace = sortedPlaces
-                print(self.populerPlace.first?.coverImageURL)
+                self.myaddedplaces = response.places
                 
             case .failure(let err):
                 print(err.localizedDescription)
@@ -29,6 +27,5 @@ class MapViewModel{
         })
         
     }
-    
-    
+  
 }

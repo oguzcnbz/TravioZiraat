@@ -3,7 +3,6 @@ import SnapKit
 
 class MapCell: UICollectionViewCell {
 
-    weak var delegate:DataTransferDelegate?
     
     var closure:(()->Void)?
     
@@ -46,7 +45,7 @@ class MapCell: UICollectionViewCell {
     
     @objc func btnTapped(){
         closure?()
-        delegate?.getData(data: "")
+        
     }
     
     public func configure(object:Place){

@@ -4,7 +4,7 @@ import SnapKit
 
 class HomeDetailPlacesCell: UICollectionViewCell {
 
-    weak var delegate:DataTransferDelegate?
+   
     
     var closure:(()->Void)?
     
@@ -52,7 +52,6 @@ class HomeDetailPlacesCell: UICollectionViewCell {
     
     @objc func btnTapped(){
         closure?()
-        delegate?.getData(data: "")
     }
     
     public func configure(object:Place){
