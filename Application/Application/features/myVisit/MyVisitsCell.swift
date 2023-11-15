@@ -3,7 +3,6 @@ import SnapKit
 
 class MyVisitsCell: UICollectionViewCell {
 
-    weak var delegate:DataTransferDelegate?
     
     var closure:(()->Void)?
     
@@ -54,16 +53,14 @@ class MyVisitsCell: UICollectionViewCell {
     }
     
     
-    @objc func btnTapped(){
-        closure?()
-        delegate?.getData(data: "")
-    }
     
-    
-    public func configure(object:PlacesModel){
-        imgPlace.image = object.image
-        lblName.text = object.name
-        lblPlace.text = object.place
+    public func configure(object:MyVisits){
+        
+        let url = URL(string: object.place.coverImageURL)
+        imgPlace.kf.setImage(with: url)
+        
+        lblName.text = object.place.title
+        lblPlace.text = object.place.place
         
     }
     

@@ -48,16 +48,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         cv.isScrollEnabled = false
         return cv
     }()
-    private lazy var pagecontrolView:UIStackView = {
-        
-        let view = UIStackView()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 16
-        view.layer.borderColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.15
-        view.layer.shadowRadius = 20
-        return view
-    }()
+   
     
     private lazy var pageControlBackgroundView: UIView = {
         let view = UIView()
@@ -132,34 +123,25 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         return imageViews
     }()
     
-    
-  
-    private lazy var placeSaveButon: UIButton = {
+     lazy var placeSaveButon: UIButton = {
         let b = UIButton()
-        b.tintColor = ColorStyle.white.color
-        var image = UIImage(named: isPlaceSelected ? "icPlaceDetailSave" : "icPlaceDetailSaveFill")
-          b.setImage(image, for: .normal)
-        
-        
-        b.addTarget(self, action: #selector(btnPlaceSaveTapped), for: .touchUpInside)
-        b.backgroundColor = ColorStyle.primary.color
-        //b.contentEdgeInsets = UIEdgeInsets(top: 12, left: 20, bottom: 5, right: 20)
         b.layer.cornerRadius = 12
-        
+        b.backgroundColor = ColorStyle.primary.color
+        b.tintColor = ColorStyle.white.color
+        var image = UIImage(named:"icPlaceDetailSave")
+        b.setImage(image, for: .normal)
+        b.addTarget(self, action: #selector(btnPlaceSaveTapped), for: .touchUpInside)
         return b
     }()
+    
     private lazy var backButon: UIButton = {
         let b = UIButton()
+        b.layer.cornerRadius = 25
+        b.backgroundColor = UIColor(hex: "3D3D3D").withAlphaComponent(0.5)
         b.tintColor = ColorStyle.white.color
         var image = UIImage(named: "backWard")
-          b.setImage(image, for: .normal)
-        
-        
+        b.setImage(image, for: .normal)
         b.addTarget(self, action: #selector(btnBackTapped), for: .touchUpInside)
-        b.backgroundColor = UIColor(hex: "3D3D3D").withAlphaComponent(0.5)
-      
-        b.layer.cornerRadius = 25
-        
         return b
     }()
     
@@ -177,15 +159,28 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         return PlaceDetailViewModel()
     }()
     
+    lazy var myvisits: MyVisitVC = {
+        return MyVisitVC()
+    }()
+    
     
     //MARK: -- Component Actions
     
     @objc func btnPlaceSaveTapped() {
         if placeSaveButon.currentImage == UIImage(named: "icPlaceDetailSave") {
             placeSaveButon.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
+            let currentDate = Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
+            let formattedDateString = dateFormatter.string(from: currentDate)
+
+            placeDetailViewModel.visitPost(placeId: placeModel?.id, visitedAt: formattedDateString)
+            
+            
         }
        else if  placeSaveButon.currentImage == UIImage(named: "icPlaceDetailSaveFill"){
             placeSaveButon.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
+            placeDetailViewModel.visitDelete(placeId: placeModel!.id)
         }
     }
     @objc func btnBackTapped(){
@@ -212,7 +207,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         
         
       
-            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 41.0161, longitude: 28.9639), latitudinalMeters: 500, longitudinalMeters: 500)
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude), latitudinalMeters: 500, longitudinalMeters: 500)
             mapView.setRegion(region, animated: true)
         
     }
@@ -251,7 +246,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
   private  func convertStringToDate(_ dateString: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
-        dateFormatter.locale = Locale(identifier: "tr") // ISO 8601 formatı için
+        dateFormatter.locale = Locale(identifier: "tr")
 
         return dateFormatter.date(from: dateString)
     }
@@ -261,7 +256,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
     private func convertDateToString(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMMM yyyy"
-        dateFormatter.locale = Locale(identifier: "tr") // ISO 8601 formatı için
+        dateFormatter.locale = Locale(identifier: "tr")
 
         return dateFormatter.string(from: date)
     }

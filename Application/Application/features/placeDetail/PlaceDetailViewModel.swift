@@ -1,9 +1,3 @@
-//
-//  PlaceDetailViewModel.swift
-//  Application
-//
-//  Created by Oğuz Canbaz on 7.11.2023.
-//
 
 import UIKit
 
@@ -41,9 +35,52 @@ class PlaceDetailViewModel {
             }
         }
     }
-    
+    func visitPost(placeId:String?,visitedAt:String?){
+        
+       let params = ["place_id": placeId, "visited_at": visitedAt]
+        
+        NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitPost(params: params), callback: { (result:Result<VisitResponse,Error>) in
+            switch result {
+            case .success(let obj):
+                print("*********************** \(obj.message)")
+            case .failure(let err):
+                print(err.localizedDescription)
+        
+            }
+        })
+        
+    }
     
 
+    func visitDelete(placeId: String){
+                
+        NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitDelete(placeId: placeId), callback: { (result:Result<VisitResponse,Error>) in
+            switch result {
+            case .success(let obj):
+                print((obj.message))
+            case .failure(let err):
+                print(err.localizedDescription)
+        
+            }
+        })
+        
+    }
     
+    var checkclosure: ((String)->Void)?
+    
+    func visitByPlaceIdCheck(placeId: String){
+                
+        NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitByPlaceIdCheck(placeId: placeId), callback: { (result:Result<VisitResponse,Error>) in
+            switch result {
+            case .success(let obj):
+                print((obj.message))
+                self.checkclosure?(obj.status)
+            case .failure(let err):
+                print(err.localizedDescription)
+                self.checkclosure?("")
+            }
+        })
+        
+    }
 
 }

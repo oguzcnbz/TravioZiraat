@@ -4,8 +4,7 @@ import Kingfisher
 
 class HomeCell: UICollectionViewCell {
 
-    weak var delegate:DataTransferDelegate?
-    
+  
     var closure:(()->Void)?
     
     private lazy var imgPlace:UIImageView = {
@@ -44,10 +43,10 @@ class HomeCell: UICollectionViewCell {
     }
     
     
-    @objc func btnTapped(){
-        closure?()
-        delegate?.getData(data: "")
-    }
+//    @objc func btnTapped(){
+//        closure?()
+//        delegate?.getData(data: "")
+//    }
     
     public func configure(object:Place){
         

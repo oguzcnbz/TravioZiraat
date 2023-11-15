@@ -2,28 +2,13 @@ import UIKit
 import TinyConstraints
 import SnapKit
 
-protocol DataTransferDelegate:AnyObject {
-    func getData(data:String)
-    func getDataFromSignUp(params:PlacesModel)
-    
-}
-
-extension DataTransferDelegate {
-    func getData(data:String){ }
-    func getDataFromSignUp(params:PlacesModel){ }
-}
 
 
 class MyVisitVC: UIViewController {
     
-    var users: [PlacesModel] = [
-        PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul"),
-        PlacesModel(image: UIImage(named: "colleseum"), name: "Colleseum",place: "Rome"),
-        PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul"),
-        PlacesModel(image: UIImage(named: "süleymaniyeCamii"), name: "Süleymaniye Camii",place: "İstanbul")
-  // isimleri veri ismiyle değiştirmeyi unutmaa!!!!!!
-    ]
+    var visits: [MyVisits] = []
     
+    lazy var visitViewModel: MyVisitsViewModel = MyVisitsViewModel()
     
     private lazy var mainView: DefaultMainStackView = {
         let sv = DefaultMainStackView()
@@ -41,6 +26,7 @@ class MyVisitVC: UIViewController {
         cv.layoutIfNeeded()
         cv.layer.maskedCorners = [.layerMinXMinYCorner]
         cv.dataSource = self
+        cv.delegate = self
 
         return cv
     }()
@@ -49,8 +35,41 @@ class MyVisitVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    func checkVisit(placeId: String, place:Place){
+        let vc = PlaceDetailVC()
+        vc.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
+        vc.placeDetailViewModel.checkclosure = {[weak self] status in
+            if status == "success" {
+                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
+            }
+            else{
+                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
+            }
+            vc.placeModel = place
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func getData() {
+            visitViewModel.visitsGet()
+            visitViewModel.transferData = { [weak self] () in
+                let obj = self?.visitViewModel.visitPlaces
+                self?.visits = obj ?? []
+                self?.collectionView.reloadData()
+        
+            }
+       
+        }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        getData()
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        getData()
         setupViews()
     }
     
@@ -100,18 +119,26 @@ extension MyVisitVC:UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return users.count
+        return visits.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MyVisitsCell
-        let object = users[indexPath.row]
+        let object = visits[indexPath.row]
         cell.configure(object:object)
-        
+        print(object)
         return cell
     }
+    
 }
 
+extension MyVisitVC:UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let place = visits[indexPath.row].place
+        print(place)
+        self.checkVisit(placeId: place.id, place: place)
+    }
+}
 
 extension MyVisitVC {
     

@@ -27,6 +27,7 @@ class HomeDetailPlacesVC: UIViewController {
         cv.layoutIfNeeded()
         cv.layer.maskedCorners = [.layerMinXMinYCorner]
         cv.dataSource = self
+        cv.delegate = self
 
         return cv
     }()
@@ -75,7 +76,27 @@ class HomeDetailPlacesVC: UIViewController {
        setupViews()
     }
     
-  
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
+    
+    func checkVisit(placeId: String, place:Place){
+        let vc = PlaceDetailVC()
+        vc.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
+        vc.placeDetailViewModel.checkclosure = {[weak self] status in
+            if status == "success" {
+                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
+            }
+            else{
+                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
+            }
+            vc.placeModel = place
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     
     //MARK: -- UI Methods
     func setupViews() {
@@ -83,7 +104,7 @@ class HomeDetailPlacesVC: UIViewController {
         self.view.addSubview(mainStackView)
         mainStackView.addSubviews(sortButton,collectionView)
         setNavigationItems(leftBarButton: true, rightBarButton: nil, title: titleHeader)
-     
+        
         setupLayout()
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -183,6 +204,13 @@ extension HomeDetailPlacesVC:UICollectionViewDataSource {
     }
 }
 
+extension HomeDetailPlacesVC:UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let place = detailArr[indexPath.row]
+        print(place)
+        self.checkVisit(placeId: place.id, place: place)
+    }
+}
 
 extension HomeDetailPlacesVC {
     
