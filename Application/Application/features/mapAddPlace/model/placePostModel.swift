@@ -7,7 +7,7 @@
 import Foundation
 
 // MARK: - PlacePostModel
-struct PlacePostModel: Codable {
+struct PlaceCreateModel: Codable {
     let place, title, description: String
     let coverImageURL: String
     let latitude, longitude: Double

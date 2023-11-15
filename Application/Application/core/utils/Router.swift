@@ -13,12 +13,13 @@ enum Router {
     case placeLastGetParams(params:Parameters)
     case placeDetailGetGalleryImages(placeId:String)
     case placeAllUserGet
-    case placePost
+    case placePost(params:Parameters)
     case visitsGet
     case visitPost(params:Parameters)
     case visitDelete(placeId:String)
     case visitByPlaceIdCheck(placeId:String)
     case myAddedPlacesGet
+   // case uploadImage(image: UIImage)
     //case placeUser(
     
     
@@ -84,9 +85,9 @@ enum Router {
     
         var parameters:Parameters? {
             switch self {
-            case .userLogin(let params),.userRegister(let params),.placePopularGetParams(params: let params),.placeLastGetParams(params: let params),.visitPost(params: let params):
+            case .userLogin(let params),.userRegister(let params),.placePopularGetParams(params: let params),.placeLastGetParams(params: let params),.visitPost(params: let params),.placePost(params: let params):
                 return params
-            case .placeAllGet,.placePopularGet,.placeLastGet,.placeDetailGetGalleryImages,.placeAllUserGet,.placePost,.visitsGet,.visitDelete,.visitByPlaceIdCheck,.myAddedPlacesGet:
+            case .placeAllGet,.placePopularGet,.placeLastGet,.placeDetailGetGalleryImages,.placeAllUserGet,.visitsGet,.visitDelete,.visitByPlaceIdCheck,.myAddedPlacesGet:
                 return nil
                 //        case .userUpdate(userId: _, params: let params):
                 //            return params

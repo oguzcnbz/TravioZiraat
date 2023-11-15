@@ -34,23 +34,29 @@ class NetworkingHelper {
         
     }
     
-    // Function to upload an image using Alamofire
-    func uploadImage(image: UIImage,path:String) {
+   
+    func uploadImage(image: UIImage,path:String) -> String {
         var baseUrl = "https://ios-class-2f9672c5c549.herokuapp.com"
        var path = path
         
         let url = baseUrl+path
-
+        var imgUrl:String = ""
         AF.upload(multipartFormData: { multipartFormData in
             if let imageData = image.jpegData(compressionQuality: 0.5) {
                 multipartFormData.append(imageData, withName: "file", fileName: "image.jpg", mimeType: "image/*")
             }
+        
+            
             // Add other parameters if needed
             multipartFormData.append("YourOtherParameter".data(using: .utf8)!, withName: "otherParameter")
         }, to: url)
         .responseJSON { response in
+            
+          
             switch response.result {
             case .success(let value):
+                
+                
                 print("Upload success: \(value)")
                 // Handle the success response
                 
@@ -58,41 +64,20 @@ class NetworkingHelper {
                              let messageType = json["messageType"] as? String,
                              let message = json["message"] as? String,
                              let urls = json["urls"] as? [String] {
-                              print("MessageType: \(messageType)")
-                              print("Message: \(message)")
+                           
                     print("Uploaded URLs: \(urls.first)")
+                    imgUrl = String(urls.first ?? "")
+                    
+              
                           }
             case .failure(let error):
                 print("Upload failed: \(error)")
-                // Handle the error
+                imgUrl = ""
+       
             }
+           
         }
+        return imgUrl
     }
-    
-//    func uploadImage(imgType:String,imgData:Data,imageName:String){
-//       // params to send additional data, for eg. AccessToken or userUserId
-//       let params = ["userID":"userId","accessToken":"your accessToken"]
-//       print(params)
-//       AF.upload(multipartFormData: { multiPart in
-//           for (key,keyValue) in params{
-//               if let keyData = keyValue.data(using: .utf8){
-//                   multiPart.append(keyData, withName: key)
-//               }
-//           }
-//           
-//           multiPart.append(imgData, withName: "key",fileName: imageName,mimeType: "image/*")
-//       }, to: "Your URL",headers: []).responseJSON { apiResponse in
-//           
-//           switch apiResponse.result{
-//           case .success(_):
-//               let apiDictionary = apiResponse.value as? [String:Any]
-//               print("apiResponse --- \(apiDictionary)")
-//           case .failure(_):
-//               print("got an error")
-//           }
-//       }
-//   }
-
-    
 }
 

@@ -50,8 +50,11 @@ class MapAddPlaceVC: UIViewController {
        // print(filterImg.count)
         
         if filterImg.count > 0 { 
-            let networkHelper = NetworkingHelper()
-            networkHelper.uploadImage(image: filterImg.first!, path: "/upload")
+            let mapAddPlaceViewModel = MapAddPlaceViewModel()
+                mapAddPlaceViewModel.uploadImages(imageArray: filterImg)
+            
+           // let networkHelper = NetworkingHelper()
+           // let imgUrl:String = networkHelper.uploadImage(image: filterImg.first!, path: "/upload")
         }
         
 
@@ -133,9 +136,8 @@ extension MapAddPlaceVC: UICollectionViewDataSource {
       
         cell.closure = { image in
             self.imageArray[indexPath.row] = image
-        
+      
           
-           
         }
        
     
