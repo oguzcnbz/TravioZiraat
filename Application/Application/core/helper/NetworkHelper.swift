@@ -35,49 +35,88 @@ class NetworkingHelper {
     }
     
    
-    func uploadImage(image: UIImage,path:String) -> String {
-        var baseUrl = "https://ios-class-2f9672c5c549.herokuapp.com"
-       var path = path
-        
-        let url = baseUrl+path
-        var imgUrl:String = ""
+//    func uploadImage(image: UIImage,path:String) -> String {
+//        var baseUrl = "https://ios-class-2f9672c5c549.herokuapp.com"
+//       var path = path
+//        
+//        let url = baseUrl+path
+//        var imgUrl:String = ""
+//        AF.upload(multipartFormData: { multipartFormData in
+//            if let imageData = image.jpegData(compressionQuality: 0.5) {
+//                multipartFormData.append(imageData, withName: "file", fileName: "image.jpg", mimeType: "image/*")
+//            }
+//        
+//            
+//            // Add other parameters if needed
+//            multipartFormData.append("YourOtherParameter".data(using: .utf8)!, withName: "otherParameter")
+//        }, to: url)
+//        .responseJSON { response in
+//            
+//          
+//            switch response.result {
+//            case .success(let value):
+//                
+//                
+//                print("Upload success: \(value)")
+//                // Handle the success response
+//                
+//                if let json = value as? [String: Any],
+//                             let messageType = json["messageType"] as? String,
+//                             let message = json["message"] as? String,
+//                             let urls = json["urls"] as? [String] {
+//                           
+//                    print("Uploaded URLs: \(urls.first)")
+//                    imgUrl = String(urls.first ?? "")
+//                    
+//              
+//                          }
+//            case .failure(let error):
+//                print("Upload failed: \(error)")
+//                imgUrl = ""
+//       
+//            }
+//           
+//        }
+//        return imgUrl
+//    }
+    
+    func uploadImages(images: [UIImage], path: String, completion: @escaping ([String]?) -> Void) {
+        let baseUrl = "https://ios-class-2f9672c5c549.herokuapp.com"
+        let url = baseUrl + path
+
         AF.upload(multipartFormData: { multipartFormData in
-            if let imageData = image.jpegData(compressionQuality: 0.5) {
-                multipartFormData.append(imageData, withName: "file", fileName: "image.jpg", mimeType: "image/*")
+            for (index, image) in images.enumerated() {
+                if let imageData = image.jpegData(compressionQuality: 0.5) {
+                    let fileName = "image_\(index).jpg"
+                    multipartFormData.append(imageData, withName: "file", fileName: fileName, mimeType: "image/jpeg")
+                }
             }
-        
-            
             // Add other parameters if needed
-            multipartFormData.append("YourOtherParameter".data(using: .utf8)!, withName: "otherParameter")
+      //      multipartFormData.append("YourOtherParameter".data(using: .utf8)!, withName: "otherParameter")
         }, to: url)
         .responseJSON { response in
-            
-          
             switch response.result {
             case .success(let value):
-                
-                
-                print("Upload success: \(value)")
-                // Handle the success response
+               // print("Upload success: \(value)")
                 
                 if let json = value as? [String: Any],
-                             let messageType = json["messageType"] as? String,
-                             let message = json["message"] as? String,
-                             let urls = json["urls"] as? [String] {
-                           
-                    print("Uploaded URLs: \(urls.first)")
-                    imgUrl = String(urls.first ?? "")
-                    
-              
-                          }
+                   let messageType = json["messageType"] as? String,
+                   let message = json["message"] as? String,
+                   let urls = json["urls"] as? [String] {
+//                    print("MessageType: \(messageType)")
+//                    print("Message: \(message)")
+//                    print("Uploaded URLs: \(urls)")
+                    completion(urls)
+                } else {
+                    completion(nil)
+                }
+
             case .failure(let error):
                 print("Upload failed: \(error)")
-                imgUrl = ""
-       
+                completion(nil)
             }
-           
         }
-        return imgUrl
     }
+
 }
 

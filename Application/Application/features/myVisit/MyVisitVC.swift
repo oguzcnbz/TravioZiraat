@@ -126,7 +126,7 @@ extension MyVisitVC:UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MyVisitsCell
         let object = visits[indexPath.row]
         cell.configure(object:object)
-        print(object)
+       
         return cell
     }
     

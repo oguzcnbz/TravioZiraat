@@ -3,9 +3,16 @@ import UIKit
 import SnapKit
 
 class MapAddPlaceVC: UIViewController {
+    var latitude:Double?
+    var longitude: Double?
     
     var imageArray: [UIImage?] = [nil,nil,nil]
     let hasImgArr:[Bool] = [false,false,false]
+    
+    var hasMapAdedclosure: ((Bool)->Void)?
+    private var hasLoading = false
+    
+    
     
     private lazy var stick: UIView = {
         let v = UIView()
@@ -46,19 +53,27 @@ class MapAddPlaceVC: UIViewController {
     }()
     
     @objc func btnAddPlaceTapped() {
+        let placePostModel = PlacePostModel(place: countryCity.defaultTextField.text ?? "", title: placeName.defaultTextField.text ?? "", description: visitDescription.defaultTextView.text, coverImageURL: "", latitude: latitude ?? 0, longitude: longitude ?? 0)
+        
+        
+        print(placePostModel)
         let filterImg = imageArray.compactMap(({ $0 }))
        // print(filterImg.count)
         
         if filterImg.count > 0 { 
             let mapAddPlaceViewModel = MapAddPlaceViewModel()
-                mapAddPlaceViewModel.uploadImages(imageArray: filterImg)
-            
-           // let networkHelper = NetworkingHelper()
-           // let imgUrl:String = networkHelper.uploadImage(image: filterImg.first!, path: "/upload")
+             mapAddPlaceViewModel.addPlace(imageArray: filterImg,model: placePostModel)
+            self.dismiss(animated: true, completion: {
+             //   print("Bu sayfa kapatıldı.")
+            })
         }
         
-
+        
+     //   let mapAddPlaceViewModel = MapAddPlaceViewModel()
+//        mapAddPlaceViewModel.placeCreate(model: placePostModel, imgUrl: "https://storage.googleapis.com/travio/1700048457958660859.jpg")
          
+        
+       
     }
     override func viewDidLoad() {
         super.viewDidLoad()

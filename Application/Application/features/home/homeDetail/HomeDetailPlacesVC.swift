@@ -207,7 +207,7 @@ extension HomeDetailPlacesVC:UICollectionViewDataSource {
 extension HomeDetailPlacesVC:UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let place = detailArr[indexPath.row]
-        print(place)
+       
         self.checkVisit(placeId: place.id, place: place)
     }
 }

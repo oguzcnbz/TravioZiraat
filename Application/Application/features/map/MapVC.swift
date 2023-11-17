@@ -100,6 +100,7 @@ class MapVC: UIViewController {
             let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
             let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
 
+            
             let mapAddPlaceVC = MapAddPlaceVC()
             CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
                 if let error = error {
@@ -108,7 +109,8 @@ class MapVC: UIViewController {
                     if let country = placemark.country, let city = placemark.locality {
                         let address = "\(country), \(city)"
                                            
-                       
+                        mapAddPlaceVC.latitude = location.coordinate.latitude
+                        mapAddPlaceVC.longitude = location.coordinate.longitude
                         mapAddPlaceVC.countryCity.defaultTextField.text = address
                        self.present(mapAddPlaceVC, animated: true, completion: nil)
                     }

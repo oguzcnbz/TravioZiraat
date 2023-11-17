@@ -19,7 +19,9 @@ enum Router {
     case visitDelete(placeId:String)
     case visitByPlaceIdCheck(placeId:String)
     case myAddedPlacesGet
-   // case uploadImage(image: UIImage)
+    case galerysImagesPost(params:Parameters)
+    
+    // case uploadImage(image: UIImage)
     //case placeUser(
     
     
@@ -53,13 +55,15 @@ enum Router {
             return "/v1/visits/user/\(placeId)"
         case .myAddedPlacesGet:
             return "/v1/places/user"
+        case .galerysImagesPost:
+            return "/v1/galleries"
         }
     }
     
     
     var method:HTTPMethod {
         switch self {
-        case .userLogin,.userRegister,.placePost,.visitPost:
+        case .userLogin,.userRegister,.placePost,.visitPost,.galerysImagesPost:
             return .post
         case .placeAllGet,.placePopularGet,.placePopularGetParams,.placeLastGet,.placeLastGetParams,.placeDetailGetGalleryImages,.placeAllUserGet,.visitsGet,.visitByPlaceIdCheck,.myAddedPlacesGet:
             return .get
@@ -70,12 +74,14 @@ enum Router {
         }
     }
     
+    //var multipartFormData:
+    
     
     var headers:HTTPHeaders {
         switch self {
         case .userLogin,.placeAllGet ,.placePopularGet,.userRegister,.placePopularGetParams,.placeDetailGetGalleryImages,.placeLastGet,.placeLastGetParams,.myAddedPlacesGet:
             return [:]
-        case .placeAllUserGet,.placePost,.visitPost,.visitsGet,.visitDelete,.visitByPlaceIdCheck:
+        case .placeAllUserGet,.placePost,.visitPost,.visitsGet,.visitDelete,.visitByPlaceIdCheck,.galerysImagesPost:
             guard let accessToken = KeychainHelper.shared.read(service: "user-key", account: "accessToken") else {return [:] }
             var accesTmp = String(data: accessToken, encoding: .utf8)
             guard let accesStr = accesTmp else {return [:]}
@@ -85,7 +91,7 @@ enum Router {
     
         var parameters:Parameters? {
             switch self {
-            case .userLogin(let params),.userRegister(let params),.placePopularGetParams(params: let params),.placeLastGetParams(params: let params),.visitPost(params: let params),.placePost(params: let params):
+            case .userLogin(let params),.userRegister(let params),.placePopularGetParams(params: let params),.placeLastGetParams(params: let params),.visitPost(params: let params),.placePost(params: let params),.galerysImagesPost(params: let params):
                 return params
             case .placeAllGet,.placePopularGet,.placeLastGet,.placeDetailGetGalleryImages,.placeAllUserGet,.visitsGet,.visitDelete,.visitByPlaceIdCheck,.myAddedPlacesGet:
                 return nil

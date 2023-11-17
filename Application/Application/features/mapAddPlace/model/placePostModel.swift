@@ -7,10 +7,12 @@
 import Foundation
 
 // MARK: - PlacePostModel
-struct PlaceCreateModel: Codable {
-    let place, title, description: String
-    let coverImageURL: String
-    let latitude, longitude: Double
+struct PlacePostModel: Codable {
+    var place, title, description: String
+    var coverImageURL: String
+    var latitude, longitude: Double
+   
+    
 
     enum CodingKeys: String, CodingKey {
         case place, title, description
@@ -18,3 +20,17 @@ struct PlaceCreateModel: Codable {
         case latitude, longitude
     }
 }
+struct PlacePostResponseModel: Codable {
+    let message, status: String
+}
+
+
+
+//struct PlacePostModel: Codable {
+//    let place: String
+//    let title: String
+//    let description: String
+//    let coverImageURL: String
+//    let latitude: Double
+//    let longitude: Double
+//}
