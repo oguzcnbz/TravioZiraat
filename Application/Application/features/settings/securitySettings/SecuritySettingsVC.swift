@@ -8,6 +8,17 @@ import CoreLocation
 
 class SecuritySettingsVC: UIViewController {
     
+    var cameraPermissionStatus = AVCaptureDevice.authorizationStatus(for: .video)
+    var libraryPermissionStatus = PHPhotoLibrary.authorizationStatus()
+    var locationPermissionStatus = CLLocationManager.authorizationStatus()
+
+    private lazy var locationManager:CLLocationManager = {
+        let location = CLLocationManager()
+        return location
+    }()
+    
+    lazy var securitySettingsViewModel: SecuritySettingsViewModel = SecuritySettingsViewModel()
+    
     private lazy var mainStackView:DefaultMainStackView = {
         let sv = DefaultMainStackView()
         return sv
@@ -40,32 +51,62 @@ class SecuritySettingsVC: UIViewController {
     }()
     
     private lazy var cameraSV:SecuritySettingsCustomSV = {
-        let sv = SecuritySettingsCustomSV(labelText: "Camera", toggleSwitchChangedOnHandler: nil , toggleSwitchChangedOffHandler:nil )
+        let sv = SecuritySettingsCustomSV(labelText: "Camera")
+        sv.toggleSwitch.addTarget(self, action: #selector(cameraChanged), for: .valueChanged)
         return sv
     }()
     
     private lazy var librarySV:SecuritySettingsCustomSV = {
-        let sv = SecuritySettingsCustomSV(labelText: "Library"
-                                          , toggleSwitchChangedOnHandler:nil , toggleSwitchChangedOffHandler: nil)
+        let sv = SecuritySettingsCustomSV(labelText: "Library")
+        sv.toggleSwitch.addTarget(self, action: #selector(libraryChanged), for: .valueChanged)
         return sv
     }()
     private lazy var locationSV:SecuritySettingsCustomSV = {
-        let sv = SecuritySettingsCustomSV(labelText: "Location", toggleSwitchChangedOnHandler:nil , toggleSwitchChangedOffHandler:nil )
+        let sv = SecuritySettingsCustomSV(labelText: "Location")
+        sv.toggleSwitch.addTarget(self, action: #selector(locationChanged), for: .valueChanged)
         return sv
     }()
     
     private lazy var saveButton:DefaultButton = {
         let btn = DefaultButton(title: "Save", background: .customgreen)
+        btn.addTarget(self, action: #selector(btnSaveTapped), for: .touchUpInside)
         return btn
     }()
     
+    @objc func cameraChanged(_ sender: UISwitch){
+        if sender.isOn {
+            requestCameraPermission()
+        }else{
+            showPermissionAlert(title: "Camera Access Denied", message: "Please enable access to your camera in Settings",toggleSender: cameraSV.toggleSwitch)
+        }
+    }
+    
+    @objc func libraryChanged(sender: UISwitch){
+        if sender .isOn {
+            requestLibraryPermission()
+        }else{
+            showPermissionAlert(title: "Photo Library Access Denied", message: "Please enable access to your photo library in Settings.",toggleSender: librarySV.toggleSwitch)
+        }
+    }
+    
+    @objc func locationChanged(sender: UISwitch){
+        if sender .isOn {
+            requestLocationPermission()
+        }else{
+            showPermissionAlert(title: "Location Access Denied", message: "Please enable access to your location in Settings.",toggleSender: locationSV.toggleSwitch)
+        }
+    }
+    
+    @objc func btnSaveTapped() {
+        guard let newPassword = newPassTxtField.defaultTextField.text else {return}
+        securitySettingsViewModel.passwordChange(changedPassword: newPassword)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
        setupViews()
-       
+        checkPermissionStatus()
     }
-
     
     func setupViews() {
         self.view.backgroundColor = UIColor(hex: "38ada9")
@@ -141,45 +182,151 @@ class SecuritySettingsVC: UIViewController {
         })
        
     }
-  
 }
 
-//extension SecuritySettingsVC {
-//
-//
-//
-//        // Function to request camera access
-//        func requestCameraAccess() {
-//            AVCaptureDevice.requestAccess(for: .video) { granted in
-//                if granted {
-//                    // Camera access granted, you can update UI or perform any other action
-//                    print("Camera access granted")
-//                } else {
-//                    // Camera access denied, navigate to settings
-//                    self.navigateToSettings()
-//                }
-//            }
-//        }
-//
-//        // Function to revoke camera access
-//        func revokeCameraAccess() {
-//            let status = AVCaptureDevice.authorizationStatus(for: .video)
-//            if status == .authorized {
-//                // Camera access was previously granted, so we can revoke it now
-//                AVCaptureDevice.requestAccess(for: .video) { granted in
-//                    if !granted {
-//                        // Camera access revoked, navigate to settings
-//                        self.navigateToSettings()
-//                    }
-//                }
-//            }
-//        }
-//
-//        // Function to navigate to the app settings
-//        func navigateToSettings() {
-//            if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
-//                UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
-//            }
-//        }
-//
-//}
+extension SecuritySettingsVC {
+    
+     func requestCameraPermission() {
+       
+        switch cameraPermissionStatus {
+        case .authorized:
+            self.cameraSV.toggleSwitch.isOn = true
+        case .denied, .restricted:
+            showPermissionAlertCamera()
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                if granted{
+                    print("Kamera izni verildi.")
+                    self.cameraSV.toggleSwitch.isOn = true
+                }else{
+                    print("Kamera izni reddedildi.")
+                    self.cameraSV.toggleSwitch.isOn = false
+                }
+            }
+        @unknown default:
+            break
+        }
+    }
+    
+     func requestLibraryPermission() {
+       
+        switch libraryPermissionStatus {
+        case .authorized:
+            self.librarySV.toggleSwitch.isOn = true
+        case .denied, .restricted:
+            showPermissionAlertLibrary()
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { status in
+                DispatchQueue.main.async {
+                    if status == .authorized {
+                        print("Library izni verildi.")
+                        self.librarySV.toggleSwitch.isOn = true
+                    } else {
+                        print("Library izni reddedildi.")
+                        self.librarySV.toggleSwitch.isOn = false
+                    }
+                }
+            }
+        @unknown default:
+            break
+        }
+    }
+   
+   
+    
+     func requestLocationPermission() {
+           
+            switch locationPermissionStatus {
+            case .authorizedAlways, .authorizedWhenInUse:
+                self.locationSV.toggleSwitch.isOn = true
+            case .denied, .restricted:
+                showLocationPermissionAlert()
+            case .notDetermined:
+                locationManager.requestWhenInUseAuthorization()
+            @unknown default:
+                break
+            }
+        }
+    
+     func showPermissionAlertCamera() {
+        let alert = UIAlertController(title: "Camera Permission Required", message: "Please enable camera access in settings to use this feature.", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+        }))
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        present(alert, animated: true, completion: nil)
+    }
+     func showPermissionAlertLibrary() {
+        let alert = UIAlertController(title: "Permission Required", message: "Please enable access to your photo library in settings to use this feature.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
+     func showLocationPermissionAlert() {
+            let alert = UIAlertController(title: "Location Permission Required", message: "Please enable access to your location in settings to use this feature.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            }))
+            
+            present(alert, animated: true, completion: nil)
+        }
+
+    
+     func showPermissionAlert(title: String, message: String, toggleSender: UISwitch) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { _ in
+            if toggleSender.isOn == false {
+                toggleSender.isOn = true
+            }else{
+                toggleSender.isOn = false
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { _ in
+            if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+            }
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
+
+
+  
+         func checkPermissionStatus() {
+            checkCameraPermissionStatus()
+            checkLibraryPermissionStatus()
+            checkLocationPermissionStatus()
+        }
+
+         func checkCameraPermissionStatus() {
+            if cameraPermissionStatus == .authorized {
+                cameraSV.toggleSwitch.isOn = true
+            }else if cameraPermissionStatus  == .denied || cameraPermissionStatus  == .restricted {
+                cameraSV.toggleSwitch.isOn = false
+            }
+        }
+
+         func checkLibraryPermissionStatus() {
+            if libraryPermissionStatus == .authorized {
+                librarySV.toggleSwitch.isOn = true
+            }else if libraryPermissionStatus  == .denied || libraryPermissionStatus  == .restricted {
+                librarySV.toggleSwitch.isOn = false
+            }
+        }
+
+         func checkLocationPermissionStatus() {
+            if locationPermissionStatus == .authorizedAlways || locationPermissionStatus == .authorizedWhenInUse {
+                locationSV.toggleSwitch.isOn = true
+            }else if locationPermissionStatus  == .denied || locationPermissionStatus  == .restricted {
+                librarySV.toggleSwitch.isOn = false
+            }
+        }
+
+}

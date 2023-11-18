@@ -27,6 +27,7 @@
 		5A5C5E472B034F0A004B0151 /* MyVisitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5C5E462B034F0A004B0151 /* MyVisitModel.swift */; };
 		5A5C5E492B03542D004B0151 /* MyVisitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5C5E482B03542D004B0151 /* MyVisitsViewModel.swift */; };
 		5A5C5E4B2B03F914004B0151 /* MyAddedPlacesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5C5E4A2B03F914004B0151 /* MyAddedPlacesViewModel.swift */; };
+		5A5C5E4D2B04E4C9004B0151 /* SecuritySettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5C5E4C2B04E4C9004B0151 /* SecuritySettingsViewModel.swift */; };
 		5A88EBFF2AF0ECB60087D0D0 /* MyVisitsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88EBFE2AF0ECB60087D0D0 /* MyVisitsCell.swift */; };
 		5A88EC012AF0ECFA0087D0D0 /* PlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88EC002AF0ECFA0087D0D0 /* PlacesModel.swift */; };
 		5A89AFD62AF4D16E000F2E4D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 5A89AFD52AF4D16E000F2E4D /* Kingfisher */; };
@@ -126,6 +127,7 @@
 		5A5C5E462B034F0A004B0151 /* MyVisitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitModel.swift; sourceTree = "<group>"; };
 		5A5C5E482B03542D004B0151 /* MyVisitsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitsViewModel.swift; sourceTree = "<group>"; };
 		5A5C5E4A2B03F914004B0151 /* MyAddedPlacesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddedPlacesViewModel.swift; sourceTree = "<group>"; };
+		5A5C5E4C2B04E4C9004B0151 /* SecuritySettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuritySettingsViewModel.swift; sourceTree = "<group>"; };
 		5A88EBFE2AF0ECB60087D0D0 /* MyVisitsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVisitsCell.swift; sourceTree = "<group>"; };
 		5A88EC002AF0ECFA0087D0D0 /* PlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesModel.swift; sourceTree = "<group>"; };
 		5A89AFD92AF4D5B9000F2E4D /* SettingUserCellVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserCellVC.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 			children = (
 				5A47A7E52AFD01AC00AE2D6F /* SecuritySettingsVC.swift */,
 				5A47A7F12AFE022700AE2D6F /* SecuritySettingsCustomSV.swift */,
+				5A5C5E4C2B04E4C9004B0151 /* SecuritySettingsViewModel.swift */,
 			);
 			path = securitySettings;
 			sourceTree = "<group>";
@@ -767,6 +770,7 @@
 				5A89AFEF2AF8C0AD000F2E4D /* MapCell.swift in Sources */,
 				60B08CDD2B03954700362525 /* MapAddPlaceViewModel.swift in Sources */,
 				5AE50BFF2ADA8A87004E1FD3 /* LoginVC.swift in Sources */,
+				5A5C5E4D2B04E4C9004B0151 /* SecuritySettingsViewModel.swift in Sources */,
 				5A89AFE42AF50CE8000F2E4D /* MyVisitVC.swift in Sources */,
 				60D6A3E72B0120EA00C5BF3B /* HomeDetailPlacesVC.swift in Sources */,
 				600C6C402AF529A10080BA35 /* KeychainHelper.swift in Sources */,
@@ -984,6 +988,9 @@
 				DEVELOPMENT_TEAM = YZLWXRPJWC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Application/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1012,6 +1019,9 @@
 				DEVELOPMENT_TEAM = YZLWXRPJWC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Application/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

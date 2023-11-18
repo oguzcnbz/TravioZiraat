@@ -59,11 +59,13 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     
     private lazy var passwordStackView: CustomTextField = {
         let sv = CustomTextField(labelText: "Password", textFieldPlaceholder: "")
+        sv.defaultTextField.isSecureTextEntry = true
         return sv
     }()
     
     private lazy var passwordConfirmStackView: CustomTextField = {
         let sv = CustomTextField(labelText: "Password Confirm", textFieldPlaceholder: "")
+        sv.defaultTextField.isSecureTextEntry = true
         return sv
     }()
     

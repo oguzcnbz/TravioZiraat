@@ -25,6 +25,7 @@ class HomeCell: UICollectionViewCell {
         let lbl = UILabel()
         lbl.textColor = UIColor(hex: "FFFFFF")
         lbl.font = FontStyle.poppinsSemiBold(size: 24).font
+        lbl.adjustsFontSizeToFitWidth = true
         return lbl
     }()
     

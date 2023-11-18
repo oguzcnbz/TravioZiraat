@@ -39,7 +39,7 @@ class PlaceDetailViewModel {
         
        let params = ["place_id": placeId, "visited_at": visitedAt]
         
-        NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitPost(params: params), callback: { (result:Result<VisitResponse,Error>) in
+        NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitPost(params: params), callback: { (result:Result<Response,Error>) in
             switch result {
             case .success(let obj):
                 print("*********************** \(obj.message)")
@@ -54,7 +54,7 @@ class PlaceDetailViewModel {
 
     func visitDelete(placeId: String){
                 
-        NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitDelete(placeId: placeId), callback: { (result:Result<VisitResponse,Error>) in
+        NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitDelete(placeId: placeId), callback: { (result:Result<Response,Error>) in
             switch result {
             case .success(let obj):
                 print((obj.message))
@@ -70,7 +70,7 @@ class PlaceDetailViewModel {
     
     func visitByPlaceIdCheck(placeId: String){
                 
-        NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitByPlaceIdCheck(placeId: placeId), callback: { (result:Result<VisitResponse,Error>) in
+        NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitByPlaceIdCheck(placeId: placeId), callback: { (result:Result<Response,Error>) in
             switch result {
             case .success(let obj):
                 print((obj.message))

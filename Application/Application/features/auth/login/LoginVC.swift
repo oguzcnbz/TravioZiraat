@@ -4,6 +4,11 @@ import TinyConstraints
 
 class LoginVC: UIViewController,LoginResponseDelegate {
 
+    private lazy var securitySettings: SecuritySettingsVC = {
+        return SecuritySettingsVC()
+    }()
+    
+    
     func loginResponseGet(isLogin: Bool) {
        print("sonuc \(isLogin ?? false)")
         if isLogin == false {
@@ -14,6 +19,9 @@ class LoginVC: UIViewController,LoginResponseDelegate {
             print("Giris  delegate dogru")
             let vc = MainTabbar()
             self.navigationController?.pushViewController(vc, animated: true)
+            securitySettings.requestCameraPermission()
+            securitySettings.requestLibraryPermission()
+            securitySettings.requestLocationPermission()
         }
         
     }
@@ -47,6 +55,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     
     private lazy var passwordStackView: CustomTextField = {
         let sv = CustomTextField(labelText: "Password", textFieldPlaceholder: "************")
+        sv.defaultTextField.isSecureTextEntry = true
         return sv
     }()
     
@@ -102,6 +111,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         
         loginViewModel.setDelegate(output: self)
         loginViewModel.loginUser(email: email, password: password)
+        
     }
     private lazy var signButton: UIButton = {
         let button = UIButton()
@@ -124,6 +134,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
         setupViews()
+      
     }
 
 //MARK: -- SetUpViews

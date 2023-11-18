@@ -32,6 +32,7 @@ class HomeDetailPlacesCell: UICollectionViewCell {
         let lbl = UILabel()
         lbl.textColor = UIColor(hex: "3D3D3D")
         lbl.font = FontStyle.poppinsSemiBold(size: 24).font
+        lbl.adjustsFontSizeToFitWidth = true
         return lbl
     }()
     
@@ -60,6 +61,7 @@ class HomeDetailPlacesCell: UICollectionViewCell {
        
         lblName.text = object.title
         lblPlace.text = object.place
+        
     }
     
     private func setupViews(){
@@ -91,6 +93,7 @@ class HomeDetailPlacesCell: UICollectionViewCell {
         
         lblName.snp.makeConstraints({lbl in
             lbl.leading.equalTo(imgPlace.snp.trailing).offset(8)
+            lbl.trailing.equalToSuperview().offset(-8)
             lbl.top.equalTo(ViewCell.snp.top).offset(16)
         })
         

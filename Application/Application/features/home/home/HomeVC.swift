@@ -65,6 +65,7 @@ class HomeVC: UIViewController {
             withReuseIdentifier: HomeHeaderCell.reuseIdentifier)
        
         cv.dataSource = self
+        cv.delegate = self
         return cv
     }()
    
@@ -73,11 +74,10 @@ class HomeVC: UIViewController {
     //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-getPopulerPlaceData()
+        getPopulerPlaceData()
         getLastPlaceData ()
         getUserPlaceData ()
-           
-       setupViews()
+        setupViews()
    
         
     }
@@ -121,7 +121,20 @@ getPopulerPlaceData()
         
     }
     
-    
+    func checkVisit(placeId: String, place:Place){
+        let vc = PlaceDetailVC()
+        vc.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
+        vc.placeDetailViewModel.checkclosure = {[weak self] status in
+            if status == "success" {
+                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
+            }
+            else{
+                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
+            }
+            vc.placeModel = place
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
     //MARK: -- UI Methods
     func setupViews() {
@@ -221,6 +234,7 @@ extension HomeVC:UICollectionViewDataSource {
             }
             return supplementaryView
         }
+        
         else if indexPath.section == 1 {
             guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: "section-header-element-kind",
@@ -236,6 +250,7 @@ extension HomeVC:UICollectionViewDataSource {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             return supplementaryView
+            
         }else {
             guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: "section-header-element-kind",
@@ -255,10 +270,26 @@ extension HomeVC:UICollectionViewDataSource {
         }
      
     }
+    
+   
    
 }
+extension HomeVC:UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            var selectedPlace: Place
+            if indexPath.section == 0 {
+                selectedPlace = populerArr[indexPath.row]
+                checkVisit(placeId: selectedPlace.id, place: selectedPlace)
+            } else if indexPath.section == 1 {
+                selectedPlace = lastArr[indexPath.row]
+                checkVisit(placeId: selectedPlace.id, place: selectedPlace)
+            } else {
+                selectedPlace = userArr[indexPath.row]
+                checkVisit(placeId: selectedPlace.id, place: selectedPlace)
+            }
 
-
+        }
+}
 extension HomeVC {
     
     func makeCollectionViewLayout() -> UICollectionViewLayout {

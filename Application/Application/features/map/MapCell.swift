@@ -25,6 +25,7 @@ class MapCell: UICollectionViewCell {
         let lbl = UILabel()
         lbl.textColor = UIColor(hex: "FFFFFF")
         lbl.font = FontStyle.poppinsSemiBold(size: 30).font
+        lbl.adjustsFontSizeToFitWidth = true
         return lbl
     }()
     
