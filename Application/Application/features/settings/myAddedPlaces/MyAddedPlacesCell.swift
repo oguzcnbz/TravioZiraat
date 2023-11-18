@@ -32,6 +32,7 @@ class MyAddedPlacesCell: UICollectionViewCell {
         let lbl = UILabel()
         lbl.textColor = UIColor(hex: "3D3D3D")
         lbl.font = FontStyle.poppinsSemiBold(size: 24).font
+        lbl.adjustsFontSizeToFitWidth = true
         return lbl
     }()
     

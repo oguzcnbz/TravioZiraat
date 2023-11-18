@@ -19,6 +19,7 @@ class HelpAndSupportCell: UICollectionViewCell {
     lazy var questionLbl: UILabel = {
         let lbl = UILabel()
         lbl.font = FontStyle.poppinsMedium(size: 14).font
+        lbl.numberOfLines = 0
         lbl.textColor = .black
        
         return lbl
@@ -47,6 +48,7 @@ class HelpAndSupportCell: UICollectionViewCell {
     public func configure(object:HelpAndSupportModel){
         questionLbl.text = object.questionLbl
         answerLbl.text = object.answerLbl
+        
     }
     
     override init(frame: CGRect) {
@@ -54,6 +56,7 @@ class HelpAndSupportCell: UICollectionViewCell {
         setupViews()
     }
     
+
     
     private func setupViews() {
         
@@ -74,22 +77,21 @@ class HelpAndSupportCell: UICollectionViewCell {
             
             questionLbl.snp.makeConstraints { lbl in
                 lbl.leading.equalToSuperview().offset(12)
-                lbl .trailing.equalToSuperview()
                 lbl.top.equalToSuperview().offset(16)
-               
+                lbl.trailing.equalTo(vector.snp.leading).offset(12)
             }
             
             vector.snp.makeConstraints({img in
-
                 img.centerY.equalTo(questionLbl)
                 img.trailing.equalToSuperview().offset(-18.37)
-
+                img.width.equalTo(15.63)
+                
             })
 
             answerLbl.snp.makeConstraints { lbl in
                 lbl.leading.equalToSuperview().offset(12)
                 lbl.trailing.equalToSuperview().offset(-15)
-                lbl.top.equalTo(questionLbl.snp.bottom).offset(14)
+                lbl.top.equalTo(questionLbl.snp.bottom).offset(22)
                 
             }
             

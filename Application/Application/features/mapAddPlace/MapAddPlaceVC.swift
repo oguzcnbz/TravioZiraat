@@ -133,12 +133,8 @@ extension MapAddPlaceVC: UICollectionViewDataSource {
       
         cell.closure = { image in
             self.imageArray[indexPath.row] = image
-        
-          
-           
+
         }
-       
-    
         return cell
     }
 }

@@ -7,8 +7,8 @@ class HelpAndSupportVC: UIViewController {
     private var selectedIndexPath: IndexPath?
     private var isExpanded: Bool = false
     
-    private lazy var expandedHeight: CGFloat = 140
-    private lazy var collapsedHeight: CGFloat = 52
+    private lazy var expandedHeight: CGFloat = 160
+    private lazy var collapsedHeight: CGFloat = 60
 
     var cells:[HelpAndSupportModel] = [HelpAndSupportModel(questionLbl: "How can I create a new account on Travio?", answerLbl: ""),
                                        HelpAndSupportModel(questionLbl: "How can I create a new account on Travio?", answerLbl: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
@@ -33,15 +33,16 @@ class HelpAndSupportVC: UIViewController {
     
     private lazy var collectionView:UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 12
-       
        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.contentInset = UIEdgeInsets(top: 85, left: 24, bottom: 0, right: 24)
         cv.register(HelpAndSupportCell.self, forCellWithReuseIdentifier: "cell")
         cv.backgroundColor = .clear
-
+        cv.layer.cornerRadius = 80
+        cv.layoutIfNeeded()
+        cv.layer.maskedCorners = [.layerMinXMinYCorner]
         cv.dataSource = self
         cv.delegate = self
         return cv
@@ -96,9 +97,9 @@ class HelpAndSupportVC: UIViewController {
 extension HelpAndSupportVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            
+       
             let isExpanded = selectedIndexPath == indexPath
-            return CGSize(width: (collectionView.bounds.width - 48), height: isExpanded  ? expandedHeight : collapsedHeight)
+        return CGSize(width: (collectionView.bounds.width - 48), height: isExpanded  ? expandedHeight : collapsedHeight)
            
         }
     
@@ -106,7 +107,6 @@ extension HelpAndSupportVC: UICollectionViewDelegateFlowLayout {
         let cell = collectionView.cellForItem(at: indexPath) as? HelpAndSupportCell
            
            if let selectedIndexPath = selectedIndexPath, selectedIndexPath != indexPath {
-              
            let previousCell = collectionView.cellForItem(at: selectedIndexPath) as? HelpAndSupportCell
            previousCell?.updateVector(imageName: "arrowGreenDown")
            }
@@ -134,6 +134,7 @@ extension HelpAndSupportVC:UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! HelpAndSupportCell
+        
         let object = cells[indexPath.row]
             cell.configure(object:object)
         
