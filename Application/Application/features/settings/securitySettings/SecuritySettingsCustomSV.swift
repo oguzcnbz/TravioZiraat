@@ -3,12 +3,9 @@ import SnapKit
 
 class SecuritySettingsCustomSV: UIView {
     
-    private var toggleSwitchChangedOnHandler: (() -> Void)?
-    private var toggleSwitchChangedOffHandler: (() -> Void)?
+  
 
-        init(labelText: String, toggleSwitchChangedOnHandler: (() -> Void)? = nil, toggleSwitchChangedOffHandler: (() -> Void)? = nil) {
-            self.toggleSwitchChangedOnHandler = toggleSwitchChangedOnHandler
-            self.toggleSwitchChangedOffHandler = toggleSwitchChangedOffHandler
+        init(labelText: String) {
             super.init(frame: CGRect.zero)
             setupAndLayout(labelText: labelText)
         }
@@ -40,28 +37,19 @@ class SecuritySettingsCustomSV: UIView {
         return lbl
     }()
    
-    private lazy var toggleSwitch:UISwitch = {
+     lazy var toggleSwitch:UISwitch = {
         let s = UISwitch()
-        s.addTarget(self, action: #selector(toggleSwitchChanged), for: .valueChanged)
         return s
     }()
     
-    @objc func toggleSwitchChanged(sender: UISwitch) {
-            if sender.isOn, let onHandler = toggleSwitchChangedOnHandler {
-                onHandler()
-            } else if !sender.isOn, let offHandler = toggleSwitchChangedOffHandler {
-                offHandler()
-            }
-        }
+    
     
     private func setupAndLayout(labelText: String) {
         addSubview(defaultStackView)
         defaultStackView.addSubviews(defaultLabel,toggleSwitch)
         
-        
         defaultLabel.text = labelText
       
-        
            defaultStackView.snp.makeConstraints { cv in
                cv.top.equalToSuperview()
                cv.bottom.equalToSuperview()

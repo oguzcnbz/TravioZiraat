@@ -18,7 +18,7 @@ enum Router {
     case visitPost(params:Parameters)
     case visitDelete(placeId:String)
     case visitByPlaceIdCheck(placeId:String)
-    case myAddedPlacesGet
+    case passwordChangePut(params:Parameters)
     //case placeUser(
     
     
@@ -50,8 +50,8 @@ enum Router {
             return "/v1/visits/\(placeId)"
         case.visitByPlaceIdCheck(let placeId):
             return "/v1/visits/user/\(placeId)"
-        case .myAddedPlacesGet:
-            return "/v1/places/user"
+        case .passwordChangePut:
+            return "/v1/change-password"
         }
     }
     
@@ -60,21 +60,21 @@ enum Router {
         switch self {
         case .userLogin,.userRegister,.placePost,.visitPost:
             return .post
-        case .placeAllGet,.placePopularGet,.placePopularGetParams,.placeLastGet,.placeLastGetParams,.placeDetailGetGalleryImages,.placeAllUserGet,.visitsGet,.visitByPlaceIdCheck,.myAddedPlacesGet:
+        case .placeAllGet,.placePopularGet,.placePopularGetParams,.placeLastGet,.placeLastGetParams,.placeDetailGetGalleryImages,.placeAllUserGet,.visitsGet,.visitByPlaceIdCheck:
             return .get
         case .visitDelete:
             return .delete
-            //        case .userUpdate:
-            //            return .put
+        case .passwordChangePut:
+            return .put
         }
     }
     
     
     var headers:HTTPHeaders {
         switch self {
-        case .userLogin,.placeAllGet ,.placePopularGet,.userRegister,.placePopularGetParams,.placeDetailGetGalleryImages,.placeLastGet,.placeLastGetParams,.myAddedPlacesGet:
+        case .userLogin,.placeAllGet ,.placePopularGet,.userRegister,.placePopularGetParams,.placeDetailGetGalleryImages,.placeLastGet,.placeLastGetParams:
             return [:]
-        case .placeAllUserGet,.placePost,.visitPost,.visitsGet,.visitDelete,.visitByPlaceIdCheck:
+        case .placeAllUserGet,.placePost,.visitPost,.visitsGet,.visitDelete,.visitByPlaceIdCheck,.passwordChangePut:
             guard let accessToken = KeychainHelper.shared.read(service: "user-key", account: "accessToken") else {return [:] }
             var accesTmp = String(data: accessToken, encoding: .utf8)
             guard let accesStr = accesTmp else {return [:]}
@@ -84,9 +84,9 @@ enum Router {
     
         var parameters:Parameters? {
             switch self {
-            case .userLogin(let params),.userRegister(let params),.placePopularGetParams(params: let params),.placeLastGetParams(params: let params),.visitPost(params: let params):
+            case .userLogin(let params),.userRegister(let params),.placePopularGetParams(params: let params),.placeLastGetParams(params: let params),.visitPost(params: let params),.passwordChangePut(params: let params):
                 return params
-            case .placeAllGet,.placePopularGet,.placeLastGet,.placeDetailGetGalleryImages,.placeAllUserGet,.placePost,.visitsGet,.visitDelete,.visitByPlaceIdCheck,.myAddedPlacesGet:
+            case .placeAllGet,.placePopularGet,.placeLastGet,.placeDetailGetGalleryImages,.placeAllUserGet,.placePost,.visitsGet,.visitDelete,.visitByPlaceIdCheck:
                 return nil
                 //        case .userUpdate(userId: _, params: let params):
                 //            return params
