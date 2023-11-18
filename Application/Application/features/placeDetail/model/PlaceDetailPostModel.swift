@@ -2,7 +2,7 @@
 import UIKit
 import Foundation
 
-struct VisitResponse: Codable {
+struct Response: Codable {
     let message: String
     let status: String
 }
