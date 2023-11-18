@@ -8,15 +8,15 @@
 import Foundation
 import UIKit
 
-protocol MapAddPlaceDelegate{
-    func mapAddPlaceGet(isLogin:Bool)
-}
+//protocol MapAddPlaceDelegate{
+//    func mapAddPlaceGet(isLogin:Bool)
+//}
 class MapAddPlaceViewModel {
     
-    var delegate: MapAddPlaceDelegate?
-    func setDelegate(output: MapAddPlaceDelegate) {
-        delegate = output
-    }
+//    var delegate: MapAddPlaceDelegate?
+//    func setDelegate(output: MapAddPlaceDelegate) {
+//        delegate = output
+//    }
     
    
     
@@ -49,10 +49,6 @@ class MapAddPlaceViewModel {
                     print("Image upload failed.")
                 }
             }
-
-            
-         
-            
         }
        
         
@@ -73,7 +69,7 @@ class MapAddPlaceViewModel {
         
         print(params)
         
-        NetworkingHelper.shared.getDataFromRemote(urlRequest: .placePost(params: params)) {  (result:Result<PlacePostResponseModel,Error>) in
+        NetworkingHelper.shared.getDataFromRemote(urlRequest: .placePost(params: params)) {  (result:Result<ResponseMessageModel,Error>) in
            
             switch result {
             case .success(let success):
@@ -97,7 +93,7 @@ class MapAddPlaceViewModel {
             
         ] as [String: String]
         
-        NetworkingHelper.shared.getDataFromRemote(urlRequest: .galerysImagesPost(params: params)) { (result:Result<PlacePostResponseModel,Error>) in
+        NetworkingHelper.shared.getDataFromRemote(urlRequest: .galerysImagesPost(params: params)) { (result:Result<ResponseMessageModel,Error>) in
             switch result {
             case .success(let success):
                 print(success.message)

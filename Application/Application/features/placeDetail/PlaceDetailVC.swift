@@ -111,17 +111,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         v.backgroundColor = ColorStyle.background.color
         return v
     }()
-    private let imageViews: [UIImageView] = {
-        var imageViews: [UIImageView] = []
-        for x in 1...5 {
-            let iv = UIImageView()
-            iv.contentMode = .scaleAspectFill
-            iv.image = UIImage(named: "Travio")
-            iv.clipsToBounds = true
-            imageViews.append(iv)
-        }
-        return imageViews
-    }()
+ 
     
      lazy var placeSaveButon: UIButton = {
         let b = UIButton()
@@ -226,7 +216,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
       //  print(placeModel)
         
         if let date = convertStringToDate(placeModel?.updatedAt ?? "") {
-        //    print("Converted Date: \(date)")
+        
             
             labelDate.text = convertDateToString(date)
            

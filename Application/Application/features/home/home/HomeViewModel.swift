@@ -101,7 +101,7 @@ class HomeViewModel{
             case .success(let obj):
                 let response = obj.data
                 self.userPlace = response.places
-                print(self.userPlace)
+                    //    print(self.userPlace)
             
             case .failure(let err):
                 print(err.localizedDescription)

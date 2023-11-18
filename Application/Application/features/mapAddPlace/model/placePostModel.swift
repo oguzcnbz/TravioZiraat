@@ -20,9 +20,6 @@ struct PlacePostModel: Codable {
         case latitude, longitude
     }
 }
-struct PlacePostResponseModel: Codable {
-    let message, status: String
-}
 
 
 

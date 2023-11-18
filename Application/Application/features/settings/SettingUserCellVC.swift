@@ -34,6 +34,7 @@ class SettingUserCell: UICollectionViewCell{
         btn.titleLabel?.font = FontStyle.poppinsLight(size: 12).font
         btn.setTitleColor(UIColor(hex: "17C0EB"), for: .normal)
         btn.addTarget(self, action: #selector(editProfilefunc), for: .touchUpInside)
+        btn.contentEdgeInsets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
         return btn
     }()
     

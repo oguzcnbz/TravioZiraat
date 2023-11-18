@@ -9,11 +9,16 @@
 import UIKit
 import TinyConstraints
 import SnapKit
+import Kingfisher
 
 class EditProfileVC: UIViewController {
     
     //MARK: -- Properties
-    
+    lazy var editProfilViewModel: EditProfileViewModel = {
+        return EditProfileViewModel()
+    }()
+    var profilModel:ProfileModel?
+    var isImageChanged = false
     
     //MARK: -- Views
     
@@ -41,11 +46,15 @@ class EditProfileVC: UIViewController {
         let sv = CustomTextField(labelText: "Email", textFieldPlaceholder: "developer@bilgeadam.com")
         return sv
     }()
+    let profileImageViewWidth: CGFloat = 100
     
     private lazy var photoView:UIImageView = {
-        let v = UIImageView()
-        v.layer.cornerRadius = 260
-        return v
+        let iv = UIImageView()
+        iv.image = #imageLiteral(resourceName: "DefaultProfileImage").withRenderingMode(.alwaysOriginal)
+        iv.contentMode = .scaleAspectFill
+        iv.layer.cornerRadius = profileImageViewWidth / 2
+        iv.layer.masksToBounds = true
+        return iv
     }()
     
     private lazy var nameLbl: UILabel = {
@@ -94,25 +103,18 @@ class EditProfileVC: UIViewController {
     }()
     private lazy var buttonSave: DefaultButton = {
         let btn = DefaultButton(title: "Save", background: .customgreen)
-        btn.addTarget(self, action: #selector(btnLoginTapped), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(btnProfilTapped), for: .touchUpInside)
         return btn
     }()
-    @objc func btnLoginTapped() {
-//        guard let email = emailStackView.defaultTextField.text else {return}
-//        guard let password = passwordStackView.defaultTextField.text else {return}
-        
-       // loginViewModel.setDelegate(output: self)
-      //  loginViewModel.loginUser(email: email, password: password)
-    }
+   
 
     
     //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameLbl.text = "Bruce Villiam"
-        photoView.image = UIImage(named: "face")
-        dateLbl.text = "30 Ağustos 2023"
-        userTypeLbl.text = "Admin"
+        getProfilData()
+        
+      
        setupViews()
        
     }
@@ -123,8 +125,48 @@ class EditProfileVC: UIViewController {
         
     }
     @objc func changePhotofunc(){
+        showChooseSourceTypeAlertController()
+        
+        
+    }
+    @objc func btnProfilTapped() {
+      //  if
+        
+   //     editProfilViewModel.changeProfile()
+
+        
+       
     }
     //MARK: -- Private Methods
+    
+    private func getProfilData(){
+        
+        editProfilViewModel.getProfilData()
+        editProfilViewModel.transferProfilData = {  [weak self] () in
+            let obj = self?.editProfilViewModel.profilModel
+            self?.profilModel = obj
+
+            self?.nameLbl.text = self?.profilModel?.fullName ?? ""
+            
+            if self?.profilModel?.ppURL?.count ?? 0 > 1{
+                
+                let url = URL(string: self?.profilModel?.ppURL ?? "")
+                
+                self?.photoView.kf.setImage(with: url)
+                
+            }
+           
+            
+          
+            self?.dateLbl.text = self?.profilModel?.createdAt ?? ""
+            self?.userTypeLbl.text = self?.profilModel?.role ?? ""
+            
+
+           
+            
+            
+        }
+    }
     
     
     //MARK: -- UI Methods
@@ -153,7 +195,9 @@ class EditProfileVC: UIViewController {
         photoView.snp.makeConstraints({imgv in
             imgv.top.equalToSuperview().offset(24)
             imgv.centerX.equalToSuperview()
-            imgv.width.equalTo(120)
+            imgv.width.equalTo(profileImageViewWidth)
+            imgv.height.equalTo(profileImageViewWidth)
+            
         })
         editProfileBtn.snp.makeConstraints({btn in
             btn.top.equalTo(photoView.snp.bottom).offset(8)
@@ -266,6 +310,37 @@ extension EditProfileVC {
         return stack
     }
     
+}
+
+extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func showChooseSourceTypeAlertController() {
+        let photoLibraryAction = UIAlertAction(title: "Choose a Photo", style: .default) { (action) in
+            self.showImagePickerController(sourceType: .photoLibrary)
+        }
+        let cameraAction = UIAlertAction(title: "Take a New Photo", style: .default) { (action) in
+            self.showImagePickerController(sourceType: .camera)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        AlertService.showAlert(style: .actionSheet, title: nil, message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
+    }
+    
+    func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        imagePickerController.sourceType = sourceType
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            self.photoView.image = editedImage.withRenderingMode(.alwaysOriginal)
+//isImageChanged = tre
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.photoView.image = originalImage.withRenderingMode(.alwaysOriginal)
+        }
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 #if DEBUG
