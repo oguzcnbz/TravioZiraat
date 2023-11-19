@@ -16,11 +16,7 @@ class SettingUserCell: UICollectionViewCell{
         return sv
     }()
     
-    private lazy var photoView:UIImageView = {
-        let v = UIImageView()
-        v.layer.cornerRadius = 260
-        return v
-    }()
+  
     
     private lazy var nameLbl: UILabel = {
         let lbl = UILabel()
@@ -37,6 +33,17 @@ class SettingUserCell: UICollectionViewCell{
         btn.contentEdgeInsets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
         return btn
     }()
+    
+    let profileImageViewWidth: CGFloat = 100
+    private lazy var photoView:UIImageView = {
+        let iv = UIImageView()
+        iv.image = #imageLiteral(resourceName: "DefaultProfileImage").withRenderingMode(.alwaysOriginal)
+        iv.contentMode = .scaleAspectFill
+        iv.layer.cornerRadius = profileImageViewWidth / 2
+        iv.layer.masksToBounds = true
+        return iv
+    }()
+   
     
     @objc func editProfilefunc(){
         closure?()
@@ -56,8 +63,17 @@ class SettingUserCell: UICollectionViewCell{
   
     
     public func configure(object:SettingUser){
-        photoView.image = object.image
+       // photoView.image =
         nameLbl.text = object.name
+        
+     if   object.imageUrl?.count ?? 0 > 1{
+            
+            let url = URL(string: object.imageUrl ?? "")
+            
+            self.photoView.kf.setImage(with: url)
+            
+        }
+       
     }
     
     private func setupViews(){
@@ -82,7 +98,8 @@ class SettingUserCell: UICollectionViewCell{
         photoView.snp.makeConstraints({imgv in
             imgv.top.equalToSuperview().offset(24)
             imgv.centerX.equalToSuperview()
-            imgv.width.equalTo(120)
+            imgv.width.equalTo(100)
+            imgv.height.equalTo(100)
         })
         
         nameLbl.snp.makeConstraints({lbl in

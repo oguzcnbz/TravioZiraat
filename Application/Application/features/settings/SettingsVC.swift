@@ -3,8 +3,9 @@ import TinyConstraints
 import SnapKit
 
 class SettingsVC: UIViewController {
-
-    var usersss:[SettingUser] = [SettingUser(image: UIImage(named: "face"), name: "Bruce Wills")]
+   private var userModel = SettingUser(imageUrl: "",name: "")
+  //  var usersss:[SettingUser] = []  //[SettingUser(image: UIImage(named: "face"), name: "Bruce Wills")]
+    
 
     var settingCells:[Settings] = [Settings(icon: UIImage(named: "user"), settingName: "Security Settings"),
                                    Settings(icon: UIImage(named: "binoculars"), settingName: "App Defaults"),
@@ -13,7 +14,10 @@ class SettingsVC: UIViewController {
                                    Settings(icon: UIImage(named: "info"), settingName: "About"),
                                    Settings(icon: UIImage(named: "hands"), settingName: "Terms of Use"),
     ]
-
+    lazy var editProfilViewModel: EditProfileViewModel = {
+        return EditProfileViewModel()
+    }()
+    var profilModel:ProfileModel?
     private lazy var collectionView:UICollectionView = {
 
         let lay = makeCollectionViewLayout()
@@ -34,13 +38,32 @@ class SettingsVC: UIViewController {
         let sv = DefaultMainStackView()
         return sv
     }()
-
+    
+  
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        getProfilData()
        setupViews()
 
+    }
+    private func getProfilData(){
+        
+        editProfilViewModel.getProfilData()
+        editProfilViewModel.transferProfilData = { 
+            
+            [weak self] () in
+                        let obj = self?.editProfilViewModel.profilModel
+                        
+           
+            self?.userModel.name = obj?.fullName
+            self?.userModel.imageUrl = obj?.ppURL
+            self?.collectionView.reloadData()
+            
+            
+            
+        }
     }
 
 
@@ -154,7 +177,7 @@ extension SettingsVC:UICollectionViewDataSource {
         if indexPath.section == 0{
 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userCell", for: indexPath) as! SettingUserCell
-            let object = usersss[indexPath.row]
+            let object = userModel
             cell.configure(object:object)
             cell.closure = {
      

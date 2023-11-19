@@ -49,13 +49,13 @@ class EditProfileViewModel {
         
     }
     
-    func profileUploadImage (profileImg: UIImage,full_name:String,email:String,pp_url:String) {
+    func profileUploadImage (profileImg: UIImage,full_name:String,email:String,pp_url:String,isDone: @escaping (Bool) -> Void) {
         var imglArr:[UIImage] = [profileImg]
             let networkHelper = NetworkingHelper()
             networkHelper.uploadImages(images: imglArr, path: "/upload") { result in
                 if let imageUrls = result {
                     print("Images uploaded successfully. URLs: \(imageUrls)")
-                    self.changeProfile(full_name: full_name, email: email, pp_url: pp_url)
+                    self.changeProfile(full_name: full_name, email: email, pp_url:imageUrls.first ?? "", isDone: isDone)
                             
                         
                         
@@ -69,7 +69,8 @@ class EditProfileViewModel {
         
     }
     
-    func changeProfile(full_name:String,email:String,pp_url:String){
+    func changeProfile(full_name:String,email:String,pp_url:String,isDone: @escaping (Bool) -> Void){
+        
         
         let params: [String: Any] = [
             "full_name": full_name,
@@ -81,11 +82,11 @@ class EditProfileViewModel {
             switch result {
             case .success(let obj):
                 print(obj)
-             
                 
+                isDone(true)
                 
             case .failure(let failure):
-                print(failure.localizedDescription)
+                print(failure)
                 
             }
             

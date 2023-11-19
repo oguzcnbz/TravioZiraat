@@ -130,9 +130,38 @@ class EditProfileVC: UIViewController {
         
     }
     @objc func btnProfilTapped() {
-      //  if
+        if isImageChanged == true{
+            
+            editProfilViewModel.profileUploadImage(profileImg: self.photoView.image!,
+                                                   full_name: usernameStackView.defaultTextField.text ?? "",
+                                                   email: emailStackView.defaultTextField.text ?? "",
+                                                   pp_url: "") { success in
+                // Handle the result of the profile upload here
+                if success {
+                   
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    // Profile upload failed
+                    print("Profile upload failed")
+                }
+            }
+        }
+        else {
+            editProfilViewModel.changeProfile(full_name: usernameStackView.defaultTextField.text ?? "", email: emailStackView.defaultTextField.text ?? "", pp_url: self.profilModel?.ppURL ?? ""){ success in
+                // Handle the result of the profile upload here
+                if success {
+                   
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    // Profile upload failed
+                    print("Profile upload failed")
+                }
+            }
+
+            
+        }
         
-   //     editProfilViewModel.changeProfile()
+    
 
         
        
@@ -147,7 +176,8 @@ class EditProfileVC: UIViewController {
             self?.profilModel = obj
 
             self?.nameLbl.text = self?.profilModel?.fullName ?? ""
-            
+            self?.usernameStackView.defaultTextField.text = self?.profilModel?.fullName
+            self?.emailStackView.defaultTextField.text = self?.profilModel?.email
             if self?.profilModel?.ppURL?.count ?? 0 > 1{
                 
                 let url = URL(string: self?.profilModel?.ppURL ?? "")
@@ -335,7 +365,7 @@ extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationController
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             self.photoView.image = editedImage.withRenderingMode(.alwaysOriginal)
-//isImageChanged = tre
+         isImageChanged = true
         } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.photoView.image = originalImage.withRenderingMode(.alwaysOriginal)
         }

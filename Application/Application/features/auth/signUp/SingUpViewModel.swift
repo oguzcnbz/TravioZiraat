@@ -23,21 +23,23 @@ class SignUpViewModel {
             return
         }
 
-        let params = ["full_name": fullName, "email": email, "password": password]
+        let params = ["full_name": "ada44", "email": "Ada442@gmail.com", "password": "secretpassworld"]
+        //let params = ["full_name": fullName, "email": email, "password": password]
 
-        NetworkingHelper.shared.getDataFromRemote(urlRequest: .userRegister(params: params)) { (result: Result<UserModel, Error>) in
+        NetworkingHelper.shared.getDataFromRemote(urlRequest: .userRegister(params: params)) { (result: Result<ResponseMessageModel, Error>) in
             switch result {
             case .success(let success):
-                guard let message = success.message else {return}
+              //  guard let message = success.message else {return}
                 let status = success.status
                 let isSuccess = (status == "success")
+                print("is success \(isSuccess)")
                 
              
                 lazy var loginViewModel: LoginViewModel = LoginViewModel()
                
                 
                 
-                self.delegate?.signUpResponseGet(isSignUp: isSuccess, message: message)
+                self.delegate?.signUpResponseGet(isSignUp: isSuccess, message: success.message)
                 loginViewModel.loginUser(email: email, password: password)
 
             case .failure(let error):
@@ -49,7 +51,7 @@ class SignUpViewModel {
                 case "Response status code was unacceptable: 500.":
                     errMessage = "User with that email already exists"
                 case "Response status code was unacceptable: 400.":
-                    errMessage = "Password must be more than 6 characters"
+                    errMessage = error.localizedDescription
                 default:
                     errMessage
                 }

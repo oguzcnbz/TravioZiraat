@@ -36,7 +36,7 @@ enum Router {
     
     var path:String {
         switch self {
-        case .userRegister(params: _):
+        case .userRegister:
             return "/v1/auth/register"
         case .userLogin:
             return "/v1/auth/login"
@@ -109,8 +109,6 @@ enum Router {
         case .placeAllGet,.placePopularGet,.placeLastGet,.placeDetailGetGalleryImages,.placeAllUserGet,.visitsGet,.visitDelete,.visitByPlaceIdCheck,.myAddedPlacesGet,.profileGet:
             
             return nil
-            //        case .userUpdate(userId: _, params: let params):
-            //            return params
         }
         
         

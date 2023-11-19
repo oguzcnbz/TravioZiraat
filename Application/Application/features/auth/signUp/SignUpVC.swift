@@ -96,17 +96,18 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     
     
     @objc func btnSignTapped() {
-          guard let userName = usernameStackView.defaultTextField.text else {return}
-        guard let email = emailStackView.defaultTextField.text else {return}
-        guard let password = passwordStackView.defaultTextField.text else {return}
-        
-        if emailStackView.defaultTextField.hasValidEmail == false {
-            showAlert(title: "Registration Failed", message: "Sorry, we dont recognise this email address")
-            return
-        }
+//          guard let userName = usernameStackView.defaultTextField.text else {return}
+//        guard let email = emailStackView.defaultTextField.text else {return}
+//        guard let password = passwordStackView.defaultTextField.text else {return}
+//        
+//        if emailStackView.defaultTextField.hasValidEmail == false {
+//            showAlert(title: "Registration Failed", message: "Sorry, we dont recognise this email address")
+//            return
+//        }
         
         SignUpViewModel.setDelegate(output: self)
-        SignUpViewModel.signUpUser(fullName: userName, email: email, password: password)
+      //  SignUpViewModel.signUpUser(fullName: userName, email: email, password: password)
+        SignUpViewModel.signUpUser(fullName: "ada", email: "Ada443@gmail.com", password: "123123")
     }
     
     @objc func backButtonTapped(){
@@ -214,7 +215,8 @@ extension SignUpVC {
         let isPasswordConfirmed = passwordStackView.defaultTextField.text == passwordConfirmStackView.defaultTextField.text
         let isAllFieldsFilled = usernameStackView.defaultTextField.hasText && emailStackView.defaultTextField.hasText && passwordStackView.defaultTextField.hasText && passwordConfirmStackView.defaultTextField.hasText
         
-        buttonLogin.isEnabled = isPasswordValid && isPasswordConfirmed && isAllFieldsFilled
+       // buttonLogin.isEnabled = isPasswordValid && isPasswordConfirmed && isAllFieldsFilled
+        buttonLogin.isEnabled = true
         
         if buttonLogin.isEnabled {
             buttonLogin.backgroundColor = ButtonBackground.customgreen.backgroundColor

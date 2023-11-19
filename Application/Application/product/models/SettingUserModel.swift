@@ -3,6 +3,6 @@ import UIKit
 import Foundation
 
 struct SettingUser{
-    var image:UIImage?
+    var imageUrl:String?
     var name:String?
 }
