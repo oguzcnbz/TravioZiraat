@@ -1,4 +1,3 @@
-
 import UIKit
 import Alamofire
 
@@ -17,7 +16,5 @@ class SecuritySettingsViewModel{
         
             }
         })
-        
     }
-  
 }

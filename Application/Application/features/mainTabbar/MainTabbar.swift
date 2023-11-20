@@ -7,24 +7,19 @@ class MainTabbar: UITabBarController {
         super.viewDidLoad()
         self.viewControllers = setupControllers()
         self.selectedIndex = 0
-        self.tabBar.tintColor = UIColor(hex: "38ADA9")
-        self.tabBar.unselectedItemTintColor = UIColor(hex: "999999")
+        self.tabBar.tintColor = ColorStyle.primary.color
+        self.tabBar.unselectedItemTintColor = ColorStyle.greySpanish.color
         self.tabBar.backgroundColor = UIColor(white: 1, alpha: 0.9)
         self.tabBar.isTranslucent = false
         
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             self.navigationController?.isNavigationBarHidden = true
     }
 
-    
-    
-    
     private func setupControllers()->[UIViewController]{
-        
         
         let homeVC = HomeVC()
         let homeNC = UINavigationController(rootViewController: homeVC)
@@ -53,15 +48,6 @@ class MainTabbar: UITabBarController {
         let selectedImageMyVisit = UIImage(named: "icVisitGray")
         myVistVC.tabBarItem = UITabBarItem(title: "My Visit", image: imageVisit, selectedImage: selectedImageMyVisit)
         
-            /*  let addSegmentedVC1 = AddSegmentedVC()
-        let addSegmentedNC1 = UINavigationController(rootViewController: addSegmentedVC1)
-        let imageAddSegmented1 =  UIImage(systemName: "recordingtape.circle")
-        let selectedImageAddSegmented1 = UIImage(systemName: "recordingtape.circle")
-        addSegmentedVC.tabBarItem = UITabBarItem(title: "VoiceMail", image: imageAddSegmented1, selectedImage: selectedImageAddSegmented1)
-        */
-        
         return [homeNC, myVistNC, mapNC,settingsNC]
     }
-    
-
 }

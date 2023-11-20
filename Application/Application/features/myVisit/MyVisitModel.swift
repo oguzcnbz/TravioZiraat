@@ -1,5 +1,3 @@
-
-
 import UIKit
 
 struct MyVisitsModel:Codable {

@@ -2,6 +2,7 @@ import UIKit
 import MapKit
 import SnapKit
 
+
 class MapVC: UIViewController {
     
     // MARK: - Properties
@@ -32,7 +33,6 @@ class MapVC: UIViewController {
     
     private lazy var longPressGesture: UILongPressGestureRecognizer = {
         let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
-        
         return gesture
     }()
     
@@ -54,12 +54,11 @@ class MapVC: UIViewController {
     }
     
     private func setupLayout() {
-        collectionView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.top.equalToSuperview().offset(625)
-            make.bottom.equalToSuperview()
-           // make.top.equalToSuperview().offset(621)
+        collectionView.snp.makeConstraints { cv in
+            cv.leading.equalToSuperview()
+            cv.trailing.equalToSuperview()
+            cv.top.equalToSuperview().offset(625)
+            cv.bottom.equalToSuperview()
         }
     }
     
@@ -121,7 +120,6 @@ class MapVC: UIViewController {
         }
     }
     
-
     
     // MARK: - Data Methods
     

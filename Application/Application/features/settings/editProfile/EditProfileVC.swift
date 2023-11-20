@@ -1,37 +1,26 @@
-//
-//  
-//  EditProfileVC.swift
-//  Application
-//
-//  Created by Ada on 7.11.2023.
-//
-//
 import UIKit
 import TinyConstraints
 import SnapKit
 import Kingfisher
 
+
 protocol PreviousPageDelegate: AnyObject {
     func didDismiss()
 }
 
-class EditProfileVC: UIViewController {
+
+class EditProfileVC: UIViewController{
     
     //MARK: -- Properties
     lazy var editProfilViewModel: EditProfileViewModel = {
         return EditProfileViewModel()
     }()
+    
     var profilModel:ProfileModel?
     var isImageChanged = false
-    
     weak var delegate: PreviousPageDelegate?
     
     //MARK: -- Views
-    
-//    private lazy var mainStackView: DefaultMainStackView = {
-//        let sv = DefaultMainStackView()
-//        return sv
-//    }()
     
     private lazy var containerView:UIView = {
         let v = UIView()
@@ -44,7 +33,6 @@ class EditProfileVC: UIViewController {
     
     private lazy var usernameStackView: CustomTextField = {
         let sv = CustomTextField(labelText: "Fullname", textFieldPlaceholder: "bilge_adam")
-        
         return sv
     }()
     
@@ -52,8 +40,8 @@ class EditProfileVC: UIViewController {
         let sv = CustomTextField(labelText: "Email", textFieldPlaceholder: "developer@bilgeadam.com")
         return sv
     }()
-    let profileImageViewWidth: CGFloat = 100
     
+    let profileImageViewWidth: CGFloat = 120
     private lazy var photoView:UIImageView = {
         let iv = UIImageView()
         iv.image = #imageLiteral(resourceName: "DefaultProfileImage").withRenderingMode(.alwaysOriginal)
@@ -69,8 +57,6 @@ class EditProfileVC: UIViewController {
         return lbl
     }()
     
-    
-    
     private lazy var editProfileBtn: UIButton = {
         let btn = UIButton()
         btn.setTitle("Change Photo", for: .normal)
@@ -78,23 +64,24 @@ class EditProfileVC: UIViewController {
         btn.setTitleColor(ColorStyle.blueRaspberry.color, for: .normal)
         btn.addTarget(self, action: #selector(changePhotofunc), for: .touchUpInside)
         btn.contentEdgeInsets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
-        //btn.backgroundColor = kcBlueRaspberryColor
+        
         return btn
     }()
     
     private lazy var dateStackView: UIStackView = CsStackView()
-    
     
     private lazy var icEdit:UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "icEditDate")
         return img
     }()
+    
     private lazy var dateLbl: UILabel = {
         let lbl = UILabel()
         lbl.font = FontStyle.poppinsMedium(size: 14).font
         return lbl
     }()
+    
     private lazy var userTypeStackView: UIStackView = CsStackView()
     
     private lazy var icAdmin:UIImageView = {
@@ -102,13 +89,15 @@ class EditProfileVC: UIViewController {
         img.image = UIImage(named: "icAdmin")
         return img
     }()
+    
     private lazy var userTypeLbl: UILabel = {
         let lbl = UILabel()
         lbl.font = FontStyle.poppinsMedium(size: 14).font
         return lbl
     }()
+    
     private lazy var buttonSave: DefaultButton = {
-        let btn = DefaultButton(title: "Save", background: .customgreen)
+        let btn = DefaultButton(title: "Save", background: .primary)
         btn.addTarget(self, action: #selector(btnProfilTapped), for: .touchUpInside)
         return btn
     }()
@@ -119,9 +108,7 @@ class EditProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getProfilData()
-        
-      
-       setupViews()
+        setupViews()
        
     }
     
@@ -132,7 +119,7 @@ class EditProfileVC: UIViewController {
     }
     @objc func changePhotofunc(){
         showChooseSourceTypeAlertController()
-        
+       
         
     }
     @objc func btnProfilTapped() {
@@ -142,39 +129,30 @@ class EditProfileVC: UIViewController {
                                                    full_name: usernameStackView.defaultTextField.text ?? "",
                                                    email: emailStackView.defaultTextField.text ?? "",
                                                    pp_url: "") { success in
-                // Handle the result of the profile upload here
                 if success {
-                   
                     self.dismiss(animated: true, completion: {
                         self.delegate?.didDismiss()
                     })
                 } else {
-                    // Profile upload failed
                     print("Profile upload failed")
                 }
             }
         }
         else {
-            editProfilViewModel.changeProfile(full_name: usernameStackView.defaultTextField.text ?? "", email: emailStackView.defaultTextField.text ?? "", pp_url: self.profilModel?.ppURL ?? ""){ success in
-                // Handle the result of the profile upload here
+            editProfilViewModel.changeProfile(full_name: usernameStackView.defaultTextField.text ?? "",
+                                              email: emailStackView.defaultTextField.text ?? "",
+                                              pp_url: self.profilModel?.ppURL ?? ""){ success in
+                
                 if success {
-                   
                     self.dismiss(animated: true, completion: {
                         self.delegate?.didDismiss()
                     })
                 } else {
-                    // Profile upload failed
                     print("Profile upload failed")
                 }
             }
-
-            
         }
         
-    
-
-        
-       
     }
     //MARK: -- Private Methods
     
@@ -196,18 +174,20 @@ class EditProfileVC: UIViewController {
                 
             }
            
-            
-          
             self?.dateLbl.text = self?.profilModel?.createdAt ?? ""
             self?.userTypeLbl.text = self?.profilModel?.role ?? ""
-            
-
-           
-            
-            
         }
     }
     
+    func showControlAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: { _ in
+            self.dismiss(animated: true)
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
     
     //MARK: -- UI Methods
     func setupViews() {
@@ -257,61 +237,49 @@ class EditProfileVC: UIViewController {
             v.width.equalTo(usernameStackView).multipliedBy(0.5).offset(-5)
             v.height.equalTo(52)
         }
-        icEdit.snp.makeConstraints({item in
-           // item.centerY.equalToSuperview()
-            item.leading.equalToSuperview().offset(16)
-            
-            item.top.equalToSuperview().offset(18)
-            item.bottom.equalToSuperview().offset(-16)
-            item.width.equalTo(20)
+        icEdit.snp.makeConstraints({imgv in
+            imgv.leading.equalToSuperview().offset(16)
+            imgv.top.equalToSuperview().offset(18)
+            imgv.bottom.equalToSuperview().offset(-16)
+            imgv.width.equalTo(20)
             
             
         })
-        dateLbl.snp.makeConstraints({item in
-          
-            item.leading.equalTo(icEdit.snp.trailing).offset(8)
-            
-            item.top.equalToSuperview().offset(16)
-            item.bottom.equalToSuperview().offset(-16)
-            item.trailing.equalToSuperview().offset(5)
+        dateLbl.snp.makeConstraints({lbl in
+            lbl.leading.equalTo(icEdit.snp.trailing).offset(8)
+            lbl.top.equalToSuperview().offset(16)
+            lbl.bottom.equalToSuperview().offset(-16)
+            lbl.trailing.equalToSuperview().offset(5)
             
         })
         
         userTypeStackView.snp.makeConstraints { v in
             v.top.equalTo(nameLbl.snp.bottom).offset(30)
-           
             v.leading.equalTo(dateStackView.snp.trailing).offset(10)
             v.width.equalTo(usernameStackView).multipliedBy(0.5).offset(-5)
             v.height.equalTo(52)
         }
-        icAdmin.snp.makeConstraints({item in
-           // item.centerY.equalToSuperview()
-            item.leading.equalToSuperview().offset(16)
-            
-            item.top.equalToSuperview().offset(16)
-            item.bottom.equalToSuperview().offset(-16)
-           // item.width.equalTo(20)
-            
-            
-        })
-        userTypeLbl.snp.makeConstraints({item in
-           
-            item.leading.equalTo(icAdmin.snp.trailing).offset(10)
-            
-            item.top.equalToSuperview().offset(16)
-            item.bottom.equalToSuperview().offset(-16)
-            item.trailing.equalToSuperview().offset(5)
-            //item.height.equalTo(12)
+        
+        icAdmin.snp.makeConstraints({imgv in
+            imgv.leading.equalToSuperview().offset(16)
+            imgv.top.equalToSuperview().offset(16)
+            imgv.bottom.equalToSuperview().offset(-16)
         })
         
-        
-        
+        userTypeLbl.snp.makeConstraints({lbl in
+            lbl.leading.equalTo(icAdmin.snp.trailing).offset(10)
+            lbl.top.equalToSuperview().offset(16)
+            lbl.bottom.equalToSuperview().offset(-16)
+            lbl.trailing.equalToSuperview().offset(5)
+        })
+    
         usernameStackView.snp.makeConstraints { v in
             v.top.equalTo(dateStackView.snp.bottom).offset(20)
             v.trailing.equalToSuperview().offset(-24)
             v.leading.equalToSuperview().offset(24)
             v.height.equalTo(74)
         }
+        
         emailStackView.snp.makeConstraints { v in
             v.top.equalTo(usernameStackView.snp.bottom).offset(15)
             v.trailing.equalToSuperview().offset(-24)
@@ -325,11 +293,9 @@ class EditProfileVC: UIViewController {
             v.leading.equalToSuperview().offset(24)
             v.height.equalTo(54)
         }
-        
-       
     }
-  
 }
+
 extension EditProfileVC {
     private func CsTxtLabel(title:String) ->UILabel{
         let l = UILabel()
@@ -341,12 +307,11 @@ extension EditProfileVC {
     private func CsStackView() -> UIStackView{
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.backgroundColor = .white
+        stack.backgroundColor = ColorStyle.white.color
         stack.layer.cornerRadius = 16
         stack.layer.borderColor = UIColor.black.cgColor
         stack.layer.shadowOpacity = 0.15
         stack.layer.shadowRadius = 20
-    
         return stack
     }
     
@@ -354,14 +319,29 @@ extension EditProfileVC {
 
 extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func showChooseSourceTypeAlertController() {
+        let vcSS = SecuritySettingsVC()
+        
         let photoLibraryAction = UIAlertAction(title: "Choose a Photo", style: .default) { (action) in
-            self.showImagePickerController(sourceType: .photoLibrary)
+            if vcSS.libraryPermissionStatus == .authorized {
+                self.showImagePickerController(sourceType: .photoLibrary)
+                
+            }else{
+                self.showControlAlert(title: "Error", message: "You have not granted access to the library. You can change it from the settings.")
+            }
         }
+       
         let cameraAction = UIAlertAction(title: "Take a New Photo", style: .default) { (action) in
-            self.showImagePickerController(sourceType: .camera)
+            if vcSS.cameraPermissionStatus == .authorized {
+                self.showImagePickerController(sourceType: .camera)
+                
+            }else{
+                self.showControlAlert(title: "Error", message: "You have not granted access to the camera. You can change it from the settings.")
+            }
         }
+    
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        AlertService.showAlert(style: .actionSheet, title: nil, message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
+        
+        AlertService.showAlert(style: .actionSheet, title: nil, message: nil, actions:[photoLibraryAction,cameraAction,cancelAction] , completion: nil)
     }
     
     func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
@@ -383,14 +363,4 @@ extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationController
     }
 }
 
-#if DEBUG
-import SwiftUI
 
-@available(iOS 13, *)
-struct EditProfileVC_Preview: PreviewProvider {
-    static var previews: some View{
-         
-        EditProfileVC().showPreview()
-    }
-}
-#endif

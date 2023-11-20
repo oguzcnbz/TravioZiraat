@@ -2,21 +2,19 @@ import UIKit
 import SnapKit
 import TinyConstraints
 
+
 class LoginVC: UIViewController,LoginResponseDelegate {
 
     private lazy var securitySettings: SecuritySettingsVC = {
         return SecuritySettingsVC()
     }()
     
-    
     func loginResponseGet(isLogin: Bool) {
        print("sonuc \(isLogin ?? false)")
         if isLogin == false {
-            print("hatali giris")
             showAlert(title: "Giris Yapilamadi",message: "Bilgiler uyusmuyor")
         }
         if isLogin == true{
-            print("Giris  delegate dogru")
             let vc = MainTabbar()
             self.navigationController?.pushViewController(vc, animated: true)
             securitySettings.requestCameraPermission()
@@ -28,15 +26,13 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     func showAlert(title:String,message:String) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
         let btnCancel = UIAlertAction(title: "Vazgeç", style: .destructive)
         let btnRetry = UIAlertAction(title: "Yeniden Dene", style: .default, handler: { action in
-            self.showAlert(title: "Hata", message: "Yine olmadı")
+        self.showAlert(title: "Hata", message: "Yine olmadı")
         })
         
         alert.addAction(btnCancel)
         alert.addAction(btnRetry)
-        
         self.present(alert, animated: true)
     }
     
@@ -82,7 +78,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         let lbl = UILabel()
         lbl.text = "Welcome to Travio"
         lbl.font = FontStyle.poppinsSemiBold(size: 24).font
-        lbl.textColor = UIColor(hex: "3D3D3D")
+        lbl.textColor = ColorStyle.blackRaven.color
         lbl.numberOfLines = 1
         return lbl
     }()
@@ -91,7 +87,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         let lbl = UILabel()
         lbl.text = "Don’t have  any account?"
         lbl.font = FontStyle.poppinsSemiBold(size: 14).font
-        lbl.textColor = UIColor(hex: "3D3D3D")
+        lbl.textColor = ColorStyle.blackRaven.color
         lbl.numberOfLines = 1
         return lbl
     }()
@@ -100,7 +96,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
 //MARK: -- Buttons
     
     private lazy var buttonLogin: DefaultButton = {
-        let btn = DefaultButton(title: "Login", background: .customgreen)
+        let btn = DefaultButton(title: "Login", background: .primary)
         btn.addTarget(self, action: #selector(btnLoginTapped), for: .touchUpInside)
         return btn
     }()
@@ -140,7 +136,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
 //MARK: -- SetUpViews
     
     private func setupViews() {
-        self.view.backgroundColor = UIColor(hex: "38ada9")
+        self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubviews(imageView,
                               mainStackView)
         
@@ -149,9 +145,9 @@ class LoginVC: UIViewController,LoginResponseDelegate {
                                   passwordStackView,
                                   buttonLogin,
                                   bottomStackView)
+        
         bottomStackView.addArrangedSubviews(lblCheckSign,
                                     signButton)
-        
         layout()
     }
     
@@ -159,7 +155,6 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     
     private func layout() {
        
-        
         imageView.snp.makeConstraints { imgv in
             imgv.centerX.equalToSuperview()
             imgv.bottom.equalTo(mainStackView.snp.top).offset(-24)
@@ -204,19 +199,5 @@ class LoginVC: UIViewController,LoginResponseDelegate {
             
         })
     }
-    
 }
 
-    
-
-#if DEBUG
-import SwiftUI
-
-@available(iOS 13, *)
-struct HomeVC_Preview: PreviewProvider {
-    static var previews: some View{
-
-        SignUpVC().showPreview()
-    }
-}
-#endif

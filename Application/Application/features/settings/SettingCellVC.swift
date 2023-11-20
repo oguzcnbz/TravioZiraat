@@ -1,7 +1,7 @@
-
 import UIKit
 import TinyConstraints
 import SnapKit
+
 
 class SettingCell: UICollectionViewCell{
     
@@ -9,7 +9,7 @@ class SettingCell: UICollectionViewCell{
     
     private lazy var sttngscell:UIView = {
         let v = UIView()
-        v.backgroundColor = .white
+        v.backgroundColor = ColorStyle.white.color
         v.layer.cornerRadius = 16
         return v
     }()
@@ -36,9 +36,6 @@ class SettingCell: UICollectionViewCell{
         setupViews()
     }
     
-    
-    
-    
     public func configure(object:Settings){
         vector.image = object.icon
         sttngsLbl.text = object.settingName
@@ -50,7 +47,7 @@ class SettingCell: UICollectionViewCell{
         self.contentView.layer.shadowRadius = 20
         self.contentView.layer.cornerRadius = 16
        
-        self.contentView.backgroundColor = UIColor(hex: "F8F8F8")
+        self.contentView.backgroundColor = ColorStyle.background.color
         self.contentView.addSubviews(sttngscell)
         sttngscell.addSubviews(vector,sttngsLbl,vector2)
         
@@ -83,7 +80,6 @@ class SettingCell: UICollectionViewCell{
         }
         
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

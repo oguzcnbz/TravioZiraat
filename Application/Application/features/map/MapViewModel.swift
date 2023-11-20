@@ -1,6 +1,6 @@
-
 import UIKit
 import Alamofire
+
 
 class MapViewModel{
 
@@ -24,11 +24,7 @@ class MapViewModel{
                 
             case .failure(let err):
                 print(err.localizedDescription)
-                print("boyle kod olmaz")
             }
         })
-        
     }
-    
-    
 }

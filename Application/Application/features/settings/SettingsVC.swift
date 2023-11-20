@@ -2,15 +2,14 @@ import UIKit
 import TinyConstraints
 import SnapKit
 
+
 class SettingsVC: UIViewController,PreviousPageDelegate {
     func didDismiss() {
        getProfilData()
     }
     
    private var userModel = SettingUser(imageUrl: "",name: "")
-  //  var usersss:[SettingUser] = []  //[SettingUser(image: UIImage(named: "face"), name: "Bruce Wills")]
     
-
     var settingCells:[Settings] = [Settings(icon: UIImage(named: "user"), settingName: "Security Settings"),
                                    Settings(icon: UIImage(named: "binoculars"), settingName: "App Defaults"),
                                    Settings(icon: UIImage(named: "icMap"), settingName: "My Added Places"),
@@ -43,40 +42,32 @@ class SettingsVC: UIViewController,PreviousPageDelegate {
         return sv
     }()
     
-  
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         getProfilData()
-       setupViews()
-
+        setupViews()
     }
+    
     private func getProfilData(){
         
         editProfilViewModel.getProfilData()
-        editProfilViewModel.transferProfilData = { 
-            
-            [weak self] () in
-                        let obj = self?.editProfilViewModel.profilModel
+        editProfilViewModel.transferProfilData = { [weak self] () in
+                       
+        let obj = self?.editProfilViewModel.profilModel
                         
-           
-            self?.userModel.name = obj?.fullName
-            self?.userModel.imageUrl = obj?.ppURL
-            self?.collectionView.reloadData()
-            
-            
-            
+        self?.userModel.name = obj?.fullName
+        self?.userModel.imageUrl = obj?.ppURL
+        self?.collectionView.reloadData()
+
         }
     }
 
 
     func setupViews() {
-        self.view.backgroundColor = UIColor(hex: "38ADA9")
+        self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubviews(mainStackView)
         mainStackView.addSubview(collectionView)
      
-         //    self.navigationController?.setNavigationBarHidden(true, animated: false)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
@@ -86,6 +77,7 @@ class SettingsVC: UIViewController,PreviousPageDelegate {
 
         setupLayout()
     }
+    
     @objc func rightbartapped(){
         print("exit girdi")
         KeychainHelper.shared.delete("user-key", account: "accessToken")
@@ -114,9 +106,7 @@ class SettingsVC: UIViewController,PreviousPageDelegate {
             cv.top.equalToSuperview()
             cv.bottom.equalToSuperview()
         })
-
     }
-
 }
 
 extension SettingsVC: UICollectionViewDelegate {
@@ -244,12 +234,10 @@ extension SettingsVC {
 
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0 , trailing: 0)
 
-
+        
         let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.078))
         let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [item] )
-//        layoutGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 24, bottom: 0 , trailing: 22)
 
 
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)

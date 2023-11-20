@@ -1,11 +1,10 @@
-
 import Foundation
 import UIKit
+
 
 protocol LoginResponseDelegate{
     func loginResponseGet(isLogin:Bool)
 }
-
 
 class LoginViewModel {
  
@@ -43,15 +42,12 @@ class LoginViewModel {
              
                 isLogin = true
                
-                
             case .failure(let failure):
                     
                 isLogin = false
-                
             }
+            
             self.delegate?.loginResponseGet(isLogin: isLogin)
         })
-    }
-    
-    
+    }    
 }

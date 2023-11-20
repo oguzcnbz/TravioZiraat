@@ -1,11 +1,10 @@
-
 import Foundation
 import UIKit
+
 
 protocol SignUpResponseDelegate{
     func signUpResponseGet(isSignUp:Bool,message:String)
 }
-
 
 class SignUpViewModel {
 
@@ -14,9 +13,6 @@ class SignUpViewModel {
         delegate = output
     }
     
-   
-    
-
     func signUpUser(fullName: String?, email: String?, password: String?) {
         guard let fullName = fullName, let email = email, let password = password else {
             delegate?.signUpResponseGet(isSignUp: false, message: "Invalid input data")
@@ -24,21 +20,15 @@ class SignUpViewModel {
         }
 
         let params = ["full_name": "ada44", "email": "Ada442@gmail.com", "password": "secretpassworld"]
-        //let params = ["full_name": fullName, "email": email, "password": password]
 
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .userRegister(params: params)) { (result: Result<ResponseMessageModel, Error>) in
             switch result {
             case .success(let success):
-              //  guard let message = success.message else {return}
                 let status = success.status
                 let isSuccess = (status == "success")
                 print("is success \(isSuccess)")
                 
-             
                 lazy var loginViewModel: LoginViewModel = LoginViewModel()
-               
-                
-                
                 self.delegate?.signUpResponseGet(isSignUp: isSuccess, message: success.message)
                 loginViewModel.loginUser(email: email, password: password)
 
@@ -55,7 +45,6 @@ class SignUpViewModel {
                 default:
                     errMessage
                 }
-                
                 self.delegate?.signUpResponseGet(isSignUp: false, message: errMessage)
             }
         }

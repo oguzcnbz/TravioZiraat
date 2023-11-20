@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 
+
 class CustomTextView: UIView {
     
     init(labelText: String, textViewPlaceholder: String) {
@@ -16,7 +17,7 @@ class CustomTextView: UIView {
     private lazy var defaultStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
-        stack.backgroundColor = .white
+        stack.backgroundColor = ColorStyle.white.color
         stack.layer.cornerRadius = 16
         stack.layer.borderColor = UIColor.black.cgColor
         stack.layer.shadowOpacity = 0.15
@@ -27,7 +28,7 @@ class CustomTextView: UIView {
     lazy var defaultLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = FontStyle.poppinsMedium(size: 14).font
-        lbl.textColor = UIColor(hex: "3D3D3D")
+        lbl.textColor = ColorStyle.blackRaven.color
         lbl.numberOfLines = 1
         return lbl
     }()
@@ -35,7 +36,7 @@ class CustomTextView: UIView {
     lazy var defaultTextView: UITextView = {
         let textView = UITextView()
         textView.font = FontStyle.poppinsLight(size: 14).font
-        textView.textColor = UIColor(hex: "A9A8A8")
+        textView.textColor = ColorStyle.darkgray.color
         return textView
     }()
     
@@ -46,25 +47,25 @@ class CustomTextView: UIView {
         defaultLabel.text = labelText
       
         
-        defaultStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+        defaultStackView.snp.makeConstraints { sv in
+            sv.top.equalToSuperview()
+            sv.bottom.equalToSuperview()
+            sv.leading.equalToSuperview()
+            sv.trailing.equalToSuperview()
         }
         
-        defaultLabel.snp.makeConstraints { make in
-            make.leading.equalTo(defaultStackView.snp.leading).offset(12)
-            make.trailing.equalTo(defaultStackView.snp.trailing).offset(0)
-            make.top.equalTo(defaultStackView.snp.top).offset(8)
-            make.height.equalTo(21)
+        defaultLabel.snp.makeConstraints { lbl in
+            lbl.leading.equalTo(defaultStackView.snp.leading).offset(12)
+            lbl.trailing.equalTo(defaultStackView.snp.trailing).offset(0)
+            lbl.top.equalTo(defaultStackView.snp.top).offset(8)
+            lbl.height.equalTo(21)
         }
         
-        defaultTextView.snp.makeConstraints { make in
-            make.leading.equalTo(defaultStackView.snp.leading).offset(12)
-            make.trailing.equalTo(defaultStackView.snp.trailing).offset(0)
-            make.top.equalTo(defaultLabel.snp.bottom).offset(8)
-            make.height.equalTo(162)
+        defaultTextView.snp.makeConstraints { tv in
+            tv.leading.equalTo(defaultStackView.snp.leading).offset(12)
+            tv.trailing.equalTo(defaultStackView.snp.trailing).offset(0)
+            tv.top.equalTo(defaultLabel.snp.bottom).offset(8)
+            tv.height.equalTo(162)
         }
     }
 }

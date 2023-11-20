@@ -51,7 +51,7 @@ class MapAddPlaceVC: UIViewController {
     }()
     
     private lazy var btnaddPlace: DefaultButton = {
-        let btn = DefaultButton(title: "Add Place", background: .customgreen)
+        let btn = DefaultButton(title: "Add Place", background: .primary)
         btn.addTarget(self, action: #selector(btnAddPlaceTapped), for: .touchUpInside)
         return btn
     }()
@@ -206,3 +206,4 @@ extension MapAddPlaceVC:Deneme{
         self.showControlAlert(title: title, message: message)
     }
 }
+

@@ -3,11 +3,10 @@ import TinyConstraints
 import SnapKit
 
 
-
 class MyVisitVC: UIViewController {
     
     var visits: [MyVisits] = []
-    
+
     lazy var visitViewModel: MyVisitsViewModel = MyVisitsViewModel()
     
     private lazy var mainView: DefaultMainStackView = {
@@ -56,9 +55,7 @@ class MyVisitVC: UIViewController {
                 let obj = self?.visitViewModel.visitPlaces
                 self?.visits = obj ?? []
                 self?.collectionView.reloadData()
-        
             }
-       
         }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,7 +71,7 @@ class MyVisitVC: UIViewController {
     }
     
     private func setupViews(){
-        self.view.backgroundColor = UIColor(hex: "38ada9")
+        self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubviews(mainView)
         mainView.addSubview(collectionView)
         
@@ -90,7 +87,6 @@ class MyVisitVC: UIViewController {
     
     private func setupLayout(){
         
-    
         mainView.snp.makeConstraints { v in
             v.centerX.equalToSuperview()
             v.leading.equalToSuperview()
@@ -105,11 +101,8 @@ class MyVisitVC: UIViewController {
             cv.top.equalToSuperview()
             cv.bottom.equalToSuperview()
         })
-        
     }
 }
-
-
 
 
 extension MyVisitVC:UICollectionViewDataSource {
@@ -148,13 +141,7 @@ extension MyVisitVC {
             [weak self] sectionIndex, environment in
          
                 return self?.makeListLayoutSection()
-          
-            
         }
-    
-         
-       //return UICollectionViewCompositionalLayout(section: layoutType.layout)
-        
     }
     
     
@@ -164,12 +151,10 @@ extension MyVisitVC {
 
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0 , trailing: 0)
         
         
         let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.34))
         let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [item] )
-//        layoutGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 24, bottom: 0 , trailing: 22)
        
         
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)

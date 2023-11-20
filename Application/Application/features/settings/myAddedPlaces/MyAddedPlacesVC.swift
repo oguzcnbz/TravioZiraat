@@ -1,8 +1,6 @@
-
 import UIKit
 import TinyConstraints
 import SnapKit
-
 
 
 class MyAddedPlacesVC: UIViewController {
@@ -10,7 +8,6 @@ class MyAddedPlacesVC: UIViewController {
     var myAddedPlaces: [Place] = []
 
     //MARK: -- Properties
-    
     
     lazy var myAddedPlacesViewModel: MyAddedPlacesViewModel = MyAddedPlacesViewModel()
     
@@ -25,7 +22,6 @@ class MyAddedPlacesVC: UIViewController {
         cv.layoutIfNeeded()
         cv.layer.maskedCorners = [.layerMinXMinYCorner]
         cv.dataSource = self
-
         return cv
     }()
     
@@ -36,7 +32,7 @@ class MyAddedPlacesVC: UIViewController {
     
     private lazy var headLbl: UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(hex: "FFFFFF")
+        lbl.textColor = ColorStyle.white.color
         lbl.text = "Popular Places"
         lbl.font = FontStyle.poppinsSemiBold(size: 36).font
         lbl.sizeToFit()
@@ -87,10 +83,10 @@ class MyAddedPlacesVC: UIViewController {
             }
        
         }
-    
 
-    //MARK: -- Views
-   
+    @objc func rightbartapped(){
+        self.navigationController?.popViewController(animated: true)
+    }
     
     //MARK: -- Life Cycles
     override func viewDidLoad() {
@@ -99,29 +95,21 @@ class MyAddedPlacesVC: UIViewController {
         setupViews()
     }
     
-  
-    
     //MARK: -- UI Methods
     func setupViews() {
-        self.view.backgroundColor = UIColor(hex: "38ada9")
+        self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubview(mainStackView)
         mainStackView.addSubviews(sortButton,collectionView)
         setNavigationItems(leftBarButton: true, rightBarButton: nil, title: "My Added Places")
-     
-        setupLayout()
-        
+      
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
+        
+        setupLayout()
 
-      
     }
-    @objc func rightbartapped(){
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-
-    
+  
     func setupLayout() {
         
         mainStackView.snp.makeConstraints { v in
@@ -147,7 +135,6 @@ class MyAddedPlacesVC: UIViewController {
     }
   
 }
-
 
 
 extension MyAddedPlacesVC:UICollectionViewDataSource {

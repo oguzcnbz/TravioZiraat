@@ -14,7 +14,7 @@ class DefaultMainStackView: UIStackView {
 
     private func commonInit() {
         self.axis = .vertical
-        self.backgroundColor = UIColor(hex: "F8F8F8")
+        self.backgroundColor = ColorStyle.background.color
         self.layer.cornerRadius = 80
         self.layoutIfNeeded()
         self.layer.maskedCorners = [.layerMinXMinYCorner]

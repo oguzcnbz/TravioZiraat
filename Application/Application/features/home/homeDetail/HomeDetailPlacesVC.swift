@@ -1,13 +1,11 @@
-
 import UIKit
 import TinyConstraints
 import SnapKit
 
 
-
 class HomeDetailPlacesVC: UIViewController {
-    var titleHeader: String?
     
+    var titleHeader: String?
     var detailArr: [Place] = []
 
     //MARK: -- Properties
@@ -15,7 +13,6 @@ class HomeDetailPlacesVC: UIViewController {
         return HomeViewModel()
     }()
    
-    
     private lazy var collectionView:UICollectionView = {
        
         let lay = makeCollectionViewLayout()
@@ -28,7 +25,6 @@ class HomeDetailPlacesVC: UIViewController {
         cv.layer.maskedCorners = [.layerMinXMinYCorner]
         cv.dataSource = self
         cv.delegate = self
-
         return cv
     }()
     
@@ -39,7 +35,7 @@ class HomeDetailPlacesVC: UIViewController {
     
     private lazy var headLbl: UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(hex: "FFFFFF")
+        lbl.textColor = ColorStyle.white.color
         lbl.text = "Popular Places"
         lbl.font = FontStyle.poppinsSemiBold(size: 36).font
         lbl.sizeToFit()
@@ -66,14 +62,11 @@ class HomeDetailPlacesVC: UIViewController {
         collectionView.reloadData()
     }
 
-    //MARK: -- Views
-   
-    
     //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         getDetail()
-       setupViews()
+        setupViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,22 +93,23 @@ class HomeDetailPlacesVC: UIViewController {
     
     //MARK: -- UI Methods
     func setupViews() {
-        self.view.backgroundColor = UIColor(hex: "38ada9")
+        self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubview(mainStackView)
         mainStackView.addSubviews(sortButton,collectionView)
         setNavigationItems(leftBarButton: true, rightBarButton: nil, title: titleHeader)
         
-        setupLayout()
-        
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
-
-      
+        
+        setupLayout()
+        
     }
+    
     @objc func rightbartapped(){
         self.navigationController?.popViewController(animated: true)
     }
+    
     private func getDetail (){
         if titleHeader == "Populer Place" { 
             homeViewModel.getPopulerPlace()
@@ -125,7 +119,6 @@ class HomeDetailPlacesVC: UIViewController {
                 print(self?.detailArr.count)
                 print("======")
                 self?.collectionView.reloadData()
-
             }
             
         }else if titleHeader == "Last Place"  {
@@ -136,9 +129,7 @@ class HomeDetailPlacesVC: UIViewController {
                 print(self?.detailArr.count)
                 print("======")
                 self?.collectionView.reloadData()
-
             }
-            
             
         }else {
             homeViewModel.getUserPlace()
@@ -148,12 +139,8 @@ class HomeDetailPlacesVC: UIViewController {
                 print(self?.detailArr.count)
                 print("======")
                 self?.collectionView.reloadData()
-
             }
-            
         }
-        
-      
     }
 
     
@@ -180,9 +167,7 @@ class HomeDetailPlacesVC: UIViewController {
         
         mainStackView.bringSubviewToFront(sortButton)
     }
-  
 }
-
 
 
 extension HomeDetailPlacesVC:UICollectionViewDataSource {
@@ -199,18 +184,18 @@ extension HomeDetailPlacesVC:UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! HomeDetailPlacesCell
         let object = detailArr[indexPath.row]
         cell.configure(object:object)
-        
         return cell
     }
 }
 
+
 extension HomeDetailPlacesVC:UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let place = detailArr[indexPath.row]
-       
         self.checkVisit(placeId: place.id, place: place)
     }
 }
+
 
 extension HomeDetailPlacesVC {
     
@@ -220,15 +205,8 @@ extension HomeDetailPlacesVC {
             [weak self] sectionIndex, environment in
          
                 return self?.makeListLayoutSection()
-          
-            
         }
-    
-        
-        //return UICollectionViewCompositionalLayout(section: layoutType.layout)
-        
     }
-    
     
     
     func makeListLayoutSection() -> NSCollectionLayoutSection {
@@ -236,12 +214,10 @@ extension HomeDetailPlacesVC {
 
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0 , trailing: 0)
         
         
         let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.125))
         let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [item] )
-//        layoutGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 24, bottom: 0 , trailing: 22)
        
         
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
@@ -252,19 +228,3 @@ extension HomeDetailPlacesVC {
         return layoutSection
     }
 }
-
-
-
-
-
-#if DEBUG
-import SwiftUI
-
-@available(iOS 13, *)
-struct HomeDetailPlacesVC_Preview: PreviewProvider {
-    static var previews: some View{
-         
-        HomeDetailPlacesVC().showPreview()
-    }
-}
-#endif

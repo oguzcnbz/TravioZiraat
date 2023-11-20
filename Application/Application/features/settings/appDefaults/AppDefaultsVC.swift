@@ -1,7 +1,7 @@
-
 import UIKit
 import TinyConstraints
 import SnapKit
+
 
 class AppDefaultsVC: UIViewController {
     
@@ -12,13 +12,11 @@ class AppDefaultsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       setupViews()
-       
+        setupViews()
     }
   
     func setupViews() {
-        self.view.backgroundColor = UIColor(hex: "38ada9")
+        self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubviews(mainStackView)
         setupLayout()
         setNavigationItems(leftBarButton: true, rightBarButton: nil, title: "App Defaults")
@@ -34,14 +32,3 @@ class AppDefaultsVC: UIViewController {
     }
 }
 
-#if DEBUG
-import SwiftUI
-
-@available(iOS 13, *)
-struct AppDefaultsVC_Preview: PreviewProvider {
-    static var previews: some View{
-         
-        AppDefaultsVC().showPreview()
-    }
-}
-#endif

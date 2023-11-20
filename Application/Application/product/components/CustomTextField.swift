@@ -47,7 +47,7 @@ class CustomTextField: UIView {
     lazy var defaultLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = FontStyle.poppinsMedium(size: 14).font
-        lbl.textColor = UIColor(hex: "3D3D3D")
+        lbl.textColor = ColorStyle.blackRaven.color
         lbl.numberOfLines = 1
         return lbl
     }()
@@ -55,7 +55,7 @@ class CustomTextField: UIView {
      lazy var defaultTextField: UITextField = {
         let txt = UITextField()
         txt.font = FontStyle.poppinsLight(size: 14).font
-        txt.textColor = UIColor(hex: "A9A8A8")
+        txt.textColor = ColorStyle.darkgray.color
         return txt
     }()
     
@@ -67,29 +67,25 @@ class CustomTextField: UIView {
         defaultLabel.text = labelText
         defaultTextField.placeholder = textFieldPlaceholder
         
-           defaultStackView.snp.makeConstraints { make in
-               make.top.equalToSuperview()
-               make.bottom.equalToSuperview()
-               make.leading.equalToSuperview()
-               make.trailing.equalToSuperview()
-               
+           defaultStackView.snp.makeConstraints { sv in
+               sv.top.equalToSuperview()
+               sv.bottom.equalToSuperview()
+               sv.leading.equalToSuperview()
+               sv.trailing.equalToSuperview()
            }
            
-           
-           defaultLabel.snp.makeConstraints { make in
-               make.leading.equalTo(defaultStackView.snp.leading).offset(12)
-               make .trailing.equalTo(defaultStackView.snp.trailing).offset(0)
-               make.top.equalTo(defaultStackView.snp.top).offset(8)
-               make.height.equalTo(21)
+           defaultLabel.snp.makeConstraints { lbl in
+               lbl.leading.equalTo(defaultStackView.snp.leading).offset(12)
+               lbl .trailing.equalTo(defaultStackView.snp.trailing).offset(0)
+               lbl.top.equalTo(defaultStackView.snp.top).offset(8)
+               lbl.height.equalTo(21)
            }
            
-           
-           defaultTextField.snp.makeConstraints { make in
-               make.leading.equalTo(defaultStackView.snp.leading).offset(12)
-               make.trailing.equalTo(defaultStackView.snp.trailing).offset(0)
-               make.top.equalTo(defaultLabel.snp.bottom).offset(8)
-               make.height.equalTo(18)
+           defaultTextField.snp.makeConstraints { tf in
+               tf.leading.equalTo(defaultStackView.snp.leading).offset(12)
+               tf.trailing.equalTo(defaultStackView.snp.trailing).offset(0)
+               tf.top.equalTo(defaultLabel.snp.bottom).offset(8)
+               tf.height.equalTo(18)
            }
        }
-    
 }

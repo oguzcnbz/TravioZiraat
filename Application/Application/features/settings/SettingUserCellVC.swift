@@ -1,22 +1,17 @@
-
 import UIKit
 import TinyConstraints
 import SnapKit
 
+
 class SettingUserCell: UICollectionViewCell{
     
-    
-    
     var closure:(()->Void)?
-    
     
     private lazy var stackView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         return sv
     }()
-    
-  
     
     private lazy var nameLbl: UILabel = {
         let lbl = UILabel()
@@ -28,13 +23,13 @@ class SettingUserCell: UICollectionViewCell{
         let btn = UIButton()
         btn.setTitle("Edit Profile", for: .normal)
         btn.titleLabel?.font = FontStyle.poppinsLight(size: 12).font
-        btn.setTitleColor(UIColor(hex: "17C0EB"), for: .normal)
+        btn.setTitleColor(ColorStyle.blueRaspberry.color, for: .normal)
         btn.addTarget(self, action: #selector(editProfilefunc), for: .touchUpInside)
         btn.contentEdgeInsets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
         return btn
     }()
     
-    let profileImageViewWidth: CGFloat = 100
+    let profileImageViewWidth: CGFloat = 120
     private lazy var photoView:UIImageView = {
         let iv = UIImageView()
         iv.image = #imageLiteral(resourceName: "DefaultProfileImage").withRenderingMode(.alwaysOriginal)
@@ -47,11 +42,6 @@ class SettingUserCell: UICollectionViewCell{
     
     @objc func editProfilefunc(){
         closure?()
-//        let homevc = HomeVC()
-//        let vc = HomeDetailPlacesVC()
-//        homevc.navigationController?.pushViewController(vc, animated: true)
-//        print("deneme")
-    
     }
     
     override init(frame: CGRect) {
@@ -60,27 +50,20 @@ class SettingUserCell: UICollectionViewCell{
     }
     
     
-  
-    
     public func configure(object:SettingUser){
-       // photoView.image =
         nameLbl.text = object.name
         
-     if   object.imageUrl?.count ?? 0 > 1{
+        if object.imageUrl?.count ?? 0 > 1{
             
             let url = URL(string: object.imageUrl ?? "")
-            
             self.photoView.kf.setImage(with: url)
-            
         }
-       
     }
     
     private func setupViews(){
-        self.contentView.backgroundColor = UIColor(hex: "F8F8F8")
+        self.contentView.backgroundColor = ColorStyle.background.color
         self.contentView.addSubviews(stackView)
         stackView.addSubviews(photoView,nameLbl,editProfileBtn)
-        
         
         setupLayout()
     }
@@ -98,8 +81,8 @@ class SettingUserCell: UICollectionViewCell{
         photoView.snp.makeConstraints({imgv in
             imgv.top.equalToSuperview().offset(24)
             imgv.centerX.equalToSuperview()
-            imgv.width.equalTo(100)
-            imgv.height.equalTo(100)
+            imgv.width.equalTo(profileImageViewWidth)
+            imgv.height.equalTo(profileImageViewWidth)
         })
         
         nameLbl.snp.makeConstraints({lbl in
@@ -114,11 +97,7 @@ class SettingUserCell: UICollectionViewCell{
         
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
-
-

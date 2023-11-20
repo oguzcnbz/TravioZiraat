@@ -546,7 +546,6 @@ extension UIViewController {
     
     @objc func leftbartapped(){
         self.navigationController?.popViewController(animated: true)
-        print("geri buton")
     }
     
     func setNavigationItems(leftBarButton: Bool, rightBarButton: UIBarButtonItem?, title: String?) {

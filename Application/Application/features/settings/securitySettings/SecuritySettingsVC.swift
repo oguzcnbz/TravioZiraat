@@ -1,10 +1,10 @@
-
 import UIKit
 import TinyConstraints
 import SnapKit
 import AVFoundation
 import Photos
 import CoreLocation
+
 
 class SecuritySettingsVC: UIViewController {
     
@@ -28,7 +28,7 @@ class SecuritySettingsVC: UIViewController {
         let lbl = UILabel()
         lbl.font = FontStyle.poppinsSemiBold(size: 16).font
         lbl.text = "Change Password"
-        lbl.textColor = UIColor(hex: "38ada9")
+        lbl.textColor = ColorStyle.primary.color
         return lbl
     }()
     
@@ -36,7 +36,7 @@ class SecuritySettingsVC: UIViewController {
         let lbl = UILabel()
         lbl.font = FontStyle.poppinsSemiBold(size: 16).font
         lbl.text = "Privacy"
-        lbl.textColor = UIColor(hex: "38ada9")
+        lbl.textColor = ColorStyle.primary.color
         return lbl
     }()
     
@@ -68,7 +68,7 @@ class SecuritySettingsVC: UIViewController {
     }()
     
     private lazy var saveButton:DefaultButton = {
-        let btn = DefaultButton(title: "Save", background: .customgreen)
+        let btn = DefaultButton(title: "Save", background: .primary)
         btn.addTarget(self, action: #selector(btnSaveTapped), for: .touchUpInside)
         return btn
     }()
@@ -114,7 +114,7 @@ class SecuritySettingsVC: UIViewController {
     }
     
     func setupViews() {
-        self.view.backgroundColor = UIColor(hex: "38ada9")
+        self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubview(mainStackView)
         mainStackView.addSubviews(changePassLbl,newPassTxtField,newPassConfTxtField,privacyLbl,cameraSV,librarySV,locationSV,saveButton)
         setupLayout()
@@ -238,8 +238,6 @@ extension SecuritySettingsVC {
         }
     }
    
-   
-    
      func requestLocationPermission() {
            
             switch locationPermissionStatus {
@@ -275,7 +273,6 @@ extension SecuritySettingsVC {
     }
 
 
-  
          func checkPermissionStatus() {
             checkCameraPermissionStatus()
             checkLibraryPermissionStatus()
@@ -305,5 +302,4 @@ extension SecuritySettingsVC {
                 librarySV.toggleSwitch.isOn = false
             }
         }
-
 }
