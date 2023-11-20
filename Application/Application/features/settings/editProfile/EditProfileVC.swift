@@ -11,9 +11,7 @@ import TinyConstraints
 import SnapKit
 import Kingfisher
 
-protocol PreviousPageDelegate: AnyObject {
-    func didDismiss()
-}
+
 
 class EditProfileVC: UIViewController {
     

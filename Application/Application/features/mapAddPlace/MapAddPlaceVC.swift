@@ -13,9 +13,10 @@ class MapAddPlaceVC: UIViewController {
     var imageArray: [UIImage?] = [nil,nil,nil]
     let hasImgArr:[Bool] = [false,false,false]
     
-    var hasMapAdedclosure: ((Bool)->Void)?
+    var hasMapAdedclosure: (()->Void)?
     private var hasLoading = false
     
+    weak var delegate: PreviousPageDelegate?
     
     
     private lazy var stick: UIView = {
@@ -66,9 +67,12 @@ class MapAddPlaceVC: UIViewController {
         
         if filterImg.count > 0 { 
             let mapAddPlaceViewModel = MapAddPlaceViewModel()
-             mapAddPlaceViewModel.addPlace(imageArray: filterImg,model: placePostModel)
+            mapAddPlaceViewModel.addPlace(imageArray: filterImg,model: placePostModel){ 
+                self.hasMapAdedclosure!()
+            }
+           
             self.dismiss(animated: true, completion: {
-             //   print("Bu sayfa kapatıldı.")
+               
             })
         }
         

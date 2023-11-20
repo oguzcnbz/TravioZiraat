@@ -4,7 +4,7 @@ import Alamofire
 
 class MapViewModel{
 
-    var populerPlace:[Place] = [] {
+    var allPlace:[Place] = [] {
         didSet {
             self.transferData?()
         }
@@ -12,15 +12,15 @@ class MapViewModel{
     
     var transferData: (()->())?
     
-    func getPopulerPlace(){
+    func getAllPlace(){
        
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .placeAllGet, callback: { (result:Result<PlacesModelDatas,Error>) in
             switch result {
             case .success(let obj):
                 let response = obj.data
                 let sortedPlaces = response.places.sorted { $0.title < $1.title }
-                self.populerPlace = sortedPlaces
-                print(self.populerPlace.first?.coverImageURL)
+                self.allPlace = sortedPlaces
+                print(self.allPlace.first?.coverImageURL)
                 
             case .failure(let err):
                 print(err.localizedDescription)

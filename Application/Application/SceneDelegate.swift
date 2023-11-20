@@ -64,24 +64,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return false
         }
         
-        
-        editProfilViewModel.getProfilData()
-        var validAccesToken:Bool = true
-        editProfilViewModel.transferProfilData = {
-            
-            [weak self] () in
-            let obj = self?.editProfilViewModel.profilModel
-            if  obj?.fullName == nil{ 
-                validAccesToken =  false
-            }
-                   
-                        
-
-            
-            
-        }
-        
-           return validAccesToken
+//        
+//        editProfilViewModel.getProfilData()
+//        var validAccesToken:Bool = false
+//        editProfilViewModel.transferProfilData = {
+//            
+//            [weak self] () in
+//            let obj = self?.editProfilViewModel.profilModel
+//            print(" isim \(obj)")
+//           validAccesToken = true
+//                   
+//                        
+//            
+//            
+//        }
+        return true
+           
        }
 
     

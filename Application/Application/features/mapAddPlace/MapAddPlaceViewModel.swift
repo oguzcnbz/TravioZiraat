@@ -20,7 +20,7 @@ class MapAddPlaceViewModel {
     
    
     
-    func addPlace(imageArray: [UIImage?],model:PlacePostModel) {
+    func addPlace(imageArray: [UIImage?],model:PlacePostModel,hasUploded: @escaping () -> Void) {
         var imgUrlArr:[String] = []
         
             
@@ -43,6 +43,7 @@ class MapAddPlaceViewModel {
                             
                         }
                         )
+                        hasUploded()
                         
                          }
                 } else {

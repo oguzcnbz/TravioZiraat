@@ -2,7 +2,9 @@ import UIKit
 import MapKit
 import SnapKit
 
-class MapVC: UIViewController {
+class MapVC: UIViewController{
+   
+    
     
     // MARK: - Properties
     
@@ -112,12 +114,19 @@ class MapVC: UIViewController {
                         mapAddPlaceVC.latitude = location.coordinate.latitude
                         mapAddPlaceVC.longitude = location.coordinate.longitude
                         mapAddPlaceVC.countryCity.defaultTextField.text = address
+                        
+                    
                        self.present(mapAddPlaceVC, animated: true, completion: nil)
                     }
                 }
             }
-            let newAnnotation = CustomAnnotation(coordinate: coordinate, title: mapAddPlaceVC.placeName.defaultTextField.text, subtitle: mapAddPlaceVC.countryCity.defaultTextField.text)
-            mapView.addAnnotation(newAnnotation)
+           mapAddPlaceVC.hasMapAdedclosure =  {
+               
+                           let newAnnotation = CustomAnnotation(coordinate: coordinate, title: mapAddPlaceVC.placeName.defaultTextField.text, subtitle: mapAddPlaceVC.countryCity.defaultTextField.text)
+               self.mapView.addAnnotation(newAnnotation)
+               self.getData()
+           }
+
         }
     }
     
@@ -126,12 +135,14 @@ class MapVC: UIViewController {
     // MARK: - Data Methods
     
     private func getData() {
-            mapViewModel.getPopulerPlace()
+            mapViewModel.getAllPlace()
             mapViewModel.transferData = { [weak self] () in
-                let obj = self?.mapViewModel.populerPlace
+                self?.addPinsToMap(array: [])
+                let obj = self?.mapViewModel.allPlace
                 self?.places = obj ?? []
                 self?.collectionView.reloadData()
                 self?.addPinsToMap(array: self!.places)
+                print("pin ekledi")
             }
         }
     }
