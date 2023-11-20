@@ -11,6 +11,10 @@ import TinyConstraints
 import SnapKit
 import Kingfisher
 
+protocol PreviousPageDelegate: AnyObject {
+    func didDismiss()
+}
+
 class EditProfileVC: UIViewController {
     
     //MARK: -- Properties
@@ -19,6 +23,8 @@ class EditProfileVC: UIViewController {
     }()
     var profilModel:ProfileModel?
     var isImageChanged = false
+    
+    weak var delegate: PreviousPageDelegate?
     
     //MARK: -- Views
     
@@ -139,7 +145,9 @@ class EditProfileVC: UIViewController {
                 // Handle the result of the profile upload here
                 if success {
                    
-                    self.dismiss(animated: true, completion: nil)
+                    self.dismiss(animated: true, completion: {
+                        self.delegate?.didDismiss()
+                    })
                 } else {
                     // Profile upload failed
                     print("Profile upload failed")
@@ -151,7 +159,9 @@ class EditProfileVC: UIViewController {
                 // Handle the result of the profile upload here
                 if success {
                    
-                    self.dismiss(animated: true, completion: nil)
+                    self.dismiss(animated: true, completion: {
+                        self.delegate?.didDismiss()
+                    })
                 } else {
                     // Profile upload failed
                     print("Profile upload failed")

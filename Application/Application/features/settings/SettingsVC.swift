@@ -2,7 +2,11 @@ import UIKit
 import TinyConstraints
 import SnapKit
 
-class SettingsVC: UIViewController {
+class SettingsVC: UIViewController,PreviousPageDelegate {
+    func didDismiss() {
+       getProfilData()
+    }
+    
    private var userModel = SettingUser(imageUrl: "",name: "")
   //  var usersss:[SettingUser] = []  //[SettingUser(image: UIImage(named: "face"), name: "Bruce Wills")]
     
@@ -182,6 +186,7 @@ extension SettingsVC:UICollectionViewDataSource {
             cell.closure = {
      
             let editProfileVC = EditProfileVC()
+                editProfileVC.delegate = self
             let rootViewController = UINavigationController(rootViewController: editProfileVC)
             editProfileVC.modalPresentationStyle = .popover
             self.present(rootViewController, animated: true)
