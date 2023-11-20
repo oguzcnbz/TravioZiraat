@@ -105,6 +105,11 @@ class SecuritySettingsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        setupViews()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         checkPermissionStatus()
     }
     
@@ -192,7 +197,7 @@ extension SecuritySettingsVC {
         case .authorized:
             self.cameraSV.toggleSwitch.isOn = true
         case .denied, .restricted:
-            showPermissionAlertCamera()
+            showPermissionAlert(title: "Camera Permission Required", message: "Please enable camera access in settings to use this feature.", toggleSender: cameraSV.toggleSwitch)
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 if granted{
@@ -208,13 +213,14 @@ extension SecuritySettingsVC {
         }
     }
     
+    
      func requestLibraryPermission() {
        
         switch libraryPermissionStatus {
         case .authorized:
             self.librarySV.toggleSwitch.isOn = true
         case .denied, .restricted:
-            showPermissionAlertLibrary()
+            showPermissionAlert(title: "Library Permission Required", message: "Please enable access to your photo library in settings to use this feature.", toggleSender: librarySV.toggleSwitch)
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization { status in
                 DispatchQueue.main.async {
@@ -240,42 +246,13 @@ extension SecuritySettingsVC {
             case .authorizedAlways, .authorizedWhenInUse:
                 self.locationSV.toggleSwitch.isOn = true
             case .denied, .restricted:
-                showLocationPermissionAlert()
+                showPermissionAlert(title: "Location Permission Required", message: "Please enable access to your location in settings to use this feature.", toggleSender: locationSV.toggleSwitch)
             case .notDetermined:
                 locationManager.requestWhenInUseAuthorization()
             @unknown default:
                 break
             }
         }
-    
-     func showPermissionAlertCamera() {
-        let alert = UIAlertController(title: "Camera Permission Required", message: "Please enable camera access in settings to use this feature.", preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-        }))
-
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-
-        present(alert, animated: true, completion: nil)
-    }
-     func showPermissionAlertLibrary() {
-        let alert = UIAlertController(title: "Permission Required", message: "Please enable access to your photo library in settings to use this feature.", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
-    
-     func showLocationPermissionAlert() {
-            let alert = UIAlertController(title: "Location Permission Required", message: "Please enable access to your location in settings to use this feature.", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-            }))
-            
-            present(alert, animated: true, completion: nil)
-        }
-
     
      func showPermissionAlert(title: String, message: String, toggleSender: UISwitch) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
