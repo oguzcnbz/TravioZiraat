@@ -2,6 +2,10 @@
 import UIKit
 import SnapKit
 
+protocol Deneme:AnyObject{
+    func deneme(title: String, message: String)
+}
+
 class MapAddPlaceVC: UIViewController {
     var latitude:Double?
     var longitude: Double?
@@ -72,13 +76,23 @@ class MapAddPlaceVC: UIViewController {
      //   let mapAddPlaceViewModel = MapAddPlaceViewModel()
 //        mapAddPlaceViewModel.placeCreate(model: placePostModel, imgUrl: "https://storage.googleapis.com/travio/1700048457958660859.jpg")
          
-        
-       
     }
+    
+    func showControlAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: { _ in
+            self.dismiss(animated: true)
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupViews()
+        
     }
     
     private func setupViews() {
@@ -86,6 +100,10 @@ class MapAddPlaceVC: UIViewController {
         self.view.layer.cornerRadius = 24
         view.addSubviews(stick,placeName,visitDescription,countryCity, collectionView,btnaddPlace)
         setupLayout()
+    }
+    
+    func deneme(){
+        
     }
     
     private func setupLayout() {
@@ -147,7 +165,7 @@ extension MapAddPlaceVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MapAddPlaceCell
-        
+        cell.delegate = self
       
         cell.closure = { image in
             self.imageArray[indexPath.row] = image
@@ -180,5 +198,11 @@ extension MapAddPlaceVC {
         layoutSection.orthogonalScrollingBehavior = .groupPaging
         
         return layoutSection
+    }
+}
+
+extension MapAddPlaceVC:Deneme{
+    func deneme(title: String, message: String) {
+        self.showControlAlert(title: title, message: message)
     }
 }

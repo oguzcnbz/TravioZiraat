@@ -4,6 +4,7 @@ import SnapKit
 
 class MapAddPlaceCell: UICollectionViewCell {
     
+    weak var delegate: Deneme?
    // var imageArr:[UIImage] = []
     var closure:((UIImage)->Void)?
     var hasImage:Bool = false
@@ -47,7 +48,7 @@ class MapAddPlaceCell: UICollectionViewCell {
         showChooseSourceTypeAlertController()
         }
     
-   
+    
     
     
     private func setupViews(){
@@ -93,14 +94,31 @@ class MapAddPlaceCell: UICollectionViewCell {
 }
 extension MapAddPlaceCell: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func showChooseSourceTypeAlertController() {
+        
+        let vcSS = SecuritySettingsVC()
+        
+       
         let photoLibraryAction = UIAlertAction(title: "Choose a Photo", style: .default) { (action) in
-            self.showImagePickerController(sourceType: .photoLibrary)
+            if vcSS.libraryPermissionStatus == .authorized {
+                self.showImagePickerController(sourceType: .photoLibrary)
+                
+            }else{
+                self.delegate?.deneme(title: "Error", message: "You have not granted access to the library. You can change it from the settings.")
+            }
         }
+       
         let cameraAction = UIAlertAction(title: "Take a New Photo", style: .default) { (action) in
-            self.showImagePickerController(sourceType: .camera)
+            if vcSS.cameraPermissionStatus == .authorized {
+                self.showImagePickerController(sourceType: .camera)
+                
+            }else{
+                self.delegate?.deneme(title: "Error", message: "You have not granted access to the camera. You can change it from the settings.")
+            }
         }
+    
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        AlertService.showAlert(style: .actionSheet, title: nil, message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
+        
+        AlertService.showAlert(style: .actionSheet, title: nil, message: nil, actions:[photoLibraryAction,cameraAction,cancelAction] , completion: nil)
     }
     
     func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
@@ -125,6 +143,8 @@ extension MapAddPlaceCell: UIImagePickerControllerDelegate, UINavigationControll
         closure!(imgPlace.image!)
         picker.dismiss(animated: true, completion: nil)
     }
+    
+    
 }
 
 extension UIViewController {
