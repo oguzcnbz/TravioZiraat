@@ -47,6 +47,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
     }
+    /// Description: Accestoken aktıf mı kontrolu için   accesToken kullanarak kullanıcı verısı çekme yapıyorum. obj?.fullName veri varsa acces token aktıf ana sayfaya yönlendırıyorum aktıf degılse logıne donuyor.
+    lazy var editProfilViewModel: EditProfileViewModel = {
+        return EditProfileViewModel()
+    }()
     func hasUserLoggedIn() -> Bool {
       
         guard let accessToken = KeychainHelper.shared.read(service: "user-key", account: "accessToken") else {
@@ -61,7 +65,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         
-           return true
+        editProfilViewModel.getProfilData()
+        var validAccesToken:Bool = true
+        editProfilViewModel.transferProfilData = {
+            
+            [weak self] () in
+            let obj = self?.editProfilViewModel.profilModel
+            if  obj?.fullName == nil{ 
+                validAccesToken =  false
+            }
+                   
+                        
+
+            
+            
+        }
+        
+           return validAccesToken
        }
 
     
