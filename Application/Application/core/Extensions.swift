@@ -546,7 +546,6 @@ extension UIViewController {
     
     @objc func leftbartapped(){
         self.navigationController?.popViewController(animated: true)
-        print("geri buton")
     }
     
     func setNavigationItems(leftBarButton: Bool, rightBarButton: UIBarButtonItem?, title: String?) {
@@ -561,7 +560,7 @@ extension UIViewController {
             let titleLbl = UILabel()
             titleLbl.text = title
             titleLbl.textColor = .white
-            titleLbl.font = FontStyle.poppinsSemiBold(size: 36).font
+            titleLbl.font = FontStyle.h1.font
             let lblItem = UIBarButtonItem(customView: titleLbl)
             self.navigationItem.leftBarButtonItem = lblItem
 
@@ -574,7 +573,7 @@ extension UIViewController {
                 let titleLbl = UILabel()
                 titleLbl.text = title
                 titleLbl.textColor = .white
-                titleLbl.font = FontStyle.poppinsSemiBold(size: 36).font
+                titleLbl.font = FontStyle.h1.font
                 let lblItem = UIBarButtonItem(customView: titleLbl)
                 self.navigationItem.leftBarButtonItem = lblItem
             }

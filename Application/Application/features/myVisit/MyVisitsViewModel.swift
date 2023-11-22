@@ -1,4 +1,3 @@
-
 import UIKit
 import Alamofire
 
@@ -11,7 +10,7 @@ class MyVisitsViewModel{
     }
     
     var transferData: (()->())?
-    
+
     func visitsGet(){
        
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitsGet, callback: { (result:Result<MyVisitsModel,Error>) in
@@ -22,10 +21,7 @@ class MyVisitsViewModel{
                 
             case .failure(let err):
                 print(err.localizedDescription)
-                print("boyle kod olmaz")
             }
         })
-        
     }
-  
 }

@@ -1,4 +1,3 @@
-
 import UIKit
 import SnapKit
 
@@ -26,8 +25,8 @@ class HelpAndSupportVC: UIViewController {
     private lazy var faqLbl: UILabel = {
         let lbl = UILabel()
         lbl.text = "FAQ"
-        lbl.textColor = UIColor(hex: "38ADA9")
-        lbl.font = FontStyle.poppinsSemiBold(size: 24).font
+        lbl.textColor = ColorStyle.primary.color
+        lbl.font = FontStyle.h4.font
         return lbl
     }()
     
@@ -49,7 +48,6 @@ class HelpAndSupportVC: UIViewController {
     }()
     
    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
        setupViews()
@@ -57,7 +55,7 @@ class HelpAndSupportVC: UIViewController {
     }
 
     func setupViews() {
-        self.view.backgroundColor = UIColor(hex: "38ADA9")
+        self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubview(mainStackView)
         mainStackView.addSubviews(faqLbl,collectionView)
         
@@ -91,7 +89,6 @@ class HelpAndSupportVC: UIViewController {
           })
 
         }
-
 }
 
 extension HelpAndSupportVC: UICollectionViewDelegateFlowLayout {
@@ -131,13 +128,11 @@ extension HelpAndSupportVC:UICollectionViewDataSource {
         return cells.count
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! HelpAndSupportCell
         
         let object = cells[indexPath.row]
             cell.configure(object:object)
-        
             return cell
         }
 }

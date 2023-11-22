@@ -1,8 +1,7 @@
-
-
 import UIKit
 import SnapKit
 import MapKit
+
 
 class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
     func placeDetailResponseGet(imageArr: [String]) {
@@ -16,15 +15,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
     
     //MARK: -- Properties
     var isPlaceSelected:Bool = false
-    
-    
-//    var userss: [PlaceDetailModel] = [
-//                                PlaceDetailModel(image: UIImage(named: "colleseum")),
-//                                PlaceDetailModel(image: UIImage(named: "süleymaniyeCamii")),
-//                                PlaceDetailModel(image: UIImage(named: "colleseum"))]
-    
     var imagesUrlArr: [String] = []
-    //lazy var placeDetailViewModel :PlaceDetailViewModel =
     
     //MARK: -- Views
     
@@ -73,21 +64,21 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         let label = UILabel()
         label.textColor = .label
       
-        label.font = FontStyle.poppinsSemiBold(size: 30).font
+        label.font = FontStyle.h3.font
         
         return label
     }()
     private let labelDate: UILabel = {
         let label = UILabel()
        
-        label.font = FontStyle.poppinsMedium(size: 14).font
+        label.font = FontStyle.sh3.font
         
         return label
     }()
     private let labelAdedPerson: UILabel = {
         let label = UILabel()
         label.textColor = ColorStyle.greySpanish.color
-        label.font = FontStyle.poppinsLight(size: 12).font
+        label.font = FontStyle.lt3.font
         
         return label
     }()
@@ -95,7 +86,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         let label = UILabel()
         label.textColor = .label
         //label.textAlignment = .left
-        label.font = FontStyle.poppinsLight(size: 14).font
+        label.font = FontStyle.lt2.font
         label.numberOfLines = 0
         return label
     }()
@@ -113,7 +104,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
     }()
  
     
-     lazy var placeSaveButon: UIButton = {
+     lazy var placeSaveButton: UIButton = {
         let b = UIButton()
         b.layer.cornerRadius = 12
         b.backgroundColor = ColorStyle.primary.color
@@ -127,7 +118,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
     private lazy var backButon: UIButton = {
         let b = UIButton()
         b.layer.cornerRadius = 25
-        b.backgroundColor = UIColor(hex: "3D3D3D").withAlphaComponent(0.5)
+        b.backgroundColor = ColorStyle.blackRaven.color!.withAlphaComponent(0.5)
         b.tintColor = ColorStyle.white.color
         var image = UIImage(named: "backWard")
         b.setImage(image, for: .normal)
@@ -157,8 +148,8 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
     //MARK: -- Component Actions
     
     @objc func btnPlaceSaveTapped() {
-        if placeSaveButon.currentImage == UIImage(named: "icPlaceDetailSave") {
-            placeSaveButon.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
+        if placeSaveButton.currentImage == UIImage(named: "icPlaceDetailSave") {
+            placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
             let currentDate = Date()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
@@ -168,8 +159,8 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
             
             
         }
-       else if  placeSaveButon.currentImage == UIImage(named: "icPlaceDetailSaveFill"){
-            placeSaveButon.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
+       else if  placeSaveButton.currentImage == UIImage(named: "icPlaceDetailSaveFill"){
+            placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
             placeDetailViewModel.visitDelete(placeId: placeModel!.id)
         }
     }
@@ -182,10 +173,12 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
-        
+        let leftBarButton = UIBarButtonItem(customView: backButon)
+        let rightBarButton = UIBarButtonItem(customView: placeSaveButton)
+        self.navigationItem.leftBarButtonItem = leftBarButton
+        self.navigationItem.rightBarButtonItem = rightBarButton
         getDataPlaceDetail()
-       getImagesUrl()
+        getImagesUrl()
         setupViews()
     }
     //MARK: -- Component Actions
@@ -194,8 +187,6 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         let location = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
         let newAnnotation = CustomAnnotation(coordinate: location, title: place.title, subtitle: place.place)
             mapView.addAnnotation(newAnnotation)
-        
-        
       
         let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude), latitudinalMeters: 500, longitudinalMeters: 500)
             mapView.setRegion(region, animated: true)
@@ -213,23 +204,18 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
     
     private func getDataPlaceDetail (){
         labelCity.text = placeModel?.place
-      //  print(placeModel)
         
         if let date = convertStringToDate(placeModel?.updatedAt ?? "") {
         
-            
             labelDate.text = convertDateToString(date)
            
         } else {
             print("Failed to convert the date.")
         }
         
-       
         labelAdedPerson.text = placeModel?.creator
         labelPlaceDetail.text = placeModel?.description
-       
-        
-        
+
         self.addPinsToMap(place: placeModel!)
         
     }
@@ -237,10 +223,8 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
         dateFormatter.locale = Locale(identifier: "tr")
-
         return dateFormatter.date(from: dateString)
     }
-
 
 
     private func convertDateToString(_ date: Date) -> String {
@@ -256,17 +240,16 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         self.view.backgroundColor = ColorStyle.background.color
         
         self.view.addSubview(colView)
-        colView.addSubviews(collectionView,pageControlBackgroundView,placeSaveButon,backButon)
+        colView.addSubviews(collectionView,pageControlBackgroundView,placeSaveButton,backButon)
         pageControlBackgroundView.addSubview(pageControl)
         
         self.view.addSubview(scrollView)
-        self.scrollView.addSubview(contentView)
+        scrollView.addSubview(contentView)
         contentView.addSubviews(labelCity,labelDate,labelAdedPerson,mapView,labelPlaceDetail)
-        
+
         setupLayout()
     }
    
-    
     private func setupLayout(){
         
         colView.snp.makeConstraints { cv in
@@ -282,70 +265,67 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
             cv.bottom.equalToSuperview()
           
         }
-        
 
         pageControlBackgroundView.snp.makeConstraints { pcBgView in
-                 pcBgView.centerX.equalToSuperview()
-                pcBgView.bottom.equalToSuperview().offset(-30)
-                pcBgView.height.equalTo(24)
-                pcBgView.width.equalTo(64)
-            }
+            pcBgView.centerX.equalToSuperview()
+            pcBgView.bottom.equalToSuperview().offset(-30)
+            pcBgView.height.equalTo(24)
+            pcBgView.width.equalTo(64)
+        }
 
-            pageControl.snp.makeConstraints { pc in
-                pc.center.equalTo(pageControlBackgroundView) // pageControl'ü arka planın ortasına hizaladık
-            }
+        pageControl.snp.makeConstraints { pc in
+            pc.center.equalTo(pageControlBackgroundView)
+        }
         
-        placeSaveButon.snp.makeConstraints { pcBgView in
-                
-                pcBgView.top.equalToSuperview().offset(50)
+        placeSaveButton.snp.makeConstraints { pcBgView in
+            
+            pcBgView.top.equalToSuperview().offset(50)
             pcBgView.trailing.equalToSuperview().offset(-20)
-                pcBgView.width.equalTo(50)
+            pcBgView.width.equalTo(50)
             pcBgView.height.equalTo(50)
-            }
-        backButon.snp.makeConstraints({ make in
+            
+        }
         
-            make.leading.equalToSuperview().offset(20)
-            make.top.equalToSuperview().offset(50)
-            make.width.equalTo(50)
-        make.height.equalTo(50)
-            
-            
-            
+        backButon.snp.makeConstraints({ btn in
+        
+            btn.leading.equalToSuperview().offset(20)
+            btn.top.equalToSuperview().offset(50)
+            btn.width.equalTo(50)
+            btn.height.equalTo(50)
+
         })
         
-        
-        
-        scrollView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.top.equalTo(colView.snp.bottom).offset(5)
-            make.bottom.equalToSuperview()
+        scrollView.snp.makeConstraints { sv in
+            sv.leading.equalToSuperview()
+            sv.trailing.equalToSuperview()
+            sv.top.equalTo(colView.snp.bottom).offset(5)
+            sv.bottom.equalToSuperview()
         }
         
         
-        contentView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-            make.width.equalTo(self.view)
+        contentView.snp.makeConstraints { cv in
+            cv.edges.equalToSuperview()
+            cv.width.equalTo(self.view)
         }
         
-        labelCity.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
-            make.leading.equalToSuperview().offset(24)
-            make.trailing.equalToSuperview().offset(-24)
+        labelCity.snp.makeConstraints { lbl in
+            lbl.top.equalToSuperview().offset(20)
+            lbl.leading.equalToSuperview().offset(24)
+            lbl.trailing.equalToSuperview().offset(-24)
         
         }
        
-        labelDate.snp.makeConstraints { make in
-            make.top.equalTo(labelCity.snp.bottom).offset(10)
-            make.leading.equalToSuperview().offset(24)
-            make.trailing.equalToSuperview().offset(-24)
+        labelDate.snp.makeConstraints { lbl in
+            lbl.top.equalTo(labelCity.snp.bottom).offset(10)
+            lbl.leading.equalToSuperview().offset(24)
+            lbl.trailing.equalToSuperview().offset(-24)
         
         }
    
-        labelAdedPerson.snp.makeConstraints { make in
-            make.top.equalTo(labelDate.snp.bottom).offset(2)
-            make.leading.equalToSuperview().offset(24)
-            make.trailing.equalToSuperview().offset(-24)
+        labelAdedPerson.snp.makeConstraints { lbl in
+            lbl.top.equalTo(labelDate.snp.bottom).offset(2)
+            lbl.leading.equalToSuperview().offset(24)
+            lbl.trailing.equalToSuperview().offset(-24)
         
         }
         mapView.snp.makeConstraints({mv in
@@ -355,35 +335,12 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
             mv.height.equalTo(227)
         })
         
-        labelPlaceDetail.snp.makeConstraints({make in
-            make.top.equalTo(mapView.snp.bottom).offset(25)
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
-            make.bottom.equalTo(contentView)
-            
-            
+        labelPlaceDetail.snp.makeConstraints({lbl in
+            lbl.top.equalTo(mapView.snp.bottom).offset(25)
+            lbl.leading.equalToSuperview().offset(16)
+            lbl.trailing.equalToSuperview().offset(-16)
+            lbl.bottom.equalTo(contentView)
         })
-        
-        
-        
-        
-//        for (index, imageView) in imageViews.enumerated() {
-//            contentView.addSubview(imageView)
-//            imageView.snp.makeConstraints { make in
-//                make.leading.trailing.equalTo(contentView).inset(10)
-//                make.height.equalTo(300)
-//                if index == 0 {
-//                    make.top.equalTo(contentView)
-//                } else {
-//                    make.top.equalTo(imageViews[index - 1].snp.bottom)
-//                }
-//                if index == imageViews.count - 1 {
-//                    make.bottom.equalTo(contentView)
-//                }
-//            }
-//        }
-        
-        
     }
 }
 
@@ -407,17 +364,12 @@ extension PlaceDetailVC:UICollectionViewDataSource {
     }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let currentIndex = Int(scrollView.contentOffset.x / scrollView.frame.width)
-      //  printContent(currentIndex)
         pageControl.currentPage = currentIndex
         
     }
 }
+
 extension PlaceDetailVC {
-    func didChangeCollectionViewPage() {
-        
-        
-    }
-    
     func makeCollectionViewLayout() -> UICollectionViewLayout {
         
         UICollectionViewCompositionalLayout {
@@ -438,7 +390,6 @@ extension PlaceDetailVC {
         let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [item] )
         
-       
         
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
         layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
@@ -446,16 +397,12 @@ extension PlaceDetailVC {
         layoutSection.interGroupSpacing = 16
         
         layoutSection.visibleItemsInvalidationHandler = { [weak self] (items, offset, env) -> Void in
-                guard let self = self,
-                      let itemWidth = items.last?.bounds.width else { return }
-                let page = round(offset.x / (itemWidth + layoutSection.interGroupSpacing))
-                
-            pageControl.currentPage = Int(page)
-            }
-        
-        
-        
-        
+        guard let self = self,
+        let itemWidth = items.last?.bounds.width else { return }
+        let page = round(offset.x / (itemWidth + layoutSection.interGroupSpacing))
+        pageControl.currentPage = Int(page)
+            
+        }
         return layoutSection
     }
 }
@@ -476,6 +423,4 @@ extension PlaceDetailVC :MKMapViewDelegate{
         annotationView!.image = UIImage(named: "pin")
         return annotationView
     }
-    
-    
 }

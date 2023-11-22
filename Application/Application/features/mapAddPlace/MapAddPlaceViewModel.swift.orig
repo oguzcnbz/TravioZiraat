@@ -3,7 +3,19 @@ import UIKit
 
 class MapAddPlaceViewModel {
     
+<<<<<<< HEAD
+//    var delegate: MapAddPlaceDelegate?
+//    func setDelegate(output: MapAddPlaceDelegate) {
+//        delegate = output
+//    }
+    
+   
+    
     func addPlace(imageArray: [UIImage?],model:PlacePostModel,hasUploded: @escaping () -> Void) {
+=======
+    func addPlace(imageArray: [UIImage?],model:PlacePostModel) {
+        
+>>>>>>> Sprint5/EditProfile
         var imgUrlArr:[String] = []
         let filterImg = imageArray.compactMap(({ $0 }))
         
@@ -16,12 +28,17 @@ class MapAddPlaceViewModel {
                         imageUrls.forEach({
                             imgUrl in
                                 self.galleryImageUrlAdd(placeId: placeId, imgUrl: imgUrl)
+<<<<<<< HEAD
                             
                         }
                         )
                         hasUploded()
                         
                          }
+=======
+                        })
+                    }
+>>>>>>> Sprint5/EditProfile
                 } else {
                     print("Image upload failed.")
                 }

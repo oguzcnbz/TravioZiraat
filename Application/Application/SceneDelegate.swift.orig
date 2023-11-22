@@ -20,7 +20,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-<<<<<<< HEAD
+
+//        let vc = LoginVC()
+//
+//        let rootViewController = UINavigationController(rootViewController: vc)
+//        window.rootViewController = rootViewController
+//        window.makeKeyAndVisible()
+//        self.window = window
+
+
         
         if hasUserLoggedIn() {
             let vc = MainTabbar()
@@ -31,22 +39,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
         }else { 
             let vc = LoginVC()
+
             let rootViewController = UINavigationController(rootViewController: vc)
             window.rootViewController = rootViewController
             window.makeKeyAndVisible()
             self.window = window
         }
         
-       
-=======
-        let vc = MainTabbar()
-
-        let rootViewController = UINavigationController(rootViewController: vc)
-        window.rootViewController = vc
-        window.makeKeyAndVisible()
-        self.window = window
->>>>>>> sprint2/myVisit2
     }
+    /// Description: Accestoken aktıf mı kontrolu için   accesToken kullanarak kullanıcı verısı çekme yapıyorum. obj?.fullName veri varsa acces token aktıf ana sayfaya yönlendırıyorum aktıf degılse logıne donuyor.
+    lazy var editProfilViewModel: EditProfileViewModel = {
+        return EditProfileViewModel()
+    }()
     func hasUserLoggedIn() -> Bool {
       
         guard let accessToken = KeychainHelper.shared.read(service: "user-key", account: "accessToken") else {
@@ -60,10 +64,43 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return false
         }
         
+<<<<<<< HEAD
+//        
+//        editProfilViewModel.getProfilData()
+//        var validAccesToken:Bool = false
+//        editProfilViewModel.transferProfilData = {
+//            
+//            [weak self] () in
+//            let obj = self?.editProfilViewModel.profilModel
+//            print(" isim \(obj)")
+//           validAccesToken = true
+//                   
+//                        
+//            
+//            
+//        }
+        return true
+           
+=======
         
-           return true
+        editProfilViewModel.getProfilData()
+        var validAccesToken:Bool = true
+        editProfilViewModel.transferProfilData = {
+            
+            [weak self] () in
+            let obj = self?.editProfilViewModel.profilModel
+            if  obj?.fullName == nil{ 
+                validAccesToken =  false
+            }
+                
+    
+        }
+        
+           return validAccesToken
+>>>>>>> Sprint5/EditProfile
        }
 
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

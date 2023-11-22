@@ -2,21 +2,19 @@ import UIKit
 import SnapKit
 import TinyConstraints
 
+
 class LoginVC: UIViewController,LoginResponseDelegate {
 
     private lazy var securitySettings: SecuritySettingsVC = {
         return SecuritySettingsVC()
     }()
     
-    
     func loginResponseGet(isLogin: Bool) {
        print("sonuc \(isLogin ?? false)")
         if isLogin == false {
-            print("hatali giris")
             showAlert(title: "Giris Yapilamadi",message: "Bilgiler uyusmuyor")
         }
         if isLogin == true{
-            print("Giris  delegate dogru")
             let vc = MainTabbar()
             self.navigationController?.pushViewController(vc, animated: true)
             securitySettings.requestCameraPermission()
@@ -28,15 +26,13 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     func showAlert(title:String,message:String) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
         let btnCancel = UIAlertAction(title: "Vazgeç", style: .destructive)
         let btnRetry = UIAlertAction(title: "Yeniden Dene", style: .default, handler: { action in
-            self.showAlert(title: "Hata", message: "Yine olmadı")
+        self.showAlert(title: "Hata", message: "Yine olmadı")
         })
         
         alert.addAction(btnCancel)
         alert.addAction(btnRetry)
-        
         self.present(alert, animated: true)
     }
     
@@ -81,8 +77,8 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     private lazy var lblTitle: UILabel = {
         let lbl = UILabel()
         lbl.text = "Welcome to Travio"
-        lbl.font = FontStyle.poppinsSemiBold(size: 24).font
-        lbl.textColor = UIColor(hex: "3D3D3D")
+        lbl.font = FontStyle.h4.font
+        lbl.textColor = ColorStyle.blackRaven.color
         lbl.numberOfLines = 1
         return lbl
     }()
@@ -90,8 +86,8 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     private lazy var lblCheckSign: UILabel = {
         let lbl = UILabel()
         lbl.text = "Don’t have  any account?"
-        lbl.font = FontStyle.poppinsSemiBold(size: 14).font
-        lbl.textColor = UIColor(hex: "3D3D3D")
+        lbl.font = FontStyle.h6.font
+        lbl.textColor = ColorStyle.blackRaven.color
         lbl.numberOfLines = 1
         return lbl
     }()
@@ -100,7 +96,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
 //MARK: -- Buttons
     
     private lazy var buttonLogin: DefaultButton = {
-        let btn = DefaultButton(title: "Login", background: .customgreen)
+        let btn = DefaultButton(title: "Login", background: .primary)
         btn.addTarget(self, action: #selector(btnLoginTapped), for: .touchUpInside)
         return btn
     }()
@@ -113,12 +109,34 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         loginViewModel.loginUser(email: email, password: password)
         
     }
+    
+    private lazy var passwordShowToggle: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(systemName:"eye.slash"), for: .normal)
+        btn.tintColor = ColorStyle.primary.color
+        btn.addTarget(self, action: #selector(startShowingPassword), for: .touchDown)
+        btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpOutside)
+        return btn
+    }()
+
+    
+    @objc private func startShowingPassword() {
+        passwordShowToggle.setImage(UIImage(systemName: "eye"), for: .normal)
+        passwordStackView.defaultTextField.isSecureTextEntry = false
+    }
+
+    @objc private func stopShowingPassword() {
+        passwordShowToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        passwordStackView.defaultTextField.isSecureTextEntry = true
+
+    }
+    
     private lazy var signButton: UIButton = {
         let button = UIButton()
         button.setTitle("SignUp", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = FontStyle.poppinsSemiBold(size: 14).font
-        
+        button.titleLabel?.font = FontStyle.h6.font
         button.addTarget(self, action: #selector(btnSignTapped), for: .touchUpInside)
         return button
     }()
@@ -140,7 +158,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
 //MARK: -- SetUpViews
     
     private func setupViews() {
-        self.view.backgroundColor = UIColor(hex: "38ada9")
+        self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubviews(imageView,
                               mainStackView)
         
@@ -149,9 +167,11 @@ class LoginVC: UIViewController,LoginResponseDelegate {
                                   passwordStackView,
                                   buttonLogin,
                                   bottomStackView)
+        
+        passwordStackView.addSubview(passwordShowToggle)
+        
         bottomStackView.addArrangedSubviews(lblCheckSign,
                                     signButton)
-        
         layout()
     }
     
@@ -159,7 +179,6 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     
     private func layout() {
        
-        
         imageView.snp.makeConstraints { imgv in
             imgv.centerX.equalToSuperview()
             imgv.bottom.equalTo(mainStackView.snp.top).offset(-24)
@@ -190,6 +209,13 @@ class LoginVC: UIViewController,LoginResponseDelegate {
             sv.leading.equalToSuperview().offset(24)
             sv.height.equalTo(74)
         }
+        
+        passwordShowToggle.snp.makeConstraints({tgl in
+            tgl.centerY.equalTo(passwordStackView.defaultTextField)
+            tgl.trailing.equalToSuperview().offset(-16)
+            tgl.height.equalTo(24)
+            tgl.width.equalTo(24)
+        })
 
         buttonLogin.snp.makeConstraints { btn in
             btn.top.equalTo(passwordStackView.snp.bottom).offset(48)
@@ -204,19 +230,5 @@ class LoginVC: UIViewController,LoginResponseDelegate {
             
         })
     }
-    
 }
 
-    
-
-#if DEBUG
-import SwiftUI
-
-@available(iOS 13, *)
-struct HomeVC_Preview: PreviewProvider {
-    static var previews: some View{
-
-        SignUpVC().showPreview()
-    }
-}
-#endif

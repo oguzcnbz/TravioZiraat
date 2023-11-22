@@ -1,22 +1,10 @@
-//
-//  
-//  HomeVCVC.swift
-//  Application
-//
-//  Created by Ada on 26.10.2023.
-//
-//
 import UIKit
 import TinyConstraints
 import SnapKit
 
 
-
-
-
 class HomeVC: UIViewController {
     static let sectionHeaderElementKind = "section-header-element-kind"
-
 
     //MARK: -- Properties
     
@@ -24,7 +12,6 @@ class HomeVC: UIViewController {
         return HomeViewModel()
     }()
     
-
     var populerArr: [Place] = []
     var lastArr: [Place] = []
     var userArr: [Place] = []
@@ -48,29 +35,24 @@ class HomeVC: UIViewController {
         
         
     }()
-    
- 
+
     private lazy var collectionView:UICollectionView = {
 
         let lay = makeCollectionViewLayout()
-       
 
         let cv = UICollectionView(frame: .zero, collectionViewLayout: lay)
         cv.backgroundColor = .clear
         cv.register(HomeCell.self, forCellWithReuseIdentifier: "cell")
      
-        cv.register(
-            HomeHeaderCell.self,
-            forSupplementaryViewOfKind: HomeVC.sectionHeaderElementKind,
-            withReuseIdentifier: HomeHeaderCell.reuseIdentifier)
+        cv.register(HomeHeaderCell.self,
+                    forSupplementaryViewOfKind: HomeVC.sectionHeaderElementKind,
+                    withReuseIdentifier: HomeHeaderCell.reuseIdentifier)
        
         cv.dataSource = self
         cv.delegate = self
         return cv
     }()
    
-    
-    
     //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,39 +60,28 @@ class HomeVC: UIViewController {
         getLastPlaceData ()
         getUserPlaceData ()
         setupViews()
-   
-        
     }
-   
-    //MARK: -- Component Actions
-   
-    
+
     //MARK: -- Private Methods
     private func getPopulerPlaceData (){
-       
-        
+    
         homeViewModel.getPopulerPlaceParam()
         homeViewModel.transferPopulerData = { [weak self] () in
             let obj = self?.homeViewModel.populerPlace
             self?.populerArr = obj ?? []
-          
            self?.collectionView.reloadData()
-
         }
-        
-     
     }
+    
     private func getLastPlaceData (){
         homeViewModel.getLastParam()
         homeViewModel.transferLastData = { [weak self] () in
             let obj = self?.homeViewModel.lastPlace
             self?.lastArr = obj ?? []
-            
-
             self?.collectionView.reloadData()
-
         }
     }
+    
     private func getUserPlaceData (){
         homeViewModel.getUserPlace()
         homeViewModel.transferUserData = { [weak self] () in
@@ -118,7 +89,6 @@ class HomeVC: UIViewController {
             self?.userArr = obj ?? []
             self?.collectionView.reloadData()
         }
-        
     }
     
     func checkVisit(placeId: String, place:Place){
@@ -126,10 +96,10 @@ class HomeVC: UIViewController {
         vc.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
         vc.placeDetailViewModel.checkclosure = {[weak self] status in
             if status == "success" {
-                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
+                vc.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
             }
             else{
-                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
+                vc.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
             }
             vc.placeModel = place
             self?.navigationController?.pushViewController(vc, animated: true)
@@ -138,15 +108,9 @@ class HomeVC: UIViewController {
     
     //MARK: -- UI Methods
     func setupViews() {
-        // Add here the setup for the UI
-        let leftBarButton = UIBarButtonItem()
         self.view.backgroundColor = ColorStyle.primary.color
-        self.view.addSubview(logoImageView)
-        self.view.addSubview(containerView)
-        
+        self.view.addSubviews(logoImageView,containerView)
         containerView.addSubview(collectionView)
-        
-        self.view.addSubviews()
         setupLayout()
     }
     
@@ -156,8 +120,6 @@ class HomeVC: UIViewController {
         logoImageView.leadingToSuperview(offset: 20)
         logoImageView.height(24)
        
-        
-        
         containerView.edgesToSuperview(excluding: .top)
         containerView.heightToSuperview(multiplier: 0.85)
         
@@ -167,11 +129,8 @@ class HomeVC: UIViewController {
             view.bottom.equalToSuperview()
             view.height.equalToSuperview().offset(-30)
         }
-
     }
-  
 }
-
 
 
 extension HomeVC:UICollectionViewDataSource {
@@ -187,10 +146,7 @@ extension HomeVC:UICollectionViewDataSource {
         
         else{
             return userArr.count
-            
         }
-        
-
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -210,10 +166,6 @@ extension HomeVC:UICollectionViewDataSource {
             return cell
             
         }
-        
-        
-        
-      
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -266,14 +218,10 @@ extension HomeVC:UICollectionViewDataSource {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             return supplementaryView
-            
         }
-     
     }
-    
-   
-   
 }
+
 extension HomeVC:UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             var selectedPlace: Place
@@ -287,9 +235,9 @@ extension HomeVC:UICollectionViewDelegate {
                 selectedPlace = userArr[indexPath.row]
                 checkVisit(placeId: selectedPlace.id, place: selectedPlace)
             }
-
         }
 }
+
 extension HomeVC {
     
     func makeCollectionViewLayout() -> UICollectionViewLayout {
@@ -298,7 +246,6 @@ extension HomeVC {
             [weak self] sectionIndex, environment in
             
             return self?.makeSliderLayoutSection()
-   
         }
     }
     

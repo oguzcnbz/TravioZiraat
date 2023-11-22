@@ -1,10 +1,9 @@
 import UIKit
 import SnapKit
 
+
 class SecuritySettingsCustomSV: UIView {
     
-  
-
         init(labelText: String) {
             super.init(frame: CGRect.zero)
             setupAndLayout(labelText: labelText)
@@ -16,11 +15,10 @@ class SecuritySettingsCustomSV: UIView {
             setupAndLayout(labelText: "")
         }
         
-    
     private lazy var defaultStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.backgroundColor = .white
+        stack.backgroundColor = ColorStyle.white.color
         stack.layer.cornerRadius = 16
         stack.layer.borderColor = UIColor.black.cgColor
         stack.layer.shadowOpacity = 0.15
@@ -31,8 +29,8 @@ class SecuritySettingsCustomSV: UIView {
     
     lazy var defaultLabel: UILabel = {
         let lbl = UILabel()
-        lbl.font = FontStyle.poppinsMedium(size: 14).font
-        lbl.textColor = UIColor(hex: "3D3D3D")
+        lbl.font = FontStyle.sh3.font
+        lbl.textColor = ColorStyle.blackRaven.color
         lbl.numberOfLines = 1
         return lbl
     }()
@@ -41,7 +39,6 @@ class SecuritySettingsCustomSV: UIView {
         let s = UISwitch()
         return s
     }()
-    
     
     
     private func setupAndLayout(labelText: String) {
@@ -57,7 +54,6 @@ class SecuritySettingsCustomSV: UIView {
                cv.trailing.equalToSuperview()
                
            }
-           
            
            defaultLabel.snp.makeConstraints { lbl in
                lbl.leading.equalTo(defaultStackView.snp.leading).offset(16)

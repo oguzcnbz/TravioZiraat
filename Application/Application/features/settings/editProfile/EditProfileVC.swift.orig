@@ -4,6 +4,12 @@ import SnapKit
 import Kingfisher
 
 
+<<<<<<< HEAD
+=======
+protocol PreviousPageDelegate: AnyObject {
+    func didDismiss()
+}
+>>>>>>> Sprint5/EditProfile
 
 
 class EditProfileVC: UIViewController{

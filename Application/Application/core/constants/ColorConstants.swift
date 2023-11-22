@@ -1,28 +1,16 @@
-//
-//  ColorConstants.swift
-//  bilge3-1
-//
-//  Created by Ada on 2.11.2023.
-//
-
 import Foundation
 import UIKit
 
-
-
-//public let kcPrimaryColor = UIColor(hex: "38ada9")
-//public let kcBackgroundColor = UIColor(hex: "F8F8F8")
-//public let kcBlackRavenColor = UIColor(hex: "3d3d3d")
-//public let kcBlueRaspberryColor = UIColor(hex: "17C0EB")
-
-
 enum ColorStyle {
-   case primary
+    case primary
     case background
-   case blackRaven
-  case blueRaspberry
-  case white
-  case greySpanish
+    case blackRaven
+    case blueRaspberry
+    case white
+    case greySpanish
+    case darkcharcoal
+    case black
+    case darkgray
     
     var color: UIColor? {
         switch self {
@@ -38,7 +26,12 @@ enum ColorStyle {
             return UIColor(hex: "999999")
         case .white:
             return .white
- 
+        case .darkcharcoal:
+            return UIColor(hex: "333333")
+        case .black:
+            return UIColor(hex: "000000")
+        case .darkgray:
+            return UIColor(hex: "A9A8A8")
         }
     }
 }

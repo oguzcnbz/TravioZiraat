@@ -1,16 +1,13 @@
-
 import UIKit
 import TinyConstraints
 import SnapKit
 
 
-
 class MyAddedPlacesVC: UIViewController {
-    
+    let placeDetailVC = PlaceDetailVC()
     var myAddedPlaces: [Place] = []
 
     //MARK: -- Properties
-    
     
     lazy var myAddedPlacesViewModel: MyAddedPlacesViewModel = MyAddedPlacesViewModel()
     
@@ -25,7 +22,7 @@ class MyAddedPlacesVC: UIViewController {
         cv.layoutIfNeeded()
         cv.layer.maskedCorners = [.layerMinXMinYCorner]
         cv.dataSource = self
-
+        cv.delegate = self
         return cv
     }()
     
@@ -36,9 +33,9 @@ class MyAddedPlacesVC: UIViewController {
     
     private lazy var headLbl: UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(hex: "FFFFFF")
+        lbl.textColor = ColorStyle.white.color
         lbl.text = "Popular Places"
-        lbl.font = FontStyle.poppinsSemiBold(size: 36).font
+        lbl.font = FontStyle.h1.font
         lbl.sizeToFit()
         return lbl
     }()
@@ -63,17 +60,17 @@ class MyAddedPlacesVC: UIViewController {
     }
     
     func checkVisit(placeId: String, place:Place){
-        let vc = PlaceDetailVC()
-        vc.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
-        vc.placeDetailViewModel.checkclosure = {[weak self] status in
+       
+        self.placeDetailVC.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
+        self.placeDetailVC.placeDetailViewModel.checkclosure = {[weak self] status in
             if status == "success" {
-                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
+                self!.placeDetailVC.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
             }
             else{
-                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
+                self!.placeDetailVC.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
             }
-            vc.placeModel = place
-            self?.navigationController?.pushViewController(vc, animated: true)
+            self!.placeDetailVC.placeModel = place
+            self?.navigationController?.pushViewController(self!.placeDetailVC, animated: true)
         }
     }
     
@@ -87,10 +84,10 @@ class MyAddedPlacesVC: UIViewController {
             }
        
         }
-    
 
-    //MARK: -- Views
-   
+    @objc func rightbartapped(){
+        self.navigationController?.popViewController(animated: true)
+    }
     
     //MARK: -- Life Cycles
     override func viewDidLoad() {
@@ -99,29 +96,22 @@ class MyAddedPlacesVC: UIViewController {
         setupViews()
     }
     
-  
     
     //MARK: -- UI Methods
     func setupViews() {
-        self.view.backgroundColor = UIColor(hex: "38ada9")
+        self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubview(mainStackView)
         mainStackView.addSubviews(sortButton,collectionView)
         setNavigationItems(leftBarButton: true, rightBarButton: nil, title: "My Added Places")
-     
-        setupLayout()
-        
+      
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
+        
+        setupLayout()
 
-      
     }
-    @objc func rightbartapped(){
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-
-    
+  
     func setupLayout() {
         
         mainStackView.snp.makeConstraints { v in
@@ -147,7 +137,6 @@ class MyAddedPlacesVC: UIViewController {
     }
   
 }
-
 
 
 extension MyAddedPlacesVC:UICollectionViewDataSource {

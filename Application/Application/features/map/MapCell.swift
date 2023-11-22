@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 
+
 class MapCell: UICollectionViewCell {
 
     
@@ -23,21 +24,20 @@ class MapCell: UICollectionViewCell {
     
     private lazy var lblName:UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(hex: "FFFFFF")
-        lbl.font = FontStyle.poppinsSemiBold(size: 30).font
+        lbl.textColor = ColorStyle.white.color
+        lbl.font = FontStyle.h3.font
         lbl.adjustsFontSizeToFitWidth = true
         return lbl
     }()
     
     private lazy var lblPlace:UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(hex: "FFFFFF")
-        lbl.font = FontStyle.poppinsLight(size: 16).font
+        lbl.textColor = ColorStyle.white.color
+        lbl.font = FontStyle.lt1.font
         return lbl
     }()
     
    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -46,7 +46,6 @@ class MapCell: UICollectionViewCell {
     
     @objc func btnTapped(){
         closure?()
-        
     }
     
     public func configure(object:Place){
@@ -79,7 +78,6 @@ class MapCell: UICollectionViewCell {
         lblName.snp.makeConstraints({lbl in
             lbl.leading.equalTo(imgPlace.snp.leading).offset(8)
             lbl.bottom.equalTo(vector.snp.top).offset(2)
-          //  lbl.trailing.equalTo(imgPlace.snp.trailing).offset(-8)
         })
         
         vector.snp.makeConstraints({img in

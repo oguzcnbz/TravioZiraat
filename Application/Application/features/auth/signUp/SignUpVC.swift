@@ -1,4 +1,3 @@
-
 import UIKit
 import SnapKit
 import TinyConstraints
@@ -9,15 +8,9 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     func signUpResponseGet(isSignUp: Bool, message: String) {
             
             if isSignUp == false {
-                
-                    print("hatali giris")
-                    showAlert(title: "Registration Failed", message: message)
-                
-               
-               
+                                    showAlert(title: "Registration Failed", message: message)
             }
             if isSignUp == true {
-                
                 
                 let vc = MainTabbar()
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -28,18 +21,12 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     func showAlert(title:String,message:String) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
         let btnCancel = UIAlertAction(title: "Vazgeç", style: .destructive)
-       
-        
         alert.addAction(btnCancel)
-       
-        
         self.present(alert, animated: true)
     }
     
     //MARK: -- Views
-    
     
     private lazy var mainStackView: DefaultMainStackView = {
         let sv = DefaultMainStackView()
@@ -48,7 +35,6 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     
     private lazy var usernameStackView: CustomTextField = {
         let sv = CustomTextField(labelText: "Username", textFieldPlaceholder: "bilge_adam")
-        
         return sv
     }()
     
@@ -69,18 +55,61 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
         return sv
     }()
     
+    private lazy var passwordShowToggle: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(systemName:"eye.slash"), for: .normal)
+        btn.tintColor = ColorStyle.primary.color
+        btn.addTarget(self, action: #selector(startShowingPassword), for: .touchDown)
+        btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpOutside)
+        return btn
+    }()
+
+    
+    @objc private func startShowingPassword() {
+        passwordShowToggle.setImage(UIImage(systemName: "eye"), for: .normal)
+        passwordStackView.defaultTextField.isSecureTextEntry = false
+    }
+
+    @objc private func stopShowingPassword() {
+        passwordShowToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        passwordStackView.defaultTextField.isSecureTextEntry = true
+
+    }
+    
+    private lazy var passwordConfirmShowToggle: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(systemName:"eye.slash"), for: .normal)
+        btn.tintColor = ColorStyle.primary.color
+        btn.addTarget(self, action: #selector(startShowPassword), for: .touchDown)
+        btn.addTarget(self, action: #selector(stopShowPassword), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(stopShowPassword), for: .touchUpOutside)
+        return btn
+    }()
+
+    
+    @objc private func startShowPassword() {
+        passwordShowToggle.setImage(UIImage(systemName: "eye"), for: .normal)
+        passwordConfirmStackView.defaultTextField.isSecureTextEntry = false
+    }
+
+    @objc private func stopShowPassword() {
+        passwordShowToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        passwordConfirmStackView.defaultTextField.isSecureTextEntry = true
+
+    }
+    
     lazy var SignUpViewModel: SignUpViewModel = {
         return Application.SignUpViewModel()
     }()
-    
     
     //MARK: -- Labels
     
     private lazy var lblSignUp: UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(hex: "FFFFFF")
+        lbl.textColor = ColorStyle.white.color
         lbl.text = "Sign Up"
-        lbl.font = FontStyle.poppinsSemiBold(size: 36).font
+        lbl.font = FontStyle.h1.font
         lbl.sizeToFit()
         return lbl
     }()
@@ -88,25 +117,13 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     //MARK: -- Buttons
     
     private lazy var buttonLogin: DefaultButton = {
-        let btn = DefaultButton(title: "Sign Up", background: .lightGray)
+        let btn = DefaultButton(title: "Sign Up", background: .greySpanish)
         btn.addTarget(self, action: #selector(btnSignTapped), for: .touchUpInside)
         return btn
     }()
     
-    
-    
     @objc func btnSignTapped() {
-//          guard let userName = usernameStackView.defaultTextField.text else {return}
-//        guard let email = emailStackView.defaultTextField.text else {return}
-//        guard let password = passwordStackView.defaultTextField.text else {return}
-//        
-//        if emailStackView.defaultTextField.hasValidEmail == false {
-//            showAlert(title: "Registration Failed", message: "Sorry, we dont recognise this email address")
-//            return
-//        }
-        
         SignUpViewModel.setDelegate(output: self)
-      //  SignUpViewModel.signUpUser(fullName: userName, email: email, password: password)
         SignUpViewModel.signUpUser(fullName: "ada", email: "Ada443@gmail.com", password: "123123")
     }
     
@@ -125,7 +142,7 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     //MARK: -- SetUpView
     
     private func setupViews() {
-        self.view.backgroundColor = UIColor(hex: "38ada9")
+        self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubview(mainStackView)
         mainStackView.addSubviews(usernameStackView,
                                   emailStackView,
@@ -133,15 +150,15 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
                                   passwordConfirmStackView,
                                   buttonLogin)
         
-        
+        passwordStackView.addSubview(passwordShowToggle)
+        passwordConfirmStackView.addSubview(passwordConfirmShowToggle)
         
         let leftButtonImage = UIImage(named:"backWard")
         let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
-        leftBarButton.tintColor = UIColor(hex: "FFFFFF")
+        leftBarButton.tintColor = ColorStyle.white.color
         self.navigationItem.leftBarButtonItem = leftBarButton
         self.navigationItem.titleView = lblSignUp
         layout()
-        
     }
     
     //MARK: -- Layout
@@ -185,15 +202,28 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
             sv.height.equalTo(74)
         }
         
+        passwordShowToggle.snp.makeConstraints({tgl in
+            tgl.centerY.equalTo(passwordStackView.defaultTextField)
+            tgl.trailing.equalToSuperview().offset(-16)
+            tgl.height.equalTo(24)
+            tgl.width.equalTo(24)
+        })
+        
+        passwordConfirmShowToggle.snp.makeConstraints({tgl in
+            tgl.centerY.equalTo(passwordConfirmStackView.defaultTextField)
+            tgl.trailing.equalToSuperview().offset(-16)
+            tgl.height.equalTo(24)
+            tgl.width.equalTo(24)
+        })
+        
+        
         buttonLogin.snp.makeConstraints { btn in
             btn.bottom.equalTo(mainStackView.snp.bottom).offset(-23)
             btn.trailing.equalToSuperview().offset(-24)
             btn.leading.equalToSuperview().offset(24)
             btn.height.equalTo(54)
         }
-        
     }
-   
 }
 
 
@@ -206,7 +236,6 @@ extension SignUpVC {
         textFields.forEach {
             $0.addTarget(self, action: #selector(updateSignUpButtonState), for: .editingChanged)
         }
-        
         updateSignUpButtonState()
     }
     
@@ -215,13 +244,11 @@ extension SignUpVC {
         let isPasswordConfirmed = passwordStackView.defaultTextField.text == passwordConfirmStackView.defaultTextField.text
         let isAllFieldsFilled = usernameStackView.defaultTextField.hasText && emailStackView.defaultTextField.hasText && passwordStackView.defaultTextField.hasText && passwordConfirmStackView.defaultTextField.hasText
         
-       // buttonLogin.isEnabled = isPasswordValid && isPasswordConfirmed && isAllFieldsFilled
-        buttonLogin.isEnabled = true
-        
-        if buttonLogin.isEnabled {
-            buttonLogin.backgroundColor = ButtonBackground.customgreen.backgroundColor
-        } else {
-            buttonLogin.backgroundColor = ButtonBackground.lightGray.backgroundColor
+        if isAllFieldsFilled && isPasswordValid && isPasswordConfirmed == true{
+            buttonLogin.isEnabled = true
+            buttonLogin.backgroundColor = ColorStyle.primary.color
+        }else {
+            buttonLogin.backgroundColor = ColorStyle.greySpanish.color
         }
     }
 }

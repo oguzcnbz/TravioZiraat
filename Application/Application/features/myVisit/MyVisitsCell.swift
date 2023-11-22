@@ -1,28 +1,28 @@
 import UIKit
 import SnapKit
 
+
 class MyVisitsCell: UICollectionViewCell {
 
-    
     var closure:(()->Void)?
     
     private lazy var imgPlace: UIImageView = {
-            let iv = UIImageView()
+        let iv = UIImageView()
         iv.layer.cornerRadius = 16
         iv.layer.masksToBounds = true
-            return iv
-        }()
+        return iv
+    }()
     
     
     private lazy var gradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
-        let startColor = UIColor(hex: "333333").withAlphaComponent(0)
-        let endColor = UIColor(hex: "3D3D3D").withAlphaComponent(1)
+        let startColor = ColorStyle.darkcharcoal.color!.withAlphaComponent(0)
+        let endColor = ColorStyle.blackRaven.color!.withAlphaComponent(1)
         gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
         return gradientLayer
-       }()
+    }()
     
     
     private lazy var vector:UIImageView = {
@@ -33,26 +33,22 @@ class MyVisitsCell: UICollectionViewCell {
     
     private lazy var lblName:UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(hex: "FFFFFF")
-        lbl.font = FontStyle.poppinsSemiBold(size: 30).font
+        lbl.textColor = ColorStyle.white.color
+        lbl.font = FontStyle.h3.font
         return lbl
     }()
     
     private lazy var lblPlace:UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(hex: "FFFFFF")
-        lbl.font = FontStyle.poppinsLight(size: 16).font
+        lbl.textColor = ColorStyle.white.color
+        lbl.font = FontStyle.lt1.font
         return lbl
     }()
-    
-   
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
-    
-    
     
     public func configure(object:MyVisits){
         

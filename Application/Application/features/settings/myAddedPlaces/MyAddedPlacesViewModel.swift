@@ -1,4 +1,3 @@
-
 import UIKit
 import Alamofire
 
@@ -22,10 +21,7 @@ class MyAddedPlacesViewModel{
                 
             case .failure(let err):
                 print(err.localizedDescription)
-                print("boyle kod olmaz")
             }
         })
-        
     }
-  
 }

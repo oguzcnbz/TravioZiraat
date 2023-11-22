@@ -1,11 +1,10 @@
-
 import UIKit
 import SnapKit
 
+
 class MapAddPlaceCell: UICollectionViewCell {
     
-    weak var delegate: Deneme?
-   // var imageArr:[UIImage] = []
+    weak var delegate: ShowAlert?
     var closure:((UIImage)->Void)?
     var hasImage:Bool = false
     var indexRow:Int?
@@ -22,8 +21,8 @@ class MapAddPlaceCell: UICollectionViewCell {
     private lazy var addPhotolbl: UILabel = {
         let lbl = UILabel()
         lbl.text = "Add Photo"
-        lbl.font = FontStyle.poppinsLight(size: 12).font
-        lbl.textColor = UIColor.lightGray
+        lbl.font = FontStyle.lt3.font
+        lbl.textColor = ColorStyle.greySpanish.color
         return lbl
     }()
     
@@ -37,22 +36,17 @@ class MapAddPlaceCell: UICollectionViewCell {
         super.init(frame: frame)
         setupViews()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
-                self.contentView.addGestureRecognizer(tapGesture)
-                self.contentView.isUserInteractionEnabled = true
+        self.contentView.addGestureRecognizer(tapGesture)
+        self.contentView.isUserInteractionEnabled = true
         
     }
    
     @objc private func cellTapped() {
-            // Add your desired action when the cell is tapped
-            print("Cell tapped! \(indexRow)")
         showChooseSourceTypeAlertController()
         }
     
-    
-    
-    
     private func setupViews(){
-        self.contentView.backgroundColor = .white
+        self.contentView.backgroundColor = ColorStyle.white.color
         self.contentView.layer.cornerRadius = 16
         
         self.contentView.layer.borderColor = UIColor.black.cgColor
@@ -60,7 +54,6 @@ class MapAddPlaceCell: UICollectionViewCell {
         self.contentView.layer.shadowRadius = 20
         
         self.contentView.addSubviews(imgPlace)
-        
         imgPlace.addSubviews(vector,addPhotolbl)
         
         setupLayout()
@@ -97,13 +90,12 @@ extension MapAddPlaceCell: UIImagePickerControllerDelegate, UINavigationControll
         
         let vcSS = SecuritySettingsVC()
         
-       
         let photoLibraryAction = UIAlertAction(title: "Choose a Photo", style: .default) { (action) in
             if vcSS.libraryPermissionStatus == .authorized {
                 self.showImagePickerController(sourceType: .photoLibrary)
                 
             }else{
-                self.delegate?.deneme(title: "Error", message: "You have not granted access to the library. You can change it from the settings.")
+                self.delegate?.ShowAlert(title: "Error", message: "You have not granted access to the library. You can change it from the settings.")
             }
         }
        
@@ -112,7 +104,7 @@ extension MapAddPlaceCell: UIImagePickerControllerDelegate, UINavigationControll
                 self.showImagePickerController(sourceType: .camera)
                 
             }else{
-                self.delegate?.deneme(title: "Error", message: "You have not granted access to the camera. You can change it from the settings.")
+                self.delegate?.ShowAlert(title: "Error", message: "You have not granted access to the camera. You can change it from the settings.")
             }
         }
     
@@ -143,8 +135,6 @@ extension MapAddPlaceCell: UIImagePickerControllerDelegate, UINavigationControll
         closure!(imgPlace.image!)
         picker.dismiss(animated: true, completion: nil)
     }
-    
-    
 }
 
 extension UIViewController {

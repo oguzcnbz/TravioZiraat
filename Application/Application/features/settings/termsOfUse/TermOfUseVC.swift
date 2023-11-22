@@ -12,13 +12,11 @@ class TermOfUseVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       setupViews()
-       
+        setupViews()
     }
   
     func setupViews() {
-        self.view.backgroundColor = UIColor(hex: "38ada9")
+        self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubviews(mainStackView)
         setupLayout()
         setNavigationItems(leftBarButton: true, rightBarButton: nil, title: "Term Of Use")
@@ -32,6 +30,4 @@ class TermOfUseVC: UIViewController {
             v.height.equalToSuperview().multipliedBy(0.82)
         }
     }
-  
-  
 }

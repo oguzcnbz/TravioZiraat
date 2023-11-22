@@ -2,8 +2,8 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-class HomeCell: UICollectionViewCell {
 
+class HomeCell: UICollectionViewCell {
   
     var closure:(()->Void)?
     
@@ -23,40 +23,31 @@ class HomeCell: UICollectionViewCell {
     
     private lazy var lblName:UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(hex: "FFFFFF")
-        lbl.font = FontStyle.poppinsSemiBold(size: 24).font
+        lbl.textColor = ColorStyle.white.color
+        lbl.font = FontStyle.h4.font
         lbl.adjustsFontSizeToFitWidth = true
         return lbl
     }()
     
     private lazy var lblPlace:UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(hex: "FFFFFF")
-        lbl.font = FontStyle.poppinsLight(size: 14).font
+        lbl.textColor = ColorStyle.white.color
+        lbl.font = FontStyle.lt2.font
         return lbl
     }()
-    
-   
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
     
-    
-//    @objc func btnTapped(){
-//        closure?()
-//        delegate?.getData(data: "")
-//    }
-    
     public func configure(object:Place){
         
         let url = URL(string: object.coverImageURL)
-     imgPlace.kf.setImage(with: url)
+        imgPlace.kf.setImage(with: url)
        
         lblName.text = object.title
         lblPlace.text = object.place
-        
     }
     
     private func setupViews(){

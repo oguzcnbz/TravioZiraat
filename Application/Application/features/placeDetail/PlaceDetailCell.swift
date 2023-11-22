@@ -1,16 +1,14 @@
-
 import UIKit
 import SnapKit
 import Kingfisher
-
 
 
 class PlaceDetailCell: UICollectionViewCell {
     
     private lazy var gradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
-        let startColor = UIColor(hex: "333333").withAlphaComponent(0)
-        let endColor = UIColor(hex: "ffffff").withAlphaComponent(1)
+        let startColor = ColorStyle.darkcharcoal.color!.withAlphaComponent(0)
+        let endColor = ColorStyle.white.color!.withAlphaComponent(1)
         gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)

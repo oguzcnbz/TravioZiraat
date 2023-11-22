@@ -1,8 +1,6 @@
-
-
-
 import Foundation
 import Alamofire
+
 
 class HomeViewModel{
     
@@ -37,14 +35,12 @@ class HomeViewModel{
                 let response = obj.data
                 self.populerPlace = response.places
                 
-                
             case .failure(let err):
                 print(err.localizedDescription)
-                print("boyle kod olmaz")
             }
         })
-        
     }
+    
     func getPopulerPlace(){
        
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .placePopularGet, callback: { (result:Result<PlacesModelDatas,Error>) in
@@ -55,11 +51,11 @@ class HomeViewModel{
             
             case .failure(let err):
                 print(err.localizedDescription)
-                print("boyle kod olmaz")
             }
         })
         
     }
+    
     //MARK: last place
     func getLastParam(){
         let params = ["limit": "5"]
@@ -69,14 +65,13 @@ class HomeViewModel{
                 let response = obj.data
                 self.lastPlace = response.places
                 
-                
             case .failure(let err):
                 print(err.localizedDescription)
-                print("boyle kod olmaz")
             }
         })
         
     }
+    
     func getLastPlace(){
        
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .placeLastGet, callback: { (result:Result<PlacesModelDatas,Error>) in
@@ -87,10 +82,8 @@ class HomeViewModel{
             
             case .failure(let err):
                 print(err.localizedDescription)
-                print("boyle kod olmaz")
             }
         })
-        
     }
     
     //MARK: user place
@@ -101,11 +94,9 @@ class HomeViewModel{
             case .success(let obj):
                 let response = obj.data
                 self.userPlace = response.places
-                    //    print(self.userPlace)
             
             case .failure(let err):
                 print(err.localizedDescription)
-                print("boyle kod olmaz")
             }
         })
         

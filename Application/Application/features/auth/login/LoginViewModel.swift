@@ -1,11 +1,10 @@
-
 import Foundation
 import UIKit
+
 
 protocol LoginResponseDelegate{
     func loginResponseGet(isLogin:Bool)
 }
-
 
 class LoginViewModel {
  
@@ -19,7 +18,7 @@ class LoginViewModel {
         guard let email = email else {return}
         guard let password = password else {return}
 
-        let params = ["email": "Ada442@gmail.com", "password": "secretpassworld"]
+        let params = ["email": "oguz@gmail.com", "password": "123123"]
         //let params = ["email": email, "password": password]
         var isLogin:Bool = false
         
@@ -43,15 +42,12 @@ class LoginViewModel {
              
                 isLogin = true
                
-                
             case .failure(let failure):
                     
                 isLogin = false
-                
             }
+            
             self.delegate?.loginResponseGet(isLogin: isLogin)
         })
-    }
-    
-    
+    }    
 }

@@ -1,11 +1,9 @@
-
 import UIKit
 import SnapKit
 
+
 class MyAddedPlacesCell: UICollectionViewCell {
 
- 
-    
     var closure:(()->Void)?
     
     private lazy var imgPlace:UIImageView = {
@@ -21,7 +19,6 @@ class MyAddedPlacesCell: UICollectionViewCell {
         return v
     }()
     
-    
     private lazy var vector:UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "icVisitBlack")
@@ -30,35 +27,31 @@ class MyAddedPlacesCell: UICollectionViewCell {
     
     private lazy var lblName:UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(hex: "3D3D3D")
-        lbl.font = FontStyle.poppinsSemiBold(size: 24).font
+        lbl.textColor = ColorStyle.blackRaven.color
+        lbl.font = FontStyle.h4.font
         lbl.adjustsFontSizeToFitWidth = true
         return lbl
     }()
     
     private lazy var lblPlace:UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(hex: "3D3D3D")
-        lbl.font = FontStyle.poppinsLight(size: 16).font
+        lbl.textColor = ColorStyle.blackRaven.color
+        lbl.font = FontStyle.lt1.font
         return lbl
     }()
-    
-   
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
     
-    
     @objc func btnTapped(){
         closure?()
-       
     }
     
     public func configure(object:Place){
         let url = URL(string: object.coverImageURL)
-     imgPlace.kf.setImage(with: url)
+        imgPlace.kf.setImage(with: url)
        
         lblName.text = object.title
         lblPlace.text = object.place
@@ -88,8 +81,7 @@ class MyAddedPlacesCell: UICollectionViewCell {
             imgv.leading.equalToSuperview()
             imgv.top.equalToSuperview()
             imgv.bottom.equalToSuperview()
-            imgv.width.equalTo(90)
-            
+            imgv.width.equalTo(200)
         })
         
         lblName.snp.makeConstraints({lbl in

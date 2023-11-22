@@ -1,9 +1,7 @@
-
 import UIKit
 
 protocol PlaceDetailResponseDelegate{
     func placeDetailResponseGet(imageArr:[String])
-  //  func changeLoading()
 }
 
 class PlaceDetailViewModel {
@@ -26,15 +24,14 @@ class PlaceDetailViewModel {
                     
                 })
                 print("images \(imagesUrl)")
-           //     imagesArr.
                 self.delegate?.placeDetailResponseGet(imageArr: imagesUrl)
+                
             case .failure(let error):
                 print(error.localizedDescription)
-                
-                
             }
         }
     }
+    
     func visitPost(placeId:String?,visitedAt:String?){
         
        let params = ["place_id": placeId, "visited_at": visitedAt]
@@ -42,7 +39,7 @@ class PlaceDetailViewModel {
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitPost(params: params), callback: { (result:Result<Response,Error>) in
             switch result {
             case .success(let obj):
-                print("*********************** \(obj.message)")
+                print(obj.message)
             case .failure(let err):
                 print(err.localizedDescription)
         
@@ -51,7 +48,6 @@ class PlaceDetailViewModel {
         
     }
     
-
     func visitDelete(placeId: String){
                 
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitDelete(placeId: placeId), callback: { (result:Result<Response,Error>) in

@@ -2,8 +2,8 @@
 import UIKit
 import SnapKit
 
-protocol Deneme:AnyObject{
-    func deneme(title: String, message: String)
+protocol ShowAlert:AnyObject{
+    func ShowAlert(title: String, message: String)
 }
 
 class MapAddPlaceVC: UIViewController {
@@ -52,7 +52,7 @@ class MapAddPlaceVC: UIViewController {
     }()
     
     private lazy var btnaddPlace: DefaultButton = {
-        let btn = DefaultButton(title: "Add Place", background: .customgreen)
+        let btn = DefaultButton(title: "Add Place", background: .primary)
         btn.addTarget(self, action: #selector(btnAddPlaceTapped), for: .touchUpInside)
         return btn
     }()
@@ -205,8 +205,9 @@ extension MapAddPlaceVC {
     }
 }
 
-extension MapAddPlaceVC:Deneme{
-    func deneme(title: String, message: String) {
+extension MapAddPlaceVC:ShowAlert{
+    func ShowAlert(title: String, message: String) {
         self.showControlAlert(title: title, message: message)
     }
 }
+
