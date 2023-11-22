@@ -142,9 +142,7 @@ class SecuritySettingsVC: UIViewController {
             v.bottom.equalToSuperview()
             v.height.equalToSuperview().multipliedBy(0.82)
            }
-        scrollView.layoutIfNeeded()
-        let mainHeight = mainStackView.height(scrollView.frame.height + changePassLbl.frame.height + newPassTxtField.frame.height + newPassConfTxtField.frame.height + privacyLbl.frame.height + cameraSV.frame.height + librarySV.frame.height + locationSV.frame.height + saveButton.frame.height + 204)
-        mainHeight.priority = UILayoutPriority(230)
+
 
            mainStackView.snp.makeConstraints { v in
                v.width.equalToSuperview()
@@ -152,29 +150,9 @@ class SecuritySettingsVC: UIViewController {
                v.trailing.equalToSuperview()
                v.bottom.equalToSuperview()
                v.top.equalToSuperview()
-               v.height.equalTo(mainHeight.constant)
+               v.height.equalTo(740)
 
            }
-    
-//        let hconst = mainStackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
-//        hconst.isActive = true
-//        hconst.priority = UILayoutPriority(50)
-//
-//        scrollView.snp.makeConstraints{sv in
-//            sv.leading.equalToSuperview()
-//            sv.trailing.equalToSuperview()
-//            sv.bottom.equalToSuperview()
-//            sv.height.equalTo(self.view).multipliedBy(0.82)
-//        }
-//
-//        mainStackView.snp.makeConstraints{sv in
-//            sv.leading.equalToSuperview()
-//            sv.trailing.equalToSuperview()
-//            sv.bottom.equalToSuperview()
-//            sv.top.equalToSuperview()
-//            sv.width.equalToSuperview()
-//            sv.height.equalToSuperview()
-//        }
         
         changePassLbl.snp.makeConstraints({lbl in
             lbl.top.equalToSuperview().offset(44)
