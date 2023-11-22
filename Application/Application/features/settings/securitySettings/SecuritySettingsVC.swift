@@ -19,6 +19,15 @@ class SecuritySettingsVC: UIViewController {
     
     lazy var securitySettingsViewModel: SecuritySettingsViewModel = SecuritySettingsViewModel()
     
+    private lazy var scrollView: UIScrollView = {
+        let sv = UIScrollView()
+        sv.backgroundColor =  ColorStyle.background.color
+        sv.layer.cornerRadius = 80
+        sv.layoutIfNeeded()
+        sv.layer.maskedCorners = [.layerMinXMinYCorner]
+        return sv
+    }()
+    
     private lazy var mainStackView:DefaultMainStackView = {
         let sv = DefaultMainStackView()
         return sv
@@ -26,7 +35,7 @@ class SecuritySettingsVC: UIViewController {
     
     private lazy var changePassLbl: UILabel = {
         let lbl = UILabel()
-        lbl.font = FontStyle.poppinsSemiBold(size: 16).font
+        lbl.font = FontStyle.h5.font
         lbl.text = "Change Password"
         lbl.textColor = ColorStyle.primary.color
         return lbl
@@ -34,7 +43,7 @@ class SecuritySettingsVC: UIViewController {
     
     private lazy var privacyLbl: UILabel = {
         let lbl = UILabel()
-        lbl.font = FontStyle.poppinsSemiBold(size: 16).font
+        lbl.font = FontStyle.h5.font
         lbl.text = "Privacy"
         lbl.textColor = ColorStyle.primary.color
         return lbl
@@ -115,20 +124,57 @@ class SecuritySettingsVC: UIViewController {
     
     func setupViews() {
         self.view.backgroundColor = ColorStyle.primary.color
-        self.view.addSubview(mainStackView)
+        self.view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(mainStackView)
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.addSubviews(changePassLbl,newPassTxtField,newPassConfTxtField,privacyLbl,cameraSV,librarySV,locationSV,saveButton)
+        
         setupLayout()
         setNavigationItems(leftBarButton: true, rightBarButton: nil, title: "Security Settings")
     }
     
     func setupLayout() {
         
-        mainStackView.snp.makeConstraints { v in
+        scrollView.snp.makeConstraints { v in
             v.leading.equalToSuperview()
             v.trailing.equalToSuperview()
             v.bottom.equalToSuperview()
             v.height.equalToSuperview().multipliedBy(0.82)
-        }
+           }
+        scrollView.layoutIfNeeded()
+        let mainHeight = mainStackView.height(scrollView.frame.height + changePassLbl.frame.height + newPassTxtField.frame.height + newPassConfTxtField.frame.height + privacyLbl.frame.height + cameraSV.frame.height + librarySV.frame.height + locationSV.frame.height + saveButton.frame.height + 204)
+        mainHeight.priority = UILayoutPriority(230)
+
+           mainStackView.snp.makeConstraints { v in
+               v.width.equalToSuperview()
+               v.leading.equalToSuperview()
+               v.trailing.equalToSuperview()
+               v.bottom.equalToSuperview()
+               v.top.equalToSuperview()
+               v.height.equalTo(mainHeight.constant)
+
+           }
+    
+//        let hconst = mainStackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+//        hconst.isActive = true
+//        hconst.priority = UILayoutPriority(50)
+//
+//        scrollView.snp.makeConstraints{sv in
+//            sv.leading.equalToSuperview()
+//            sv.trailing.equalToSuperview()
+//            sv.bottom.equalToSuperview()
+//            sv.height.equalTo(self.view).multipliedBy(0.82)
+//        }
+//
+//        mainStackView.snp.makeConstraints{sv in
+//            sv.leading.equalToSuperview()
+//            sv.trailing.equalToSuperview()
+//            sv.bottom.equalToSuperview()
+//            sv.top.equalToSuperview()
+//            sv.width.equalToSuperview()
+//            sv.height.equalToSuperview()
+//        }
         
         changePassLbl.snp.makeConstraints({lbl in
             lbl.top.equalToSuperview().offset(44)
@@ -166,21 +212,21 @@ class SecuritySettingsVC: UIViewController {
         })
         
         librarySV.snp.makeConstraints({sv in
-            sv.top.equalTo(cameraSV.snp.bottom).offset(8.51)
+            sv.top.equalTo(cameraSV.snp.bottom).offset(9)
             sv.leading.equalToSuperview().offset(24)
             sv.trailing.equalToSuperview().offset(-24)
             sv.height.equalTo(74)
         })
         
         locationSV.snp.makeConstraints({sv in
-            sv.top.equalTo(librarySV.snp.bottom).offset(8.51)
+            sv.top.equalTo(librarySV.snp.bottom).offset(9)
             sv.leading.equalToSuperview().offset(24)
             sv.trailing.equalToSuperview().offset(-24)
             sv.height.equalTo(74)
         })
         
         saveButton.snp.makeConstraints({btn in
-            btn.bottom.equalToSuperview().offset(-18)
+            btn.top.equalTo(locationSV.snp.bottom).offset(124)
             btn.leading.equalToSuperview().offset(24)
             btn.trailing.equalToSuperview().offset(-24)
             btn.height.equalTo(54)
