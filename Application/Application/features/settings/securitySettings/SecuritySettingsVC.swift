@@ -107,8 +107,28 @@ class SecuritySettingsVC: UIViewController {
     }
     
     @objc func btnSaveTapped() {
-        guard let newPassword = newPassTxtField.defaultTextField.text else {return}
-        securitySettingsViewModel.passwordChange(changedPassword: newPassword)
+        let isPasswordValid = newPassTxtField.defaultTextField.text?.count ?? 0 >= 6
+        let isPasswordConfirmed = newPassTxtField.defaultTextField.text == newPassConfTxtField.defaultTextField.text
+        if isPasswordValid && isPasswordConfirmed == true{
+            guard let newPassword = newPassTxtField.defaultTextField.text else {return}
+            securitySettingsViewModel.passwordChange(changedPassword: newPassword)
+        }else if isPasswordValid == false{
+            
+            let alert = UIAlertController(title: "Error", message: "Password must be at least 6 characters", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: { _ in
+                self.dismiss(animated: true)
+            }))
+            present(alert, animated: true, completion: nil)
+            
+        }else if isPasswordConfirmed == false{
+            
+            let alert = UIAlertController(title: "Error", message: "Password and password confirmation password does not match", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: { _ in
+                self.dismiss(animated: true)
+            }))
+        }
     }
     
     override func viewDidLoad() {
