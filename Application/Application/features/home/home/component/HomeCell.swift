@@ -74,7 +74,7 @@ class HomeCell: UICollectionViewCell {
         lblName.snp.makeConstraints({lbl in
             lbl.leading.equalTo(imgPlace.snp.leading).offset(8)
             lbl.bottom.equalTo(vector.snp.top).offset(2)
-            lbl.trailing.equalTo(imgPlace.snp.trailing).offset(-8)
+            lbl.trailing.equalTo(imgPlace.snp.trailing).offset(0)
         })
         
         vector.snp.makeConstraints({img in

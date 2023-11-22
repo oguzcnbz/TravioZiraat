@@ -87,6 +87,7 @@ class MyAddedPlacesCell: UICollectionViewCell {
         lblName.snp.makeConstraints({lbl in
             lbl.leading.equalTo(imgPlace.snp.trailing).offset(8)
             lbl.top.equalTo(ViewCell.snp.top).offset(16)
+            lbl.trailing.equalTo(imgPlace.snp.trailing).offset(0)
         })
         
         vector.snp.makeConstraints({imgv in
