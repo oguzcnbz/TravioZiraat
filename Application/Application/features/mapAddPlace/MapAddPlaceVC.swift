@@ -2,8 +2,8 @@
 import UIKit
 import SnapKit
 
-protocol Deneme:AnyObject{
-    func deneme(title: String, message: String)
+protocol ShowAlert:AnyObject{
+    func ShowAlert(title: String, message: String)
 }
 
 class MapAddPlaceVC: UIViewController {
@@ -201,8 +201,8 @@ extension MapAddPlaceVC {
     }
 }
 
-extension MapAddPlaceVC:Deneme{
-    func deneme(title: String, message: String) {
+extension MapAddPlaceVC:ShowAlert{
+    func ShowAlert(title: String, message: String) {
         self.showControlAlert(title: title, message: message)
     }
 }

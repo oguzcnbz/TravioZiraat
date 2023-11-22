@@ -4,7 +4,7 @@ import SnapKit
 
 class MapAddPlaceCell: UICollectionViewCell {
     
-    weak var delegate: Deneme?
+    weak var delegate: ShowAlert?
     var closure:((UIImage)->Void)?
     var hasImage:Bool = false
     var indexRow:Int?
@@ -21,7 +21,7 @@ class MapAddPlaceCell: UICollectionViewCell {
     private lazy var addPhotolbl: UILabel = {
         let lbl = UILabel()
         lbl.text = "Add Photo"
-        lbl.font = FontStyle.poppinsLight(size: 12).font
+        lbl.font = FontStyle.lt3.font
         lbl.textColor = ColorStyle.greySpanish.color
         return lbl
     }()
@@ -95,7 +95,7 @@ extension MapAddPlaceCell: UIImagePickerControllerDelegate, UINavigationControll
                 self.showImagePickerController(sourceType: .photoLibrary)
                 
             }else{
-                self.delegate?.deneme(title: "Error", message: "You have not granted access to the library. You can change it from the settings.")
+                self.delegate?.ShowAlert(title: "Error", message: "You have not granted access to the library. You can change it from the settings.")
             }
         }
        
@@ -104,7 +104,7 @@ extension MapAddPlaceCell: UIImagePickerControllerDelegate, UINavigationControll
                 self.showImagePickerController(sourceType: .camera)
                 
             }else{
-                self.delegate?.deneme(title: "Error", message: "You have not granted access to the camera. You can change it from the settings.")
+                self.delegate?.ShowAlert(title: "Error", message: "You have not granted access to the camera. You can change it from the settings.")
             }
         }
     
