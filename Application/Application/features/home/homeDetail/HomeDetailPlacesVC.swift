@@ -37,7 +37,7 @@ class HomeDetailPlacesVC: UIViewController {
         let lbl = UILabel()
         lbl.textColor = ColorStyle.white.color
         lbl.text = "Popular Places"
-        lbl.font = FontStyle.poppinsSemiBold(size: 36).font
+        lbl.font = FontStyle.h1.font
         lbl.sizeToFit()
         return lbl
     }()
@@ -80,10 +80,10 @@ class HomeDetailPlacesVC: UIViewController {
         vc.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
         vc.placeDetailViewModel.checkclosure = {[weak self] status in
             if status == "success" {
-                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
+                vc.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
             }
             else{
-                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
+                vc.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
             }
             vc.placeModel = place
             self?.navigationController?.pushViewController(vc, animated: true)

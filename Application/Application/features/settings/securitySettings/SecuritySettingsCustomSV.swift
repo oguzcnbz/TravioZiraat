@@ -29,7 +29,7 @@ class SecuritySettingsCustomSV: UIView {
     
     lazy var defaultLabel: UILabel = {
         let lbl = UILabel()
-        lbl.font = FontStyle.poppinsMedium(size: 14).font
+        lbl.font = FontStyle.sh3.font
         lbl.textColor = ColorStyle.blackRaven.color
         lbl.numberOfLines = 1
         return lbl

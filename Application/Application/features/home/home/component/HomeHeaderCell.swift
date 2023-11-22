@@ -16,7 +16,7 @@ class HomeHeaderCell: UICollectionReusableView {
     
     private lazy var lblName:UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Poppins", size: 20)
+        lbl.font = FontStyle.sh2.font
         return lbl
     }()
     

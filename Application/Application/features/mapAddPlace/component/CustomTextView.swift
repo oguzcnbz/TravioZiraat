@@ -27,7 +27,7 @@ class CustomTextView: UIView {
     
     lazy var defaultLabel: UILabel = {
         let lbl = UILabel()
-        lbl.font = FontStyle.poppinsMedium(size: 14).font
+        lbl.font = FontStyle.sh3.font
         lbl.textColor = ColorStyle.blackRaven.color
         lbl.numberOfLines = 1
         return lbl
@@ -35,7 +35,7 @@ class CustomTextView: UIView {
    
     lazy var defaultTextView: UITextView = {
         let textView = UITextView()
-        textView.font = FontStyle.poppinsLight(size: 14).font
+        textView.font = FontStyle.lt2.font
         textView.textColor = ColorStyle.darkgray.color
         return textView
     }()

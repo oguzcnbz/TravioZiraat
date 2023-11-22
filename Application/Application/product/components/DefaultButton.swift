@@ -8,7 +8,7 @@ class DefaultButton: UIButton {
         self.setTitleColor(.white, for: .normal)
         self.titleLabel?.textColor = .white
         self.backgroundColor = background.color
-        self.titleLabel?.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        self.titleLabel?.font = FontStyle.h5.font
         self.layer.cornerRadius = 12
     }
     

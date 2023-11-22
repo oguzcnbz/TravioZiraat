@@ -77,7 +77,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     private lazy var lblTitle: UILabel = {
         let lbl = UILabel()
         lbl.text = "Welcome to Travio"
-        lbl.font = FontStyle.poppinsSemiBold(size: 24).font
+        lbl.font = FontStyle.h4.font
         lbl.textColor = ColorStyle.blackRaven.color
         lbl.numberOfLines = 1
         return lbl
@@ -86,7 +86,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     private lazy var lblCheckSign: UILabel = {
         let lbl = UILabel()
         lbl.text = "Don’t have  any account?"
-        lbl.font = FontStyle.poppinsSemiBold(size: 14).font
+        lbl.font = FontStyle.h6.font
         lbl.textColor = ColorStyle.blackRaven.color
         lbl.numberOfLines = 1
         return lbl
@@ -109,12 +109,34 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         loginViewModel.loginUser(email: email, password: password)
         
     }
+    
+    private lazy var passwordShowToggle: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(systemName:"eye.slash"), for: .normal)
+        btn.tintColor = ColorStyle.primary.color
+        btn.addTarget(self, action: #selector(startShowingPassword), for: .touchDown)
+        btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpOutside)
+        return btn
+    }()
+
+    
+    @objc private func startShowingPassword() {
+        passwordShowToggle.setImage(UIImage(systemName: "eye"), for: .normal)
+        passwordStackView.defaultTextField.isSecureTextEntry = false
+    }
+
+    @objc private func stopShowingPassword() {
+        passwordShowToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        passwordStackView.defaultTextField.isSecureTextEntry = true
+
+    }
+    
     private lazy var signButton: UIButton = {
         let button = UIButton()
         button.setTitle("SignUp", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = FontStyle.poppinsSemiBold(size: 14).font
-        
+        button.titleLabel?.font = FontStyle.h6.font
         button.addTarget(self, action: #selector(btnSignTapped), for: .touchUpInside)
         return button
     }()
@@ -145,6 +167,8 @@ class LoginVC: UIViewController,LoginResponseDelegate {
                                   passwordStackView,
                                   buttonLogin,
                                   bottomStackView)
+        
+        passwordStackView.addSubview(passwordShowToggle)
         
         bottomStackView.addArrangedSubviews(lblCheckSign,
                                     signButton)
@@ -185,6 +209,13 @@ class LoginVC: UIViewController,LoginResponseDelegate {
             sv.leading.equalToSuperview().offset(24)
             sv.height.equalTo(74)
         }
+        
+        passwordShowToggle.snp.makeConstraints({tgl in
+            tgl.centerY.equalTo(passwordStackView.defaultTextField)
+            tgl.trailing.equalToSuperview().offset(-16)
+            tgl.height.equalTo(24)
+            tgl.width.equalTo(24)
+        })
 
         buttonLogin.snp.makeConstraints { btn in
             btn.top.equalTo(passwordStackView.snp.bottom).offset(48)

@@ -64,21 +64,21 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         let label = UILabel()
         label.textColor = .label
       
-        label.font = FontStyle.poppinsSemiBold(size: 30).font
+        label.font = FontStyle.h3.font
         
         return label
     }()
     private let labelDate: UILabel = {
         let label = UILabel()
        
-        label.font = FontStyle.poppinsMedium(size: 14).font
+        label.font = FontStyle.sh3.font
         
         return label
     }()
     private let labelAdedPerson: UILabel = {
         let label = UILabel()
         label.textColor = ColorStyle.greySpanish.color
-        label.font = FontStyle.poppinsLight(size: 12).font
+        label.font = FontStyle.lt3.font
         
         return label
     }()
@@ -86,7 +86,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         let label = UILabel()
         label.textColor = .label
         //label.textAlignment = .left
-        label.font = FontStyle.poppinsLight(size: 14).font
+        label.font = FontStyle.lt2.font
         label.numberOfLines = 0
         return label
     }()
@@ -104,7 +104,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
     }()
  
     
-     lazy var placeSaveButon: UIButton = {
+     lazy var placeSaveButton: UIButton = {
         let b = UIButton()
         b.layer.cornerRadius = 12
         b.backgroundColor = ColorStyle.primary.color
@@ -148,8 +148,8 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
     //MARK: -- Component Actions
     
     @objc func btnPlaceSaveTapped() {
-        if placeSaveButon.currentImage == UIImage(named: "icPlaceDetailSave") {
-            placeSaveButon.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
+        if placeSaveButton.currentImage == UIImage(named: "icPlaceDetailSave") {
+            placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
             let currentDate = Date()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
@@ -159,8 +159,8 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
             
             
         }
-       else if  placeSaveButon.currentImage == UIImage(named: "icPlaceDetailSaveFill"){
-            placeSaveButon.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
+       else if  placeSaveButton.currentImage == UIImage(named: "icPlaceDetailSaveFill"){
+            placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
             placeDetailViewModel.visitDelete(placeId: placeModel!.id)
         }
     }
@@ -173,10 +173,12 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
-        
+        let leftBarButton = UIBarButtonItem(customView: backButon)
+        let rightBarButton = UIBarButtonItem(customView: placeSaveButton)
+        self.navigationItem.leftBarButtonItem = leftBarButton
+        self.navigationItem.rightBarButtonItem = rightBarButton
         getDataPlaceDetail()
-       getImagesUrl()
+        getImagesUrl()
         setupViews()
     }
     //MARK: -- Component Actions
@@ -221,7 +223,6 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
         dateFormatter.locale = Locale(identifier: "tr")
-
         return dateFormatter.date(from: dateString)
     }
 
@@ -239,13 +240,13 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         self.view.backgroundColor = ColorStyle.background.color
         
         self.view.addSubview(colView)
-        colView.addSubviews(collectionView,pageControlBackgroundView,placeSaveButon,backButon)
+        colView.addSubviews(collectionView,pageControlBackgroundView,placeSaveButton,backButon)
         pageControlBackgroundView.addSubview(pageControl)
         
         self.view.addSubview(scrollView)
-        self.scrollView.addSubview(contentView)
+        scrollView.addSubview(contentView)
         contentView.addSubviews(labelCity,labelDate,labelAdedPerson,mapView,labelPlaceDetail)
-        
+
         setupLayout()
     }
    
@@ -276,7 +277,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
             pc.center.equalTo(pageControlBackgroundView)
         }
         
-        placeSaveButon.snp.makeConstraints { pcBgView in
+        placeSaveButton.snp.makeConstraints { pcBgView in
             
             pcBgView.top.equalToSuperview().offset(50)
             pcBgView.trailing.equalToSuperview().offset(-20)
@@ -363,7 +364,6 @@ extension PlaceDetailVC:UICollectionViewDataSource {
     }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let currentIndex = Int(scrollView.contentOffset.x / scrollView.frame.width)
-      //  printContent(currentIndex)
         pageControl.currentPage = currentIndex
         
     }

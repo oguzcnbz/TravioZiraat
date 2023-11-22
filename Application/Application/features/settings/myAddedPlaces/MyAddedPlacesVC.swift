@@ -4,7 +4,7 @@ import SnapKit
 
 
 class MyAddedPlacesVC: UIViewController {
-    
+    let placeDetailVC = PlaceDetailVC()
     var myAddedPlaces: [Place] = []
 
     //MARK: -- Properties
@@ -22,6 +22,7 @@ class MyAddedPlacesVC: UIViewController {
         cv.layoutIfNeeded()
         cv.layer.maskedCorners = [.layerMinXMinYCorner]
         cv.dataSource = self
+        cv.delegate = self
         return cv
     }()
     
@@ -34,7 +35,7 @@ class MyAddedPlacesVC: UIViewController {
         let lbl = UILabel()
         lbl.textColor = ColorStyle.white.color
         lbl.text = "Popular Places"
-        lbl.font = FontStyle.poppinsSemiBold(size: 36).font
+        lbl.font = FontStyle.h1.font
         lbl.sizeToFit()
         return lbl
     }()
@@ -59,17 +60,17 @@ class MyAddedPlacesVC: UIViewController {
     }
     
     func checkVisit(placeId: String, place:Place){
-        let vc = PlaceDetailVC()
-        vc.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
-        vc.placeDetailViewModel.checkclosure = {[weak self] status in
+       
+        self.placeDetailVC.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
+        self.placeDetailVC.placeDetailViewModel.checkclosure = {[weak self] status in
             if status == "success" {
-                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
+                self!.placeDetailVC.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
             }
             else{
-                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
+                self!.placeDetailVC.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
             }
-            vc.placeModel = place
-            self?.navigationController?.pushViewController(vc, animated: true)
+            self!.placeDetailVC.placeModel = place
+            self?.navigationController?.pushViewController(self!.placeDetailVC, animated: true)
         }
     }
     
@@ -94,6 +95,7 @@ class MyAddedPlacesVC: UIViewController {
         getData()
         setupViews()
     }
+    
     
     //MARK: -- UI Methods
     func setupViews() {

@@ -15,14 +15,14 @@ class SettingUserCell: UICollectionViewCell{
     
     private lazy var nameLbl: UILabel = {
         let lbl = UILabel()
-        lbl.font = FontStyle.poppinsSemiBold(size: 16).font
+        lbl.font = FontStyle.h5.font
         return lbl
     }()
     
     private lazy var editProfileBtn: UIButton = {
         let btn = UIButton()
         btn.setTitle("Edit Profile", for: .normal)
-        btn.titleLabel?.font = FontStyle.poppinsLight(size: 12).font
+        btn.titleLabel?.font = FontStyle.lt3.font
         btn.setTitleColor(ColorStyle.blueRaspberry.color, for: .normal)
         btn.addTarget(self, action: #selector(editProfilefunc), for: .touchUpInside)
         btn.contentEdgeInsets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)

@@ -53,14 +53,14 @@ class EditProfileVC: UIViewController{
     
     private lazy var nameLbl: UILabel = {
         let lbl = UILabel()
-        lbl.font = FontStyle.poppinsSemiBold(size: 30).font
+        lbl.font = FontStyle.h3.font
         return lbl
     }()
     
     private lazy var editProfileBtn: UIButton = {
         let btn = UIButton()
         btn.setTitle("Change Photo", for: .normal)
-        btn.titleLabel?.font = FontStyle.poppinsLight(size: 12).font
+        btn.titleLabel?.font = FontStyle.lt3.font
         btn.setTitleColor(ColorStyle.blueRaspberry.color, for: .normal)
         btn.addTarget(self, action: #selector(changePhotofunc), for: .touchUpInside)
         btn.contentEdgeInsets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
@@ -78,7 +78,7 @@ class EditProfileVC: UIViewController{
     
     private lazy var dateLbl: UILabel = {
         let lbl = UILabel()
-        lbl.font = FontStyle.poppinsMedium(size: 14).font
+        lbl.font = FontStyle.sh3.font
         return lbl
     }()
     
@@ -92,7 +92,7 @@ class EditProfileVC: UIViewController{
     
     private lazy var userTypeLbl: UILabel = {
         let lbl = UILabel()
-        lbl.font = FontStyle.poppinsMedium(size: 14).font
+        lbl.font = FontStyle.sh3.font
         return lbl
     }()
     

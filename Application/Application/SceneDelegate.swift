@@ -74,11 +74,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             if  obj?.fullName == nil{ 
                 validAccesToken =  false
             }
-                   
-                        
-
-            
-            
+                
+    
         }
         
            return validAccesToken

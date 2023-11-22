@@ -96,10 +96,10 @@ class HomeVC: UIViewController {
         vc.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
         vc.placeDetailViewModel.checkclosure = {[weak self] status in
             if status == "success" {
-                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
+                vc.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
             }
             else{
-                vc.placeSaveButon.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
+                vc.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
             }
             vc.placeModel = place
             self?.navigationController?.pushViewController(vc, animated: true)

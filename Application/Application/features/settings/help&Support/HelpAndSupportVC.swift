@@ -26,7 +26,7 @@ class HelpAndSupportVC: UIViewController {
         let lbl = UILabel()
         lbl.text = "FAQ"
         lbl.textColor = ColorStyle.primary.color
-        lbl.font = FontStyle.poppinsSemiBold(size: 24).font
+        lbl.font = FontStyle.h4.font
         return lbl
     }()
     

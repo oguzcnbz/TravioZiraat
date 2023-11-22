@@ -25,7 +25,7 @@ class MapCell: UICollectionViewCell {
     private lazy var lblName:UILabel = {
         let lbl = UILabel()
         lbl.textColor = ColorStyle.white.color
-        lbl.font = FontStyle.poppinsSemiBold(size: 30).font
+        lbl.font = FontStyle.h3.font
         lbl.adjustsFontSizeToFitWidth = true
         return lbl
     }()
@@ -33,7 +33,7 @@ class MapCell: UICollectionViewCell {
     private lazy var lblPlace:UILabel = {
         let lbl = UILabel()
         lbl.textColor = ColorStyle.white.color
-        lbl.font = FontStyle.poppinsLight(size: 16).font
+        lbl.font = FontStyle.lt1.font
         return lbl
     }()
     

@@ -27,7 +27,7 @@ class HomeDetailPlacesCell: UICollectionViewCell {
     private lazy var lblName:UILabel = {
         let lbl = UILabel()
         lbl.textColor = ColorStyle.blackRaven.color
-        lbl.font = FontStyle.poppinsSemiBold(size: 24).font
+        lbl.font = FontStyle.h4.font
         lbl.adjustsFontSizeToFitWidth = true
         return lbl
     }()
@@ -35,7 +35,7 @@ class HomeDetailPlacesCell: UICollectionViewCell {
     private lazy var lblPlace:UILabel = {
         let lbl = UILabel()
         lbl.textColor = ColorStyle.blackRaven.color
-        lbl.font = FontStyle.poppinsLight(size: 16).font
+        lbl.font = FontStyle.lt1.font
         return lbl
     }()
     

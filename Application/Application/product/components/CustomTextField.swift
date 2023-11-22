@@ -1,23 +1,6 @@
 import UIKit
 import SnapKit
 
-enum FontStyle {
-    case poppinsLight(size: CGFloat)
-    case poppinsMedium(size: CGFloat)
-    case poppinsSemiBold(size: CGFloat)
-    
-    var font: UIFont? {
-        switch self {
-        case .poppinsLight(let size):
-            return UIFont(name: "Poppins-Light", size: size)
-        case .poppinsMedium(let size):
-            return UIFont(name: "Poppins-Medium", size: size)
-        case .poppinsSemiBold(let size):
-            return UIFont(name: "Poppins-SemiBold", size: size)
-        }
-    }
-}
-
 
 class CustomTextField: UIView {
     
@@ -46,7 +29,7 @@ class CustomTextField: UIView {
     
     lazy var defaultLabel: UILabel = {
         let lbl = UILabel()
-        lbl.font = FontStyle.poppinsMedium(size: 14).font
+        lbl.font = FontStyle.sh3.font
         lbl.textColor = ColorStyle.blackRaven.color
         lbl.numberOfLines = 1
         return lbl
@@ -54,7 +37,7 @@ class CustomTextField: UIView {
    
      lazy var defaultTextField: UITextField = {
         let txt = UITextField()
-        txt.font = FontStyle.poppinsLight(size: 14).font
+        txt.font = FontStyle.sh3.font
         txt.textColor = ColorStyle.darkgray.color
         return txt
     }()
@@ -83,7 +66,7 @@ class CustomTextField: UIView {
            
            defaultTextField.snp.makeConstraints { tf in
                tf.leading.equalTo(defaultStackView.snp.leading).offset(12)
-               tf.trailing.equalTo(defaultStackView.snp.trailing).offset(0)
+               tf.trailing.equalTo(defaultStackView.snp.trailing).offset(-50)
                tf.top.equalTo(defaultLabel.snp.bottom).offset(8)
                tf.height.equalTo(18)
            }

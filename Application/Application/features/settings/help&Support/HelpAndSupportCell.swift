@@ -7,9 +7,6 @@ class HelpAndSupportCell: UICollectionViewCell {
     
     private lazy var defaultStackView: UIView = {
         let v = UIView()
-        v.layer.borderColor = UIColor.black.cgColor
-        v.layer.shadowOpacity = 0.15
-        v.layer.shadowRadius = 20
         v.layer.cornerRadius = 16
         v.backgroundColor = ColorStyle.white.color
         v.clipsToBounds = true
@@ -18,7 +15,7 @@ class HelpAndSupportCell: UICollectionViewCell {
     
     lazy var questionLbl: UILabel = {
         let lbl = UILabel()
-        lbl.font = FontStyle.poppinsMedium(size: 14).font
+        lbl.font = FontStyle.sh3.font
         lbl.numberOfLines = 0
         lbl.textColor = ColorStyle.blackRaven.color
        
@@ -27,7 +24,7 @@ class HelpAndSupportCell: UICollectionViewCell {
    
     lazy var answerLbl: UILabel = {
         let lbl = UILabel()
-        lbl.font = FontStyle.poppinsLight(size: 10).font
+        lbl.font = FontStyle.lt4.font
         lbl.numberOfLines = 5
         lbl.textColor = ColorStyle.blackRaven.color
       
@@ -55,7 +52,9 @@ class HelpAndSupportCell: UICollectionViewCell {
     }
     
     private func setupViews() {
-        
+        self.contentView.layer.borderColor = UIColor.black.cgColor
+        self.contentView.layer.shadowOpacity = 0.15
+        self.contentView.layer.shadowRadius = 20
         self.contentView.addSubviews(defaultStackView)
         defaultStackView.addSubviews(questionLbl,answerLbl,vector)
         

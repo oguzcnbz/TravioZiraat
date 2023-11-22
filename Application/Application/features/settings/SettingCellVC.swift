@@ -21,7 +21,7 @@ class SettingCell: UICollectionViewCell{
     
     private lazy var sttngsLbl: UILabel = {
         let lbl = UILabel()
-        lbl.font = FontStyle.poppinsLight(size: 16).font
+        lbl.font = FontStyle.lt1.font
         return lbl
     }()
     
