@@ -55,6 +55,50 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
         return sv
     }()
     
+    private lazy var passwordShowToggle: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(systemName:"eye.slash"), for: .normal)
+        btn.tintColor = ColorStyle.primary.color
+        btn.addTarget(self, action: #selector(startShowingPassword), for: .touchDown)
+        btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpOutside)
+        return btn
+    }()
+
+    
+    @objc private func startShowingPassword() {
+        passwordShowToggle.setImage(UIImage(systemName: "eye"), for: .normal)
+        passwordStackView.defaultTextField.isSecureTextEntry = false
+    }
+
+    @objc private func stopShowingPassword() {
+        passwordShowToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        passwordStackView.defaultTextField.isSecureTextEntry = true
+
+    }
+    
+    private lazy var passwordConfirmShowToggle: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(systemName:"eye.slash"), for: .normal)
+        btn.tintColor = ColorStyle.primary.color
+        btn.addTarget(self, action: #selector(startShowPassword), for: .touchDown)
+        btn.addTarget(self, action: #selector(stopShowPassword), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(stopShowPassword), for: .touchUpOutside)
+        return btn
+    }()
+
+    
+    @objc private func startShowPassword() {
+        passwordShowToggle.setImage(UIImage(systemName: "eye"), for: .normal)
+        passwordConfirmStackView.defaultTextField.isSecureTextEntry = false
+    }
+
+    @objc private func stopShowPassword() {
+        passwordShowToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        passwordConfirmStackView.defaultTextField.isSecureTextEntry = true
+
+    }
+    
     lazy var SignUpViewModel: SignUpViewModel = {
         return Application.SignUpViewModel()
     }()
@@ -65,7 +109,7 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
         let lbl = UILabel()
         lbl.textColor = ColorStyle.white.color
         lbl.text = "Sign Up"
-        lbl.font = FontStyle.poppinsSemiBold(size: 36).font
+        lbl.font = FontStyle.h1.font
         lbl.sizeToFit()
         return lbl
     }()
@@ -106,7 +150,8 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
                                   passwordConfirmStackView,
                                   buttonLogin)
         
-        
+        passwordStackView.addSubview(passwordShowToggle)
+        passwordConfirmStackView.addSubview(passwordConfirmShowToggle)
         
         let leftButtonImage = UIImage(named:"backWard")
         let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
@@ -157,6 +202,21 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
             sv.height.equalTo(74)
         }
         
+        passwordShowToggle.snp.makeConstraints({tgl in
+            tgl.centerY.equalTo(passwordStackView.defaultTextField)
+            tgl.trailing.equalToSuperview().offset(-16)
+            tgl.height.equalTo(24)
+            tgl.width.equalTo(24)
+        })
+        
+        passwordConfirmShowToggle.snp.makeConstraints({tgl in
+            tgl.centerY.equalTo(passwordConfirmStackView.defaultTextField)
+            tgl.trailing.equalToSuperview().offset(-16)
+            tgl.height.equalTo(24)
+            tgl.width.equalTo(24)
+        })
+        
+        
         buttonLogin.snp.makeConstraints { btn in
             btn.bottom.equalTo(mainStackView.snp.bottom).offset(-23)
             btn.trailing.equalToSuperview().offset(-24)
@@ -184,11 +244,10 @@ extension SignUpVC {
         let isPasswordConfirmed = passwordStackView.defaultTextField.text == passwordConfirmStackView.defaultTextField.text
         let isAllFieldsFilled = usernameStackView.defaultTextField.hasText && emailStackView.defaultTextField.hasText && passwordStackView.defaultTextField.hasText && passwordConfirmStackView.defaultTextField.hasText
         
-        buttonLogin.isEnabled = true
-        
-        if buttonLogin.isEnabled {
+        if isAllFieldsFilled && isPasswordValid && isPasswordConfirmed == true{
+            buttonLogin.isEnabled = true
             buttonLogin.backgroundColor = ColorStyle.primary.color
-        } else {
+        }else {
             buttonLogin.backgroundColor = ColorStyle.greySpanish.color
         }
     }
