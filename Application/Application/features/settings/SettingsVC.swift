@@ -57,7 +57,8 @@ class SettingsVC: UIViewController,PreviousPageDelegate {
                         
         self?.userModel.name = obj?.fullName
         self?.userModel.imageUrl = obj?.ppURL
-        self?.collectionView.reloadData()
+        
+            self?.collectionView.reloadData()
 
         }
     }
@@ -210,7 +211,7 @@ extension SettingsVC {
         }
     
         let config = UICollectionViewCompositionalLayoutConfiguration()
-        config.interSectionSpacing = 24
+        //config.interSectionSpacing = 50
         layout.configuration = config
         return layout
     }
@@ -226,7 +227,7 @@ extension SettingsVC {
 
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0 , bottom: 0 , trailing: 0)
-
+        section.interGroupSpacing = 16
         return section
     }
 
@@ -236,7 +237,7 @@ extension SettingsVC {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         
-        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.078))
+        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.15))
         let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [item] )
 
 

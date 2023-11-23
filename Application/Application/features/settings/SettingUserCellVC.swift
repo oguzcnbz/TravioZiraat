@@ -7,12 +7,6 @@ class SettingUserCell: UICollectionViewCell{
     
     var closure:(()->Void)?
     
-    private lazy var stackView: UIStackView = {
-        let sv = UIStackView()
-        sv.axis = .vertical
-        return sv
-    }()
-    
     private lazy var nameLbl: UILabel = {
         let lbl = UILabel()
         lbl.font = FontStyle.h5.font
@@ -62,21 +56,13 @@ class SettingUserCell: UICollectionViewCell{
     
     private func setupViews(){
         self.contentView.backgroundColor = ColorStyle.background.color
-        self.contentView.addSubviews(stackView)
-        stackView.addSubviews(photoView,nameLbl,editProfileBtn)
+        self.contentView.addSubviews(photoView,nameLbl,editProfileBtn)
         
         setupLayout()
     }
     
     
     private func setupLayout(){
-        
-        stackView.snp.makeConstraints({sv in
-            sv.top.equalToSuperview()
-            sv.bottom.equalToSuperview()
-            sv.trailing.equalToSuperview()
-            sv.leading.equalToSuperview()
-        })
         
         photoView.snp.makeConstraints({imgv in
             imgv.top.equalToSuperview().offset(24)
