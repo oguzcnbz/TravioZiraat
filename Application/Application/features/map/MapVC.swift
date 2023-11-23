@@ -58,8 +58,7 @@ class MapVC: UIViewController {
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview().offset(-10)
-            make.height.equalTo(178)
-           // make.top.equalToSuperview().offset(621)
+            make.height.equalTo(220)
         }
     }
     

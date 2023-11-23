@@ -64,8 +64,7 @@ class SettingCell: UICollectionViewCell{
         }
         
         vector.snp.makeConstraints { imgv in
-            imgv.top.equalToSuperview().offset(17)
-            imgv.bottom.equalToSuperview().offset(-17)
+            imgv.centerY.equalToSuperview()
             imgv.leading.equalToSuperview().offset(16.51)
         }
         

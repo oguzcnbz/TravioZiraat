@@ -153,12 +153,12 @@ extension MyVisitVC {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         
-        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.34))
+        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.57))
         let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [item] )
        
         
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 45, leading: 24, bottom: 0, trailing: 22)
+        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 45, leading: 16, bottom: 0, trailing: 16)
         layoutSection.interGroupSpacing = 16
         
         return layoutSection
