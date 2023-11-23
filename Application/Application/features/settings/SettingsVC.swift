@@ -241,7 +241,7 @@ extension SettingsVC {
 
 
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 50, leading:16 , bottom:0 , trailing: 16)
+        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading:16 , bottom:0 , trailing: 16)
         layoutSection.interGroupSpacing = 8
         
         
