@@ -71,7 +71,7 @@ class SettingUserCell: UICollectionViewCell{
             imgv.height.equalTo(profileImageViewWidth)
         })
         
-        nameLbl.snp.makeConstraints({lbl in
+        nameLbl.snp.makeConstraints({ lbl in
             lbl.top.equalTo(photoView.snp.bottom).offset(8)
             lbl.centerX.equalToSuperview()
         })

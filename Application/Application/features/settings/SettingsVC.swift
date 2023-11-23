@@ -211,7 +211,7 @@ extension SettingsVC {
         }
     
         let config = UICollectionViewCompositionalLayoutConfiguration()
-        //config.interSectionSpacing = 50
+        config.interSectionSpacing = 16
         layout.configuration = config
         return layout
     }
@@ -221,7 +221,7 @@ extension SettingsVC {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.3))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
