@@ -19,7 +19,7 @@ class SignUpViewModel {
             return
         }
 
-        let params = ["full_name": "ada44", "email": "Ada442@gmail.com", "password": "secretpassworld"]
+        let params = ["full_name": fullName, "email": email, "password": password]
 
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .userRegister(params: params)) { (result: Result<ResponseMessageModel, Error>) in
             switch result {
@@ -31,12 +31,15 @@ class SignUpViewModel {
                 lazy var loginViewModel: LoginViewModel = LoginViewModel()
                 self.delegate?.signUpResponseGet(isSignUp: isSuccess, message: success.message)
                 loginViewModel.loginUser(email: email, password: password)
-
+              
+               // let isSuccess = (status == "success")
+                
             case .failure(let error):
+                
                 print(error.localizedDescription)
                 print(error)
 
-                var errMessage = ""
+                var errMessage = error.localizedDescription
                 switch error.localizedDescription{
                 case "Response status code was unacceptable: 500.":
                     errMessage = "User with that email already exists"
