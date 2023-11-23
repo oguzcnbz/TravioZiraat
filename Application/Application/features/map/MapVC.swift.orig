@@ -2,14 +2,8 @@ import UIKit
 import MapKit
 import SnapKit
 
-<<<<<<< HEAD
-class MapVC: UIViewController{
-   
-    
-=======
 
 class MapVC: UIViewController {
->>>>>>> Sprint5/EditProfile
     
     // MARK: - Properties
     
@@ -60,20 +54,16 @@ class MapVC: UIViewController {
     }
     
     private func setupLayout() {
-<<<<<<< HEAD
         collectionView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview().offset(-10)
-            make.height.equalTo(178)
-           // make.top.equalToSuperview().offset(621)
+<<<<<<< HEAD
+            make.height.equalTo(220)
 =======
-        collectionView.snp.makeConstraints { cv in
-            cv.leading.equalToSuperview()
-            cv.trailing.equalToSuperview()
-            cv.top.equalToSuperview().offset(625)
-            cv.bottom.equalToSuperview()
->>>>>>> Sprint5/EditProfile
+            make.height.equalTo(210)
+           // make.top.equalToSuperview().offset(621)
+>>>>>>> Sprint5/signupVC
         }
     }
     

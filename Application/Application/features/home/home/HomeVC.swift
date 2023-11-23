@@ -15,6 +15,9 @@ class HomeVC: UIViewController {
     var populerArr: [Place] = []
     var lastArr: [Place] = []
     var userArr: [Place] = []
+  private  let group = DispatchGroup()
+    private let queue = DispatchQueue.global()
+    
     
     
     //MARK: -- Views
@@ -56,13 +59,43 @@ class HomeVC: UIViewController {
     //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        getPopulerPlaceData()
-        getLastPlaceData ()
-        getUserPlaceData ()
+        getHomeDatas()
+//        getPopulerPlaceData()
+//        getLastPlaceData ()
+//        getUserPlaceData ()
         setupViews()
     }
 
     //MARK: -- Private Methods
+    private func getHomeDatas () {
+        group.enter()
+        queue.async {
+            self.getPopulerPlaceData()
+            self.group.leave()
+        }
+        group.enter()
+        queue.async {
+            self.getLastPlaceData ()
+            self.group.leave()
+        }
+        group.enter()
+        queue.async {
+            self.getUserPlaceData ()
+            self.group.leave()
+        }
+        group.notify(queue: queue){
+            print("hepsi yuklendi")
+          //  self?.collectionView.reloadData()
+        }
+      
+//        getPopulerPlaceData()
+//        getLastPlaceData ()
+//        getUserPlaceData ()
+ 
+        
+    }
+    
+    
     private func getPopulerPlaceData (){
     
         homeViewModel.getPopulerPlaceParam()
