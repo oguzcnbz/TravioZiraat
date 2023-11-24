@@ -39,6 +39,7 @@ class CustomTextField: UIView {
         let txt = UITextField()
         txt.font = FontStyle.sh3.font
         txt.textColor = ColorStyle.darkgray.color
+        txt.autocapitalizationType = .none
         return txt
     }()
     
