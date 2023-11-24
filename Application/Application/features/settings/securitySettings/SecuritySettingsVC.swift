@@ -50,12 +50,14 @@ class SecuritySettingsVC: UIViewController {
     }()
     
     private lazy var newPassTxtField:CustomTextField = {
-        let tf = CustomTextField(labelText: "New Password", textFieldPlaceholder: "")
+        let tf = CustomTextField(labelText: "New Password", textFieldPlaceholder: "********")
+        tf.defaultTextField.isSecureTextEntry = true
         return tf
     }()
     
     private lazy var newPassConfTxtField:CustomTextField = {
-        let tf = CustomTextField(labelText: "New Password Confirm", textFieldPlaceholder: "")
+        let tf = CustomTextField(labelText: "New Password Confirm", textFieldPlaceholder: "********")
+        tf.defaultTextField.isSecureTextEntry = true
         return tf
     }()
     
@@ -112,6 +114,9 @@ class SecuritySettingsVC: UIViewController {
         if isPasswordValid && isPasswordConfirmed == true{
             guard let newPassword = newPassTxtField.defaultTextField.text else {return}
             securitySettingsViewModel.passwordChange(changedPassword: newPassword)
+            self.navigationController?.popViewController(animated: true)
+            
+            
         }else if isPasswordValid == false{
             
             let alert = UIAlertController(title: "Error", message: "Password must be at least 6 characters", preferredStyle: .alert)
@@ -170,7 +175,7 @@ class SecuritySettingsVC: UIViewController {
                v.trailing.equalToSuperview()
                v.bottom.equalToSuperview()
                v.top.equalToSuperview()
-               v.height.equalTo(740)
+            //   v.height.equalTo(740)
 
            }
         
@@ -224,10 +229,11 @@ class SecuritySettingsVC: UIViewController {
         })
         
         saveButton.snp.makeConstraints({btn in
-            btn.top.equalTo(locationSV.snp.bottom).offset(124)
+            btn.top.equalTo(locationSV.snp.bottom).offset(60)
             btn.leading.equalToSuperview().offset(24)
             btn.trailing.equalToSuperview().offset(-24)
             btn.height.equalTo(54)
+            btn.bottom.equalTo(mainStackView).offset(-20)
         })
        
     }

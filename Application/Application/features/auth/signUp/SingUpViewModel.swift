@@ -7,14 +7,20 @@ protocol SignUpResponseDelegate{
 }
 
 class SignUpViewModel {
-
+    private var isLoading = false
     var delegate: SignUpResponseDelegate?
     func setDelegate(output: SignUpResponseDelegate) {
         delegate = output
     }
     
+    
+    
     func signUpUser(fullName: String?, email: String?, password: String?) {
-        guard let fullName = fullName, let email = email, let password = password else {
+        if isLoading == false { 
+            changeLoading()
+            
+            
+            guard let fullName = fullName, let email = email, let password = password else {
             delegate?.signUpResponseGet(isSignUp: false, message: "Invalid input data")
             return
         }
@@ -22,7 +28,9 @@ class SignUpViewModel {
         let params = ["full_name": fullName, "email": email, "password": password]
 
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .userRegister(params: params)) { (result: Result<ResponseMessageModel, Error>) in
+            self.changeLoading()
             switch result {
+               
             case .success(let success):
                 let status = success.status
                 let isSuccess = (status == "success")
@@ -31,14 +39,14 @@ class SignUpViewModel {
                 lazy var loginViewModel: LoginViewModel = LoginViewModel()
                 self.delegate?.signUpResponseGet(isSignUp: isSuccess, message: success.message)
                 loginViewModel.loginUser(email: email, password: password)
-              
-               // let isSuccess = (status == "success")
+                
+                // let isSuccess = (status == "success")
                 
             case .failure(let error):
                 
                 print(error.localizedDescription)
                 print(error)
-
+                
                 var errMessage = error.localizedDescription
                 switch error.localizedDescription{
                 case "Response status code was unacceptable: 500.":
@@ -47,11 +55,20 @@ class SignUpViewModel {
                     errMessage = error.localizedDescription
                 default:
                     errMessage
+                    
+                    self.delegate?.signUpResponseGet(isSignUp: false, message: errMessage)
                 }
-                self.delegate?.signUpResponseGet(isSignUp: false, message: errMessage)
+            }
+       
+                
             }
         }
     }
-
+    func changeLoading() {
+        isLoading = !isLoading
+        if isLoading == true {
+            print("ikinci tiklama")
+        }
+    }
 
 }
