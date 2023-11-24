@@ -2,31 +2,38 @@ import Foundation
 import UIKit
 
 class MapAddPlaceViewModel {
+    private var isLoading = false
     
     func addPlace(imageArray: [UIImage?],model:PlacePostModel,hasUploded: @escaping () -> Void) {
-        var imgUrlArr:[String] = []
-        let filterImg = imageArray.compactMap(({ $0 }))
-        
-        if filterImg.count > 0 {
-            let networkHelper = NetworkingHelper()
-            networkHelper.uploadImages(images: filterImg, path: "/upload") { result in
-                if let imageUrls = result {
-                    print("Images uploaded successfully. URLs: \(imageUrls)")
-                    self.placeCreate(model: model, imgUrl: imageUrls.first!) { placeId in
-                        imageUrls.forEach({
-                            imgUrl in
-                                self.galleryImageUrlAdd(placeId: placeId, imgUrl: imgUrl)
+        if isLoading == false {
+            changeLoading()
+            var imgUrlArr:[String] = []
+            let filterImg = imageArray.compactMap(({ $0 }))
+            
+            if filterImg.count > 0 {
+                let networkHelper = NetworkingHelper()
+                networkHelper.uploadImages(images: filterImg, path: "/upload") { result in
+                    
+                    if let imageUrls = result {
+                        print("Images uploaded successfully. URLs: \(imageUrls)")
+                        self.placeCreate(model: model, imgUrl: imageUrls.first!) { placeId in
+                            imageUrls.forEach({
+                                imgUrl in
+                                    self.galleryImageUrlAdd(placeId: placeId, imgUrl: imgUrl)
+                                
+                            }
+                            )
+                            hasUploded()
                             
-                        }
-                        )
-                        hasUploded()
-                        
-                         }
-                } else {
-                    print("Image upload failed.")
+                             }
+                    } else {
+                        print("Image upload failed.")
+                    }
                 }
             }
+            changeLoading()
         }
+        
     }
     
     func placeCreate(model:PlacePostModel,imgUrl:String, callback: @escaping (String) -> Void){
@@ -38,17 +45,20 @@ class MapAddPlaceViewModel {
                       "latitude": model.latitude,
                       "longitude": model.longitude] as [String: Any]
         
-        
-        NetworkingHelper.shared.getDataFromRemote(urlRequest: .placePost(params: params)) {  (result:Result<ResponseMessageModel,Error>) in
-           
-            switch result {
-            case .success(let success):
-                print(success.message)
-                callback(success.message)
-            case .failure(let failure):
-                print(failure.localizedDescription)
+        if isLoading == false {
+            NetworkingHelper.shared.getDataFromRemote(urlRequest: .placePost(params: params)) {  (result:Result<ResponseMessageModel,Error>) in
+               
+                switch result {
+                case .success(let success):
+                    print(success.message)
+                    callback(success.message)
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
             }
         }
+        
+      
     }
     
     func galleryImageUrlAdd(placeId:String ,imgUrl:String ) {
@@ -65,4 +75,11 @@ class MapAddPlaceViewModel {
             }
         }
     }   
+    
+    func changeLoading() {
+        isLoading = !isLoading
+        if isLoading == true {
+            print("ikinci tiklama")
+        }
+    }
 }
