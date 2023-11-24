@@ -120,16 +120,17 @@ class EditProfileVC: UIViewController{
     @objc func btnProfilTapped() {
         
         var message:String?
-        
-        if !usernameStackView.defaultTextField.hasText {
-            message = "Please enter Fullname"
+        let defaultProfileImage = UIImage(named: "DefaultProfileImage")!.withRenderingMode(.alwaysOriginal)
+
+        if photoView.image == defaultProfileImage{
+            message = "Please upload photo"
         }else if !emailStackView.defaultTextField.hasText{
             message = "Please enter Email"
-        }else if photoView.image == UIImage(named: "DefaultProfileImage"){
-            message = "Please upload photo"
+        }else if !usernameStackView.defaultTextField.hasText {
+            message = "Please enter Fullname"
         }
         
-        if  usernameStackView.defaultTextField.hasText,emailStackView.defaultTextField.hasText,photoView.image != UIImage(named: "DefaultProfileImage") {
+        if  usernameStackView.defaultTextField.hasText,emailStackView.defaultTextField.hasText,photoView.image != defaultProfileImage {
             if isImageChanged == true{
                 
                 
