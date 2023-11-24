@@ -154,13 +154,13 @@ class HomeVC: UIViewController {
         logoImageView.height(24)
        
         containerView.edgesToSuperview(excluding: .top)
-        containerView.heightToSuperview(multiplier: 0.85)
+        containerView.heightToSuperview(multiplier: 0.82)
         
         collectionView.snp.makeConstraints { view in
             view.leading.equalToSuperview()
             view.trailing.equalToSuperview()
             view.bottom.equalToSuperview()
-            view.height.equalToSuperview().offset(-30)
+            view.height.equalToSuperview().offset(0)
         }
     }
 }
@@ -286,7 +286,7 @@ extension HomeVC {
     
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 10)
         
         let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalWidth(0.5))
         let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: layoutGroupSize, subitems: [item] )
