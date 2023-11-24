@@ -561,6 +561,7 @@ extension UIViewController {
             titleLbl.text = title
             titleLbl.textColor = .white
             titleLbl.font = FontStyle.h1.font
+            titleLbl.adjustsFontSizeToFitWidth = true
             let lblItem = UIBarButtonItem(customView: titleLbl)
             self.navigationItem.leftBarButtonItem = lblItem
 
