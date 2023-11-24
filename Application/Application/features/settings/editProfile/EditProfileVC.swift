@@ -4,8 +4,6 @@ import SnapKit
 import Kingfisher
 
 
-
-
 class EditProfileVC: UIViewController{
     
     //MARK: -- Properties
@@ -41,7 +39,7 @@ class EditProfileVC: UIViewController{
     let profileImageViewWidth: CGFloat = 120
     private lazy var photoView:UIImageView = {
         let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "DefaultProfileImage").withRenderingMode(.alwaysOriginal)
+        iv.image = UIImage(named: "DefaultProfileImage")!.withRenderingMode(.alwaysOriginal)
         iv.contentMode = .scaleAspectFill
         iv.layer.cornerRadius = profileImageViewWidth / 2
         iv.layer.masksToBounds = true
@@ -120,37 +118,60 @@ class EditProfileVC: UIViewController{
         
     }
     @objc func btnProfilTapped() {
-        if isImageChanged == true{
-            
-            editProfilViewModel.profileUploadImage(profileImg: self.photoView.image!,
-                                                   full_name: usernameStackView.defaultTextField.text ?? "",
-                                                   email: emailStackView.defaultTextField.text ?? "",
-                                                   pp_url: "") { success in
-                if success {
-                    self.dismiss(animated: true, completion: {
-                        self.delegate?.didDismiss()
-                    })
-                } else {
-                    print("Profile upload failed")
-                }
-            }
-        }
-        else {
-            editProfilViewModel.changeProfile(full_name: usernameStackView.defaultTextField.text ?? "",
-                                              email: emailStackView.defaultTextField.text ?? "",
-                                              pp_url: self.profilModel?.ppURL ?? ""){ success in
-                
-                if success {
-                    self.dismiss(animated: true, completion: {
-                        self.delegate?.didDismiss()
-                    })
-                } else {
-                    print("Profile upload failed")
-                }
-            }
+        
+        var message:String?
+        
+        if !usernameStackView.defaultTextField.hasText {
+            message = "Please enter Fullname"
+        }else if !emailStackView.defaultTextField.hasText{
+            message = "Please enter Email"
+        }else if photoView.image == UIImage(named: "DefaultProfileImage"){
+            message = "Please upload photo"
         }
         
-    }
+        if  usernameStackView.defaultTextField.hasText,emailStackView.defaultTextField.hasText,photoView.image != UIImage(named: "DefaultProfileImage") {
+            if isImageChanged == true{
+                
+                
+                
+                editProfilViewModel.profileUploadImage(profileImg: self.photoView.image!,
+                                                       full_name: usernameStackView.defaultTextField.text ?? "",
+                                                       email: emailStackView.defaultTextField.text ?? "",
+                                                       pp_url: "") { success in
+                    if success {
+                        self.dismiss(animated: true, completion: {
+                            self.delegate?.didDismiss()
+                        })
+                    } else {
+                        print("Profile upload failed")
+                    }
+                }
+            }
+            else {
+                editProfilViewModel.changeProfile(full_name: usernameStackView.defaultTextField.text ?? "",
+                                                  email: emailStackView.defaultTextField.text ?? "",
+                                                  pp_url: self.profilModel?.ppURL ?? ""){ success in
+                    
+                    if success {
+                        self.dismiss(animated: true, completion: {
+                            self.delegate?.didDismiss()
+                        })
+                    } else {
+                        print("Profile upload failed")
+                    }
+                }
+            }
+        }else{
+            let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            }))
+            present(alert, animated: true, completion: nil)
+        }
+        
+        }
+        
+        
     //MARK: -- Private Methods
     
     private func getProfilData(){

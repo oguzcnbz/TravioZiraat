@@ -124,7 +124,7 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     
     @objc func btnSignTapped() {
         SignUpViewModel.setDelegate(output: self)
-        SignUpViewModel.signUpUser(fullName: "ada", email: "Ada443@gmail.com", password: "123123")
+        SignUpViewModel.signUpUser(fullName: usernameStackView.defaultTextField.text, email: emailStackView.defaultTextField.text, password: passwordStackView.defaultTextField.text)
     }
     
     @objc func backButtonTapped(){

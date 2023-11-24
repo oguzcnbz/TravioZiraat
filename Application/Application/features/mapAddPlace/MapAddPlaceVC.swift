@@ -60,26 +60,34 @@ class MapAddPlaceVC: UIViewController {
     @objc func btnAddPlaceTapped() {
         let placePostModel = PlacePostModel(place: countryCity.defaultTextField.text ?? "", title: placeName.defaultTextField.text ?? "", description: visitDescription.defaultTextView.text, coverImageURL: "", latitude: latitude ?? 0, longitude: longitude ?? 0)
         
-        
-        print(placePostModel)
         let filterImg = imageArray.compactMap(({ $0 }))
-       // print(filterImg.count)
+        var message:String?
         
-        if filterImg.count > 0 { 
+        if !placeName.defaultTextField.hasText {
+            message = "Please enter place name"
+        }else if !visitDescription.defaultTextView.hasText{
+            message = "Please enter Visit Description"
+        }else if filterImg.isEmpty{
+            message = "Please upload photos"
+        }
+        
+        if placeName.defaultTextField.hasText && visitDescription.defaultTextView.hasText && !filterImg.isEmpty{
+            
             let mapAddPlaceViewModel = MapAddPlaceViewModel()
-            mapAddPlaceViewModel.addPlace(imageArray: filterImg,model: placePostModel){ 
+            mapAddPlaceViewModel.addPlace(imageArray: filterImg,model: placePostModel){
                 self.hasMapAdedclosure!()
             }
            
             self.dismiss(animated: true, completion: {
-               
             })
+        
+        }else{
+            let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            }))
+            present(alert, animated: true, completion: nil)
         }
-        
-        
-     //   let mapAddPlaceViewModel = MapAddPlaceViewModel()
-//        mapAddPlaceViewModel.placeCreate(model: placePostModel, imgUrl: "https://storage.googleapis.com/travio/1700048457958660859.jpg")
-         
     }
     
     func showControlAlert(title: String, message: String) {

@@ -15,7 +15,7 @@ class HomeVC: UIViewController {
     var populerArr: [Place] = []
     var lastArr: [Place] = []
     var userArr: [Place] = []
-  private  let group = DispatchGroup()
+    private  let group = DispatchGroup()
     private let queue = DispatchQueue.global()
     
     
