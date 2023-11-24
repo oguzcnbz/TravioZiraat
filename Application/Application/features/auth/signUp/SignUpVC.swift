@@ -123,8 +123,10 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     }()
     
     @objc func btnSignTapped() {
-        SignUpViewModel.setDelegate(output: self)
-        SignUpViewModel.signUpUser(fullName: usernameStackView.defaultTextField.text, email: emailStackView.defaultTextField.text, password: passwordStackView.defaultTextField.text)
+        if updateSignUpButtonState(){
+            SignUpViewModel.setDelegate(output: self)
+            SignUpViewModel.signUpUser(fullName: usernameStackView.defaultTextField.text, email: emailStackView.defaultTextField.text, password: passwordStackView.defaultTextField.text)
+        }
     }
     
     @objc func backButtonTapped(){
@@ -135,8 +137,8 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
         setupSignUpButton()
+        setupViews()
     }
     
     //MARK: -- SetUpView
@@ -230,22 +232,57 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
 //MARK: -- Extensions
 
 extension SignUpVC {
-    func setupSignUpButton() {
-        
-        let textFields = [usernameStackView.defaultTextField, emailStackView.defaultTextField, passwordStackView.defaultTextField, passwordConfirmStackView.defaultTextField]
-        textFields.forEach {
-            $0.addTarget(self, action: #selector(updateSignUpButtonState), for: .editingChanged)
+
+    var isPasswordValid: Bool {
+            return passwordStackView.defaultTextField.text?.count ?? 0 >= 6
         }
-        updateSignUpButtonState()
+        
+        var isUsernameValid: Bool {
+            return usernameStackView.defaultTextField.text?.count ?? 0 >= 6
+        }
+        
+        var isPasswordConfirmed: Bool {
+            return passwordStackView.defaultTextField.text == passwordConfirmStackView.defaultTextField.text
+        }
+        
+        var isAllFieldsFilled: Bool {
+            return usernameStackView.defaultTextField.hasText &&
+                   emailStackView.defaultTextField.hasText &&
+                   passwordStackView.defaultTextField.hasText &&
+                   passwordConfirmStackView.defaultTextField.hasText
+        }
+    
+    
+    func setupSignUpButton() {
+            
+            let textFields = [usernameStackView.defaultTextField, emailStackView.defaultTextField, passwordStackView.defaultTextField, passwordConfirmStackView.defaultTextField]
+            textFields.forEach {
+                $0.addTarget(self, action: #selector(updateBtnColor), for: .editingChanged)
+            }
+        
+        }
+    
+    @objc func updateSignUpButtonState()->Bool{
+        
+        if !isAllFieldsFilled{
+            showAlert(title: "Error", message: "Please fill out all fields.")
+            return false
+        }else if !isUsernameValid{
+            showAlert(title: "Error", message: "Username must be longer than 6 characters.")
+            return false
+        }else if !isPasswordValid{
+            showAlert(title: "Error", message: "Password must be longer than 6 characters.")
+            return false
+        }else if !isPasswordConfirmed{
+            showAlert(title: "Error", message: "Password and password confirm does not match.")
+            return false
+        }
+        return true
     }
     
-    @objc func updateSignUpButtonState() {
-        let isPasswordValid = passwordStackView.defaultTextField.text?.count ?? 0 >= 6
-        let isPasswordConfirmed = passwordStackView.defaultTextField.text == passwordConfirmStackView.defaultTextField.text
-        let isAllFieldsFilled = usernameStackView.defaultTextField.hasText && emailStackView.defaultTextField.hasText && passwordStackView.defaultTextField.hasText && passwordConfirmStackView.defaultTextField.hasText
+    @objc func updateBtnColor(){
         
-        if isAllFieldsFilled && isPasswordValid && isPasswordConfirmed == true{
-            buttonLogin.isEnabled = true
+        if isUsernameValid && isAllFieldsFilled && isPasswordValid && isPasswordConfirmed == true{
             buttonLogin.backgroundColor = ColorStyle.primary.color
         }else {
             buttonLogin.backgroundColor = ColorStyle.greySpanish.color
