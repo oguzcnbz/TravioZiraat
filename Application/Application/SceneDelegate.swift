@@ -20,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
+      //  let dispatchGroup = DispatchGroup()
 
 //        let vc = LoginVC()
 //
@@ -48,9 +49,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
     }
     /// Description: Accestoken aktıf mı kontrolu için   accesToken kullanarak kullanıcı verısı çekme yapıyorum. obj?.fullName veri varsa acces token aktıf ana sayfaya yönlendırıyorum aktıf degılse logıne donuyor.
-    lazy var editProfilViewModel: EditProfileViewModel = {
-        return EditProfileViewModel()
-    }()
+  
     func hasUserLoggedIn() -> Bool {
       
         guard let accessToken = KeychainHelper.shared.read(service: "user-key", account: "accessToken") else {
@@ -64,22 +63,37 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return false
         }
         
-//        
-//        editProfilViewModel.getProfilData()
-//        var validAccesToken:Bool = false
-//        editProfilViewModel.transferProfilData = {
-//            
-//            [weak self] () in
-//            let obj = self?.editProfilViewModel.profilModel
-//            print(" isim \(obj)")
-//           validAccesToken = true
-//                   
-//                        
-//            
-//            
-//        }
+        var validAccesToken:Bool = false
+        checkAccessTokenValid { isValid in
+                    if isValid {
+                        // Access token geçerli, istediğiniz işlemleri yapabilirsiniz.
+                        print("Access token geçerli.")
+                        validAccesToken = true
+                    } else {
+                        // Access token geçerli değil, gerekli işlemleri yapabilirsiniz.
+                        print("Access token geçerli değil.")
+                        validAccesToken = false
+                    }
+                }
+      
         return true
            
+       }
+    func checkAccessTokenValid(completion: @escaping (Bool) -> Void) {
+      
+        
+        
+           NetworkingHelper.shared.getDataFromRemote(urlRequest: .profileGet) { (result: Result<ProfileModel, Error>) in
+               switch result {
+               case .success(let success):
+                   print(success)
+                   completion(true)
+                   
+               case .failure(_):
+                   // isAccessTokenValid(false)
+                   completion(false)
+               }
+           }
        }
 
     
