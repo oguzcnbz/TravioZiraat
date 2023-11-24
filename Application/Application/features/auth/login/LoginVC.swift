@@ -49,8 +49,8 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         return sv
     }()
     
-    private lazy var passwordStackView: CustomTextField = {
-        let sv = CustomTextField(labelText: "Password", textFieldPlaceholder: "************")
+    private lazy var passwordStackView: CustomPasswordTextField = {
+        let sv = CustomPasswordTextField(labelText: "Password", textFieldPlaceholder: "************")
         sv.defaultTextField.isSecureTextEntry = true
         return sv
     }()
@@ -110,28 +110,6 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         
     }
     
-    private lazy var passwordShowToggle: UIButton = {
-        let btn = UIButton()
-        btn.setImage(UIImage(systemName:"eye.slash"), for: .normal)
-        btn.tintColor = ColorStyle.primary.color
-        btn.addTarget(self, action: #selector(startShowingPassword), for: .touchDown)
-        btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpInside)
-        btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpOutside)
-        return btn
-    }()
-
-    
-    @objc private func startShowingPassword() {
-        passwordShowToggle.setImage(UIImage(systemName: "eye"), for: .normal)
-        passwordStackView.defaultTextField.isSecureTextEntry = false
-    }
-
-    @objc private func stopShowingPassword() {
-        passwordShowToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-        passwordStackView.defaultTextField.isSecureTextEntry = true
-
-    }
-    
     private lazy var signButton: UIButton = {
         let button = UIButton()
         button.setTitle("SignUp", for: .normal)
@@ -167,8 +145,6 @@ class LoginVC: UIViewController,LoginResponseDelegate {
                                   passwordStackView,
                                   buttonLogin,
                                   bottomStackView)
-        
-        passwordStackView.addSubview(passwordShowToggle)
         
         bottomStackView.addArrangedSubviews(lblCheckSign,
                                     signButton)
@@ -210,13 +186,6 @@ class LoginVC: UIViewController,LoginResponseDelegate {
             sv.height.equalTo(74)
         }
         
-        passwordShowToggle.snp.makeConstraints({tgl in
-            tgl.centerY.equalTo(passwordStackView.defaultTextField)
-            tgl.trailing.equalToSuperview().offset(-16)
-            tgl.height.equalTo(24)
-            tgl.width.equalTo(24)
-        })
-
         buttonLogin.snp.makeConstraints { btn in
             btn.top.equalTo(passwordStackView.snp.bottom).offset(48)
             btn.trailing.equalToSuperview().offset(-24)
