@@ -31,54 +31,44 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
         
-        if hasUserLoggedIn() {
-            let vc = MainTabbar()
-            let rootViewController = UINavigationController(rootViewController: vc)
-            window.rootViewController = rootViewController
-            window.makeKeyAndVisible()
-            self.window = window
-            
-        }else { 
-            let vc = LoginVC()
-
-            let rootViewController = UINavigationController(rootViewController: vc)
-            window.rootViewController = rootViewController
-            window.makeKeyAndVisible()
-            self.window = window
-        }
+        hasUserLoggedIn { isLoggedIn in
+                if isLoggedIn {
+                    let vc = MainTabbar()
+                    let rootViewController = UINavigationController(rootViewController: vc)
+                    self.window?.rootViewController = rootViewController
+                    self.window?.makeKeyAndVisible()
+                } else {
+                    let vc = LoginVC()
+                    let rootViewController = UINavigationController(rootViewController: vc)
+                    self.window?.rootViewController = rootViewController
+                    self.window?.makeKeyAndVisible()
+                }
+            }
         
     }
     /// Description: Accestoken aktıf mı kontrolu için   accesToken kullanarak kullanıcı verısı çekme yapıyorum. obj?.fullName veri varsa acces token aktıf ana sayfaya yönlendırıyorum aktıf degılse logıne donuyor.
   
-    func hasUserLoggedIn() -> Bool {
-      
+    func hasUserLoggedIn(completion: @escaping (Bool) -> Void) {
         guard let accessToken = KeychainHelper.shared.read(service: "user-key", account: "accessToken") else {
             print("accessToken bulunamadı")
-        
-            return false
+            completion(false)
+            return
+           
+                               
         }
+
         guard let refreshToken = KeychainHelper.shared.read(service: "user-key", account: "refreshToken") else {
             print("refreshToken bulunamadı")
-           
-            return false
+            completion(false)
+            return
+          
         }
-        
-        var validAccesToken:Bool = false
+
         checkAccessTokenValid { isValid in
-                    if isValid {
-                        // Access token geçerli, istediğiniz işlemleri yapabilirsiniz.
-                        print("Access token geçerli.")
-                        validAccesToken = true
-                    } else {
-                        // Access token geçerli değil, gerekli işlemleri yapabilirsiniz.
-                        print("Access token geçerli değil.")
-                        validAccesToken = false
-                    }
-                }
-      
-        return true
-           
-       }
+            completion(isValid)
+        }
+    }
+    
     func checkAccessTokenValid(completion: @escaping (Bool) -> Void) {
       
         
