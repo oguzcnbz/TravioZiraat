@@ -49,7 +49,6 @@
 		5AE50BE02ADA6D38004E1FD3 /* ApplicationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE50BDF2ADA6D38004E1FD3 /* ApplicationUITests.swift */; };
 		5AE50BE22ADA6D38004E1FD3 /* ApplicationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE50BE12ADA6D38004E1FD3 /* ApplicationUITestsLaunchTests.swift */; };
 		5AE50BEF2ADA6D5F004E1FD3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE50BEE2ADA6D5F004E1FD3 /* Extensions.swift */; };
-		5AE50BF72ADA6DF9004E1FD3 /* LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE50BF62ADA6DF9004E1FD3 /* LaunchScreen.swift */; };
 		5AE50BFA2ADA7727004E1FD3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5AE50BF92ADA7727004E1FD3 /* SnapKit */; };
 		5AE50BFD2ADA773A004E1FD3 /* TinyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 5AE50BFC2ADA773A004E1FD3 /* TinyConstraints */; };
 		5AE50BFF2ADA8A87004E1FD3 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE50BFE2ADA8A87004E1FD3 /* LoginVC.swift */; };
@@ -156,7 +155,6 @@
 		5AE50BDF2ADA6D38004E1FD3 /* ApplicationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationUITests.swift; sourceTree = "<group>"; };
 		5AE50BE12ADA6D38004E1FD3 /* ApplicationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5AE50BEE2ADA6D5F004E1FD3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		5AE50BF62ADA6DF9004E1FD3 /* LaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
 		5AE50BFE2ADA8A87004E1FD3 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		5AE50C002ADB3121004E1FD3 /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
 		600C6C3F2AF529A10080BA35 /* KeychainHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -462,7 +460,6 @@
 				60DECAC72AF0DBD300A0EC49 /* utils */,
 				5AE50BC92ADA6D38004E1FD3 /* LaunchScreen.storyboard */,
 				60DECAD02AF0E13900A0EC49 /* Main.storyboard */,
-				5AE50BF62ADA6DF9004E1FD3 /* LaunchScreen.swift */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -783,7 +780,6 @@
 				5A5C5E4B2B03F914004B0151 /* MyAddedPlacesViewModel.swift in Sources */,
 				5A47A7EC2AFD01D500AE2D6F /* AboutVC.swift in Sources */,
 				5A03FD842AEA66D500520AFE /* SignUpVC.swift in Sources */,
-				5AE50BF72ADA6DF9004E1FD3 /* LaunchScreen.swift in Sources */,
 				5A89AFEF2AF8C0AD000F2E4D /* MapCell.swift in Sources */,
 				60B08CDD2B03954700362525 /* MapAddPlaceViewModel.swift in Sources */,
 				5AE50BFF2ADA8A87004E1FD3 /* LoginVC.swift in Sources */,

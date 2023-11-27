@@ -175,7 +175,7 @@ class SecuritySettingsVC: UIViewController {
                v.trailing.equalToSuperview()
                v.bottom.equalToSuperview()
                v.top.equalToSuperview()
-            //   v.height.equalTo(740)
+               v.height.equalTo(760)
 
            }
         
@@ -229,11 +229,10 @@ class SecuritySettingsVC: UIViewController {
         })
         
         saveButton.snp.makeConstraints({btn in
-            btn.top.equalTo(locationSV.snp.bottom).offset(60)
             btn.leading.equalToSuperview().offset(24)
             btn.trailing.equalToSuperview().offset(-24)
             btn.height.equalTo(54)
-            btn.bottom.equalTo(mainStackView).offset(-20)
+            btn.top.equalTo(locationSV.snp.bottom).offset(124)
         })
        
     }

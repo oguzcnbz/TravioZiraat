@@ -17,6 +17,15 @@ class EditProfileVC: UIViewController{
     
     //MARK: -- Views
     
+    private lazy var scrollView: UIScrollView = {
+        let sv = UIScrollView()
+        sv.backgroundColor =  ColorStyle.background.color
+        sv.layer.cornerRadius = 80
+        sv.layoutIfNeeded()
+        sv.layer.maskedCorners = [.layerMinXMinYCorner]
+        return sv
+    }()
+    
     private lazy var containerView:UIView = {
         let v = UIView()
         v.backgroundColor = ColorStyle.background.color
@@ -212,8 +221,10 @@ class EditProfileVC: UIViewController{
     func setupViews() {
        
         self.view.backgroundColor = ColorStyle.primary.color
-        self.view.addSubview(containerView)
-        
+        self.view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubviews(photoView,nameLbl,editProfileBtn,dateStackView,userTypeStackView, usernameStackView,emailStackView,buttonSave)
         dateStackView.addSubviews(icEdit,dateLbl)
         userTypeStackView.addSubviews(icAdmin,userTypeLbl)
@@ -224,11 +235,20 @@ class EditProfileVC: UIViewController{
     }
     
     func setupLayout() {
-        containerView.snp.makeConstraints { v in
+        
+        scrollView.snp.makeConstraints { v in
             v.leading.equalToSuperview()
             v.trailing.equalToSuperview()
             v.bottom.equalToSuperview()
             v.height.equalToSuperview().multipliedBy(0.82)
+           }
+        containerView.snp.makeConstraints { v in
+            v.width.equalToSuperview()
+            v.leading.equalToSuperview()
+            v.trailing.equalToSuperview()
+            v.bottom.equalToSuperview()
+            v.top.equalToSuperview()
+                  v.height.equalTo(700)
         }
         
         photoView.snp.makeConstraints({imgv in
@@ -307,10 +327,10 @@ class EditProfileVC: UIViewController{
         }
         
         buttonSave.snp.makeConstraints { v in
-            v.bottom.equalToSuperview().offset(-30)
             v.trailing.equalToSuperview().offset(-24)
             v.leading.equalToSuperview().offset(24)
             v.height.equalTo(54)
+            v.top.equalTo(emailStackView.snp.bottom).offset(100)
         }
     }
 }

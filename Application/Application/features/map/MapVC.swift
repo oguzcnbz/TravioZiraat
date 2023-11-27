@@ -54,11 +54,11 @@ class MapVC: UIViewController {
     }
     
     private func setupLayout() {
-        collectionView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-10)
-            make.height.equalTo(220)
+        collectionView.snp.makeConstraints { cv in
+            cv.leading.equalToSuperview()
+            cv.trailing.equalToSuperview()
+            cv.bottom.equalToSuperview().offset(-10)
+            cv.height.equalTo(220)
         }
     }
     

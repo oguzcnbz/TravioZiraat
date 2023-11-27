@@ -18,6 +18,20 @@ class MapAddPlaceVC: UIViewController {
     
     weak var delegate: PreviousPageDelegate?
     
+    private lazy var scrollView: UIScrollView = {
+        let sv = UIScrollView()
+        sv.backgroundColor =  ColorStyle.background.color
+        sv.layer.cornerRadius = 80
+        sv.layoutIfNeeded()
+        sv.layer.maskedCorners = [.layerMinXMinYCorner]
+        return sv
+    }()
+    
+    private lazy var mainStackView: UIView = {
+        let sv = UIView()
+        sv.backgroundColor = ColorStyle.background.color
+        return sv
+    }()
     
     private lazy var stick: UIView = {
         let v = UIView()
@@ -110,7 +124,13 @@ class MapAddPlaceVC: UIViewController {
     private func setupViews() {
         self.view.backgroundColor = UIColor(hex: "F8F8F8")
         self.view.layer.cornerRadius = 24
-        view.addSubviews(stick,placeName,visitDescription,countryCity, collectionView,btnaddPlace)
+        self.view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+
+        scrollView.addSubview(mainStackView)
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+
+        mainStackView.addSubviews(stick,placeName,visitDescription,countryCity, collectionView,btnaddPlace)
         setupLayout()
     }
     
@@ -120,9 +140,14 @@ class MapAddPlaceVC: UIViewController {
     
     private func setupLayout() {
         
+        
+        scrollView.snp.makeConstraints { v in
+            v.edges.equalToSuperview()
+        }
+        
         stick.snp.makeConstraints({s in
             s.centerX.equalToSuperview()
-            s.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(10)
+            s.top.equalTo(mainStackView.snp.top).offset(10)
             s.width.equalTo(70)
             s.height.equalTo(8)
         })
@@ -130,7 +155,7 @@ class MapAddPlaceVC: UIViewController {
         placeName.snp.makeConstraints {sv in
             sv.leading.equalToSuperview().offset(23)
             sv.trailing.equalToSuperview().offset(-25)
-            sv.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(40)
+            sv.top.equalTo(mainStackView.snp.top).offset(40)
             sv.height.equalTo(74)
         }
         
@@ -158,9 +183,18 @@ class MapAddPlaceVC: UIViewController {
         btnaddPlace.snp.makeConstraints({btn in
             btn.leading.equalToSuperview().offset(23)
             btn.trailing.equalToSuperview().offset(-25)
-            btn.bottom.equalToSuperview().offset(-24)
+            btn.top.equalTo(collectionView.snp.bottom).offset(16)
             btn.height.equalTo(54)
         })
+        
+        let heightA = stick.frame.height + placeName.frame.height + visitDescription.frame.height + countryCity.frame.height + collectionView.frame.height + btnaddPlace.frame.height + 120
+
+        mainStackView.snp.makeConstraints { v in
+            v.edges.equalToSuperview()
+            v.width.equalToSuperview()
+            v.bottom.equalTo(btnaddPlace.snp.bottom).offset(10)
+        }
+        scrollView.height(heightA)
     }
 
    

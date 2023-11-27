@@ -158,6 +158,9 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         imageView.snp.makeConstraints { imgv in
             imgv.centerX.equalToSuperview()
             imgv.bottom.equalTo(mainStackView.snp.top).offset(-24)
+            imgv.height.equalToSuperview().multipliedBy(0.213)
+            imgv.width.equalToSuperview().multipliedBy(0.384)
+            
         }
         
         mainStackView.snp.makeConstraints { sv in
