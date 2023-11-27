@@ -12,6 +12,7 @@
 		5A03FD7A2AEA3D8F00520AFE /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A03FD772AEA3D8F00520AFE /* Poppins-Medium.ttf */; };
 		5A03FD842AEA66D500520AFE /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A03FD832AEA66D500520AFE /* SignUpVC.swift */; };
 		5A16EC422B0B8DD60072E9E5 /* FontStyleConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A16EC412B0B8DD60072E9E5 /* FontStyleConstants.swift */; };
+		5A1BD2D32B109EF7007FEE21 /* CustomPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1BD2D22B109EF7007FEE21 /* CustomPasswordTextField.swift */; };
 		5A4567262AE6729100DD75E0 /* DefaultMainStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4567252AE6729100DD75E0 /* DefaultMainStackView.swift */; };
 		5A47A7D32AFA531100AE2D6F /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7D22AFA531100AE2D6F /* CustomTextView.swift */; };
 		5A47A7DE2AFB66BA00AE2D6F /* HelpAndSupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47A7DD2AFB66BA00AE2D6F /* HelpAndSupportVC.swift */; };
@@ -63,7 +64,7 @@
 		6019454D2AFBC3A40077D3FC /* PlaceDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6019454A2AFBC3A40077D3FC /* PlaceDetailViewModel.swift */; };
 		6019454E2AFBC3A40077D3FC /* PlaceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6019454B2AFBC3A40077D3FC /* PlaceDetailCell.swift */; };
 		601BA06B2B0B766200D0600D /* previousPageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601BA06A2B0B766200D0600D /* previousPageProtocol.swift */; };
-		602C65672AF38F83003355EB /* HomeListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602C65662AF38F83003355EB /* HomeListSection.swift */; };
+		602C65672AF38F83003355EB /* (null) in Sources */ = {isa = PBXBuildFile; };
 		6041B7A52AEF93CF0076E0CC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7A42AEF93CF0076E0CC /* Router.swift */; };
 		6041B7A72AEF93D70076E0CC /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7A62AEF93D70076E0CC /* NetworkHelper.swift */; };
 		6041B7A92AEF93E20076E0CC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6041B7A82AEF93E20076E0CC /* LoginViewModel.swift */; };
@@ -114,6 +115,7 @@
 		5A03FD832AEA66D500520AFE /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		5A16EC412B0B8DD60072E9E5 /* FontStyleConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontStyleConstants.swift; sourceTree = "<group>"; };
 		5A16EC432B0B99FF0072E9E5 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		5A1BD2D22B109EF7007FEE21 /* CustomPasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPasswordTextField.swift; sourceTree = "<group>"; };
 		5A4567252AE6729100DD75E0 /* DefaultMainStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainStackView.swift; sourceTree = "<group>"; };
 		5A47A7D22AFA531100AE2D6F /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		5A47A7DD2AFB66BA00AE2D6F /* HelpAndSupportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAndSupportVC.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				5AE50C002ADB3121004E1FD3 /* DefaultButton.swift */,
 				5A4567252AE6729100DD75E0 /* DefaultMainStackView.swift */,
 				6041B7C22AEFC8530076E0CC /* CustomTextField.swift */,
+				5A1BD2D22B109EF7007FEE21 /* CustomPasswordTextField.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				60D6A3E72B0120EA00C5BF3B /* HomeDetailPlacesVC.swift in Sources */,
 				600C6C402AF529A10080BA35 /* KeychainHelper.swift in Sources */,
 				6019454D2AFBC3A40077D3FC /* PlaceDetailViewModel.swift in Sources */,
+				5A1BD2D32B109EF7007FEE21 /* CustomPasswordTextField.swift in Sources */,
 				6041B7B32AEF95950076E0CC /* MapVC.swift in Sources */,
 				5A47A7E62AFD01AC00AE2D6F /* SecuritySettingsVC.swift in Sources */,
 				6041B7A92AEF93E20076E0CC /* LoginViewModel.swift in Sources */,
@@ -829,7 +833,7 @@
 				6041B7AF2AEF95810076E0CC /* MainTabbar.swift in Sources */,
 				6085A7EA2B0795EC000B8890 /* ResponseMessageModel.swift in Sources */,
 				6019454C2AFBC3A40077D3FC /* PlaceDetailVC.swift in Sources */,
-				602C65672AF38F83003355EB /* HomeListSection.swift in Sources */,
+				602C65672AF38F83003355EB /* (null) in Sources */,
 				6041B7A52AEF93CF0076E0CC /* Router.swift in Sources */,
 				6085A7E42B075634000B8890 /* ProfileModel.swift in Sources */,
 				5AE50BEF2ADA6D5F004E1FD3 /* Extensions.swift in Sources */,

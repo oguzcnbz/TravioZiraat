@@ -20,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
+      //  let dispatchGroup = DispatchGroup()
 
 //        let vc = LoginVC()
 //
@@ -30,8 +31,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
         
+<<<<<<< HEAD
+        hasUserLoggedIn { isLoggedIn in
+                if isLoggedIn {
+                    let vc = MainTabbar()
+                    let rootViewController = UINavigationController(rootViewController: vc)
+                    self.window?.rootViewController = rootViewController
+                    self.window?.makeKeyAndVisible()
+                } else {
+                    let vc = LoginVC()
+                    let rootViewController = UINavigationController(rootViewController: vc)
+                    self.window?.rootViewController = rootViewController
+                    self.window?.makeKeyAndVisible()
+                }
+            }
+=======
         if hasUserLoggedIn() {
-            let vc = MainTabbar()
+            let vc = HelpAndSupportVC()
             let rootViewController = UINavigationController(rootViewController: vc)
             window.rootViewController = rootViewController
             window.makeKeyAndVisible()
@@ -45,59 +61,47 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.makeKeyAndVisible()
             self.window = window
         }
+>>>>>>> Sprint5/SecuritySettingsControll
         
     }
     /// Description: Accestoken aktıf mı kontrolu için   accesToken kullanarak kullanıcı verısı çekme yapıyorum. obj?.fullName veri varsa acces token aktıf ana sayfaya yönlendırıyorum aktıf degılse logıne donuyor.
-    lazy var editProfilViewModel: EditProfileViewModel = {
-        return EditProfileViewModel()
-    }()
-    func hasUserLoggedIn() -> Bool {
-      
+  
+    func hasUserLoggedIn(completion: @escaping (Bool) -> Void) {
         guard let accessToken = KeychainHelper.shared.read(service: "user-key", account: "accessToken") else {
             print("accessToken bulunamadı")
-        
-            return false
+            completion(false)
+            return
+           
+                               
         }
+
         guard let refreshToken = KeychainHelper.shared.read(service: "user-key", account: "refreshToken") else {
             print("refreshToken bulunamadı")
-           
-            return false
+            completion(false)
+            return
+          
         }
-        
-<<<<<<< HEAD
-//        
-//        editProfilViewModel.getProfilData()
-//        var validAccesToken:Bool = false
-//        editProfilViewModel.transferProfilData = {
-//            
-//            [weak self] () in
-//            let obj = self?.editProfilViewModel.profilModel
-//            print(" isim \(obj)")
-//           validAccesToken = true
-//                   
-//                        
-//            
-//            
-//        }
-        return true
-           
-=======
-        
-        editProfilViewModel.getProfilData()
-        var validAccesToken:Bool = true
-        editProfilViewModel.transferProfilData = {
-            
-            [weak self] () in
-            let obj = self?.editProfilViewModel.profilModel
-            if  obj?.fullName == nil{ 
-                validAccesToken =  false
-            }
-                
+
+        checkAccessTokenValid { isValid in
+            completion(isValid)
+        }
+    }
     
-        }
+    func checkAccessTokenValid(completion: @escaping (Bool) -> Void) {
+      
         
-           return validAccesToken
->>>>>>> Sprint5/EditProfile
+        
+           NetworkingHelper.shared.getDataFromRemote(urlRequest: .profileGet) { (result: Result<ProfileModel, Error>) in
+               switch result {
+               case .success(let success):
+                   print(success)
+                   completion(true)
+                   
+               case .failure(_):
+                   // isAccessTokenValid(false)
+                   completion(false)
+               }
+           }
        }
 
     

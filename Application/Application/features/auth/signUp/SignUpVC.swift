@@ -43,61 +43,18 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
         return sv
     }()
     
-    private lazy var passwordStackView: CustomTextField = {
-        let sv = CustomTextField(labelText: "Password", textFieldPlaceholder: "")
+    private lazy var passwordStackView: CustomPasswordTextField = {
+        let sv = CustomPasswordTextField(labelText: "Password", textFieldPlaceholder: "")
         sv.defaultTextField.isSecureTextEntry = true
         return sv
     }()
     
-    private lazy var passwordConfirmStackView: CustomTextField = {
-        let sv = CustomTextField(labelText: "Password Confirm", textFieldPlaceholder: "")
+    private lazy var passwordConfirmStackView: CustomPasswordTextField = {
+        let sv = CustomPasswordTextField(labelText: "Password Confirm", textFieldPlaceholder: "")
         sv.defaultTextField.isSecureTextEntry = true
         return sv
     }()
     
-    private lazy var passwordShowToggle: UIButton = {
-        let btn = UIButton()
-        btn.setImage(UIImage(systemName:"eye.slash"), for: .normal)
-        btn.tintColor = ColorStyle.primary.color
-        btn.addTarget(self, action: #selector(startShowingPassword), for: .touchDown)
-        btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpInside)
-        btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpOutside)
-        return btn
-    }()
-
-    
-    @objc private func startShowingPassword() {
-        passwordShowToggle.setImage(UIImage(systemName: "eye"), for: .normal)
-        passwordStackView.defaultTextField.isSecureTextEntry = false
-    }
-
-    @objc private func stopShowingPassword() {
-        passwordShowToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-        passwordStackView.defaultTextField.isSecureTextEntry = true
-
-    }
-    
-    private lazy var passwordConfirmShowToggle: UIButton = {
-        let btn = UIButton()
-        btn.setImage(UIImage(systemName:"eye.slash"), for: .normal)
-        btn.tintColor = ColorStyle.primary.color
-        btn.addTarget(self, action: #selector(startShowPassword), for: .touchDown)
-        btn.addTarget(self, action: #selector(stopShowPassword), for: .touchUpInside)
-        btn.addTarget(self, action: #selector(stopShowPassword), for: .touchUpOutside)
-        return btn
-    }()
-
-    
-    @objc private func startShowPassword() {
-        passwordShowToggle.setImage(UIImage(systemName: "eye"), for: .normal)
-        passwordConfirmStackView.defaultTextField.isSecureTextEntry = false
-    }
-
-    @objc private func stopShowPassword() {
-        passwordShowToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-        passwordConfirmStackView.defaultTextField.isSecureTextEntry = true
-
-    }
     
     lazy var SignUpViewModel: SignUpViewModel = {
         return Application.SignUpViewModel()
@@ -152,9 +109,6 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
                                   passwordConfirmStackView,
                                   buttonLogin)
         
-        passwordStackView.addSubview(passwordShowToggle)
-        passwordConfirmStackView.addSubview(passwordConfirmShowToggle)
-        
         let leftButtonImage = UIImage(named:"backWard")
         let leftBarButton = UIBarButtonItem(image: leftButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
         leftBarButton.tintColor = ColorStyle.white.color
@@ -203,21 +157,6 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
             sv.leading.equalToSuperview().offset(24)
             sv.height.equalTo(74)
         }
-        
-        passwordShowToggle.snp.makeConstraints({tgl in
-            tgl.centerY.equalTo(passwordStackView.defaultTextField)
-            tgl.trailing.equalToSuperview().offset(-16)
-            tgl.height.equalTo(24)
-            tgl.width.equalTo(24)
-        })
-        
-        passwordConfirmShowToggle.snp.makeConstraints({tgl in
-            tgl.centerY.equalTo(passwordConfirmStackView.defaultTextField)
-            tgl.trailing.equalToSuperview().offset(-16)
-            tgl.height.equalTo(24)
-            tgl.width.equalTo(24)
-        })
-        
         
         buttonLogin.snp.makeConstraints { btn in
             btn.bottom.equalTo(mainStackView.snp.bottom).offset(-23)

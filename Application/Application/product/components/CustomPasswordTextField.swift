@@ -2,7 +2,7 @@ import UIKit
 import SnapKit
 
 
-class CustomTextField: UIView {
+class CustomPasswordTextField: UIView {
     
      init(labelText: String, textFieldPlaceholder: String) {
             super.init(frame: CGRect.zero)
@@ -39,13 +39,35 @@ class CustomTextField: UIView {
         let txt = UITextField()
         txt.font = FontStyle.sh3.font
         txt.textColor = ColorStyle.darkgray.color
-        txt.autocapitalizationType = .none
+        txt.isSecureTextEntry = true
         return txt
     }()
+    
+    private lazy var passwordShowToggle: UIButton = {
+            let btn = UIButton()
+            btn.setImage(UIImage(systemName:"eye.slash"), for: .normal)
+            btn.tintColor = ColorStyle.primary.color
+            btn.addTarget(self, action: #selector(startShowingPassword), for: .touchDown)
+            btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpInside)
+            btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpOutside)
+            return btn
+        }()
+        
+        @objc private func startShowingPassword(textfield:CustomTextField) {
+            passwordShowToggle.setImage(UIImage(systemName: "eye"), for: .normal)
+            defaultTextField.isSecureTextEntry = false
+        }
+
+        @objc private func stopShowingPassword(textfield:CustomTextField) {
+            passwordShowToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+            defaultTextField.isSecureTextEntry = true
+
+        }
     
     private func setupAndLayout(labelText: String, textFieldPlaceholder: String) {
         addSubview(defaultStackView)
         defaultStackView.addSubviews(defaultLabel,defaultTextField)
+        defaultStackView.addSubview(passwordShowToggle)
         
         
         defaultLabel.text = labelText
@@ -71,5 +93,12 @@ class CustomTextField: UIView {
                tf.top.equalTo(defaultLabel.snp.bottom).offset(8)
                tf.height.equalTo(18)
            }
+        
+            passwordShowToggle.snp.makeConstraints({tgl in
+                tgl.centerY.equalTo(defaultTextField)
+                tgl.trailing.equalToSuperview().offset(-16)
+                tgl.height.equalTo(24)
+                tgl.width.equalTo(24)
+            })
        }
 }

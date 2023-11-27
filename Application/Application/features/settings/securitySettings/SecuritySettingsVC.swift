@@ -49,18 +49,18 @@ class SecuritySettingsVC: UIViewController {
         return lbl
     }()
     
-    private lazy var newPassTxtField:CustomTextField = {
-        let tf = CustomTextField(labelText: "New Password", textFieldPlaceholder: "********")
-        tf.defaultTextField.isSecureTextEntry = true
+    private lazy var newPassTxtField:CustomPasswordTextField = {
+        let tf = CustomPasswordTextField(labelText: "New Password", textFieldPlaceholder: "********")
+      
         return tf
     }()
     
-    private lazy var newPassConfTxtField:CustomTextField = {
-        let tf = CustomTextField(labelText: "New Password Confirm", textFieldPlaceholder: "********")
+    private lazy var newPassConfTxtField:CustomPasswordTextField = {
+        let tf = CustomPasswordTextField(labelText: "New Password Confirm", textFieldPlaceholder: "********")
         tf.defaultTextField.isSecureTextEntry = true
         return tf
     }()
-    
+   
     private lazy var cameraSV:SecuritySettingsCustomSV = {
         let sv = SecuritySettingsCustomSV(labelText: "Camera")
         sv.toggleSwitch.addTarget(self, action: #selector(cameraChanged), for: .valueChanged)
@@ -154,7 +154,7 @@ class SecuritySettingsVC: UIViewController {
         scrollView.addSubview(mainStackView)
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.addSubviews(changePassLbl,newPassTxtField,newPassConfTxtField,privacyLbl,cameraSV,librarySV,locationSV,saveButton)
-        
+      
         setupLayout()
         setNavigationItems(leftBarButton: true, rightBarButton: nil, title: "Security Settings")
     }
@@ -199,7 +199,7 @@ class SecuritySettingsVC: UIViewController {
             tf.trailing.equalToSuperview().offset(-24)
             tf.height.equalTo(74)
         })
-        
+    
         privacyLbl.snp.makeConstraints({lbl in
             lbl.top.equalTo(newPassConfTxtField.snp.bottom).offset(24)
             lbl.leading.equalToSuperview().offset(24)
