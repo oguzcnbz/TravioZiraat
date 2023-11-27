@@ -1009,9 +1009,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YZLWXRPJWC;
+				DEVELOPMENT_TEAM = L6R7P8MDW2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Application/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Travio;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
@@ -1040,9 +1041,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YZLWXRPJWC;
+				DEVELOPMENT_TEAM = L6R7P8MDW2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Application/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Travio;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
