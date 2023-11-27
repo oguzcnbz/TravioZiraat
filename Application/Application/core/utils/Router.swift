@@ -1,6 +1,7 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 enum Router {
     
@@ -22,10 +23,8 @@ enum Router {
     case galerysImagesPost(params:Parameters)
     case profileGet
     case profileUpdate(params:Parameters)
-    
-    // case uploadImage(image: UIImage)
     case passwordChangePut(params:Parameters)
-    //case placeUser(
+    case uploadImage(images: [UIImage])
     
     
     
@@ -67,13 +66,16 @@ enum Router {
             
         case .passwordChangePut:
             return "/v1/change-password"
+        case .uploadImage:
+            return "/upload"
+        
         }
     }
     
     
     var method:HTTPMethod {
         switch self {
-        case .userLogin,.userRegister,.placePost,.visitPost,.galerysImagesPost:
+        case .userLogin,.userRegister,.placePost,.visitPost,.galerysImagesPost,.uploadImage:
             return .post
         case .placeAllGet,.placePopularGet,.placePopularGetParams,.placeLastGet,.placeLastGetParams,.placeDetailGetGalleryImages,.placeAllUserGet,.visitsGet,.visitByPlaceIdCheck,.myAddedPlacesGet,.profileGet:
             return .get
@@ -99,6 +101,10 @@ enum Router {
             guard let accesStr = accesTmp else {return [:]}
             return ["Authorization": "Bearer \(accesStr)"]
             
+        case .uploadImage:
+            return ["Content-Type": "multipart/form-data"]
+
+            
         }
     }
     
@@ -106,7 +112,7 @@ enum Router {
         switch self {
         case .userLogin(let params),.userRegister(let params),.placePopularGetParams(params: let params),.placeLastGetParams(params: let params),.visitPost(params: let params),.placePost(params: let params),.galerysImagesPost(params: let params),.profileUpdate(params: let params),.passwordChangePut(params: let params):
             return params
-        case .placeAllGet,.placePopularGet,.placeLastGet,.placeDetailGetGalleryImages,.placeAllUserGet,.visitsGet,.visitDelete,.visitByPlaceIdCheck,.myAddedPlacesGet,.profileGet:
+        case .placeAllGet,.placePopularGet,.placeLastGet,.placeDetailGetGalleryImages,.placeAllUserGet,.visitsGet,.visitDelete,.visitByPlaceIdCheck,.myAddedPlacesGet,.profileGet,.uploadImage:
             
             return nil
         }
@@ -114,9 +120,29 @@ enum Router {
         
         
     }
+    // MARK: MultipartFormData
+    var multipartFormData: MultipartFormData {
+            let multipartFormData = MultipartFormData()
+            switch self {
+            case .uploadImage(images: let images):
+                images.forEach({image in
+                    if let imageData = image.jpegData(compressionQuality: 0.5) {
+                        multipartFormData.append(imageData, withName: "file", fileName: "file.png", mimeType: "image/png")
+                    }
+                   
+                    
+                })
+               
+            default: ()
+            }
+
+            return multipartFormData
+        }
     
     
 }
+
+
     
     extension Router:URLRequestConvertible {
         
