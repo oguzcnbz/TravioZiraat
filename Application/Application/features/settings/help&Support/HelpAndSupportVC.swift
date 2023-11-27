@@ -89,6 +89,7 @@ extension HelpAndSupportVC: UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier:"HelpAndSupportCell", for: indexPath) as? HelpAndSupportCell else { return UITableViewCell() }
         cell.backgroundColor = .clear
+        cell.selectionStyle = .none
         let object = cells[indexPath.row]
         cell.configure(object: object)
         return cell
