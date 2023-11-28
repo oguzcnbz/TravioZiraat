@@ -252,10 +252,8 @@ extension SecuritySettingsVC {
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 if granted{
-                    print("Kamera izni verildi.")
                     self.cameraSV.toggleSwitch.isOn = true
                 }else{
-                    print("Kamera izni reddedildi.")
                     self.cameraSV.toggleSwitch.isOn = false
                 }
             }
@@ -276,10 +274,8 @@ extension SecuritySettingsVC {
             PHPhotoLibrary.requestAuthorization { status in
                 DispatchQueue.main.async {
                     if status == .authorized {
-                        print("Library izni verildi.")
                         self.librarySV.toggleSwitch.isOn = true
                     } else {
-                        print("Library izni reddedildi.")
                         self.librarySV.toggleSwitch.isOn = false
                     }
                 }

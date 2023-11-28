@@ -1,10 +1,3 @@
-//
-//  PlaceDetailImageUrl.swift
-//  Application
-//
-//  Created by Ada on 12.11.2023.
-//
-
 import Foundation
 
 

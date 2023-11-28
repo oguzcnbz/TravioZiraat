@@ -80,7 +80,6 @@ class SettingsVC: UIViewController,PreviousPageDelegate {
     }
     
     @objc func rightbartapped(){
-        print("exit girdi")
         KeychainHelper.shared.delete("user-key", account: "accessToken")
         KeychainHelper.shared.delete("user-key", account: "refreshToken")
         let loginVC = LoginVC()

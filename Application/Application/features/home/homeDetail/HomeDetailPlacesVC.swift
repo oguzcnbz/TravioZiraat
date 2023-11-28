@@ -116,8 +116,6 @@ class HomeDetailPlacesVC: UIViewController {
             homeViewModel.transferPopulerData = { [weak self] () in
                 let obj = self?.homeViewModel.populerPlace
                 self?.detailArr = obj ?? []
-                print(self?.detailArr.count)
-                print("======")
                 self?.collectionView.reloadData()
             }
             
@@ -126,8 +124,6 @@ class HomeDetailPlacesVC: UIViewController {
             homeViewModel.transferLastData = { [weak self] () in
                 let obj = self?.homeViewModel.lastPlace
                 self?.detailArr = obj ?? []
-                print(self?.detailArr.count)
-                print("======")
                 self?.collectionView.reloadData()
             }
             
@@ -136,8 +132,6 @@ class HomeDetailPlacesVC: UIViewController {
             homeViewModel.transferUserData = { [weak self] () in
                 let obj = self?.homeViewModel.userPlace
                 self?.detailArr = obj ?? []
-                print(self?.detailArr.count)
-                print("======")
                 self?.collectionView.reloadData()
             }
         }

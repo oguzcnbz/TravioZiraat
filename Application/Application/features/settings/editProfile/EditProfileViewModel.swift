@@ -42,7 +42,6 @@ class EditProfileViewModel {
         NetworkingHelper.shared.uplodImageFromRemote(urlRequest: .uploadImage(images: imglArr)) { (result:Result<UploadImageResponse,Error>)in
             switch result {
             case .success(let success):
-               // print(success.message)
                 if let imageUrls = success.urls {
                     print("Images uploaded successfully. URLs: \(imageUrls)")
                     self.changeProfile(full_name: full_name, email: email, pp_url:imageUrls.first ?? "", isDone: isDone)

@@ -23,7 +23,6 @@ class PlaceDetailViewModel {
                     imagesUrl.append(item.imageURL)
                     
                 })
-                print("images \(imagesUrl)")
                 self.delegate?.placeDetailResponseGet(imageArr: imagesUrl)
                 
             case .failure(let error):

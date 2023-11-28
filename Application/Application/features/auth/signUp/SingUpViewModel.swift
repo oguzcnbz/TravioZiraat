@@ -67,7 +67,6 @@ class SignUpViewModel {
     func changeLoading() {
         isLoading = !isLoading
         if isLoading == true {
-            print("ikinci tiklama")
         }
     }
 

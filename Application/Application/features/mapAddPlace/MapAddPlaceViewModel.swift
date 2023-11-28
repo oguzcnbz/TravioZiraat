@@ -15,7 +15,6 @@ class MapAddPlaceViewModel {
                 NetworkingHelper.shared.uplodImageFromRemote(urlRequest: .uploadImage(images: filterImg)) { (result:Result<UploadImageResponse,Error>)in
                     switch result {
                     case .success(let success):
-                       // print(success.message)
                         if let imageUrls = success.urls {
                             print("Images uploaded successfully. URLs: \(imageUrls)")
                             self.placeCreate(model: model, imgUrl: imageUrls.first!) { placeId in
@@ -83,7 +82,6 @@ class MapAddPlaceViewModel {
     func changeLoading() {
         isLoading = !isLoading
         if isLoading == true {
-            print("ikinci tiklama")
         }
     }
 }

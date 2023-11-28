@@ -88,8 +88,7 @@ class HomeVC: UIViewController {
             self.group.leave()
         }
         group.notify(queue: queue){
-            print("hepsi yuklendi")
-          //  self?.collectionView.reloadData()
+          
         }
     }
     

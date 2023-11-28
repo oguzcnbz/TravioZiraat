@@ -161,7 +161,6 @@ extension MyAddedPlacesVC:UICollectionViewDataSource {
 extension MyAddedPlacesVC:UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let place = myAddedPlaces[indexPath.row]
-        print(place)
         self.checkVisit(placeId: place.id, place: place)
     }
 }

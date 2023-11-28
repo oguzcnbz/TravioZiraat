@@ -50,7 +50,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   
     func hasUserLoggedIn(completion: @escaping (Bool) -> Void) {
         guard let accessToken = KeychainHelper.shared.read(service: "user-key", account: "accessToken") else {
-            print("accessToken bulunamadı")
             completion(false)
             return
            
@@ -58,7 +57,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         guard let refreshToken = KeychainHelper.shared.read(service: "user-key", account: "refreshToken") else {
-            print("refreshToken bulunamadı")
             completion(false)
             return
           
@@ -76,11 +74,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
            NetworkingHelper.shared.getDataFromRemote(urlRequest: .profileGet) { (result: Result<ProfileModel, Error>) in
                switch result {
                case .success(let success):
-                   print(success)
                    completion(true)
                    
                case .failure(_):
-                   // isAccessTokenValid(false)
                    completion(false)
                }
            }

@@ -209,9 +209,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         
             labelDate.text = convertDateToString(date)
            
-        } else {
-            print("Failed to convert the date.")
-        }
+        } 
         
         labelAdedPerson.text = placeModel?.creator
         labelPlaceDetail.text = placeModel?.description
