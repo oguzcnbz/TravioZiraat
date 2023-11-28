@@ -72,7 +72,7 @@ class MapAddPlaceVC: UIViewController {
     }()
     
     @objc func btnAddPlaceTapped() {
-       // showLoadingIndicator()
+      
         let placePostModel = PlacePostModel(place: countryCity.defaultTextField.text ?? "", title: placeName.defaultTextField.text ?? "", description: visitDescription.defaultTextView.text, coverImageURL: "", latitude: latitude ?? 0, longitude: longitude ?? 0)
         
         let filterImg = imageArray.compactMap(({ $0 }))
@@ -87,9 +87,10 @@ class MapAddPlaceVC: UIViewController {
         }
         
         if placeName.defaultTextField.hasText && visitDescription.defaultTextView.hasText && !filterImg.isEmpty{
-            
+             showLoadingIndicator()
             let mapAddPlaceViewModel = MapAddPlaceViewModel()
             mapAddPlaceViewModel.addPlace(imageArray: filterImg,model: placePostModel){
+                self.hideLoadingIndicator()
                 self.hasMapAdedclosure!()
             }
         

@@ -140,7 +140,7 @@ class EditProfileVC: UIViewController{
         }
         
         if  usernameStackView.defaultTextField.hasText,emailStackView.defaultTextField.hasText,photoView.image != defaultProfileImage {
-            //showLoadingIndicator()
+            showLoadingIndicator()
             if isImageChanged == true{
                 
                 editProfilViewModel.profileUploadImage(profileImg: self.photoView.image!,
@@ -150,11 +150,14 @@ class EditProfileVC: UIViewController{
                     if success {
                         self.dismiss(animated: true, completion: {
                             self.delegate?.didDismiss()
+                            
                         })
                     } else {
                         print("Profile upload failed")
                     }
+                   
                 }
+               
             }
             else {
                 editProfilViewModel.changeProfile(full_name: usernameStackView.defaultTextField.text ?? "",
@@ -168,9 +171,13 @@ class EditProfileVC: UIViewController{
                     } else {
                         print("Profile upload failed")
                     }
+                   
                 }
+             
             }
+            self.hideLoadingIndicator()
         }else{
+           
             let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in

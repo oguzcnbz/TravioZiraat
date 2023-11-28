@@ -13,6 +13,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
        print("sonuc \(isLogin ?? false)")
         if isLogin == false {
             showAlert(title: "Giris Yapilamadi",message: "Bilgiler uyusmuyor")
+            hideLoadingIndicator()
         }
         if isLogin == true{
             let vc = MainTabbar()
@@ -20,6 +21,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
             securitySettings.requestCameraPermission()
             securitySettings.requestLibraryPermission()
             securitySettings.requestLocationPermission()
+            hideLoadingIndicator() 
         }
         
     }
@@ -104,7 +106,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     @objc func btnLoginTapped() {
         guard let email = emailStackView.defaultTextField.text else {return}
         guard let password = passwordStackView.defaultTextField.text else {return}
-        //showLoadingIndicator()
+        showLoadingIndicator()
         loginViewModel.setDelegate(output: self)
         loginViewModel.loginUser(email: email, password: password)
     }

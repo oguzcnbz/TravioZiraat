@@ -112,6 +112,7 @@ class SecuritySettingsVC: UIViewController {
         let isPasswordValid = newPassTxtField.defaultTextField.text?.count ?? 0 >= 6
         let isPasswordConfirmed = newPassTxtField.defaultTextField.text == newPassConfTxtField.defaultTextField.text
         if isPasswordValid && isPasswordConfirmed == true{
+            showLoadingIndicator()
             guard let newPassword = newPassTxtField.defaultTextField.text else {return}
             securitySettingsViewModel.passwordChange(changedPassword: newPassword)
             self.navigationController?.popViewController(animated: true)
@@ -134,6 +135,7 @@ class SecuritySettingsVC: UIViewController {
                 self.dismiss(animated: true)
             }))
         }
+        hideLoadingIndicator()
     }
     
     override func viewDidLoad() {

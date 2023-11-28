@@ -61,7 +61,7 @@ class LoginViewModel {
     func changeLoading() {
         isLoading = !isLoading
         if isLoading == true {
-            print("ikinci tiklama")
+          
         }
     }
 }

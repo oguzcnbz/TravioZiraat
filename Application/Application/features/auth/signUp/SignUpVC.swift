@@ -6,6 +6,7 @@ import IQKeyboardManagerSwift
 class SignUpVC: UIViewController,SignUpResponseDelegate {
     
     func signUpResponseGet(isSignUp: Bool, message: String) {
+        hideLoadingIndicator()
             
             if isSignUp == false {
                                     showAlert(title: "Registration Failed", message: message)
@@ -81,6 +82,7 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     
     @objc func btnSignTapped() {
         if updateSignUpButtonState(){
+            showLoadingIndicator()
             SignUpViewModel.setDelegate(output: self)
             SignUpViewModel.signUpUser(fullName: usernameStackView.defaultTextField.text, email: emailStackView.defaultTextField.text, password: passwordStackView.defaultTextField.text)
         }
