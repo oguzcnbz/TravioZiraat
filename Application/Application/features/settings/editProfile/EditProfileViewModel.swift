@@ -35,20 +35,7 @@ class EditProfileViewModel {
         })
     }
     
-//    func profileUploadImage (profileImg: UIImage,full_name:String,email:String,pp_url:String,isDone: @escaping (Bool) -> Void) {
-//        var imglArr:[UIImage] = [profileImg]
-//            let networkHelper = NetworkingHelper()
-//            networkHelper.uploadImages(images: imglArr, path: "/upload") { result in
-//                
-//                if let imageUrls = result {
-//                    print("Images uploaded successfully. URLs: \(imageUrls)")
-//                    self.changeProfile(full_name: full_name, email: email, pp_url:imageUrls.first ?? "", isDone: isDone)
-//
-//                }else {
-//                    print("Image upload failed.")
-//                }
-//            }
-//    }
+
     func profileUploadImage (profileImg: UIImage,full_name:String,email:String,pp_url:String,isDone: @escaping (Bool) -> Void) {
         var imglArr:[UIImage] = [profileImg]
 
