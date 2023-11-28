@@ -73,23 +73,6 @@ class HomeDetailPlacesVC: UIViewController {
         super.viewWillAppear(true)
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-
-    
-    func checkVisit(placeId: String, place:Place){
-        let vc = PlaceDetailVC()
-        vc.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
-        vc.placeDetailViewModel.checkclosure = {[weak self] status in
-            if status == "success" {
-                vc.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
-            }
-            else{
-                vc.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
-            }
-            vc.placeModel = place
-            self?.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-    
     
     //MARK: -- UI Methods
     func setupViews() {
@@ -192,7 +175,9 @@ extension HomeDetailPlacesVC:UICollectionViewDataSource {
 extension HomeDetailPlacesVC:UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let place = detailArr[indexPath.row]
-        self.checkVisit(placeId: place.id, place: place)
+        let vc = PlaceDetailVC()
+        vc.placeModel = place
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

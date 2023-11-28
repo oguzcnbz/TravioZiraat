@@ -122,20 +122,6 @@ class HomeVC: UIViewController {
         }
     }
     
-    func checkVisit(placeId: String, place:Place){
-        let vc = PlaceDetailVC()
-        vc.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
-        vc.placeDetailViewModel.checkclosure = {[weak self] status in
-            if status == "success" {
-                vc.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
-            }
-            else{
-                vc.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
-            }
-            vc.placeModel = place
-            self?.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
     
     //MARK: -- UI Methods
     func setupViews() {
@@ -258,13 +244,19 @@ extension HomeVC:UICollectionViewDelegate {
             var selectedPlace: Place
             if indexPath.section == 0 {
                 selectedPlace = populerArr[indexPath.row]
-                checkVisit(placeId: selectedPlace.id, place: selectedPlace)
+                let vc = PlaceDetailVC()
+                vc.placeModel = selectedPlace
+                self.navigationController?.pushViewController(vc, animated: true)
             } else if indexPath.section == 1 {
                 selectedPlace = lastArr[indexPath.row]
-                checkVisit(placeId: selectedPlace.id, place: selectedPlace)
+                let vc = PlaceDetailVC()
+                vc.placeModel = selectedPlace
+                self.navigationController?.pushViewController(vc, animated: true)
             } else {
                 selectedPlace = userArr[indexPath.row]
-                checkVisit(placeId: selectedPlace.id, place: selectedPlace)
+                let vc = PlaceDetailVC()
+                vc.placeModel = selectedPlace
+                self.navigationController?.pushViewController(vc, animated: true)
             }
         }
 }

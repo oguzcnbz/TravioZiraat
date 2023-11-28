@@ -58,21 +58,7 @@ class MyAddedPlacesVC: UIViewController {
         }
         collectionView.reloadData()
     }
-    
-    func checkVisit(placeId: String, place:Place){
-       
-        self.placeDetailVC.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
-        self.placeDetailVC.placeDetailViewModel.checkclosure = {[weak self] status in
-            if status == "success" {
-                self!.placeDetailVC.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
-            }
-            else{
-                self!.placeDetailVC.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
-            }
-            self!.placeDetailVC.placeModel = place
-            self?.navigationController?.pushViewController(self!.placeDetailVC, animated: true)
-        }
-    }
+
     
     func getData() {
         myAddedPlacesViewModel.myAddedPlacesGet()
@@ -161,8 +147,9 @@ extension MyAddedPlacesVC:UICollectionViewDataSource {
 extension MyAddedPlacesVC:UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let place = myAddedPlaces[indexPath.row]
-        print(place)
-        self.checkVisit(placeId: place.id, place: place)
+        let vc = PlaceDetailVC()
+        vc.placeModel = place
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

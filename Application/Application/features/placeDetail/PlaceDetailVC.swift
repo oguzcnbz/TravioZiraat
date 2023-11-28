@@ -14,7 +14,6 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
     var placeModel:Place?
     
     //MARK: -- Properties
-    var isPlaceSelected:Bool = false
     var imagesUrlArr: [String] = []
     
     //MARK: -- Views
@@ -168,7 +167,17 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         self.navigationController?.popViewController(animated: true)
         
     }
-    
+    func checkVisit(placeId: String){
+        placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
+        placeDetailViewModel.checkclosure = {[weak self] status in
+            if status == "success" {
+                self?.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
+            }
+            else{
+                self?.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
+            }
+        }
+    }
     //MARK: -- Life Cycles
     
     override func viewDidLoad() {
@@ -180,6 +189,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         getDataPlaceDetail()
         getImagesUrl()
         setupViews()
+        checkVisit(placeId: placeModel!.id)
     }
     //MARK: -- Component Actions
     func addPinsToMap(place: Place) {
