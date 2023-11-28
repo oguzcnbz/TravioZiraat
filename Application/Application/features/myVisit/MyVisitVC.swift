@@ -34,21 +34,6 @@ class MyVisitVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func checkVisit(placeId: String, place:Place){
-        let vc = PlaceDetailVC()
-        vc.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
-        vc.placeDetailViewModel.checkclosure = {[weak self] status in
-            if status == "success" {
-                vc.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
-            }
-            else{
-                vc.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
-            }
-            vc.placeModel = place
-            self?.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-    
     func getData() {
             visitViewModel.visitsGet()
             visitViewModel.transferData = { [weak self] () in
@@ -128,9 +113,9 @@ extension MyVisitVC:UICollectionViewDataSource {
 extension MyVisitVC:UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let place = visits[indexPath.row].place
-        print(place)
-        self.checkVisit(placeId: place.id, place: place)
-    }
+        let vc = PlaceDetailVC()
+        vc.placeModel = place
+        self.navigationController?.pushViewController(vc, animated: true)}
 }
 
 extension MyVisitVC {

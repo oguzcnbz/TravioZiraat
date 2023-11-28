@@ -64,21 +64,6 @@ class MapVC: UIViewController {
     
     // MARK: - Map Methods
     
-    func checkVisit(placeId: String, place:Place){
-        let vc = PlaceDetailVC()
-        vc.placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
-        vc.placeDetailViewModel.checkclosure = {[weak self] status in
-            if status == "success" {
-                vc.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
-            }
-            else{
-                vc.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
-            }
-            vc.placeModel = place
-            self?.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-    
     func addPinsToMap(array: [Place]) {
         for place in array {
             let location = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
@@ -196,7 +181,9 @@ extension MapVC: UICollectionViewDelegate {
             mapView.selectAnnotation(annotation, animated: true)
         }
         let place = places[indexPath.row]
-        self.checkVisit(placeId: place.id, place: place)
+        let vc = PlaceDetailVC()
+        vc.placeModel = place
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -221,6 +208,7 @@ extension MapVC :MKMapViewDelegate{
            let index = places.firstIndex(where: { $0.latitude == annotation.coordinate.latitude && $0.longitude == annotation.coordinate.longitude }) {
             let indexPath = IndexPath(item: index, section: 0)
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            
         }
     }
 }
