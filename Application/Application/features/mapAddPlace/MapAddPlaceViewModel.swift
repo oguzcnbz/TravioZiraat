@@ -11,24 +11,28 @@ class MapAddPlaceViewModel {
             let filterImg = imageArray.compactMap(({ $0 }))
             
             if filterImg.count > 0 {
-                let networkHelper = NetworkingHelper()
-                networkHelper.uploadImages(images: filterImg, path: "/upload") { result in
-                    
-                    if let imageUrls = result {
-                        print("Images uploaded successfully. URLs: \(imageUrls)")
-                        self.placeCreate(model: model, imgUrl: imageUrls.first!) { placeId in
-                            imageUrls.forEach({
-                                imgUrl in
-                                    self.galleryImageUrlAdd(placeId: placeId, imgUrl: imgUrl)
+
+                NetworkingHelper.shared.uplodImageFromRemote(urlRequest: .uploadImage(images: filterImg)) { (result:Result<UploadImageResponse,Error>)in
+                    switch result {
+                    case .success(let success):
+                       // print(success.message)
+                        if let imageUrls = success.urls {
+                            print("Images uploaded successfully. URLs: \(imageUrls)")
+                            self.placeCreate(model: model, imgUrl: imageUrls.first!) { placeId in
+                                imageUrls.forEach({
+                                    imgUrl in
+                                        self.galleryImageUrlAdd(placeId: placeId, imgUrl: imgUrl)
+                                    
+                                }
+                                )
+                                hasUploded()
                                 
-                            }
-                            )
-                            hasUploded()
-                            
-                             }
-                    } else {
-                        print("Image upload failed.")
+                                 }
+                        }
+                    case .failure(let failure):
+                        print(failure.localizedDescription)
                     }
+                    
                 }
             }
             changeLoading()
