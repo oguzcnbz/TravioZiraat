@@ -60,10 +60,14 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getHomeDatas()
-//        getPopulerPlaceData()
-//        getLastPlaceData ()
-//        getUserPlaceData ()
+
         setupViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        getUserPlaceData ()
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
     //MARK: -- Private Methods
