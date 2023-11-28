@@ -72,7 +72,7 @@ class MapAddPlaceVC: UIViewController {
     }()
     
     @objc func btnAddPlaceTapped() {
-        showLoadingIndicator()
+       // showLoadingIndicator()
         let placePostModel = PlacePostModel(place: countryCity.defaultTextField.text ?? "", title: placeName.defaultTextField.text ?? "", description: visitDescription.defaultTextView.text, coverImageURL: "", latitude: latitude ?? 0, longitude: longitude ?? 0)
         
         let filterImg = imageArray.compactMap(({ $0 }))

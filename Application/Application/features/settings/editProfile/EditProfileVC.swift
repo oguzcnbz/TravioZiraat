@@ -140,7 +140,7 @@ class EditProfileVC: UIViewController{
         }
         
         if  usernameStackView.defaultTextField.hasText,emailStackView.defaultTextField.hasText,photoView.image != defaultProfileImage {
-            showLoadingIndicator()
+            //showLoadingIndicator()
             if isImageChanged == true{
                 
                 editProfilViewModel.profileUploadImage(profileImg: self.photoView.image!,
