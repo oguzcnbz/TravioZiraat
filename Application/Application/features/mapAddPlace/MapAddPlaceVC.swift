@@ -72,6 +72,7 @@ class MapAddPlaceVC: UIViewController {
     }()
     
     @objc func btnAddPlaceTapped() {
+        showLoadingIndicator()
         let placePostModel = PlacePostModel(place: countryCity.defaultTextField.text ?? "", title: placeName.defaultTextField.text ?? "", description: visitDescription.defaultTextView.text, coverImageURL: "", latitude: latitude ?? 0, longitude: longitude ?? 0)
         
         let filterImg = imageArray.compactMap(({ $0 }))
@@ -91,10 +92,9 @@ class MapAddPlaceVC: UIViewController {
             mapAddPlaceViewModel.addPlace(imageArray: filterImg,model: placePostModel){
                 self.hasMapAdedclosure!()
             }
-           
+        
             self.dismiss(animated: true, completion: {
             })
-        
         }else{
             let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
             

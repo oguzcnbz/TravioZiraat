@@ -34,6 +34,9 @@ class HelpAndSupportVC: UIViewController {
         tw.register(HelpAndSupportCell.self, forCellReuseIdentifier: "HelpAndSupportCell")
         tw.dataSource = self
         tw.delegate = self
+        tw.layer.cornerRadius = 80
+        tw.layoutIfNeeded()
+        tw.layer.maskedCorners = [.layerMinXMinYCorner]
         return tw
     }()
     

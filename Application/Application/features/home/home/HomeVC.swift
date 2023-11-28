@@ -60,9 +60,6 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getHomeDatas()
-//        getPopulerPlaceData()
-//        getLastPlaceData ()
-//        getUserPlaceData ()
         setupViews()
     }
 
@@ -87,12 +84,6 @@ class HomeVC: UIViewController {
             print("hepsi yuklendi")
           //  self?.collectionView.reloadData()
         }
-      
-//        getPopulerPlaceData()
-//        getLastPlaceData ()
-//        getUserPlaceData ()
- 
-        
     }
     
     

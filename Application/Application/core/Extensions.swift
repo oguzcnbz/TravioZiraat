@@ -586,3 +586,34 @@ extension UIViewController {
         }
     }
 }
+
+
+extension UIViewController {
+    func showLoadingIndicator() {
+        let blurEffect = UIBlurEffect(style: .light)
+        let visualEffectView = UIVisualEffectView(effect: blurEffect)
+        
+        let loadingView = UIActivityIndicatorView(style: .large)
+        loadingView.color = ColorStyle.primary.color
+        loadingView.startAnimating()
+        
+        view.addSubviews(visualEffectView, loadingView)
+        
+        visualEffectView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        loadingView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
+    
+    func hideLoadingIndicator() {
+            for subview in view.subviews {
+                if subview is UIActivityIndicatorView || subview is UIVisualEffectView {
+                    subview.removeFromSuperview()
+                }
+            }
+        }
+    
+}

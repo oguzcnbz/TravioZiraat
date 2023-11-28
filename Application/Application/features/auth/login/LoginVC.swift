@@ -104,10 +104,9 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     @objc func btnLoginTapped() {
         guard let email = emailStackView.defaultTextField.text else {return}
         guard let password = passwordStackView.defaultTextField.text else {return}
-        
+        showLoadingIndicator()
         loginViewModel.setDelegate(output: self)
         loginViewModel.loginUser(email: email, password: password)
-        
     }
     
     private lazy var signButton: UIButton = {
@@ -130,7 +129,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
         setupViews()
-      
+       
     }
 
 //MARK: -- SetUpViews
