@@ -5,10 +5,13 @@ import TinyConstraints
 
 class LoginVC: UIViewController,LoginResponseDelegate {
 
+    //MARK: -- Properties
+
     private lazy var securitySettings: SecuritySettingsVC = {
         return SecuritySettingsVC()
     }()
     
+<<<<<<< HEAD
     func loginResponseGet(isLogin: Bool) {
     
         if isLogin == false {
@@ -39,8 +42,10 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     }
     
 //MARK: -- Views-StackViews
+=======
+    //MARK: -- Components
+>>>>>>> Sprint6/General
 
-    
     private lazy var mainStackView: DefaultMainStackView = {
         let sv = DefaultMainStackView()
         return sv
@@ -74,8 +79,6 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         return LoginViewModel()
     }()
     
-//MARK: -- Labels
-    
     private lazy var lblTitle: UILabel = {
         let lbl = UILabel()
         lbl.text = "Welcome to Travio"
@@ -94,22 +97,11 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         return lbl
     }()
     
-
-//MARK: -- Buttons
-    
     private lazy var buttonLogin: DefaultButton = {
         let btn = DefaultButton(title: "Login", background: .primary)
         btn.addTarget(self, action: #selector(btnLoginTapped), for: .touchUpInside)
         return btn
     }()
-    
-    @objc func btnLoginTapped() {
-        guard let email = emailStackView.defaultTextField.text else {return}
-        guard let password = passwordStackView.defaultTextField.text else {return}
-        showLoadingIndicator()
-        loginViewModel.setDelegate(output: self)
-        loginViewModel.loginUser(email: email, password: password)
-    }
     
     private lazy var signButton: UIButton = {
         let button = UIButton()
@@ -120,12 +112,54 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         return button
     }()
     
+    //MARK: -- Components Actions
+    
+    @objc func btnLoginTapped() {
+        guard let email = emailStackView.defaultTextField.text else {return}
+        guard let password = passwordStackView.defaultTextField.text else {return}
+        showLoadingIndicator()
+        loginViewModel.setDelegate(output: self)
+        loginViewModel.loginUser(email: email, password: password)
+    }
+    
     @objc func btnSignTapped() {
         let SignUpVC = SignUpVC()
         self.navigationController?.pushViewController(SignUpVC, animated: true)
     }
     
-//MARK: -- Loads
+    //MARK: -- Private Methods
+    
+    func loginResponseGet(isLogin: Bool) {
+        
+        if isLogin == false {
+            showAlert(title: "Giris Yapilamadi",message: "Bilgiler uyusmuyor")
+            hideLoadingIndicator()
+        }
+        if isLogin == true{
+            let vc = MainTabbar()
+            self.navigationController?.pushViewController(vc, animated: true)
+            securitySettings.requestCameraPermission()
+            securitySettings.requestLibraryPermission()
+            securitySettings.requestLocationPermission()
+            hideLoadingIndicator()
+        }
+        
+    }
+    
+    func showAlert(title:String,message:String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let btnCancel = UIAlertAction(title: "Vazgeç", style: .destructive)
+        let btnRetry = UIAlertAction(title: "Yeniden Dene", style: .default, handler: { action in
+        self.showAlert(title: "Hata", message: "Yine olmadı")
+        })
+        
+        alert.addAction(btnCancel)
+        alert.addAction(btnRetry)
+        self.present(alert, animated: true)
+    }
+    
+//MARK: -- Life Cycles
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,7 +168,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
        
     }
 
-//MARK: -- SetUpViews
+//MARK: -- Setup
     
     private func setupViews() {
         self.view.backgroundColor = ColorStyle.primary.color

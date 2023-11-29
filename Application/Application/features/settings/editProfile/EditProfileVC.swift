@@ -6,7 +6,8 @@ import Kingfisher
 
 class EditProfileVC: UIViewController{
     
-    //MARK: -- Properties
+    // MARK: -- Properties
+    
     lazy var editProfilViewModel: EditProfileViewModel = {
         return EditProfileViewModel()
     }()
@@ -14,8 +15,9 @@ class EditProfileVC: UIViewController{
     var profilModel:ProfileModel?
     var isImageChanged = false
     weak var delegate: PreviousPageDelegate?
+    let profileImageViewWidth: CGFloat = 120
     
-    //MARK: -- Views
+    //MARK: -- Components
     
     private lazy var scrollView: UIScrollView = {
         let sv = UIScrollView()
@@ -45,7 +47,6 @@ class EditProfileVC: UIViewController{
         return sv
     }()
     
-    let profileImageViewWidth: CGFloat = 120
     private lazy var photoView:UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "DefaultProfileImage")!.withRenderingMode(.alwaysOriginal)
@@ -68,7 +69,6 @@ class EditProfileVC: UIViewController{
         btn.setTitleColor(ColorStyle.blueRaspberry.color, for: .normal)
         btn.addTarget(self, action: #selector(changePhotofunc), for: .touchUpInside)
         btn.contentEdgeInsets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
-        
         return btn
     }()
     
@@ -105,7 +105,6 @@ class EditProfileVC: UIViewController{
         btn.addTarget(self, action: #selector(btnProfilTapped), for: .touchUpInside)
         return btn
     }()
-   
 
     
     //MARK: -- Life Cycles
@@ -224,7 +223,7 @@ class EditProfileVC: UIViewController{
         present(alert, animated: true, completion: nil)
     }
     
-    //MARK: -- UI Methods
+    //MARK: -- Setup
     func setupViews() {
        
         self.view.backgroundColor = ColorStyle.primary.color
@@ -241,6 +240,8 @@ class EditProfileVC: UIViewController{
         setupLayout()
     }
     
+    //MARK: -- Layout
+
     func setupLayout() {
         
         scrollView.snp.makeConstraints { v in
@@ -255,7 +256,7 @@ class EditProfileVC: UIViewController{
             v.trailing.equalToSuperview()
             v.bottom.equalToSuperview()
             v.top.equalToSuperview()
-                  v.height.equalTo(700)
+            v.height.equalTo(700)
         }
         
         photoView.snp.makeConstraints({imgv in
@@ -341,6 +342,8 @@ class EditProfileVC: UIViewController{
         }
     }
 }
+
+//MARK: -- Extensions
 
 extension EditProfileVC {
     private func CsTxtLabel(title:String) ->UILabel{

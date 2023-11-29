@@ -5,29 +5,7 @@ import IQKeyboardManagerSwift
 
 class SignUpVC: UIViewController,SignUpResponseDelegate {
     
-    func signUpResponseGet(isSignUp: Bool, message: String) {
-        hideLoadingIndicator()
-            
-            if isSignUp == false {
-                                    showAlert(title: "Registration Failed", message: message)
-            }
-            if isSignUp == true {
-                
-                let vc = MainTabbar()
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-        }
-
-    
-    func showAlert(title:String,message:String) {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let btnCancel = UIAlertAction(title: "Vazgeç", style: .destructive)
-        alert.addAction(btnCancel)
-        self.present(alert, animated: true)
-    }
-    
-    //MARK: -- Views
+    //MARK: -- Components
     
     private lazy var mainStackView: DefaultMainStackView = {
         let sv = DefaultMainStackView()
@@ -56,13 +34,10 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
         return sv
     }()
     
-    
     lazy var SignUpViewModel: SignUpViewModel = {
         return Application.SignUpViewModel()
     }()
-    
-    //MARK: -- Labels
-    
+        
     private lazy var lblSignUp: UILabel = {
         let lbl = UILabel()
         lbl.textColor = ColorStyle.white.color
@@ -72,14 +47,14 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
         return lbl
     }()
     
-    //MARK: -- Buttons
-    
     private lazy var buttonLogin: DefaultButton = {
         let btn = DefaultButton(title: "Sign Up", background: .greySpanish)
         btn.addTarget(self, action: #selector(btnSignTapped), for: .touchUpInside)
         return btn
     }()
     
+    //MARK: -- Component Actions
+
     @objc func btnSignTapped() {
         if updateSignUpButtonState(){
             showLoadingIndicator()
@@ -92,7 +67,31 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     
-    //MARK: -- Loads
+    //MARK: -- Private Methods
+    
+    func signUpResponseGet(isSignUp: Bool, message: String) {
+        hideLoadingIndicator()
+            
+            if isSignUp == false {
+                                    showAlert(title: "Registration Failed", message: message)
+            }
+            if isSignUp == true {
+                
+                let vc = MainTabbar()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+
+    
+    func showAlert(title:String,message:String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let btnCancel = UIAlertAction(title: "Vazgeç", style: .destructive)
+        alert.addAction(btnCancel)
+        self.present(alert, animated: true)
+    }
+    
+    //MARK: -- Life Cycles
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,7 +99,7 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
         setupViews()
     }
     
-    //MARK: -- SetUpView
+    //MARK: -- Setup
     
     private func setupViews() {
         self.view.backgroundColor = ColorStyle.primary.color
@@ -168,7 +167,6 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
         }
     }
 }
-
 
 //MARK: -- Extensions
 

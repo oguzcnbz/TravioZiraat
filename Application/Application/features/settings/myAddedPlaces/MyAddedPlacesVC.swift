@@ -4,13 +4,14 @@ import SnapKit
 
 
 class MyAddedPlacesVC: UIViewController {
-    let placeDetailVC = PlaceDetailVC()
-    var myAddedPlaces: [Place] = []
-
+   
     //MARK: -- Properties
     
+    let placeDetailVC = PlaceDetailVC()
+    var myAddedPlaces: [Place] = []
     lazy var myAddedPlacesViewModel: MyAddedPlacesViewModel = MyAddedPlacesViewModel()
     
+    //MARK: -- Components
     private lazy var collectionView:UICollectionView = {
        
         let lay = makeCollectionViewLayout()
@@ -47,6 +48,8 @@ class MyAddedPlacesVC: UIViewController {
         return b
     }()
     
+    //MARK: -- Components Actions
+    
     @objc func btnSortTapped() {
         if sortButton.currentImage == UIImage(named: "sortAZ") {
             myAddedPlaces.sort { $0.title < $1.title }
@@ -60,21 +63,21 @@ class MyAddedPlacesVC: UIViewController {
     }
 
     
+    @objc func rightbartapped(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: -- Private Methods
+    
     func getData() {
         myAddedPlacesViewModel.myAddedPlacesGet()
         myAddedPlacesViewModel.transferData = { [weak self] () in
             let obj = self?.myAddedPlacesViewModel.myaddedplaces
                 self?.myAddedPlaces = obj ?? []
                 self?.collectionView.reloadData()
-        
             }
-       
         }
 
-    @objc func rightbartapped(){
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +86,8 @@ class MyAddedPlacesVC: UIViewController {
     }
     
     
-    //MARK: -- UI Methods
+    //MARK: -- Setup
+    
     func setupViews() {
         self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubview(mainStackView)
@@ -97,7 +101,8 @@ class MyAddedPlacesVC: UIViewController {
         setupLayout()
 
     }
-  
+    
+    //MARK: -- Layout
     func setupLayout() {
         
         mainStackView.snp.makeConstraints { v in
@@ -124,6 +129,7 @@ class MyAddedPlacesVC: UIViewController {
   
 }
 
+//MARK: -- Extensions
 
 extension MyAddedPlacesVC:UICollectionViewDataSource {
     

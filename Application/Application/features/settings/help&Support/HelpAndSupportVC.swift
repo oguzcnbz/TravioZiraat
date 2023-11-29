@@ -6,6 +6,7 @@ class HelpAndSupportVC: UIViewController {
     var cells:[HelpAndSupportModel] = []
    var helpSupportModel = HelpSupportViewModel()
     
+    //MARK: -- Components
     
     private lazy var mainStackView: DefaultMainStackView = {
         let sv = DefaultMainStackView()
@@ -17,14 +18,12 @@ class HelpAndSupportVC: UIViewController {
         lbl.text = "FAQ"
         lbl.textColor = ColorStyle.primary.color
         lbl.font = FontStyle.h4.font
-        
         return lbl
     }()
     
     private lazy var tableView:UITableView = {
         let tw = UITableView()
         tw.backgroundColor = .clear
-        tw.translatesAutoresizingMaskIntoConstraints = false
         tw.separatorStyle = .none
         tw.register(HelpAndSupportCell.self, forCellReuseIdentifier: "HelpAndSupportCell")
         tw.dataSource = self
@@ -36,6 +35,7 @@ class HelpAndSupportVC: UIViewController {
     }()
     
    
+    //MARK: -- Life Cycles
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +46,8 @@ class HelpAndSupportVC: UIViewController {
 
     }
 
+    //MARK: -- Setup
+    
     func setupViews() {
         self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubview(mainStackView)
@@ -60,6 +62,9 @@ class HelpAndSupportVC: UIViewController {
         
         setupLayout()
     }
+    
+    //MARK: -- Layout
+    
       func setupLayout(){
           
           mainStackView.snp.makeConstraints { v in
@@ -83,6 +88,8 @@ class HelpAndSupportVC: UIViewController {
 
         }
 }
+
+//MARK: -- Extensions
 
 extension HelpAndSupportVC: UITableViewDataSource {
     

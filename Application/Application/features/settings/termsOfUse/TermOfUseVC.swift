@@ -7,6 +7,8 @@ import WebKit
 
 class TermOfUseVC: UIViewController {
     
+    //MARK: -- Components
+    
     private lazy var mainStackView:DefaultMainStackView = {
         let sv = DefaultMainStackView()
         return sv
@@ -22,11 +24,15 @@ class TermOfUseVC: UIViewController {
         return webView
     }()
     
+    //MARK: -- Life Cycles
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         loadWebViewContent()
     }
+    
+    //MARK: -- Private Methods
     
     func loadWebViewContent() {
            if let url = URL(string: "https://api.iosclass.live/terms") {
@@ -35,6 +41,8 @@ class TermOfUseVC: UIViewController {
            }
        }
     
+    //MARK: -- Setup
+    
     func setupViews() {
         self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubviews(mainStackView)
@@ -42,6 +50,8 @@ class TermOfUseVC: UIViewController {
         setupLayout()
         setNavigationItems(leftBarButton: true, rightBarButton: nil, title: "Term Of Use")
     }
+    
+    //MARK: -- Layout
     
     func setupLayout() {
         mainStackView.snp.makeConstraints { v in
@@ -60,6 +70,8 @@ class TermOfUseVC: UIViewController {
         }
     }
 }
+
+//MARK: -- Extensions
 
 extension TermOfUseVC: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

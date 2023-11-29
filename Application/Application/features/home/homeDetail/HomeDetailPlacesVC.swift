@@ -5,16 +5,18 @@ import SnapKit
 
 class HomeDetailPlacesVC: UIViewController {
     
-    var titleHeader: String?
-    var detailArr: [Place] = []
-
     //MARK: -- Properties
+    
     lazy var homeViewModel: HomeViewModel = {
         return HomeViewModel()
     }()
-   
+    
+    var titleHeader: String?
+    var detailArr: [Place] = []
+    
+    //MARK: -- Components
     private lazy var collectionView:UICollectionView = {
-       
+        
         let lay = makeCollectionViewLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: lay)
         
@@ -49,19 +51,50 @@ class HomeDetailPlacesVC: UIViewController {
         return b
     }()
     
+    //MARK: -- Component Actions
+    
     @objc func btnSortTapped() {
         if sortButton.currentImage == UIImage(named: "sortSB") {
-            detailArr.sort { $0.title ?? "" < $1.title ?? "" }
+            detailArr.sort { $0.title < $1.title }
             sortButton.setImage(UIImage(named: "sortBS"), for: .normal)
             
         } else {
             
-            detailArr.sort { $0.title ?? "" > $1.title ?? "" }
+            detailArr.sort { $0.title > $1.title }
             sortButton.setImage(UIImage(named: "sortSB"), for: .normal)
         }
         collectionView.reloadData()
     }
-
+    
+    //MARK: -- Private Methods
+    
+    private func getDetail (){
+        if titleHeader == "Populer Place" {
+            homeViewModel.getPopulerPlace()
+            homeViewModel.transferPopulerData = { [weak self] () in
+                let obj = self?.homeViewModel.populerPlace
+                self?.detailArr = obj ?? []
+                self?.collectionView.reloadData()
+            }
+            
+        }else if titleHeader == "Last Place"  {
+            homeViewModel.getLastPlace()
+            homeViewModel.transferLastData = { [weak self] () in
+                let obj = self?.homeViewModel.lastPlace
+                self?.detailArr = obj ?? []
+                self?.collectionView.reloadData()
+            }
+            
+        }else {
+            homeViewModel.getUserPlace()
+            homeViewModel.transferUserData = { [weak self] () in
+                let obj = self?.homeViewModel.userPlace
+                self?.detailArr = obj ?? []
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+    
     //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +107,7 @@ class HomeDetailPlacesVC: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    //MARK: -- UI Methods
+    //MARK: -- Setup
     func setupViews() {
         self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubview(mainStackView)
@@ -93,39 +126,6 @@ class HomeDetailPlacesVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    private func getDetail (){
-        if titleHeader == "Populer Place" { 
-            homeViewModel.getPopulerPlace()
-            homeViewModel.transferPopulerData = { [weak self] () in
-                let obj = self?.homeViewModel.populerPlace
-                self?.detailArr = obj ?? []
-                print(self?.detailArr.count)
-                print("======")
-                self?.collectionView.reloadData()
-            }
-            
-        }else if titleHeader == "Last Place"  {
-            homeViewModel.getLastPlace()
-            homeViewModel.transferLastData = { [weak self] () in
-                let obj = self?.homeViewModel.lastPlace
-                self?.detailArr = obj ?? []
-                print(self?.detailArr.count)
-                print("======")
-                self?.collectionView.reloadData()
-            }
-            
-        }else {
-            homeViewModel.getUserPlace()
-            homeViewModel.transferUserData = { [weak self] () in
-                let obj = self?.homeViewModel.userPlace
-                self?.detailArr = obj ?? []
-                print(self?.detailArr.count)
-                print("======")
-                self?.collectionView.reloadData()
-            }
-        }
-    }
-
     
     func setupLayout() {
         
@@ -152,6 +152,7 @@ class HomeDetailPlacesVC: UIViewController {
     }
 }
 
+//MARK: -- Extensions
 
 extension HomeDetailPlacesVC:UICollectionViewDataSource {
     

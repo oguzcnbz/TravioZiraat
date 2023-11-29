@@ -18,9 +18,7 @@ class HomeVC: UIViewController {
     private  let group = DispatchGroup()
     private let queue = DispatchQueue.global()
     
-    
-    
-    //MARK: -- Views
+    //MARK: -- Components
     
     private lazy var containerView:UIView = {
         let v = UIView()
@@ -30,13 +28,12 @@ class HomeVC: UIViewController {
         v.layer.maskedCorners = [.layerMinXMinYCorner]
         return v
     }()
+    
     private lazy var logoImageView:UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.image = #imageLiteral(resourceName: "homeLogo")
         return iv
-        
-        
     }()
 
     private lazy var collectionView:UICollectionView = {
@@ -88,8 +85,6 @@ class HomeVC: UIViewController {
             self.group.leave()
         }
         group.notify(queue: queue){
-            print("hepsi yuklendi")
-          //  self?.collectionView.reloadData()
         }
     }
     
@@ -123,13 +118,16 @@ class HomeVC: UIViewController {
     }
     
     
-    //MARK: -- UI Methods
+    //MARK: -- Setup
+    
     func setupViews() {
         self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubviews(logoImageView,containerView)
         containerView.addSubview(collectionView)
         setupLayout()
     }
+    
+    //MARK: -- Layout
     
     func setupLayout() {
        
@@ -149,6 +147,7 @@ class HomeVC: UIViewController {
     }
 }
 
+//MARK: -- Extensions
 
 extension HomeVC:UICollectionViewDataSource {
     
@@ -294,18 +293,3 @@ extension HomeVC {
     }
 }
 
-
-
-
-
-#if DEBUG
-import SwiftUI
-
-@available(iOS 13, *)
-struct HomeVCVC_Preview: PreviewProvider {
-    static var previews: some View{
-         
-        HomeVC().showPreview()
-    }
-}
-#endif

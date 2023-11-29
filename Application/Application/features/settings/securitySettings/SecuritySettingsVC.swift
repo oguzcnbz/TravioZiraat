@@ -8,6 +8,8 @@ import CoreLocation
 
 class SecuritySettingsVC: UIViewController {
     
+    //MARK: -- Properties
+
     var cameraPermissionStatus = AVCaptureDevice.authorizationStatus(for: .video)
     var libraryPermissionStatus = PHPhotoLibrary.authorizationStatus()
     var locationPermissionStatus = CLLocationManager.authorizationStatus()
@@ -19,6 +21,8 @@ class SecuritySettingsVC: UIViewController {
     
     lazy var securitySettingsViewModel: SecuritySettingsViewModel = SecuritySettingsViewModel()
     
+    //MARK: -- Components
+
     private lazy var scrollView: UIScrollView = {
         let sv = UIScrollView()
         sv.backgroundColor =  ColorStyle.background.color
@@ -84,6 +88,8 @@ class SecuritySettingsVC: UIViewController {
         return btn
     }()
     
+    //MARK: -- Components Actions
+
     @objc func cameraChanged(_ sender: UISwitch){
         if sender.isOn {
             requestCameraPermission()
@@ -138,6 +144,8 @@ class SecuritySettingsVC: UIViewController {
         hideLoadingIndicator()
     }
     
+    //MARK: -- Life Cycles
+
     override func viewDidLoad() {
         super.viewDidLoad()
        setupViews()
@@ -148,6 +156,8 @@ class SecuritySettingsVC: UIViewController {
         super.viewWillAppear(true)
         checkPermissionStatus()
     }
+    
+    //MARK: -- Setup
     
     func setupViews() {
         self.view.backgroundColor = ColorStyle.primary.color
@@ -161,6 +171,8 @@ class SecuritySettingsVC: UIViewController {
         setNavigationItems(leftBarButton: true, rightBarButton: nil, title: "Security Settings")
     }
     
+    //MARK: -- Layout
+
     func setupLayout() {
         
         scrollView.snp.makeConstraints { v in
@@ -170,16 +182,15 @@ class SecuritySettingsVC: UIViewController {
             v.height.equalToSuperview().multipliedBy(0.82)
            }
 
+        mainStackView.snp.makeConstraints { v in
+           v.width.equalToSuperview()
+           v.leading.equalToSuperview()
+           v.trailing.equalToSuperview()
+           v.bottom.equalToSuperview()
+           v.top.equalToSuperview()
+           v.height.equalTo(760)
 
-           mainStackView.snp.makeConstraints { v in
-               v.width.equalToSuperview()
-               v.leading.equalToSuperview()
-               v.trailing.equalToSuperview()
-               v.bottom.equalToSuperview()
-               v.top.equalToSuperview()
-               v.height.equalTo(760)
-
-           }
+        }
         
         changePassLbl.snp.makeConstraints({lbl in
             lbl.top.equalToSuperview().offset(44)
@@ -240,6 +251,8 @@ class SecuritySettingsVC: UIViewController {
     }
 }
 
+//MARK: -- Extensions
+
 extension SecuritySettingsVC {
     
      func requestCameraPermission() {
@@ -252,10 +265,8 @@ extension SecuritySettingsVC {
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 if granted{
-                    print("Kamera izni verildi.")
                     self.cameraSV.toggleSwitch.isOn = true
                 }else{
-                    print("Kamera izni reddedildi.")
                     self.cameraSV.toggleSwitch.isOn = false
                 }
             }
@@ -264,11 +275,10 @@ extension SecuritySettingsVC {
         }
     }
     
-    
      func requestLibraryPermission() {
        
         switch libraryPermissionStatus {
-        case .authorized:
+        case .authorized,.limited:
             self.librarySV.toggleSwitch.isOn = true
         case .denied, .restricted:
             showPermissionAlert(title: "Library Permission Required", message: "Please enable access to your photo library in settings to use this feature.", toggleSender: librarySV.toggleSwitch)
@@ -276,10 +286,8 @@ extension SecuritySettingsVC {
             PHPhotoLibrary.requestAuthorization { status in
                 DispatchQueue.main.async {
                     if status == .authorized {
-                        print("Library izni verildi.")
                         self.librarySV.toggleSwitch.isOn = true
                     } else {
-                        print("Library izni reddedildi.")
                         self.librarySV.toggleSwitch.isOn = false
                     }
                 }
