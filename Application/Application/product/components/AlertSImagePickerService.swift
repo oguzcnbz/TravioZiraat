@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AlertService {
+class AlertSImagePicker {
     
     static func showAlert(style: UIAlertController.Style, title: String?, message: String?, actions: [UIAlertAction] = [UIAlertAction(title: "Ok", style: .cancel, handler: nil)], completion: (() -> Swift.Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)
@@ -26,7 +26,11 @@ class AlertService {
 }
 
 extension UIApplication {
-    class func getTopMostViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+    class func getTopMostViewController(base: UIViewController? = UIApplication.shared.connectedScenes
+                                        .compactMap { $0 as? UIWindowScene }
+                                        .flatMap { $0.windows }
+                                        .first(where: { $0.isKeyWindow })?.rootViewController) -> UIViewController? {
+        
         if let nav = base as? UINavigationController {
             return getTopMostViewController(base: nav.visibleViewController)
         }

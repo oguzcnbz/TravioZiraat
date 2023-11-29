@@ -63,9 +63,7 @@ class MapVC: UIViewController {
             
             let mapAddPlaceVC = MapAddPlaceVC()
             CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
-                if let error = error {
-                    print("Hata: \(error)")
-                } else if let placemark = placemarks?.first {
+                 if let placemark = placemarks?.first {
                     if let country = placemark.country, let city = placemark.locality {
                         let address = "\(country), \(city)"
                                            
@@ -96,7 +94,6 @@ class MapVC: UIViewController {
                 self?.places = obj ?? []
                 self?.collectionView.reloadData()
                 self?.addPinsToMap(array: self!.places)
-                print("pin ekledi")
             }
     }
     

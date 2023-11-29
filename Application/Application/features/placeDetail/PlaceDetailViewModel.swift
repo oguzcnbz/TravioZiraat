@@ -18,12 +18,11 @@ class PlaceDetailViewModel {
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .placeDetailGetGalleryImages(placeId: placeId)) {(result: Result<PlaceDetailImagesURLModel, Error>) in
             switch result {
             case .success(let obj):
-                var  imagesArr = obj.data.images
+                let  imagesArr = obj.data.images
                 imagesArr.forEach({item in
                     imagesUrl.append(item.imageURL)
                     
                 })
-                print("images \(imagesUrl)")
                 self.delegate?.placeDetailResponseGet(imageArr: imagesUrl)
                 
             case .failure(let error):
@@ -35,7 +34,7 @@ class PlaceDetailViewModel {
     func visitPost(placeId:String?,visitedAt:String?){
         
        let params = ["place_id": placeId, "visited_at": visitedAt]
-        // Convert the params dictionary to Parameters (Dictionary<String, Any>)
+      
         let parameters: [String: Any] = params.compactMapValues { $0 }
         
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitPost(params: parameters), callback: { (result:Result<Response,Error>) in
@@ -43,7 +42,7 @@ class PlaceDetailViewModel {
             case .success(let obj):
                 print(obj.message)
             case .failure(let err):
-                print(err.localizedDescription)
+                     print(err.localizedDescription)
         
             }
         })

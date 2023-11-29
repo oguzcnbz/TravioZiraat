@@ -12,10 +12,11 @@ class SecuritySettingsVC: UIViewController {
 
     var cameraPermissionStatus = AVCaptureDevice.authorizationStatus(for: .video)
     var libraryPermissionStatus = PHPhotoLibrary.authorizationStatus()
-    var locationPermissionStatus = CLLocationManager.authorizationStatus()
+    var locationPermissionStatus: CLAuthorizationStatus = .notDetermined
 
-    private lazy var locationManager:CLLocationManager = {
+    private lazy var locationManager: CLLocationManager = {
         let location = CLLocationManager()
+        location.delegate = self
         return location
     }()
     
@@ -361,4 +362,10 @@ extension SecuritySettingsVC {
                 librarySV.toggleSwitch.isOn = false
             }
         }
+}
+
+extension SecuritySettingsVC: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        locationPermissionStatus = status
+    }
 }

@@ -34,7 +34,6 @@ class SignUpViewModel {
             case .success(let success):
                 let status = success.status
                 let isSuccess = (status == "success")
-                print("is success \(isSuccess)")
                 
                 lazy var loginViewModel: LoginViewModel = LoginViewModel()
                 self.delegate?.signUpResponseGet(isSignUp: isSuccess, message: success.message)
@@ -66,9 +65,6 @@ class SignUpViewModel {
     }
     func changeLoading() {
         isLoading = !isLoading
-        if isLoading == true {
-            print("ikinci tiklama")
-        }
     }
 
 }
