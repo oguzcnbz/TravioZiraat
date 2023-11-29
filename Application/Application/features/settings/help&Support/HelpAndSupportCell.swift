@@ -13,7 +13,6 @@ class HelpAndSupportCell: UITableViewCell {
         v.layer.shadowRadius = 20
         v.layer.cornerRadius = 16
         v.layer.masksToBounds = false
-        v.translatesAutoresizingMaskIntoConstraints = false
         v.distribution = .fill
         v.alignment = .fill
         v.axis = .vertical
@@ -25,7 +24,6 @@ class HelpAndSupportCell: UITableViewCell {
     
     let mainStackView: UIStackView = {
         let sv = UIStackView()
-        sv.translatesAutoresizingMaskIntoConstraints = false
         sv.distribution = .fill
         sv.alignment = .center
         sv.spacing = 41
@@ -37,14 +35,12 @@ class HelpAndSupportCell: UITableViewCell {
         lbl.font = FontStyle.sh3.font
         lbl.textColor = ColorStyle.blackRaven.color
         lbl.numberOfLines = 0
-        lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.setContentHuggingPriority(.init(rawValue: 200), for: .horizontal)
         return lbl
     }()
     
     private lazy var vector:UIImageView = {
         let img = UIImageView()
-        img.translatesAutoresizingMaskIntoConstraints = false
         img.image = UIImage(named: "arrowGreenDown")?.withRenderingMode(.alwaysTemplate)
         img.tintColor = ColorStyle.primary.color
       
@@ -53,7 +49,6 @@ class HelpAndSupportCell: UITableViewCell {
     
     let expandableView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.isHidden = true
 
         return view
@@ -63,7 +58,6 @@ class HelpAndSupportCell: UITableViewCell {
         let lbl = UILabel()
         lbl.font = FontStyle.lt4.font
         lbl.textColor = ColorStyle.blackRaven.color
-        lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.numberOfLines = 0
         lbl.textAlignment = .left
         return lbl
@@ -117,14 +111,3 @@ class HelpAndSupportCell: UITableViewCell {
         super.init(coder: coder)
     }
 }
-#if DEBUG
-import SwiftUI
-
-@available(iOS 13, *)
-struct HelpAndSupportVC_Preview: PreviewProvider {
-    static var previews: some View{
-         
-        HelpAndSupportVC().showPreview()
-    }
-}
-#endif

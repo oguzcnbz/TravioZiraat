@@ -3,7 +3,8 @@ import SnapKit
 
 class HelpAndSupportVC: UIViewController {
     
-
+    //MARK: -- Properties
+    
     var cells:[HelpAndSupportModel] = [HelpAndSupportModel(questionLbl: "How can I create a new account on Travio?", answerLbl: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
                                        HelpAndSupportModel(questionLbl: "How can I create a new account on Travio?", answerLbl: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
                                        HelpAndSupportModel(questionLbl: "How does Travio work?", answerLbl: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
@@ -11,6 +12,7 @@ class HelpAndSupportVC: UIViewController {
                                        HelpAndSupportModel(questionLbl: "How does Travio work?", answerLbl: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
                                        HelpAndSupportModel(questionLbl: "How does Travio work?", answerLbl: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")]
     
+    //MARK: -- Components
     
     private lazy var mainStackView: DefaultMainStackView = {
         let sv = DefaultMainStackView()
@@ -22,14 +24,12 @@ class HelpAndSupportVC: UIViewController {
         lbl.text = "FAQ"
         lbl.textColor = ColorStyle.primary.color
         lbl.font = FontStyle.h4.font
-        
         return lbl
     }()
     
     private lazy var tableView:UITableView = {
         let tw = UITableView()
         tw.backgroundColor = .clear
-        tw.translatesAutoresizingMaskIntoConstraints = false
         tw.separatorStyle = .none
         tw.register(HelpAndSupportCell.self, forCellReuseIdentifier: "HelpAndSupportCell")
         tw.dataSource = self
@@ -41,13 +41,15 @@ class HelpAndSupportVC: UIViewController {
     }()
     
    
+    //MARK: -- Life Cycles
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       setupViews()
-
+        setupViews()
     }
 
+    //MARK: -- Setup
+    
     func setupViews() {
         self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubview(mainStackView)
@@ -62,6 +64,9 @@ class HelpAndSupportVC: UIViewController {
         
         setupLayout()
     }
+    
+    //MARK: -- Layout
+    
       func setupLayout(){
           
           mainStackView.snp.makeConstraints { v in
@@ -85,6 +90,8 @@ class HelpAndSupportVC: UIViewController {
 
         }
 }
+
+//MARK: -- Extensions
 
 extension HelpAndSupportVC: UITableViewDataSource {
     

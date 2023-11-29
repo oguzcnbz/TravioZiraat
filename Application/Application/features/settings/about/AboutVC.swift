@@ -1,10 +1,12 @@
-
 import UIKit
 import TinyConstraints
 import SnapKit
 import WebKit
 
+
 class AboutVC: UIViewController {
+    
+    //MARK: -- Components
     
     private lazy var mainStackView:DefaultMainStackView = {
         let sv = DefaultMainStackView()
@@ -21,18 +23,25 @@ class AboutVC: UIViewController {
         return webView
     }()
         
+    //MARK: -- Life Cycles
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         loadWebViewContent()
     }
     
+    //MARK: -- Private Methods
+    
     func loadWebViewContent() {
-           if let url = URL(string: "https://api.iosclass.live/about") {
-               let request = URLRequest(url: url)
-               webView.load(request)
-           }
+       if let url = URL(string: "https://api.iosclass.live/about") {
+           let request = URLRequest(url: url)
+           webView.load(request)
        }
+   }
+    
+    //MARK: -- Setup
+    
     func setupViews() {
         self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubviews(mainStackView)
@@ -40,6 +49,8 @@ class AboutVC: UIViewController {
         setupLayout()
         setNavigationItems(leftBarButton: true, rightBarButton: nil, title: "About Us")
     }
+    
+    //MARK: -- Layout
     
     func setupLayout() {
         mainStackView.snp.makeConstraints { v in
@@ -58,6 +69,8 @@ class AboutVC: UIViewController {
         }
     }
 }
+
+//MARK: -- Extensions
 
 extension AboutVC: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

@@ -5,6 +5,8 @@ import Kingfisher
 
 class PlaceDetailCell: UICollectionViewCell {
     
+    //MARK: -- Components
+
     private lazy var gradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
         let startColor = ColorStyle.darkcharcoal.color!.withAlphaComponent(0)
@@ -13,7 +15,7 @@ class PlaceDetailCell: UICollectionViewCell {
         gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
         return gradientLayer
-       }()
+    }()
     
     private lazy var imgPlace:UIImageView = {
         let iv = UIImageView()
@@ -21,23 +23,33 @@ class PlaceDetailCell: UICollectionViewCell {
         return iv
     }()
     
+    // MARK: -- Initialization
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: -- Private Methods
     
     public func configure(object:String){
        let url = URL(string: object)
         imgPlace.kf.setImage(with: url)
     }
     
+    //MARK: -- ViewSetup
     private func setupViews(){
         self.contentView.addSubviews(imgPlace)
         imgPlace.layer.addSublayer(gradientLayer)
         setupLayout()
     }
     
+    //MARK: -- ViewLayout
     private func setupLayout(){
+        
         gradientLayer.frame = self.contentView.bounds
 
         imgPlace.snp.makeConstraints({ imgv in
@@ -48,9 +60,4 @@ class PlaceDetailCell: UICollectionViewCell {
             
         })
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }

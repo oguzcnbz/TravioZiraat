@@ -5,9 +5,12 @@ import SnapKit
 
 class MyVisitVC: UIViewController {
     
+    // MARK: -- Properties
+    
     var visits: [MyVisits] = []
-
     lazy var visitViewModel: MyVisitsViewModel = MyVisitsViewModel()
+    
+    // MARK: -- Components
     
     private lazy var mainView: DefaultMainStackView = {
         let sv = DefaultMainStackView()
@@ -26,13 +29,10 @@ class MyVisitVC: UIViewController {
         cv.layer.maskedCorners = [.layerMinXMinYCorner]
         cv.dataSource = self
         cv.delegate = self
-
         return cv
     }()
-
-    @objc func backButtonTapped(){
-        self.navigationController?.popViewController(animated: true)
-    }
+    
+    // MARK: -- Private Methods
     
     func getData() {
             visitViewModel.visitsGet()
@@ -42,6 +42,8 @@ class MyVisitVC: UIViewController {
                 self?.collectionView.reloadData()
             }
         }
+    
+    // MARK: -- Life Cycles
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -55,6 +57,8 @@ class MyVisitVC: UIViewController {
         setupViews()
     }
     
+    // MARK: -- View Setup
+    
     private func setupViews(){
         self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubviews(mainView)
@@ -65,10 +69,10 @@ class MyVisitVC: UIViewController {
         navigationController?.navigationBar.isTranslucent = true
        
         setNavigationItems(leftBarButton: false, rightBarButton: nil, title: "My Visits")
-        
         setupLayout()
-        
     }
+    
+    // MARK: -- View Layout
     
     private func setupLayout(){
         
@@ -89,7 +93,7 @@ class MyVisitVC: UIViewController {
     }
 }
 
-
+// MARK: -- Extension
 extension MyVisitVC:UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

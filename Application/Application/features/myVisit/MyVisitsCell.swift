@@ -3,16 +3,19 @@ import SnapKit
 
 
 class MyVisitsCell: UICollectionViewCell {
+    
+    //MARK: -- Properties
 
     var closure:(()->Void)?
     
+    //MARK: -- Components
+
     private lazy var imgPlace: UIImageView = {
         let iv = UIImageView()
         iv.layer.cornerRadius = 16
         iv.layer.masksToBounds = true
         return iv
     }()
-    
     
     private lazy var gradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
@@ -23,7 +26,6 @@ class MyVisitsCell: UICollectionViewCell {
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
         return gradientLayer
     }()
-    
     
     private lazy var vector:UIImageView = {
         let img = UIImageView()
@@ -45,11 +47,19 @@ class MyVisitsCell: UICollectionViewCell {
         return lbl
     }()
     
+    //MARK: -- Initialization
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: -- Private Methods
+
     public func configure(object:MyVisits){
         
         let url = URL(string: object.place.coverImageURL)
@@ -59,12 +69,12 @@ class MyVisitsCell: UICollectionViewCell {
         lblPlace.text = object.place.place
         
     }
-    
+    //MARK: -- Setup
+
     private func setupViews(){
         self.contentView.layer.borderColor = UIColor.black.cgColor
         self.contentView.layer.shadowOpacity = 0.15
         self.contentView.layer.shadowRadius = 20
-        
         
         self.contentView.addSubviews(imgPlace)
         imgPlace.addSubviews(lblName,vector,lblPlace)
@@ -76,6 +86,8 @@ class MyVisitsCell: UICollectionViewCell {
         setupLayout()
     }
     
+    //MARK: -- Layout
+
     private func setupLayout(){
         
         gradientLayer.frame = self.contentView.bounds
@@ -85,7 +97,6 @@ class MyVisitsCell: UICollectionViewCell {
             img.trailing.equalToSuperview()
             img.top.equalToSuperview()
             img.bottom.equalToSuperview()
-        
         })
         
         lblName.snp.makeConstraints({lbl in
@@ -103,13 +114,7 @@ class MyVisitsCell: UICollectionViewCell {
             lbl.leading.equalTo(vector.snp.trailing).offset(6)
             lbl.centerY.equalTo(vector)
         })
-       
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }
 
 

@@ -2,21 +2,26 @@
 import UIKit
 import SnapKit
 
+
+// MARK: -- Protocols
 protocol ShowAlert:AnyObject{
     func ShowAlert(title: String, message: String)
 }
 
 class MapAddPlaceVC: UIViewController {
+    
+    // MARK: -- Properties
+    
     var latitude:Double?
     var longitude: Double?
-    
     var imageArray: [UIImage?] = [nil,nil,nil]
     let hasImgArr:[Bool] = [false,false,false]
-    
     var hasMapAdedclosure: (()->Void)?
     private var hasLoading = false
-    
+
     weak var delegate: PreviousPageDelegate?
+    
+    // MARK: -- Components
     
     private lazy var scrollView: UIScrollView = {
         let sv = UIScrollView()
@@ -71,6 +76,8 @@ class MapAddPlaceVC: UIViewController {
         return btn
     }()
     
+    // MARK: -- Components Methods
+    
     @objc func btnAddPlaceTapped() {
       
         let placePostModel = PlacePostModel(place: countryCity.defaultTextField.text ?? "", title: placeName.defaultTextField.text ?? "", description: visitDescription.defaultTextView.text, coverImageURL: "", latitude: latitude ?? 0, longitude: longitude ?? 0)
@@ -105,6 +112,8 @@ class MapAddPlaceVC: UIViewController {
         }
     }
     
+    // MARK: -- Private Functions
+    
     func showControlAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
@@ -115,12 +124,14 @@ class MapAddPlaceVC: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    // MARK: -- Life Cycles
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupViews()
-        
     }
+    
+    // MARK: -- View Setup
     
     private func setupViews() {
         self.view.backgroundColor = UIColor(hex: "F8F8F8")
@@ -135,12 +146,9 @@ class MapAddPlaceVC: UIViewController {
         setupLayout()
     }
     
-    func deneme(){
-        
-    }
+    // MARK: -- View Layout
     
     private func setupLayout() {
-        
         
         scrollView.snp.makeConstraints { v in
             v.edges.equalToSuperview()
@@ -197,9 +205,9 @@ class MapAddPlaceVC: UIViewController {
         }
         scrollView.height(heightA)
     }
-
-   
 }
+
+// MARK: -- Extensions
 
 extension MapAddPlaceVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -216,11 +224,7 @@ extension MapAddPlaceVC: UICollectionViewDataSource {
       
         cell.closure = { image in
             self.imageArray[indexPath.row] = image
-      
-          
         }
-       
-    
         return cell
     }
 }

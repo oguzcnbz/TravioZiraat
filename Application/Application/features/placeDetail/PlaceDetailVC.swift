@@ -4,31 +4,35 @@ import MapKit
 
 
 class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
-    func placeDetailResponseGet(imageArr: [String]) {
-        imagesUrlArr = imageArr
-        pageControl.numberOfPages = imageArr.count
-        self.collectionView.reloadData()
-    }
-    
-    
-    var placeModel:Place?
     
     //MARK: -- Properties
+   
+    var placeModel:Place?
+    var isPlaceSelected:Bool = false
     var imagesUrlArr: [String] = []
     
-    //MARK: -- Views
+    //MARK: -- View Controllers
+    lazy var myvisits: MyVisitVC = {
+        return MyVisitVC()
+    }()
     
+    //MARK: -- View Models
+    lazy var placeDetailViewModel: PlaceDetailViewModel = {
+        return PlaceDetailViewModel()
+    }()
+    
+    // MARK: - Components
     private lazy var pageControl: UIPageControl = {
-           let pc = UIPageControl()
-           pc.numberOfPages = imagesUrlArr.count
-           pc.currentPage = 0
-           pc.pageIndicatorTintColor = .gray
-           pc.currentPageIndicatorTintColor = .black
-           return pc
-       }()
+       let pc = UIPageControl()
+       pc.numberOfPages = imagesUrlArr.count
+       pc.currentPage = 0
+       pc.pageIndicatorTintColor = .gray
+       pc.currentPageIndicatorTintColor = .black
+       return pc
+    }()
     
     private lazy var collectionView:UICollectionView = {
-        
+    
         let lay = makeCollectionViewLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: lay)
         cv.register(PlaceDetailCell.self, forCellWithReuseIdentifier: "cell")
@@ -39,7 +43,6 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         return cv
     }()
    
-    
     private lazy var pageControlBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = ColorStyle.background.color
@@ -55,36 +58,35 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         view.layer.cornerRadius = 12
         return view
     }()
+    
     private lazy var colView: UIView = {
         let view = UIView()
         return view
     }()
+    
     private let labelCity: UILabel = {
         let label = UILabel()
         label.textColor = .label
-      
         label.font = FontStyle.h3.font
-        
         return label
     }()
+    
     private let labelDate: UILabel = {
         let label = UILabel()
-       
         label.font = FontStyle.sh3.font
-        
         return label
     }()
+    
     private let labelAdedPerson: UILabel = {
         let label = UILabel()
         label.textColor = ColorStyle.greySpanish.color
         label.font = FontStyle.lt3.font
-        
         return label
     }()
+    
     private let labelPlaceDetail: UILabel = {
         let label = UILabel()
         label.textColor = .label
-        //label.textAlignment = .left
         label.font = FontStyle.lt2.font
         label.numberOfLines = 0
         return label
@@ -102,7 +104,6 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         return v
     }()
  
-    
      lazy var placeSaveButton: UIButton = {
         let b = UIButton()
         b.layer.cornerRadius = 12
@@ -124,8 +125,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         b.addTarget(self, action: #selector(btnBackTapped), for: .touchUpInside)
         return b
     }()
-    
-    
+
     private lazy var mapView: MKMapView = {
         let map = MKMapView(frame: view.bounds)
         map.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -135,19 +135,12 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         map.isScrollEnabled = false
         return map
     }()
-    lazy var placeDetailViewModel: PlaceDetailViewModel = {
-        return PlaceDetailViewModel()
-    }()
-    
-    lazy var myvisits: MyVisitVC = {
-        return MyVisitVC()
-    }()
-    
     
     //MARK: -- Component Actions
     
     @objc func btnPlaceSaveTapped() {
         if placeSaveButton.currentImage == UIImage(named: "icPlaceDetailSave") {
+            
             placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
             let currentDate = Date()
             let dateFormatter = DateFormatter()
@@ -156,28 +149,69 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
 
             placeDetailViewModel.visitPost(placeId: placeModel?.id, visitedAt: formattedDateString)
             
+        }else if  placeSaveButton.currentImage == UIImage(named: "icPlaceDetailSaveFill"){
             
-        }
-       else if  placeSaveButton.currentImage == UIImage(named: "icPlaceDetailSaveFill"){
             placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
             placeDetailViewModel.visitDelete(placeId: placeModel!.id)
         }
     }
+    
     @objc func btnBackTapped(){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: -- Private Methods
+    
+    func addPinsToMap(place: Place) {
+       
+        let location = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
+        let newAnnotation = CustomAnnotation(coordinate: location, title: place.title, subtitle: place.place)
+            mapView.addAnnotation(newAnnotation)
+      
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude), latitudinalMeters: 500, longitudinalMeters: 500)
+            mapView.setRegion(region, animated: true)
+    }
+    
+    func placeDetailResponseGet(imageArr: [String]) {
         
+        imagesUrlArr = imageArr
+        pageControl.numberOfPages = imageArr.count
+        self.collectionView.reloadData()
     }
-    func checkVisit(placeId: String){
-        placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
-        placeDetailViewModel.checkclosure = {[weak self] status in
-            if status == "success" {
-                self?.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
-            }
-            else{
-                self?.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
-            }
+    
+    private func getImagesUrl (){
+        
+        placeDetailViewModel.setDelegat(output: self)
+        placeDetailViewModel.getAllImages(placeId: placeModel?.id ?? "")
+    }
+    
+    private func getDataPlaceDetail (){
+        
+        labelCity.text = placeModel?.place
+        if let date = convertStringToDate(placeModel?.updatedAt ?? "") {
+            labelDate.text = convertDateToString(date)
         }
+        labelAdedPerson.text = placeModel?.creator
+        labelPlaceDetail.text = placeModel?.description
+
+        self.addPinsToMap(place: placeModel!)
     }
+    
+    private  func convertStringToDate(_ dateString: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+        dateFormatter.locale = Locale(identifier: "tr")
+        return dateFormatter.date(from: dateString)
+    }
+
+    private func convertDateToString(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMMM yyyy"
+        dateFormatter.locale = Locale(identifier: "tr")
+        return dateFormatter.string(from: date)
+    }
+
+    
     //MARK: -- Life Cycles
     
     override func viewDidLoad() {
@@ -189,63 +223,9 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         getDataPlaceDetail()
         getImagesUrl()
         setupViews()
-        checkVisit(placeId: placeModel!.id)
     }
-    //MARK: -- Component Actions
-    func addPinsToMap(place: Place) {
-       
-        let location = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
-        let newAnnotation = CustomAnnotation(coordinate: location, title: place.title, subtitle: place.place)
-            mapView.addAnnotation(newAnnotation)
-      
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude), latitudinalMeters: 500, longitudinalMeters: 500)
-            mapView.setRegion(region, animated: true)
-        
-    }
-    
-    //MARK: -- Private Methods
-    private func getImagesUrl (){
-        
-        placeDetailViewModel.setDelegat(output: self)
-        placeDetailViewModel.getAllImages(placeId: placeModel?.id ?? "")
-
-    }
-    
-    
-    private func getDataPlaceDetail (){
-        labelCity.text = placeModel?.place
-        
-        if let date = convertStringToDate(placeModel?.updatedAt ?? "") {
-        
-            labelDate.text = convertDateToString(date)
-           
-        } else {
-            print("Failed to convert the date.")
-        }
-        
-        labelAdedPerson.text = placeModel?.creator
-        labelPlaceDetail.text = placeModel?.description
-
-        self.addPinsToMap(place: placeModel!)
-        
-    }
-  private  func convertStringToDate(_ dateString: String) -> Date? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
-        dateFormatter.locale = Locale(identifier: "tr")
-        return dateFormatter.date(from: dateString)
-    }
-
-
-    private func convertDateToString(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMMM yyyy"
-        dateFormatter.locale = Locale(identifier: "tr")
-
-        return dateFormatter.string(from: date)
-    }
-
-    //MARK: -- UI Methods
+   
+    //MARK: -- ViewSetup
     func setupViews() {
         self.view.backgroundColor = ColorStyle.background.color
         
@@ -260,6 +240,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         setupLayout()
     }
    
+    //MARK: -- ViewLayout
     private func setupLayout(){
         
         colView.snp.makeConstraints { cv in
@@ -268,12 +249,12 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
             cv.top.equalToSuperview()
             cv.height.equalToSuperview().multipliedBy(0.3)
         }
+        
         collectionView.snp.makeConstraints { cv in
             cv.leading.equalToSuperview()
             cv.trailing.equalToSuperview()
             cv.top.equalToSuperview()
             cv.bottom.equalToSuperview()
-          
         }
 
         pageControlBackgroundView.snp.makeConstraints { pcBgView in
@@ -288,21 +269,17 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         }
         
         placeSaveButton.snp.makeConstraints { pcBgView in
-            
             pcBgView.top.equalToSuperview().offset(50)
             pcBgView.trailing.equalToSuperview().offset(-20)
             pcBgView.width.equalTo(50)
             pcBgView.height.equalTo(50)
-            
         }
         
         backButon.snp.makeConstraints({ btn in
-        
             btn.leading.equalToSuperview().offset(20)
             btn.top.equalToSuperview().offset(50)
             btn.width.equalTo(50)
             btn.height.equalTo(50)
-
         })
         
         scrollView.snp.makeConstraints { sv in
@@ -311,7 +288,6 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
             sv.top.equalTo(colView.snp.bottom).offset(5)
             sv.bottom.equalToSuperview()
         }
-        
         
         contentView.snp.makeConstraints { cv in
             cv.edges.equalToSuperview()
@@ -322,22 +298,20 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
             lbl.top.equalToSuperview().offset(20)
             lbl.leading.equalToSuperview().offset(24)
             lbl.trailing.equalToSuperview().offset(-24)
-        
         }
        
         labelDate.snp.makeConstraints { lbl in
             lbl.top.equalTo(labelCity.snp.bottom).offset(10)
             lbl.leading.equalToSuperview().offset(24)
             lbl.trailing.equalToSuperview().offset(-24)
-        
         }
    
         labelAdedPerson.snp.makeConstraints { lbl in
             lbl.top.equalTo(labelDate.snp.bottom).offset(2)
             lbl.leading.equalToSuperview().offset(24)
             lbl.trailing.equalToSuperview().offset(-24)
-        
         }
+        
         mapView.snp.makeConstraints({mv in
             mv.top.equalTo(labelAdedPerson.snp.bottom).offset(9)
             mv.leading.equalToSuperview().offset(16)
@@ -354,7 +328,7 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
     }
 }
 
-    
+//MARK: -- Extensions
 extension PlaceDetailVC:UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -379,20 +353,19 @@ extension PlaceDetailVC:UICollectionViewDataSource {
     }
 }
 
+
 extension PlaceDetailVC {
     func makeCollectionViewLayout() -> UICollectionViewLayout {
         
         UICollectionViewCompositionalLayout {
             [weak self] sectionIndex, environment in
-         
-                return self?.makeListLayoutSection()
+            
+            return self?.makeListLayoutSection()
         }
     }
     
-    
     func makeListLayoutSection() -> NSCollectionLayoutSection {
         
-
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
@@ -407,16 +380,14 @@ extension PlaceDetailVC {
         layoutSection.interGroupSpacing = 16
         
         layoutSection.visibleItemsInvalidationHandler = { [weak self] (items, offset, env) -> Void in
-        guard let self = self,
-        let itemWidth = items.last?.bounds.width else { return }
-        let page = round(offset.x / (itemWidth + layoutSection.interGroupSpacing))
-        pageControl.currentPage = Int(page)
-            
+            guard let self = self,
+            let itemWidth = items.last?.bounds.width else { return }
+            let page = round(offset.x / (itemWidth + layoutSection.interGroupSpacing))
+            pageControl.currentPage = Int(page)
         }
         return layoutSection
     }
 }
-
 
 extension PlaceDetailVC :MKMapViewDelegate{
     

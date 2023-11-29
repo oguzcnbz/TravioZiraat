@@ -1,8 +1,10 @@
-
 import UIKit
 
 
 class MainTabbar: UITabBarController {
+    
+    //MARK: -- Life Cycles
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewControllers = setupControllers()
@@ -19,6 +21,7 @@ class MainTabbar: UITabBarController {
             self.navigationController?.isNavigationBarHidden = true
     }
 
+    //MARK: -- Private Methods
     private func setupControllers()->[UIViewController]{
         
         let homeVC = HomeVC()

@@ -4,12 +4,15 @@ import SnapKit
 
 
 class SettingsVC: UIViewController,PreviousPageDelegate {
+    
+    // MARK: -- Delegete
     func didDismiss() {
        getProfilData()
     }
     
-   private var userModel = SettingUser(imageUrl: "",name: "")
+    // MARK: -- Properties
     
+    private var userModel = SettingUser(imageUrl: "",name: "")
     var settingCells:[Settings] = [Settings(icon: UIImage(named: "user"), settingName: "Security Settings"),
                                    Settings(icon: UIImage(named: "binoculars"), settingName: "App Defaults"),
                                    Settings(icon: UIImage(named: "icMap"), settingName: "My Added Places"),
@@ -17,10 +20,16 @@ class SettingsVC: UIViewController,PreviousPageDelegate {
                                    Settings(icon: UIImage(named: "info"), settingName: "About"),
                                    Settings(icon: UIImage(named: "hands"), settingName: "Terms of Use"),
     ]
+    
+    var profilModel:ProfileModel?
+    
     lazy var editProfilViewModel: EditProfileViewModel = {
         return EditProfileViewModel()
     }()
-    var profilModel:ProfileModel?
+   
+    
+    // MARK: -- Components
+
     private lazy var collectionView:UICollectionView = {
 
         let lay = makeCollectionViewLayout()
@@ -42,12 +51,8 @@ class SettingsVC: UIViewController,PreviousPageDelegate {
         return sv
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        getProfilData()
-        setupViews()
-    }
-    
+    // MARK: -- Private Methods
+
     private func getProfilData(){
         
         editProfilViewModel.getProfilData()
@@ -62,7 +67,16 @@ class SettingsVC: UIViewController,PreviousPageDelegate {
 
         }
     }
+    
+    // MARK: -- Life Cycles
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        getProfilData()
+        setupViews()
+    }
+    
+    // MARK: -- View Model
 
     func setupViews() {
         self.view.backgroundColor = ColorStyle.primary.color
@@ -80,7 +94,6 @@ class SettingsVC: UIViewController,PreviousPageDelegate {
     }
     
     @objc func rightbartapped(){
-        print("exit girdi")
         KeychainHelper.shared.delete("user-key", account: "accessToken")
         KeychainHelper.shared.delete("user-key", account: "refreshToken")
         let loginVC = LoginVC()
@@ -91,6 +104,8 @@ class SettingsVC: UIViewController,PreviousPageDelegate {
             sceneDelegate.window?.makeKeyAndVisible()
         }
     }
+
+    // MARK: -- View Layout
 
     func setupLayout() {
 
@@ -109,6 +124,8 @@ class SettingsVC: UIViewController,PreviousPageDelegate {
         })
     }
 }
+
+// MARK: -- Extensions
 
 extension SettingsVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

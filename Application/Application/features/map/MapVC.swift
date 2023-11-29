@@ -5,11 +5,13 @@ import SnapKit
 
 class MapVC: UIViewController {
     
-    // MARK: - Properties
+    // MARK: -- Properties
     
     var places: [Place] = []
     
     lazy var mapViewModel: MapViewModel = MapViewModel()
+    
+    // MARK: -- Components
     
     private lazy var mapView: MKMapView = {
         let map = MKMapView(frame: view.bounds)
@@ -36,33 +38,7 @@ class MapVC: UIViewController {
         return gesture
     }()
     
-    
-    // MARK: - View Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        getData()
-        setupViews()
-        
-    }
-    
-    private func setupViews() {
-        view.addSubviews(mapView, collectionView)
-        mapView.addGestureRecognizer(longPressGesture)
-        
-        setupLayout()
-    }
-    
-    private func setupLayout() {
-        collectionView.snp.makeConstraints { cv in
-            cv.leading.equalToSuperview()
-            cv.trailing.equalToSuperview()
-            cv.bottom.equalToSuperview().offset(-10)
-            cv.height.equalTo(220)
-        }
-    }
-    
-    // MARK: - Map Methods
+    // MARK: -- Private Methods
     
     func addPinsToMap(array: [Place]) {
         for place in array {
@@ -112,9 +88,6 @@ class MapVC: UIViewController {
         }
     }
     
-    
-    // MARK: - Data Methods
-    
     private func getData() {
             mapViewModel.getAllPlace()
             mapViewModel.transferData = { [weak self] () in
@@ -125,10 +98,40 @@ class MapVC: UIViewController {
                 self?.addPinsToMap(array: self!.places)
                 print("pin ekledi")
             }
+    }
+    
+    // MARK: -- View Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        getData()
+        setupViews()
+        
+    }
+    
+    //MARK: -- Setup
+
+    private func setupViews() {
+        view.addSubviews(mapView, collectionView)
+        mapView.addGestureRecognizer(longPressGesture)
+        
+        setupLayout()
+    }
+    
+    //MARK: -- Layout
+
+    private func setupLayout() {
+        collectionView.snp.makeConstraints { cv in
+            cv.leading.equalToSuperview()
+            cv.trailing.equalToSuperview()
+            cv.bottom.equalToSuperview().offset(-10)
+            cv.height.equalTo(220)
         }
     }
+}
 
-// MARK: - CollectionView DataSource
+// MARK: -- Extensions
+
 extension MapVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
