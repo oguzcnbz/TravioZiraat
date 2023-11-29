@@ -37,7 +37,7 @@ class EditProfileViewModel {
     
 
     func profileUploadImage (profileImg: UIImage,full_name:String,email:String,pp_url:String,isDone: @escaping (Bool) -> Void) {
-        var imglArr:[UIImage] = [profileImg]
+        let imglArr:[UIImage] = [profileImg]
 
         NetworkingHelper.shared.uplodImageFromRemote(urlRequest: .uploadImage(images: imglArr)) { (result:Result<UploadImageResponse,Error>)in
             switch result {

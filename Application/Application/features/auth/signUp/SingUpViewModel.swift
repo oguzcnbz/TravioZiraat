@@ -54,7 +54,7 @@ class SignUpViewModel {
                 case "Response status code was unacceptable: 400.":
                     errMessage = error.localizedDescription
                 default:
-                    errMessage
+                    errMessage = ""
                     
                     self.delegate?.signUpResponseGet(isSignUp: false, message: errMessage)
                 }

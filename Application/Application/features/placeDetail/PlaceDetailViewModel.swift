@@ -35,8 +35,10 @@ class PlaceDetailViewModel {
     func visitPost(placeId:String?,visitedAt:String?){
         
        let params = ["place_id": placeId, "visited_at": visitedAt]
+        // Convert the params dictionary to Parameters (Dictionary<String, Any>)
+        let parameters: [String: Any] = params.compactMapValues { $0 }
         
-        NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitPost(params: params), callback: { (result:Result<Response,Error>) in
+        NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitPost(params: parameters), callback: { (result:Result<Response,Error>) in
             switch result {
             case .success(let obj):
                 print(obj.message)
