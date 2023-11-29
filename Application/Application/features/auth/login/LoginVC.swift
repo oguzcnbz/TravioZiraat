@@ -11,40 +11,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         return SecuritySettingsVC()
     }()
     
-<<<<<<< HEAD
     //MARK: -- Components
-=======
-    func loginResponseGet(isLogin: Bool) {
-    
-        if isLogin == false {
-            showAlert(title: "Giris Yapilamadi",message: "Bilgiler uyusmuyor")
-            hideLoadingIndicator()
-        }
-        if isLogin == true{
-            let vc = MainTabbar()
-            self.navigationController?.pushViewController(vc, animated: true)
-            securitySettings.requestCameraPermission()
-            securitySettings.requestLibraryPermission()
-            securitySettings.requestLocationPermission()
-            hideLoadingIndicator() 
-        }
-        
-    }
-    func showAlert(title:String,message:String) {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let btnCancel = UIAlertAction(title: "Vazgeç", style: .destructive)
-        let btnRetry = UIAlertAction(title: "Yeniden Dene", style: .default, handler: { action in
-        self.showAlert(title: "Hata", message: "Yine olmadı")
-        })
-        
-        alert.addAction(btnCancel)
-        alert.addAction(btnRetry)
-        self.present(alert, animated: true)
-    }
-    
-//MARK: -- Views-StackViews
->>>>>>> Sprint6/refactorBaris2
 
     private lazy var mainStackView: DefaultMainStackView = {
         let sv = DefaultMainStackView()
