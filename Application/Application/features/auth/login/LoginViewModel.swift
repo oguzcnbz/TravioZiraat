@@ -22,7 +22,7 @@ class LoginViewModel {
             guard let email = email else {return}
             guard let password = password else {return}
 
-                // let params = ["email": "ada@gmail.com", "password": "1234567"]
+               
             let params = ["email": email, "password": password]
             var isLogin:Bool = false
             
@@ -34,7 +34,7 @@ class LoginViewModel {
                   
                    let accessTokenOp = success.accessToken
                     let refreshTokenOp = success.refreshToken
-                    print("acces token \(accessTokenOp)")
+                   
                     if let accessToken = accessTokenOp {
                           let data = Data(accessToken.utf8)
                           KeychainHelper.shared.save(data, service: "user-key", account: "accessToken")
@@ -46,7 +46,7 @@ class LoginViewModel {
                  
                     isLogin = true
                    
-                case .failure(let failure):
+                case .failure( _):
                         
                     isLogin = false
                     

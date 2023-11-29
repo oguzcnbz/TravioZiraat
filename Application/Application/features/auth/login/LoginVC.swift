@@ -10,7 +10,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     }()
     
     func loginResponseGet(isLogin: Bool) {
-       print("sonuc \(isLogin ?? false)")
+    
         if isLogin == false {
             showAlert(title: "Giris Yapilamadi",message: "Bilgiler uyusmuyor")
             hideLoadingIndicator()

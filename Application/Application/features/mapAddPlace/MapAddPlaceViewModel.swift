@@ -7,7 +7,7 @@ class MapAddPlaceViewModel {
     func addPlace(imageArray: [UIImage?],model:PlacePostModel,hasUploded: @escaping () -> Void) {
         if isLoading == false {
             changeLoading()
-            var imgUrlArr:[String] = []
+        
             let filterImg = imageArray.compactMap(({ $0 }))
             
             if filterImg.count > 0 {
@@ -42,9 +42,9 @@ class MapAddPlaceViewModel {
     
     func placeCreate(model:PlacePostModel,imgUrl:String, callback: @escaping (String) -> Void){
         
-        let params = ["place": model.place ?? "",
-                      "title": model.title ?? "",
-                      "description": model.description ?? "",
+        let params = ["place": model.place,
+                      "title": model.title,
+                      "description": model.description,
                       "cover_image_url": imgUrl,
                       "latitude": model.latitude,
                       "longitude": model.longitude] as [String: Any]
