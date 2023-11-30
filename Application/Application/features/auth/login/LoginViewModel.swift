@@ -3,7 +3,7 @@ import UIKit
 
 
 protocol LoginResponseDelegate{
-    func loginResponseGet(isLogin:Bool)
+    func loginResponseGet(isLogin:Bool,message:String)
     
 }
 
@@ -28,8 +28,9 @@ class LoginViewModel {
             
             
             NetworkingHelper.shared.getDataFromRemote(urlRequest: .userLogin(params: params), callback:{ (result:Result<UserModel,Error>) in
-                
+                var errMessage = ""
                 switch result {
+                   
                 case .success(let success):
                     
                     let accessTokenOp = success.accessToken
@@ -46,13 +47,27 @@ class LoginViewModel {
                     
                     isLogin = true
                     
-                case .failure( _):
+                case .failure(let error):
+                    print(error.localizedDescription)
+                     errMessage = error.localizedDescription
+                    switch error.localizedDescription{
+                    case "Response status code was unacceptable: 400.":
+                        errMessage = "Please check form and fill correct way"
+                    case "Response status code was unacceptable: 404.":
+                        errMessage = "Email or Passworld wrong"
+                        
+                    default:
+                        errMessage = error.localizedDescription
+                        
+                        
+                    }
                     
                     isLogin = false
+                    self.changeLoading()
                     
                 }
-                self.changeLoading()
-                self.delegate?.loginResponseGet(isLogin: isLogin)
+                self.delegate?.loginResponseGet(isLogin: isLogin,message: errMessage)
+                
             })
         }
         

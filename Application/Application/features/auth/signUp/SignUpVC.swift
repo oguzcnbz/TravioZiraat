@@ -4,6 +4,7 @@ import TinyConstraints
 import IQKeyboardManagerSwift
 
 class SignUpVC: UIViewController,SignUpResponseDelegate {
+    var onCompletion: ((String, String) -> Void)?
     
     //MARK: -- Components
     
@@ -14,27 +15,27 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     
     private lazy var usernameStackView: CustomTextField = {
         let sv = CustomTextField(labelText: "Username", textFieldPlaceholder: "bilge_adam")
-        sv.defaultTextField.text = "barisdag@gmail.com"
+      
         return sv
     }()
     
     private lazy var emailStackView: CustomTextField = {
         let sv = CustomTextField(labelText: "Email", textFieldPlaceholder: "developer@bilgeadam.com")
-        sv.defaultTextField.text = "barisdag@gmail.com"
+        
         return sv
     }()
     
     private lazy var passwordStackView: CustomPasswordTextField = {
         let sv = CustomPasswordTextField(labelText: "Password", textFieldPlaceholder: "")
         sv.defaultTextField.isSecureTextEntry = true
-        sv.defaultTextField.text = "123456"
+        
         return sv
     }()
     
     private lazy var passwordConfirmStackView: CustomPasswordTextField = {
         let sv = CustomPasswordTextField(labelText: "Password Confirm", textFieldPlaceholder: "")
         sv.defaultTextField.isSecureTextEntry = true
-        sv.defaultTextField.text = "123456"
+        
         return sv
     }()
     
@@ -61,7 +62,7 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     
     @objc func btnSignTapped() {
         if updateSignUpButtonState(){
-         //   showLoadingIndicator()
+           showLoadingIndicator()
             SignUpViewModel.setDelegate(output: self)
             SignUpViewModel.signUpUser(fullName: usernameStackView.defaultTextField.text, email: emailStackView.defaultTextField.text, password: passwordStackView.defaultTextField.text)
         }
@@ -75,16 +76,17 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     
     func signUpResponseGet(isSignUp: Bool, message: String) {
        
-        
+       
         if isSignUp == false {
-        //    hideLoadingIndicator()
+           
+            hideLoadingIndicator()
             showAlert(title: "Registration Failed", message: message)
         }
         if isSignUp == true {
-          //  hideLoadingIndicator()
-            lazy var loginViewModel: LoginViewModel = LoginViewModel()
-            loginViewModel.loginUser(email: emailStackView.defaultTextField.text, password: emailStackView.defaultTextField.text)
+
             
+            onCompletion?(emailStackView.defaultTextField.text!, passwordStackView.defaultTextField.text!)
+                  navigationController?.popViewController(animated: true)
            // let vc = MainTabbar()
            // self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -94,7 +96,7 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     func showAlert(title:String,message:String) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let btnCancel = UIAlertAction(title: "Vazgeç", style: .destructive)
+        let btnCancel = UIAlertAction(title: "Ok", style: .default)
         alert.addAction(btnCancel)
         self.present(alert, animated: true)
     }

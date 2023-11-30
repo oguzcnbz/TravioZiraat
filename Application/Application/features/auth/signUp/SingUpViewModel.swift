@@ -53,7 +53,7 @@ class SignUpViewModel {
                     case "Response status code was unacceptable: 400.":
                         errMessage = error.localizedDescription
                     default:
-                        errMessage = ""
+                        errMessage = error.localizedDescription
                         
                         
                     }

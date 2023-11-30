@@ -91,16 +91,20 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     
     @objc func btnSignTapped() {
         let SignUpVC = SignUpVC()
+        SignUpVC.onCompletion = { email, password in
+            self.loginViewModel.setDelegate(output: self)
+            self.loginViewModel.loginUser(email: email, password: password)
+                }
         self.navigationController?.pushViewController(SignUpVC, animated: true)
     }
     
     //MARK: -- Private Methods
     
-    func loginResponseGet(isLogin: Bool) {
-        
+    func loginResponseGet(isLogin: Bool, message:String) {
+        hideLoadingIndicator()
         if isLogin == false {
-            showAlert(title: "Giris Yapilamadi",message: "Bilgiler uyusmuyor")
-            hideLoadingIndicator()
+            showAlert(title: "Can't Login",message: message)
+            
         }
         if isLogin == true{
             let vc = MainTabbar()
@@ -116,13 +120,10 @@ class LoginVC: UIViewController,LoginResponseDelegate {
     func showAlert(title:String,message:String) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let btnCancel = UIAlertAction(title: "Vazgeç", style: .destructive)
-        let btnRetry = UIAlertAction(title: "Yeniden Dene", style: .default, handler: { action in
-            self.showAlert(title: "Hata", message: "Yine olmadı")
-        })
+        let btnCancel = UIAlertAction(title: "Ok", style: .default)
+       
         
         alert.addAction(btnCancel)
-        alert.addAction(btnRetry)
         self.present(alert, animated: true)
     }
     
