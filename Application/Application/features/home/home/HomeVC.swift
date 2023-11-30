@@ -16,7 +16,8 @@ class HomeVC: UIViewController {
     var lastArr: [Place] = []
     var userArr: [Place] = []
     private  let group = DispatchGroup()
-    private let queue = DispatchQueue.global()
+   // private let queue = DispatchQueue.global(qos: .utility)
+    //DispatchQueue.global(qos: .utility).async{ }
     
     //MARK: -- Components
     
@@ -64,49 +65,60 @@ class HomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         getUserPlaceData ()
+        
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
     //MARK: -- Private Methods
     private func getHomeDatas () {
         group.enter()
-        queue.async {
-            self.getPopulerPlaceData()
-            self.group.leave()
-        }
+        
+        
+            self.homeViewModel.getPopulerPlaceParam()
+            self.homeViewModel.transferPopulerData = { [weak self] () in
+                
+                let obj = self?.homeViewModel.populerPlace
+                self?.populerArr = obj ?? []
+           
+                self?.group.leave()
+                self?.collectionView.reloadData()
+            }
+           
+        
         group.enter()
-        queue.async {
-            self.getLastPlaceData ()
-            self.group.leave()
-        }
+       
+            self.homeViewModel.getLastParam()
+            self.homeViewModel.transferLastData = { [weak self] () in
+               
+                let obj = self?.homeViewModel.lastPlace
+                self?.lastArr = obj ?? []
+          
+                self?.group.leave()
+                self?.collectionView.reloadData()
+            }
+            
+        
         group.enter()
-        queue.async {
-            self.getUserPlaceData ()
-            self.group.leave()
-        }
-        group.notify(queue: queue){
-        }
-    }
-    
-    
-    private func getPopulerPlaceData (){
-    
-        homeViewModel.getPopulerPlaceParam()
-        homeViewModel.transferPopulerData = { [weak self] () in
-            let obj = self?.homeViewModel.populerPlace
-            self?.populerArr = obj ?? []
-           self?.collectionView.reloadData()
-        }
-    }
-    
-    private func getLastPlaceData (){
-        homeViewModel.getLastParam()
-        homeViewModel.transferLastData = { [weak self] () in
-            let obj = self?.homeViewModel.lastPlace
-            self?.lastArr = obj ?? []
-            self?.collectionView.reloadData()
+       
+            self.homeViewModel.getUserPlace()
+            self.homeViewModel.transferUserData = { [weak self] () in
+              
+                let obj = self?.homeViewModel.userPlace
+                self?.userArr = obj ?? []
+             
+                self?.group.leave()
+                self?.collectionView.reloadData()
+            }
+            
+        
+        group.notify(queue: .main){
+            
+            
+           self.collectionView.reloadData()
         }
     }
+    
+    
     
     private func getUserPlaceData (){
         homeViewModel.getUserPlace()

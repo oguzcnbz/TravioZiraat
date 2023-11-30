@@ -19,16 +19,18 @@ class NetworkingHelper {
     
     public func getDataFromRemote<T:Codable>(urlRequest:Router, callback:@escaping Callback<T>) {
         
-        
-        AF.request(urlRequest).validate().responseDecodable(of:T.self) { response in
-            switch response.result {
-            case .success(let success):
-                callback(.success(success))
-            case .failure(let failure):
-                callback(.failure(failure))
-                print(failure)
+        DispatchQueue.global(qos: .utility).async{
+            AF.request(urlRequest).validate().responseDecodable(of:T.self) { response in
+                switch response.result {
+                case .success(let success):
+                    callback(.success(success))
+                case .failure(let failure):
+                    callback(.failure(failure))
+                    print(failure)
+                }
             }
         }
+        
         
         
         
