@@ -18,8 +18,8 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
     
     //MARK: -- View Models
     lazy var placeDetailViewModel: PlaceDetailViewModel = {
-        return PlaceDetailViewModel()
-    }()
+            return PlaceDetailViewModel()
+        }()
     
     // MARK: - Components
     private lazy var pageControl: UIPageControl = {
@@ -148,11 +148,12 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
             let formattedDateString = dateFormatter.string(from: currentDate)
 
             placeDetailViewModel.visitPost(placeId: placeModel?.id, visitedAt: formattedDateString)
-            
+            showResult()
         }else if  placeSaveButton.currentImage == UIImage(named: "icPlaceDetailSaveFill"){
             
             placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
             placeDetailViewModel.visitDelete(placeId: placeModel!.id)
+            showResult()
         }
     }
     
@@ -180,10 +181,18 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
     }
     
     private func getImagesUrl (){
-        
         placeDetailViewModel.setDelegat(output: self)
         placeDetailViewModel.getAllImages(placeId: placeModel?.id ?? "")
+        showResult()
+            
     }
+    
+    func showResult(){
+        placeDetailViewModel.showAlertClosure = {message in
+            self.resultAlert(title: message.0, message: message.1)
+        }
+    }
+    
     
     private func getDataPlaceDetail (){
         
@@ -195,6 +204,18 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         labelPlaceDetail.text = placeModel?.description
 
         self.addPinsToMap(place: placeModel!)
+    }
+    
+    func checkVisit(placeId: String){
+        placeDetailViewModel.visitByPlaceIdCheck(placeId: placeId)
+        placeDetailViewModel.checkclosure = {[weak self] status in
+            if status == "success" {
+                self?.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSaveFill"), for: .normal)
+            }
+            else{
+                self?.placeSaveButton.setImage(UIImage(named: "icPlaceDetailSave"), for: .normal)
+            }
+        }
     }
     
     private  func convertStringToDate(_ dateString: String) -> Date? {
@@ -223,6 +244,8 @@ class PlaceDetailVC: UIViewController,PlaceDetailResponseDelegate {
         getDataPlaceDetail()
         getImagesUrl()
         setupViews()
+        checkVisit(placeId: placeModel!.id)
+
     }
    
     //MARK: -- ViewSetup

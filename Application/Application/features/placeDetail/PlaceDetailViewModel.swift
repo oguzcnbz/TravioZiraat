@@ -6,14 +6,13 @@ protocol PlaceDetailResponseDelegate{
 
 class PlaceDetailViewModel {
     private var isLoading = false
-    
+    var showAlertClosure: (((String,String)) -> Void)?
     var delegate: PlaceDetailResponseDelegate?
     func setDelegat(output: PlaceDetailResponseDelegate){
         delegate = output
     }
     
     func getAllImages(placeId:String){
-      //  changeLoading()
         var imagesUrl:[String] = []
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .placeDetailGetGalleryImages(placeId: placeId)) {(result: Result<PlaceDetailImagesURLModel, Error>) in
             switch result {
@@ -21,16 +20,13 @@ class PlaceDetailViewModel {
                 let  imagesArr = obj.data.images
                 imagesArr.forEach({item in
                     imagesUrl.append(item.imageURL)
-                    
                 })
                 self.delegate?.placeDetailResponseGet(imageArr: imagesUrl)
-                
             case .failure(let error):
-                print(error.localizedDescription)
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
         }
     }
-    
     func visitPost(placeId:String?,visitedAt:String?){
         
        let params = ["place_id": placeId, "visited_at": visitedAt]
@@ -39,14 +35,12 @@ class PlaceDetailViewModel {
         
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitPost(params: parameters), callback: { (result:Result<Response,Error>) in
             switch result {
-            case .success(let obj):
-                print(obj.message)
-            case .failure(let err):
-                     print(err.localizedDescription)
-        
+            case .success(_):
+                self.showAlertClosure?((title:"Message",message:"Saved successfully."))
+            case .failure(let error):
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
         })
-        
     }
     
     func visitDelete(placeId: String){
@@ -54,11 +48,9 @@ class PlaceDetailViewModel {
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitDelete(placeId: placeId), callback: { (result:Result<Response,Error>) in
             switch result {
             case .success(let obj):
-                print((obj.message))
-            case .failure(let err):
-                print(err.localizedDescription)
-        
-            }
+                self.showAlertClosure?((title:"Message",message:"Successfully removed from the list."))
+            case .failure(let error):
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))            }
         })
         
     }
@@ -70,10 +62,8 @@ class PlaceDetailViewModel {
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitByPlaceIdCheck(placeId: placeId), callback: { (result:Result<Response,Error>) in
             switch result {
             case .success(let obj):
-                print((obj.message))
                 self.checkclosure?(obj.status)
             case .failure(let err):
-                print(err.localizedDescription)
                 self.checkclosure?("")
             }
         })

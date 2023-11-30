@@ -9,7 +9,7 @@ class EditProfileViewModel {
             self.transferProfilData?()
         }
     }
-    
+    var showAlertClosure: (((String,String)) -> Void)?
     var transferProfilData: (() -> ())?
         
     func getProfilData(){ 
@@ -27,10 +27,9 @@ class EditProfileViewModel {
             
                 obj.createdAt = strDate
                 self.profilModel = obj
-                                
-                
-            case .failure(let failure):
-                print(failure.localizedDescription)
+
+            case .failure(let error):
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
         })
     }
@@ -45,8 +44,10 @@ class EditProfileViewModel {
                 if let imageUrls = success.urls {
                     self.changeProfile(full_name: full_name, email: email, pp_url:imageUrls.first ?? "", isDone: isDone)
                 }
-            case .failure(let failure):
-                print(failure.localizedDescription)
+
+            
+            case .failure(let error):
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
             
         }
@@ -65,12 +66,13 @@ class EditProfileViewModel {
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .profileUpdate(params: params), callback: {
             (result:Result<ResponseMessageModel,Error>) in
             switch result {
-            case .success(let obj):
-                print(obj)
+            case .success(_):
+                self.showAlertClosure?((title:"Message",message:"Your changes have been saved successfully."))
                 isDone(true)
-            case .failure(let failure):
-                print(failure)
                 
+            case .failure(let error):
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))
+
             }
         })
     }

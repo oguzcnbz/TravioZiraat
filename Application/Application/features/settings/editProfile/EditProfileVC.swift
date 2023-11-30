@@ -114,7 +114,6 @@ class EditProfileVC: UIViewController{
         super.viewDidLoad()
         getProfilData()
         setupViews()
-       
     }
     
     //MARK: -- Component Actions
@@ -151,24 +150,20 @@ class EditProfileVC: UIViewController{
                     if success {
                         self.dismiss(animated: true, completion: {
                             self.delegate?.didDismiss()
-                            
                         })
                     }
                 }
-               
             }
             else {
                 editProfilViewModel.changeProfile(full_name: usernameStackView.defaultTextField.text ?? "",
                                                   email: emailStackView.defaultTextField.text ?? "",
                                                   pp_url: self.profilModel?.ppURL ?? ""){ success in
-                    
                     if success {
                         self.dismiss(animated: true, completion: {
                             self.delegate?.didDismiss()
                         })
                     }
                 }
-             
             }
             self.hideLoadingIndicator()
         }else{
@@ -180,7 +175,7 @@ class EditProfileVC: UIViewController{
            
             present(alert, animated: true, completion: nil)
         }
-        
+        showResult()
         }
         
         
@@ -217,6 +212,12 @@ class EditProfileVC: UIViewController{
         }))
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    func showResult(){
+        editProfilViewModel.showAlertClosure = {message in
+            self.resultAlert(title: message.0, message: message.1)
+        }
     }
     
     //MARK: -- Setup

@@ -41,7 +41,15 @@ class MyVisitVC: UIViewController {
                 self?.visits = obj ?? []
                 self?.collectionView.reloadData()
             }
+        showResult()
         }
+    
+    
+    func showResult(){
+        visitViewModel.showAlertClosure = {message in
+            self.resultAlert(title: message.0, message: message.1)
+        }
+    }
     
     // MARK: -- Life Cycles
     

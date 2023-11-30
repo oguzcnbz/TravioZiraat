@@ -122,9 +122,8 @@ class SecuritySettingsVC: UIViewController {
             showLoadingIndicator()
             guard let newPassword = newPassTxtField.defaultTextField.text else {return}
             securitySettingsViewModel.passwordChange(changedPassword: newPassword)
-            self.navigationController?.popViewController(animated: true)
-            
-            
+            showResult()
+                    
         }else if isPasswordValid == false{
             
             let alert = UIAlertController(title: "Error", message: "Password must be at least 6 characters", preferredStyle: .alert)
@@ -141,8 +140,17 @@ class SecuritySettingsVC: UIViewController {
             alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: { _ in
                 self.dismiss(animated: true)
             }))
+            present(alert, animated: true, completion: nil)
         }
         hideLoadingIndicator()
+    }
+    
+    //MARK: -- Private Methods
+    
+    func showResult(){
+        securitySettingsViewModel.showAlertClosure = {message in
+            self.resultAlert(title: message.0, message: message.1)
+        }
     }
     
     //MARK: -- Life Cycles

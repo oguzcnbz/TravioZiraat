@@ -2,7 +2,8 @@ import UIKit
 import Alamofire
 
 class MyAddedPlacesViewModel{
-
+    
+    var showAlertClosure: (((String,String)) -> Void)?
     var myaddedplaces:[Place] = [] {
         didSet {
             self.transferData?()
@@ -19,8 +20,8 @@ class MyAddedPlacesViewModel{
                 let response = obj.data
                 self.myaddedplaces = response.places
                 
-            case .failure(let err):
-                print(err.localizedDescription)
+            case .failure(let error):
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
         })
     }

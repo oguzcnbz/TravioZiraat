@@ -3,6 +3,7 @@ import UIKit
 
 class MapAddPlaceViewModel {
     private var isLoading = false
+    var showAlertClosure: (((String,String)) -> Void)?
     
     func addPlace(imageArray: [UIImage?],model:PlacePostModel,hasUploded: @escaping () -> Void) {
         if isLoading == false {
@@ -27,8 +28,9 @@ class MapAddPlaceViewModel {
                                 
                                  }
                         }
-                    case .failure(let failure):
-                        print(failure.localizedDescription)
+                        self.showAlertClosure?((title:"Message",message:"Place saved successfully."))
+                    case .failure(let error):
+                        self.showAlertClosure?((title:"Error",message:error.localizedDescription))
                     }
                     
                 }
@@ -52,15 +54,12 @@ class MapAddPlaceViewModel {
                
                 switch result {
                 case .success(let success):
-                    print(success.message)
                     callback(success.message)
-                case .failure(let failure):
-                    print(failure.localizedDescription)
+                case .failure(let error):
+                    self.showAlertClosure?((title:"Error",message:error.localizedDescription))
                 }
             }
         }
-        
-      
     }
     
     func galleryImageUrlAdd(placeId:String ,imgUrl:String ) {
@@ -70,10 +69,10 @@ class MapAddPlaceViewModel {
         
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .galerysImagesPost(params: params)) { (result:Result<ResponseMessageModel,Error>) in
             switch result {
-            case .success(let success):
-                print(success.message)
-            case .failure(let failure):
-                print(failure.localizedDescription)
+            case .success(_):
+                break
+            case .failure(let error):
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
         }
     }   

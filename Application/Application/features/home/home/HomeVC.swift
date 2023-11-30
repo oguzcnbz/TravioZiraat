@@ -57,7 +57,7 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getHomeDatas()
-
+        showResult()
         setupViews()
     }
     
@@ -117,7 +117,11 @@ class HomeVC: UIViewController {
         }
     }
     
-    
+    func showResult(){
+        homeViewModel.showAlertClosure = {message in
+            self.resultAlert(title: message.0, message: message.1)
+        }
+    }
     //MARK: -- Setup
     
     func setupViews() {

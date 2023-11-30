@@ -1,7 +1,6 @@
 import UIKit
 import Foundation
 import SwiftUI
-
 import UIKit
 import SwiftUI
 
@@ -59,10 +58,8 @@ extension UIViewController {
             rightBarButton.tintColor = .white
         }
     }
-}
 
-
-extension UIViewController {
+    
     func showLoadingIndicator() {
         let blurEffect = UIBlurEffect(style: .light)
         let visualEffectView = UIVisualEffectView(effect: blurEffect)
@@ -90,4 +87,10 @@ extension UIViewController {
             }
         }
     
+    func resultAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Tamam", style: .cancel))
+        present(alert, animated: true, completion: nil)
+    }
+
 }

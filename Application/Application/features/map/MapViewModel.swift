@@ -3,7 +3,8 @@ import Alamofire
 
 
 class MapViewModel{
-
+    
+    var showAlertClosure: (((String,String)) -> Void)?
     var allPlace:[Place] = [] {
         didSet {
             self.transferData?()
@@ -20,8 +21,8 @@ class MapViewModel{
                 let response = obj.data
                 self.allPlace =  response.places
                 
-            case .failure(let err):
-                print(err.localizedDescription)
+            case .failure(let error):
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
         })
     }

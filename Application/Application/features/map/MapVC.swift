@@ -95,6 +95,13 @@ class MapVC: UIViewController {
                 self?.collectionView.reloadData()
                 self?.addPinsToMap(array: self!.places)
             }
+            showResult()
+    }
+    
+    func showResult(){
+        mapViewModel.showAlertClosure = {message in
+            self.resultAlert(title: message.0, message: message.1)
+        }
     }
     
     // MARK: -- View Lifecycle

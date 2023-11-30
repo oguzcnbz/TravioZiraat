@@ -39,12 +39,8 @@ class SignUpViewModel {
                 self.delegate?.signUpResponseGet(isSignUp: isSuccess, message: success.message)
                 loginViewModel.loginUser(email: email, password: password)
                 
-                // let isSuccess = (status == "success")
                 
             case .failure(let error):
-                
-                print(error.localizedDescription)
-                print(error)
                 
                 var errMessage = error.localizedDescription
                 switch error.localizedDescription{
@@ -60,9 +56,9 @@ class SignUpViewModel {
             }
        
                 
-            }
         }
     }
+}
     func changeLoading() {
         isLoading = !isLoading
     }

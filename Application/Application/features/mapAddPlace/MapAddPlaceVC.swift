@@ -18,7 +18,7 @@ class MapAddPlaceVC: UIViewController {
     let hasImgArr:[Bool] = [false,false,false]
     var hasMapAdedclosure: (()->Void)?
     private var hasLoading = false
-
+    let mapAddPlaceViewModel = MapAddPlaceViewModel()
     weak var delegate: PreviousPageDelegate?
     
     // MARK: -- Components
@@ -94,13 +94,12 @@ class MapAddPlaceVC: UIViewController {
         }
         
         if placeName.defaultTextField.hasText && visitDescription.defaultTextView.hasText && !filterImg.isEmpty{
-             showLoadingIndicator()
-            let mapAddPlaceViewModel = MapAddPlaceViewModel()
+            showLoadingIndicator()
             mapAddPlaceViewModel.addPlace(imageArray: filterImg,model: placePostModel){
                 self.hideLoadingIndicator()
                 self.hasMapAdedclosure!()
             }
-        
+            showResult()
             self.dismiss(animated: true, completion: {
             })
         }else{
@@ -112,7 +111,7 @@ class MapAddPlaceVC: UIViewController {
         }
     }
     
-    // MARK: -- Private Functions
+    // MARK: -- Private Methods
     
     func showControlAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -124,6 +123,11 @@ class MapAddPlaceVC: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func showResult(){
+        mapAddPlaceViewModel.showAlertClosure = {message in
+            self.resultAlert(title: message.0, message: message.1)
+        }
+    }
     // MARK: -- Life Cycles
     
     override func viewDidLoad() {

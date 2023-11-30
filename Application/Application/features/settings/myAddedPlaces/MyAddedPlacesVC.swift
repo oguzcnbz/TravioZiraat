@@ -76,8 +76,14 @@ class MyAddedPlacesVC: UIViewController {
                 self?.myAddedPlaces = obj ?? []
                 self?.collectionView.reloadData()
             }
+        showResult()
         }
 
+    func showResult(){
+        myAddedPlacesViewModel.showAlertClosure = {message in
+            self.resultAlert(title: message.0, message: message.1)
+        }
+    }
     //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
