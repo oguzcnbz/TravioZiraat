@@ -6,21 +6,21 @@ import SnapKit
 class AppDefaultsVC: UIViewController {
     
     //MARK: -- Components
-
+    
     private lazy var mainStackView:DefaultMainStackView = {
         let sv = DefaultMainStackView()
         return sv
     }()
     
     //MARK: -- Life Cycles
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
     
     //MARK: -- Setup
-
+    
     func setupViews() {
         self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubviews(mainStackView)

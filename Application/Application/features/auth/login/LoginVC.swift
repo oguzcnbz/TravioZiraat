@@ -4,15 +4,15 @@ import TinyConstraints
 
 
 class LoginVC: UIViewController,LoginResponseDelegate {
-
+    
     //MARK: -- Properties
-
+    
     private lazy var securitySettings: SecuritySettingsVC = {
         return SecuritySettingsVC()
     }()
     
     //MARK: -- Components
-
+    
     private lazy var mainStackView: DefaultMainStackView = {
         let sv = DefaultMainStackView()
         return sv
@@ -54,7 +54,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         lbl.numberOfLines = 1
         return lbl
     }()
-
+    
     private lazy var lblCheckSign: UILabel = {
         let lbl = UILabel()
         lbl.text = "Don’t have  any account?"
@@ -118,7 +118,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let btnCancel = UIAlertAction(title: "Vazgeç", style: .destructive)
         let btnRetry = UIAlertAction(title: "Yeniden Dene", style: .default, handler: { action in
-        self.showAlert(title: "Hata", message: "Yine olmadı")
+            self.showAlert(title: "Hata", message: "Yine olmadı")
         })
         
         alert.addAction(btnCancel)
@@ -126,16 +126,16 @@ class LoginVC: UIViewController,LoginResponseDelegate {
         self.present(alert, animated: true)
     }
     
-//MARK: -- Life Cycles
+    //MARK: -- Life Cycles
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
         setupViews()
-       
+        
     }
-
-//MARK: -- Setup
+    
+    //MARK: -- Setup
     
     private func setupViews() {
         self.view.backgroundColor = ColorStyle.primary.color
@@ -149,14 +149,14 @@ class LoginVC: UIViewController,LoginResponseDelegate {
                                   bottomStackView)
         
         bottomStackView.addArrangedSubviews(lblCheckSign,
-                                    signButton)
+                                            signButton)
         layout()
     }
     
-//MARK: -- Layout
+    //MARK: -- Layout
     
     private func layout() {
-       
+        
         imageView.snp.makeConstraints { imgv in
             imgv.centerX.equalToSuperview()
             imgv.bottom.equalTo(mainStackView.snp.top).offset(-24)
@@ -197,7 +197,7 @@ class LoginVC: UIViewController,LoginResponseDelegate {
             btn.leading.equalToSuperview().offset(24)
             btn.height.equalTo(54)
         }
-    
+        
         bottomStackView.snp.makeConstraints({sv in
             sv.centerX.equalToSuperview()
             sv.bottom.equalTo(mainStackView.snp.bottom).offset(-24)

@@ -5,11 +5,11 @@ import SnapKit
 class MyVisitsCell: UICollectionViewCell {
     
     //MARK: -- Properties
-
+    
     var closure:(()->Void)?
     
     //MARK: -- Components
-
+    
     private lazy var imgPlace: UIImageView = {
         let iv = UIImageView()
         iv.layer.cornerRadius = 16
@@ -48,7 +48,7 @@ class MyVisitsCell: UICollectionViewCell {
     }()
     
     //MARK: -- Initialization
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -59,7 +59,7 @@ class MyVisitsCell: UICollectionViewCell {
     }
     
     //MARK: -- Private Methods
-
+    
     public func configure(object:MyVisits){
         
         let url = URL(string: object.place.coverImageURL)
@@ -70,7 +70,7 @@ class MyVisitsCell: UICollectionViewCell {
         
     }
     //MARK: -- Setup
-
+    
     private func setupViews(){
         self.contentView.layer.borderColor = UIColor.black.cgColor
         self.contentView.layer.shadowOpacity = 0.15
@@ -87,7 +87,7 @@ class MyVisitsCell: UICollectionViewCell {
     }
     
     //MARK: -- Layout
-
+    
     private func setupLayout(){
         
         gradientLayer.frame = self.contentView.bounds

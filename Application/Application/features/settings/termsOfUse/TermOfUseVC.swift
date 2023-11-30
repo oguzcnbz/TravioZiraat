@@ -35,11 +35,11 @@ class TermOfUseVC: UIViewController {
     //MARK: -- Private Methods
     
     func loadWebViewContent() {
-           if let url = URL(string: "https://api.iosclass.live/terms") {
-               let request = URLRequest(url: url)
-               webView.load(request)
-           }
-       }
+        if let url = URL(string: "https://api.iosclass.live/terms") {
+            let request = URLRequest(url: url)
+            webView.load(request)
+        }
+    }
     
     //MARK: -- Setup
     
@@ -77,14 +77,14 @@ extension TermOfUseVC: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         let backgroundColorCode = "document.body.style.backgroundColor = '#FFFFFF';"
         webView.evaluateJavaScript(backgroundColorCode)
-
+        
         let jsCode = """
             var style = document.createElement('style');
             style.innerHTML = 'body { font-family: "Poppins", sans-serif; padding-top: 24px; }';
             document.head.appendChild(style);
         """
         webView.evaluateJavaScript(jsCode)
-
+        
         let h1Styles = """
             var h1Elements = document.querySelectorAll('h1');
             for (var i = 0; i < h1Elements.length; i++) {
@@ -94,7 +94,7 @@ extension TermOfUseVC: WKNavigationDelegate {
             }
         """
         webView.evaluateJavaScript(h1Styles)
-
+        
         let pStyles = """
             var pElements = document.querySelectorAll('p');
             for (var i = 0; i < pElements.length; i++) {

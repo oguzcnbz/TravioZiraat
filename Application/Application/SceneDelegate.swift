@@ -19,15 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let window = UIWindow(windowScene: windowScene)
-      //  let dispatchGroup = DispatchGroup()
+        _ = UIWindow(windowScene: windowScene)
 
-//        let vc = LoginVC()
-//
-//        let rootViewController = UINavigationController(rootViewController: vc)
-//        window.rootViewController = rootViewController
-//        window.makeKeyAndVisible()
-//        self.window = window
 
 
         
@@ -49,16 +42,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     /// Description: Accestoken aktıf mı kontrolu için   accesToken kullanarak kullanıcı verısı çekme yapıyorum. obj?.fullName veri varsa acces token aktıf ana sayfaya yönlendırıyorum aktıf degılse logıne donuyor.
   
     func hasUserLoggedIn(completion: @escaping (Bool) -> Void) {
-        guard let accessToken = KeychainHelper.shared.read(service: "user-key", account: "accessToken") else {
-            print("accessToken bulunamadı")
+        guard KeychainHelper.shared.read(service: "user-key", account: "accessToken") != nil else {
             completion(false)
             return
            
                                
         }
 
-        guard let refreshToken = KeychainHelper.shared.read(service: "user-key", account: "refreshToken") else {
-            print("refreshToken bulunamadı")
+        guard KeychainHelper.shared.read(service: "user-key", account: "refreshToken") != nil else {
             completion(false)
             return
           
@@ -75,12 +66,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
            NetworkingHelper.shared.getDataFromRemote(urlRequest: .profileGet) { (result: Result<ProfileModel, Error>) in
                switch result {
-               case .success(let success):
-                   print(success)
+               case .success(_):
                    completion(true)
                    
                case .failure(_):
-                   // isAccessTokenValid(false)
                    completion(false)
                }
            }

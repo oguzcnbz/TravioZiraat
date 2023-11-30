@@ -3,34 +3,34 @@ import UIKit
 
 class MapAddPlaceViewModel {
     private var isLoading = false
+    var showAlertClosure: (((String,String)) -> Void)?
     
     func addPlace(imageArray: [UIImage?],model:PlacePostModel,hasUploded: @escaping () -> Void) {
         if isLoading == false {
             changeLoading()
-        
+            
             let filterImg = imageArray.compactMap(({ $0 }))
             
             if filterImg.count > 0 {
-
+                
                 NetworkingHelper.shared.uplodImageFromRemote(urlRequest: .uploadImage(images: filterImg)) { (result:Result<UploadImageResponse,Error>)in
                     switch result {
                     case .success(let success):
-                       // print(success.message)
                         if let imageUrls = success.urls {
-                            print("Images uploaded successfully. URLs: \(imageUrls)")
                             self.placeCreate(model: model, imgUrl: imageUrls.first!) { placeId in
                                 imageUrls.forEach({
                                     imgUrl in
-                                        self.galleryImageUrlAdd(placeId: placeId, imgUrl: imgUrl)
+                                    self.galleryImageUrlAdd(placeId: placeId, imgUrl: imgUrl)
                                     
                                 }
                                 )
                                 hasUploded()
                                 
-                                 }
+                            }
                         }
-                    case .failure(let failure):
-                        print(failure.localizedDescription)
+                        self.showAlertClosure?((title:"Message",message:"Place saved successfully."))
+                    case .failure(let error):
+                        self.showAlertClosure?((title:"Error",message:error.localizedDescription))
                     }
                     
                 }
@@ -51,18 +51,15 @@ class MapAddPlaceViewModel {
         
         if isLoading == false {
             NetworkingHelper.shared.getDataFromRemote(urlRequest: .placePost(params: params)) {  (result:Result<ResponseMessageModel,Error>) in
-               
+                
                 switch result {
                 case .success(let success):
-                    print(success.message)
                     callback(success.message)
-                case .failure(let failure):
-                    print(failure.localizedDescription)
+                case .failure(let error):
+                    self.showAlertClosure?((title:"Error",message:error.localizedDescription))
                 }
             }
         }
-        
-      
     }
     
     func galleryImageUrlAdd(placeId:String ,imgUrl:String ) {
@@ -72,18 +69,15 @@ class MapAddPlaceViewModel {
         
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .galerysImagesPost(params: params)) { (result:Result<ResponseMessageModel,Error>) in
             switch result {
-            case .success(let success):
-                print(success.message)
-            case .failure(let failure):
-                print(failure.localizedDescription)
+            case .success(_):
+                break
+            case .failure(let error):
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
         }
     }   
     
     func changeLoading() {
         isLoading = !isLoading
-        if isLoading == true {
-            print("ikinci tiklama")
-        }
     }
 }

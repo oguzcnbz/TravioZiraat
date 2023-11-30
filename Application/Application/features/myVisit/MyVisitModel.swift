@@ -17,7 +17,7 @@ struct MyVisits: Codable {
     let createdAt: String
     let updatedAt: String
     let place: Place
-
+    
     enum CodingKeys: String, CodingKey {
         case id
         case placeID = "place_id"

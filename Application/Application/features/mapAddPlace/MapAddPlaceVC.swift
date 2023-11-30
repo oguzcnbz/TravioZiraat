@@ -18,7 +18,7 @@ class MapAddPlaceVC: UIViewController {
     let hasImgArr:[Bool] = [false,false,false]
     var hasMapAdedclosure: (()->Void)?
     private var hasLoading = false
-
+    let mapAddPlaceViewModel = MapAddPlaceViewModel()
     weak var delegate: PreviousPageDelegate?
     
     // MARK: -- Components
@@ -45,17 +45,17 @@ class MapAddPlaceVC: UIViewController {
         return v
     }()
     
-     lazy var placeName: CustomTextField = {
+    lazy var placeName: CustomTextField = {
         let sv = CustomTextField(labelText: "Place Name", textFieldPlaceholder: "Please write a place name")
         return sv
     }()
     
-     lazy var visitDescription: CustomTextView = {
+    lazy var visitDescription: CustomTextView = {
         let sv = CustomTextView(labelText:"Visit Description", textViewPlaceholder:"Please write a visit description" )
         return sv
     }()
     
-     lazy var countryCity: CustomTextField = {
+    lazy var countryCity: CustomTextField = {
         let sv = CustomTextField(labelText: "Country,City", textFieldPlaceholder: "Please write country and city")
         return sv
     }()
@@ -79,7 +79,7 @@ class MapAddPlaceVC: UIViewController {
     // MARK: -- Components Methods
     
     @objc func btnAddPlaceTapped() {
-      
+        
         let placePostModel = PlacePostModel(place: countryCity.defaultTextField.text ?? "", title: placeName.defaultTextField.text ?? "", description: visitDescription.defaultTextView.text, coverImageURL: "", latitude: latitude ?? 0, longitude: longitude ?? 0)
         
         let filterImg = imageArray.compactMap(({ $0 }))
@@ -94,13 +94,12 @@ class MapAddPlaceVC: UIViewController {
         }
         
         if placeName.defaultTextField.hasText && visitDescription.defaultTextView.hasText && !filterImg.isEmpty{
-             showLoadingIndicator()
-            let mapAddPlaceViewModel = MapAddPlaceViewModel()
+            showLoadingIndicator()
             mapAddPlaceViewModel.addPlace(imageArray: filterImg,model: placePostModel){
                 self.hideLoadingIndicator()
                 self.hasMapAdedclosure!()
             }
-        
+            showResult()
             self.dismiss(animated: true, completion: {
             })
         }else{
@@ -112,7 +111,7 @@ class MapAddPlaceVC: UIViewController {
         }
     }
     
-    // MARK: -- Private Functions
+    // MARK: -- Private Methods
     
     func showControlAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -124,6 +123,11 @@ class MapAddPlaceVC: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func showResult(){
+        mapAddPlaceViewModel.showAlertClosure = {message in
+            self.resultAlert(title: message.0, message: message.1)
+        }
+    }
     // MARK: -- Life Cycles
     
     override func viewDidLoad() {
@@ -138,10 +142,10 @@ class MapAddPlaceVC: UIViewController {
         self.view.layer.cornerRadius = 24
         self.view.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         scrollView.addSubview(mainStackView)
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         mainStackView.addSubviews(stick,placeName,visitDescription,countryCity, collectionView,btnaddPlace)
         setupLayout()
     }
@@ -197,7 +201,7 @@ class MapAddPlaceVC: UIViewController {
         })
         
         let heightA = stick.frame.height + placeName.frame.height + visitDescription.frame.height + countryCity.frame.height + collectionView.frame.height + btnaddPlace.frame.height + 120
-
+        
         mainStackView.snp.makeConstraints { v in
             v.edges.equalToSuperview()
             v.width.equalToSuperview()
@@ -221,7 +225,7 @@ extension MapAddPlaceVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MapAddPlaceCell
         cell.delegate = self
-      
+        
         cell.closure = { image in
             self.imageArray[indexPath.row] = image
         }

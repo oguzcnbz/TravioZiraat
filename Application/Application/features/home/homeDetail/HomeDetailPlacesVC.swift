@@ -189,22 +189,22 @@ extension HomeDetailPlacesVC {
         
         UICollectionViewCompositionalLayout {
             [weak self] sectionIndex, environment in
-         
-                return self?.makeListLayoutSection()
+            
+            return self?.makeListLayoutSection()
         }
     }
     
     
     func makeListLayoutSection() -> NSCollectionLayoutSection {
         
-
+        
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         
         let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.125))
         let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [item] )
-       
+        
         
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
         layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 70, leading: 24, bottom: 0, trailing: 22)

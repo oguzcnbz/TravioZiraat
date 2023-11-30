@@ -3,7 +3,8 @@ import Alamofire
 
 
 class MapViewModel{
-
+    
+    var showAlertClosure: (((String,String)) -> Void)?
     var allPlace:[Place] = [] {
         didSet {
             self.transferData?()
@@ -13,18 +14,15 @@ class MapViewModel{
     var transferData: (()->())?
     
     func getAllPlace(){
-       
+        
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .placeAllGet, callback: { (result:Result<PlacesModelDatas,Error>) in
             switch result {
             case .success(let obj):
                 let response = obj.data
-              //  let sortedPlaces = response.places.sorted { $0.title < $1.title }
-             //   self.allPlace = sortedPlaces
                 self.allPlace =  response.places
-                print(self.allPlace.first?.coverImageURL)
                 
-            case .failure(let err):
-                print(err.localizedDescription)
+            case .failure(let error):
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
         })
     }

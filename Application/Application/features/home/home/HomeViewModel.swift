@@ -4,6 +4,7 @@ import Alamofire
 
 class HomeViewModel{
     
+    var showAlertClosure: (((String,String)) -> Void)?
     var populerPlace:[Place] = [] {
         didSet {
             self.transferPopulerData?()
@@ -25,7 +26,7 @@ class HomeViewModel{
     var transferUserData: (()->())?
     
     
-//MARK: Populer place
+    //MARK: Populer place
     
     func getPopulerPlaceParam(){
         let params = ["limit": "5"]
@@ -35,22 +36,22 @@ class HomeViewModel{
                 let response = obj.data
                 self.populerPlace = response.places
                 
-            case .failure(let err):
-                print(err.localizedDescription)
+            case .failure(let error):
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
         })
     }
     
     func getPopulerPlace(){
-       
+        
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .placePopularGet, callback: { (result:Result<PlacesModelDatas,Error>) in
             switch result {
             case .success(let obj):
                 let response = obj.data
                 self.populerPlace = response.places
-            
-            case .failure(let err):
-                print(err.localizedDescription)
+                
+            case .failure(let error):
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
         })
         
@@ -65,38 +66,38 @@ class HomeViewModel{
                 let response = obj.data
                 self.lastPlace = response.places
                 
-            case .failure(let err):
-                print(err.localizedDescription)
+            case .failure(let error):
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
         })
         
     }
     
     func getLastPlace(){
-       
+        
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .placeLastGet, callback: { (result:Result<PlacesModelDatas,Error>) in
             switch result {
             case .success(let obj):
                 let response = obj.data
                 self.lastPlace = response.places
-            
-            case .failure(let err):
-                print(err.localizedDescription)
+                
+            case .failure(let error):
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
         })
     }
     
     //MARK: user place
     func getUserPlace(){
-       
+        
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .placeAllUserGet, callback: { (result:Result<PlacesModelDatas,Error>) in
             switch result {
             case .success(let obj):
                 let response = obj.data
                 self.userPlace = response.places
-            
-            case .failure(let err):
-                print(err.localizedDescription)
+                
+            case .failure(let error):
+                self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
         })
         

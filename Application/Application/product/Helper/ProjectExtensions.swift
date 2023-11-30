@@ -1,13 +1,12 @@
 import UIKit
 import Foundation
 import SwiftUI
-
 import UIKit
 import SwiftUI
 
 
 extension UIView {
-   func roundCornerss(corners: UIRectCorner, radius: CGFloat) {
+    func roundCornerss(corners: UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         let mask = CAShapeLayer()
         mask.path = path.cgPath
@@ -38,9 +37,9 @@ extension UIViewController {
             titleLbl.adjustsFontSizeToFitWidth = true
             let lblItem = UIBarButtonItem(customView: titleLbl)
             self.navigationItem.leftBarButtonItem = lblItem
-
+            
             let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-                flexibleSpace.width = spaceBetweenItems
+            flexibleSpace.width = spaceBetweenItems
             self.navigationItem.leftBarButtonItems = [leftBarButton, flexibleSpace, lblItem]
             
         } else {
@@ -59,10 +58,8 @@ extension UIViewController {
             rightBarButton.tintColor = .white
         }
     }
-}
-
-
-extension UIViewController {
+    
+    
     func showLoadingIndicator() {
         let blurEffect = UIBlurEffect(style: .light)
         let visualEffectView = UIVisualEffectView(effect: blurEffect)
@@ -83,11 +80,17 @@ extension UIViewController {
     }
     
     func hideLoadingIndicator() {
-            for subview in view.subviews {
-                if subview is UIActivityIndicatorView || subview is UIVisualEffectView {
-                    subview.removeFromSuperview()
-                }
+        for subview in view.subviews {
+            if subview is UIActivityIndicatorView || subview is UIVisualEffectView {
+                subview.removeFromSuperview()
             }
         }
+    }
+    
+    func resultAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Tamam", style: .cancel))
+        present(alert, animated: true, completion: nil)
+    }
     
 }

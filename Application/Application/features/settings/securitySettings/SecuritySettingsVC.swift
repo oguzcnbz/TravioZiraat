@@ -9,20 +9,21 @@ import CoreLocation
 class SecuritySettingsVC: UIViewController {
     
     //MARK: -- Properties
-
+    
     var cameraPermissionStatus = AVCaptureDevice.authorizationStatus(for: .video)
     var libraryPermissionStatus = PHPhotoLibrary.authorizationStatus()
-    var locationPermissionStatus = CLLocationManager.authorizationStatus()
-
-    private lazy var locationManager:CLLocationManager = {
+    var locationPermissionStatus: CLAuthorizationStatus = .notDetermined
+    
+    private lazy var locationManager: CLLocationManager = {
         let location = CLLocationManager()
+        location.delegate = self
         return location
     }()
     
     lazy var securitySettingsViewModel: SecuritySettingsViewModel = SecuritySettingsViewModel()
     
     //MARK: -- Components
-
+    
     private lazy var scrollView: UIScrollView = {
         let sv = UIScrollView()
         sv.backgroundColor =  ColorStyle.background.color
@@ -55,7 +56,7 @@ class SecuritySettingsVC: UIViewController {
     
     private lazy var newPassTxtField:CustomPasswordTextField = {
         let tf = CustomPasswordTextField(labelText: "New Password", textFieldPlaceholder: "********")
-      
+        
         return tf
     }()
     
@@ -64,7 +65,7 @@ class SecuritySettingsVC: UIViewController {
         tf.defaultTextField.isSecureTextEntry = true
         return tf
     }()
-   
+    
     private lazy var cameraSV:SecuritySettingsCustomSV = {
         let sv = SecuritySettingsCustomSV(labelText: "Camera")
         sv.toggleSwitch.addTarget(self, action: #selector(cameraChanged), for: .valueChanged)
@@ -89,7 +90,7 @@ class SecuritySettingsVC: UIViewController {
     }()
     
     //MARK: -- Components Actions
-
+    
     @objc func cameraChanged(_ sender: UISwitch){
         if sender.isOn {
             requestCameraPermission()
@@ -121,8 +122,7 @@ class SecuritySettingsVC: UIViewController {
             showLoadingIndicator()
             guard let newPassword = newPassTxtField.defaultTextField.text else {return}
             securitySettingsViewModel.passwordChange(changedPassword: newPassword)
-            self.navigationController?.popViewController(animated: true)
-            
+            showResult()
             
         }else if isPasswordValid == false{
             
@@ -140,15 +140,24 @@ class SecuritySettingsVC: UIViewController {
             alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: { _ in
                 self.dismiss(animated: true)
             }))
+            present(alert, animated: true, completion: nil)
         }
         hideLoadingIndicator()
     }
     
+    //MARK: -- Private Methods
+    
+    func showResult(){
+        securitySettingsViewModel.showAlertClosure = {message in
+            self.resultAlert(title: message.0, message: message.1)
+        }
+    }
+    
     //MARK: -- Life Cycles
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       setupViews()
+        setupViews()
         
     }
     
@@ -166,13 +175,13 @@ class SecuritySettingsVC: UIViewController {
         scrollView.addSubview(mainStackView)
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.addSubviews(changePassLbl,newPassTxtField,newPassConfTxtField,privacyLbl,cameraSV,librarySV,locationSV,saveButton)
-      
+        
         setupLayout()
         setNavigationItems(leftBarButton: true, rightBarButton: nil, title: "Security Settings")
     }
     
     //MARK: -- Layout
-
+    
     func setupLayout() {
         
         scrollView.snp.makeConstraints { v in
@@ -180,16 +189,16 @@ class SecuritySettingsVC: UIViewController {
             v.trailing.equalToSuperview()
             v.bottom.equalToSuperview()
             v.height.equalToSuperview().multipliedBy(0.82)
-           }
-
+        }
+        
         mainStackView.snp.makeConstraints { v in
-           v.width.equalToSuperview()
-           v.leading.equalToSuperview()
-           v.trailing.equalToSuperview()
-           v.bottom.equalToSuperview()
-           v.top.equalToSuperview()
-           v.height.equalTo(760)
-
+            v.width.equalToSuperview()
+            v.leading.equalToSuperview()
+            v.trailing.equalToSuperview()
+            v.bottom.equalToSuperview()
+            v.top.equalToSuperview()
+            v.height.equalTo(760)
+            
         }
         
         changePassLbl.snp.makeConstraints({lbl in
@@ -212,7 +221,7 @@ class SecuritySettingsVC: UIViewController {
             tf.trailing.equalToSuperview().offset(-24)
             tf.height.equalTo(74)
         })
-    
+        
         privacyLbl.snp.makeConstraints({lbl in
             lbl.top.equalTo(newPassConfTxtField.snp.bottom).offset(24)
             lbl.leading.equalToSuperview().offset(24)
@@ -247,7 +256,7 @@ class SecuritySettingsVC: UIViewController {
             btn.height.equalTo(54)
             btn.top.equalTo(locationSV.snp.bottom).offset(124)
         })
-       
+        
     }
 }
 
@@ -255,8 +264,8 @@ class SecuritySettingsVC: UIViewController {
 
 extension SecuritySettingsVC {
     
-     func requestCameraPermission() {
-       
+    func requestCameraPermission() {
+        
         switch cameraPermissionStatus {
         case .authorized:
             self.cameraSV.toggleSwitch.isOn = true
@@ -275,8 +284,8 @@ extension SecuritySettingsVC {
         }
     }
     
-     func requestLibraryPermission() {
-       
+    func requestLibraryPermission() {
+        
         switch libraryPermissionStatus {
         case .authorized,.limited:
             self.librarySV.toggleSwitch.isOn = true
@@ -296,22 +305,22 @@ extension SecuritySettingsVC {
             break
         }
     }
-   
-     func requestLocationPermission() {
-           
-            switch locationPermissionStatus {
-            case .authorizedAlways, .authorizedWhenInUse:
-                self.locationSV.toggleSwitch.isOn = true
-            case .denied, .restricted:
-                showPermissionAlert(title: "Location Permission Required", message: "Please enable access to your location in settings to use this feature.", toggleSender: locationSV.toggleSwitch)
-            case .notDetermined:
-                locationManager.requestWhenInUseAuthorization()
-            @unknown default:
-                break
-            }
-        }
     
-     func showPermissionAlert(title: String, message: String, toggleSender: UISwitch) {
+    func requestLocationPermission() {
+        
+        switch locationPermissionStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            self.locationSV.toggleSwitch.isOn = true
+        case .denied, .restricted:
+            showPermissionAlert(title: "Location Permission Required", message: "Please enable access to your location in settings to use this feature.", toggleSender: locationSV.toggleSwitch)
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        @unknown default:
+            break
+        }
+    }
+    
+    func showPermissionAlert(title: String, message: String, toggleSender: UISwitch) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { _ in
@@ -330,35 +339,41 @@ extension SecuritySettingsVC {
         
         present(alert, animated: true, completion: nil)
     }
-
-
-         func checkPermissionStatus() {
-            checkCameraPermissionStatus()
-            checkLibraryPermissionStatus()
-            checkLocationPermissionStatus()
+    
+    
+    func checkPermissionStatus() {
+        checkCameraPermissionStatus()
+        checkLibraryPermissionStatus()
+        checkLocationPermissionStatus()
+    }
+    
+    func checkCameraPermissionStatus() {
+        if cameraPermissionStatus == .authorized {
+            cameraSV.toggleSwitch.isOn = true
+        }else if cameraPermissionStatus  == .denied || cameraPermissionStatus  == .restricted {
+            cameraSV.toggleSwitch.isOn = false
         }
-
-         func checkCameraPermissionStatus() {
-            if cameraPermissionStatus == .authorized {
-                cameraSV.toggleSwitch.isOn = true
-            }else if cameraPermissionStatus  == .denied || cameraPermissionStatus  == .restricted {
-                cameraSV.toggleSwitch.isOn = false
-            }
+    }
+    
+    func checkLibraryPermissionStatus() {
+        if libraryPermissionStatus == .authorized {
+            librarySV.toggleSwitch.isOn = true
+        }else if libraryPermissionStatus  == .denied || libraryPermissionStatus  == .restricted {
+            librarySV.toggleSwitch.isOn = false
         }
-
-         func checkLibraryPermissionStatus() {
-            if libraryPermissionStatus == .authorized {
-                librarySV.toggleSwitch.isOn = true
-            }else if libraryPermissionStatus  == .denied || libraryPermissionStatus  == .restricted {
-                librarySV.toggleSwitch.isOn = false
-            }
+    }
+    
+    func checkLocationPermissionStatus() {
+        if locationPermissionStatus == .authorizedAlways || locationPermissionStatus == .authorizedWhenInUse {
+            locationSV.toggleSwitch.isOn = true
+        }else if locationPermissionStatus  == .denied || locationPermissionStatus  == .restricted {
+            librarySV.toggleSwitch.isOn = false
         }
+    }
+}
 
-         func checkLocationPermissionStatus() {
-            if locationPermissionStatus == .authorizedAlways || locationPermissionStatus == .authorizedWhenInUse {
-                locationSV.toggleSwitch.isOn = true
-            }else if locationPermissionStatus  == .denied || locationPermissionStatus  == .restricted {
-                librarySV.toggleSwitch.isOn = false
-            }
-        }
+extension SecuritySettingsVC: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        locationPermissionStatus = status
+    }
 }

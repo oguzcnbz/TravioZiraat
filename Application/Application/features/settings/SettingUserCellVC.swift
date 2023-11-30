@@ -14,12 +14,14 @@ class SettingUserCell: UICollectionViewCell{
     }()
     
     private lazy var editProfileBtn: UIButton = {
-        let btn = UIButton()
+        var config = UIButton.Configuration.tinted()
+        config.baseBackgroundColor = .clear
+        config.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20)
+        let btn = UIButton(configuration: config)
         btn.setTitle("Edit Profile", for: .normal)
         btn.titleLabel?.font = FontStyle.lt3.font
         btn.setTitleColor(ColorStyle.blueRaspberry.color, for: .normal)
         btn.addTarget(self, action: #selector(editProfilefunc), for: .touchUpInside)
-        btn.contentEdgeInsets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
         return btn
     }()
     
@@ -32,7 +34,7 @@ class SettingUserCell: UICollectionViewCell{
         iv.layer.masksToBounds = true
         return iv
     }()
-   
+    
     
     @objc func editProfilefunc(){
         closure?()

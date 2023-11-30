@@ -32,7 +32,7 @@ class CustomTextView: UIView {
         lbl.numberOfLines = 1
         return lbl
     }()
-   
+    
     lazy var defaultTextView: UITextView = {
         let textView = UITextView()
         textView.font = FontStyle.lt2.font
@@ -45,7 +45,7 @@ class CustomTextView: UIView {
         defaultStackView.addSubviews(defaultLabel, defaultTextView)
         
         defaultLabel.text = labelText
-      
+        
         
         defaultStackView.snp.makeConstraints { sv in
             sv.top.equalToSuperview()

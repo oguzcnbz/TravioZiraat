@@ -43,14 +43,14 @@ class HelpAndSupportCell: UITableViewCell {
         let img = UIImageView()
         img.image = UIImage(named: "arrowGreenDown")?.withRenderingMode(.alwaysTemplate)
         img.tintColor = ColorStyle.primary.color
-      
+        
         return img
     }()
     
     let expandableView: UIView = {
         let view = UIView()
         view.isHidden = true
-
+        
         return view
     }()
     
@@ -62,7 +62,7 @@ class HelpAndSupportCell: UITableViewCell {
         lbl.textAlignment = .left
         return lbl
     }()
-        
+    
     public func configure(object:HelpAndSupportModel){
         questionLbl.text = object.questionLbl
         answerLbl.text = object.answerLbl
@@ -72,7 +72,7 @@ class HelpAndSupportCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-         setupViews()
+        setupViews()
     }
     
     private func setupViews() {
@@ -84,29 +84,29 @@ class HelpAndSupportCell: UITableViewCell {
         setupLayout()
     }
     
-        private func setupLayout(){
-            
-            defaultStackView.snp.makeConstraints { v in
-                v.top.equalToSuperview().offset(16)
-                v.bottom.equalToSuperview()
-                v.leading.equalToSuperview().offset(24)
-                v.trailing.equalToSuperview().offset(-24)
-            }
+    private func setupLayout(){
         
-            vector.snp.makeConstraints({img in
-                img.width.equalTo(15)
-                img.trailing.equalToSuperview().offset(-30)
-               
-            })
-            
-            answerLbl.snp.makeConstraints { lbl in
-                lbl.leading.equalToSuperview()
-                lbl.trailing.equalToSuperview()
-                lbl.top.equalToSuperview()
-                lbl.bottom.equalToSuperview()
-            }
+        defaultStackView.snp.makeConstraints { v in
+            v.top.equalToSuperview().offset(16)
+            v.bottom.equalToSuperview()
+            v.leading.equalToSuperview().offset(24)
+            v.trailing.equalToSuperview().offset(-24)
         }
         
+        vector.snp.makeConstraints({img in
+            img.width.equalTo(15)
+            img.trailing.equalToSuperview().offset(-30)
+            
+        })
+        
+        answerLbl.snp.makeConstraints { lbl in
+            lbl.leading.equalToSuperview()
+            lbl.trailing.equalToSuperview()
+            lbl.top.equalToSuperview()
+            lbl.bottom.equalToSuperview()
+        }
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

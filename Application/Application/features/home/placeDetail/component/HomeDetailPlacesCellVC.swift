@@ -2,14 +2,14 @@ import UIKit
 import SnapKit
 
 class HomeDetailPlacesCell: UICollectionViewCell {
-       
+    
     var closure:(()->Void)?
     
     private lazy var imgPlace:UIImageView = {
         let iv = UIImageView()
         return iv
     }()
-
+    
     private lazy var ViewCell:UIView = {
         let v = UIView()
         v.backgroundColor = ColorStyle.white.color
@@ -51,7 +51,7 @@ class HomeDetailPlacesCell: UICollectionViewCell {
     public func configure(object:Place){
         let url = URL(string: object.coverImageURL)
         imgPlace.kf.setImage(with: url)
-       
+        
         lblName.text = object.title
         lblPlace.text = object.place
         
@@ -98,7 +98,7 @@ class HomeDetailPlacesCell: UICollectionViewCell {
             lbl.leading.equalTo(vector.snp.trailing).offset(6)
             lbl.centerY.equalTo(vector)
         })
-       
+        
     }
     
     required init?(coder: NSCoder) {

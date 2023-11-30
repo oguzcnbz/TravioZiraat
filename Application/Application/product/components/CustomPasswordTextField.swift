@@ -4,16 +4,16 @@ import SnapKit
 
 class CustomPasswordTextField: UIView {
     
-     init(labelText: String, textFieldPlaceholder: String) {
-            super.init(frame: CGRect.zero)
-            setupAndLayout(labelText: labelText, textFieldPlaceholder: textFieldPlaceholder)
-        }
-        
-        required init?(coder: NSCoder) {
-            super.init(coder: coder)
-            setupAndLayout(labelText: "", textFieldPlaceholder: "")
-        }
-        
+    init(labelText: String, textFieldPlaceholder: String) {
+        super.init(frame: CGRect.zero)
+        setupAndLayout(labelText: labelText, textFieldPlaceholder: textFieldPlaceholder)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupAndLayout(labelText: "", textFieldPlaceholder: "")
+    }
+    
     
     private lazy var defaultStackView: UIStackView = {
         let stack = UIStackView()
@@ -23,7 +23,7 @@ class CustomPasswordTextField: UIView {
         stack.layer.borderColor = UIColor.black.cgColor
         stack.layer.shadowOpacity = 0.15
         stack.layer.shadowRadius = 20
-    
+        
         return stack
     }()
     
@@ -34,8 +34,8 @@ class CustomPasswordTextField: UIView {
         lbl.numberOfLines = 1
         return lbl
     }()
-   
-     lazy var defaultTextField: UITextField = {
+    
+    lazy var defaultTextField: UITextField = {
         let txt = UITextField()
         txt.font = FontStyle.sh3.font
         txt.textColor = ColorStyle.darkgray.color
@@ -44,25 +44,25 @@ class CustomPasswordTextField: UIView {
     }()
     
     private lazy var passwordShowToggle: UIButton = {
-            let btn = UIButton()
-            btn.setImage(UIImage(systemName:"eye.slash"), for: .normal)
-            btn.tintColor = ColorStyle.primary.color
-            btn.addTarget(self, action: #selector(startShowingPassword), for: .touchDown)
-            btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpInside)
-            btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpOutside)
-            return btn
-        }()
+        let btn = UIButton()
+        btn.setImage(UIImage(systemName:"eye.slash"), for: .normal)
+        btn.tintColor = ColorStyle.primary.color
+        btn.addTarget(self, action: #selector(startShowingPassword), for: .touchDown)
+        btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(stopShowingPassword), for: .touchUpOutside)
+        return btn
+    }()
+    
+    @objc private func startShowingPassword(textfield:CustomTextField) {
+        passwordShowToggle.setImage(UIImage(systemName: "eye"), for: .normal)
+        defaultTextField.isSecureTextEntry = false
+    }
+    
+    @objc private func stopShowingPassword(textfield:CustomTextField) {
+        passwordShowToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        defaultTextField.isSecureTextEntry = true
         
-        @objc private func startShowingPassword(textfield:CustomTextField) {
-            passwordShowToggle.setImage(UIImage(systemName: "eye"), for: .normal)
-            defaultTextField.isSecureTextEntry = false
-        }
-
-        @objc private func stopShowingPassword(textfield:CustomTextField) {
-            passwordShowToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-            defaultTextField.isSecureTextEntry = true
-
-        }
+    }
     
     private func setupAndLayout(labelText: String, textFieldPlaceholder: String) {
         addSubview(defaultStackView)
@@ -73,32 +73,32 @@ class CustomPasswordTextField: UIView {
         defaultLabel.text = labelText
         defaultTextField.placeholder = textFieldPlaceholder
         
-           defaultStackView.snp.makeConstraints { sv in
-               sv.top.equalToSuperview()
-               sv.bottom.equalToSuperview()
-               sv.leading.equalToSuperview()
-               sv.trailing.equalToSuperview()
-           }
-           
-           defaultLabel.snp.makeConstraints { lbl in
-               lbl.leading.equalTo(defaultStackView.snp.leading).offset(12)
-               lbl .trailing.equalTo(defaultStackView.snp.trailing).offset(0)
-               lbl.top.equalTo(defaultStackView.snp.top).offset(8)
-               lbl.height.equalTo(21)
-           }
-           
-           defaultTextField.snp.makeConstraints { tf in
-               tf.leading.equalTo(defaultStackView.snp.leading).offset(12)
-               tf.trailing.equalTo(defaultStackView.snp.trailing).offset(-50)
-               tf.top.equalTo(defaultLabel.snp.bottom).offset(8)
-               tf.height.equalTo(18)
-           }
+        defaultStackView.snp.makeConstraints { sv in
+            sv.top.equalToSuperview()
+            sv.bottom.equalToSuperview()
+            sv.leading.equalToSuperview()
+            sv.trailing.equalToSuperview()
+        }
         
-            passwordShowToggle.snp.makeConstraints({tgl in
-                tgl.centerY.equalTo(defaultTextField)
-                tgl.trailing.equalToSuperview().offset(-16)
-                tgl.height.equalTo(24)
-                tgl.width.equalTo(24)
-            })
-       }
+        defaultLabel.snp.makeConstraints { lbl in
+            lbl.leading.equalTo(defaultStackView.snp.leading).offset(12)
+            lbl .trailing.equalTo(defaultStackView.snp.trailing).offset(0)
+            lbl.top.equalTo(defaultStackView.snp.top).offset(8)
+            lbl.height.equalTo(21)
+        }
+        
+        defaultTextField.snp.makeConstraints { tf in
+            tf.leading.equalTo(defaultStackView.snp.leading).offset(12)
+            tf.trailing.equalTo(defaultStackView.snp.trailing).offset(-50)
+            tf.top.equalTo(defaultLabel.snp.bottom).offset(8)
+            tf.height.equalTo(18)
+        }
+        
+        passwordShowToggle.snp.makeConstraints({tgl in
+            tgl.centerY.equalTo(defaultTextField)
+            tgl.trailing.equalToSuperview().offset(-16)
+            tgl.height.equalTo(24)
+            tgl.width.equalTo(24)
+        })
+    }
 }
