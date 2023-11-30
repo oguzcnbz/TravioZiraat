@@ -105,6 +105,25 @@ class EditProfileVC: UIViewController{
         btn.addTarget(self, action: #selector(btnProfilTapped), for: .touchUpInside)
         return btn
     }()
+    
+    private func CsTxtLabel(title:String) ->UILabel{
+        let l = UILabel()
+        l.numberOfLines = 0
+        l.text = title
+        l.height(24)
+        return l
+    }
+    private func CsStackView() -> UIStackView{
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.backgroundColor = ColorStyle.white.color
+        stack.layer.cornerRadius = 16
+        stack.layer.borderColor = UIColor.black.cgColor
+        stack.layer.shadowOpacity = 0.15
+        stack.layer.shadowRadius = 20
+        return stack
+    }
+    
 
     
     //MARK: -- Life Cycles
@@ -345,26 +364,6 @@ class EditProfileVC: UIViewController{
 
 //MARK: -- Extensions
 
-extension EditProfileVC {
-    private func CsTxtLabel(title:String) ->UILabel{
-        let l = UILabel()
-        l.numberOfLines = 0
-        l.text = title
-        l.height(24)
-        return l
-    }
-    private func CsStackView() -> UIStackView{
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.backgroundColor = ColorStyle.white.color
-        stack.layer.cornerRadius = 16
-        stack.layer.borderColor = UIColor.black.cgColor
-        stack.layer.shadowOpacity = 0.15
-        stack.layer.shadowRadius = 20
-        return stack
-    }
-    
-}
 
 extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func showChooseSourceTypeAlertController() {
