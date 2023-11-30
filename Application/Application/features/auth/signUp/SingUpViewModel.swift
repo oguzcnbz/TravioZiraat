@@ -36,8 +36,12 @@ class SignUpViewModel {
                     let isSuccess = (status == "success")
                     
                     lazy var loginViewModel: LoginViewModel = LoginViewModel()
-                    self.delegate?.signUpResponseGet(isSignUp: isSuccess, message: success.message)
+
+                   
                     loginViewModel.loginUser(email: email, password: password)
+                   
+                    self.delegate?.signUpResponseGet(isSignUp: isSuccess, message: success.message)
+                   
                     
                     
                 case .failure(let error):
@@ -51,8 +55,9 @@ class SignUpViewModel {
                     default:
                         errMessage = ""
                         
-                        self.delegate?.signUpResponseGet(isSignUp: false, message: errMessage)
+                        
                     }
+                    self.delegate?.signUpResponseGet(isSignUp: false, message: errMessage)
                 }
                 
                 
