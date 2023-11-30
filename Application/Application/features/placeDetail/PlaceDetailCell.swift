@@ -6,7 +6,7 @@ import Kingfisher
 class PlaceDetailCell: UICollectionViewCell {
     
     //MARK: -- Components
-
+    
     private lazy var gradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
         let startColor = ColorStyle.darkcharcoal.color!.withAlphaComponent(0)
@@ -36,7 +36,7 @@ class PlaceDetailCell: UICollectionViewCell {
     //MARK: -- Private Methods
     
     public func configure(object:String){
-       let url = URL(string: object)
+        let url = URL(string: object)
         imgPlace.kf.setImage(with: url)
     }
     
@@ -51,7 +51,7 @@ class PlaceDetailCell: UICollectionViewCell {
     private func setupLayout(){
         
         gradientLayer.frame = self.contentView.bounds
-
+        
         imgPlace.snp.makeConstraints({ imgv in
             imgv.leading.equalToSuperview()
             imgv.top.equalToSuperview()

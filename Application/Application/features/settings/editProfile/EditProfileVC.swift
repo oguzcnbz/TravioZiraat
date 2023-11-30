@@ -107,7 +107,7 @@ class EditProfileVC: UIViewController{
         btn.addTarget(self, action: #selector(btnProfilTapped), for: .touchUpInside)
         return btn
     }()
-
+    
     
     //MARK: -- Life Cycles
     override func viewDidLoad() {
@@ -123,14 +123,14 @@ class EditProfileVC: UIViewController{
     }
     @objc func changePhotofunc(){
         showChooseSourceTypeAlertController()
-       
+        
         
     }
     @objc func btnProfilTapped() {
         
         var message:String?
         let defaultProfileImage = UIImage(named: "DefaultProfileImage")!.withRenderingMode(.alwaysOriginal)
-
+        
         if photoView.image == defaultProfileImage{
             message = "Please upload photo"
         }else if !emailStackView.defaultTextField.hasText{
@@ -167,18 +167,18 @@ class EditProfileVC: UIViewController{
             }
             self.hideLoadingIndicator()
         }else{
-           
+            
             let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
             }))
-           
+            
             present(alert, animated: true, completion: nil)
         }
         showResult()
-        }
-        
-        
+    }
+    
+    
     //MARK: -- Private Methods
     
     private func getProfilData(){
@@ -187,7 +187,7 @@ class EditProfileVC: UIViewController{
         editProfilViewModel.transferProfilData = {  [weak self] () in
             let obj = self?.editProfilViewModel.profilModel
             self?.profilModel = obj
-
+            
             self?.nameLbl.text = self?.profilModel?.fullName ?? ""
             self?.usernameStackView.defaultTextField.text = self?.profilModel?.fullName
             self?.emailStackView.defaultTextField.text = self?.profilModel?.email
@@ -198,7 +198,7 @@ class EditProfileVC: UIViewController{
                 self?.photoView.kf.setImage(with: url)
                 
             }
-           
+            
             self?.dateLbl.text = self?.profilModel?.createdAt ?? ""
             self?.userTypeLbl.text = self?.profilModel?.role ?? ""
         }
@@ -222,7 +222,7 @@ class EditProfileVC: UIViewController{
     
     //MARK: -- Setup
     func setupViews() {
-       
+        
         self.view.backgroundColor = ColorStyle.primary.color
         self.view.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -238,7 +238,7 @@ class EditProfileVC: UIViewController{
     }
     
     //MARK: -- Layout
-
+    
     func setupLayout() {
         
         scrollView.snp.makeConstraints { v in
@@ -246,7 +246,7 @@ class EditProfileVC: UIViewController{
             v.trailing.equalToSuperview()
             v.bottom.equalToSuperview()
             v.height.equalToSuperview().multipliedBy(0.82)
-           }
+        }
         containerView.snp.makeConstraints { v in
             v.width.equalToSuperview()
             v.leading.equalToSuperview()
@@ -265,18 +265,18 @@ class EditProfileVC: UIViewController{
         })
         editProfileBtn.snp.makeConstraints({btn in
             btn.top.equalTo(photoView.snp.bottom).offset(8)
-          
+            
             btn.centerX.equalToSuperview()
         })
         
         nameLbl.snp.makeConstraints({lbl in
             lbl.top.equalTo(editProfileBtn.snp.bottom)
-        
+            
             lbl.centerX.equalToSuperview()
         })
         dateStackView.snp.makeConstraints { v in
             v.top.equalTo(nameLbl.snp.bottom).offset(30)
-           
+            
             v.leading.equalToSuperview().offset(24)
             v.width.equalTo(usernameStackView).multipliedBy(0.5).offset(-5)
             v.height.equalTo(52)
@@ -316,7 +316,7 @@ class EditProfileVC: UIViewController{
             lbl.bottom.equalToSuperview().offset(-16)
             lbl.trailing.equalToSuperview().offset(5)
         })
-    
+        
         usernameStackView.snp.makeConstraints { v in
             v.top.equalTo(dateStackView.snp.bottom).offset(20)
             v.trailing.equalToSuperview().offset(-24)
@@ -375,7 +375,7 @@ extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationController
                 self.showControlAlert(title: "Error", message: "You have not granted access to the library. You can change it from the settings.")
             }
         }
-       
+        
         let cameraAction = UIAlertAction(title: "Take a New Photo", style: .default) { (action) in
             if vcSS.cameraPermissionStatus == .authorized {
                 self.showImagePickerController(sourceType: .camera)
@@ -384,7 +384,7 @@ extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationController
                 self.showControlAlert(title: "Error", message: "You have not granted access to the camera. You can change it from the settings.")
             }
         }
-    
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         AlertSImagePicker.showAlert(style: .actionSheet, title: nil, message: nil, actions:[photoLibraryAction,cameraAction,cancelAction] , completion: nil)
@@ -401,7 +401,7 @@ extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationController
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             self.photoView.image = editedImage.withRenderingMode(.alwaysOriginal)
-         isImageChanged = true
+            isImageChanged = true
         } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.photoView.image = originalImage.withRenderingMode(.alwaysOriginal)
         }

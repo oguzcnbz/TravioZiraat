@@ -17,10 +17,10 @@ class MainTabbar: UITabBarController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            self.navigationController?.isNavigationBarHidden = true
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
     }
-
+    
     //MARK: -- Private Methods
     private func setupControllers()->[UIViewController]{
         
@@ -28,7 +28,7 @@ class MainTabbar: UITabBarController {
         let homeNC = UINavigationController(rootViewController: homeVC)
         let imageHome =  UIImage(named: "icHome")
         let selectedImageHome = UIImage(named: "icHome")
-       
+        
         homeVC.tabBarItem = UITabBarItem(title: "Home", image: imageHome, selectedImage: selectedImageHome)
         
         
@@ -38,7 +38,7 @@ class MainTabbar: UITabBarController {
         let selectedImageMap = UIImage(named: "icMap")
         mapVC.tabBarItem = UITabBarItem(title: "Map", image: imageMap, selectedImage: selectedImageMap)
         
-    
+        
         let settingsVC = SettingsVC()
         let settingsNC = UINavigationController(rootViewController: settingsVC)
         let imageSettings =  UIImage(named: "icMenu")

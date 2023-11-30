@@ -4,7 +4,7 @@ import Kingfisher
 
 
 class HomeCell: UICollectionViewCell {
-  
+    
     var closure:(()->Void)?
     
     private lazy var imgPlace:UIImageView = {
@@ -13,7 +13,7 @@ class HomeCell: UICollectionViewCell {
         iv.layer.masksToBounds = true
         return iv
     }()
-
+    
     
     private lazy var vector:UIImageView = {
         let img = UIImageView()
@@ -45,7 +45,7 @@ class HomeCell: UICollectionViewCell {
         
         let url = URL(string: object.coverImageURL)
         imgPlace.kf.setImage(with: url)
-       
+        
         lblName.text = object.title
         lblPlace.text = object.place
     }
@@ -86,7 +86,7 @@ class HomeCell: UICollectionViewCell {
             lbl.leading.equalTo(vector.snp.trailing).offset(6)
             lbl.centerY.equalTo(vector)
         })
-       
+        
     }
     
     required init?(coder: NSCoder) {

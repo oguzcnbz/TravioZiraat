@@ -9,7 +9,7 @@ protocol LoginResponseDelegate{
 
 class LoginViewModel {
     private var isLoading = false
- 
+    
     var delegate: LoginResponseDelegate?
     func setDelegate(output: LoginResponseDelegate) {
         delegate = output
@@ -21,8 +21,8 @@ class LoginViewModel {
             changeLoading()
             guard let email = email else {return}
             guard let password = password else {return}
-
-               
+            
+            
             let params = ["email": email, "password": password]
             var isLogin:Bool = false
             
@@ -31,23 +31,23 @@ class LoginViewModel {
                 
                 switch result {
                 case .success(let success):
-                  
-                   let accessTokenOp = success.accessToken
+                    
+                    let accessTokenOp = success.accessToken
                     let refreshTokenOp = success.refreshToken
-                   
+                    
                     if let accessToken = accessTokenOp {
-                          let data = Data(accessToken.utf8)
-                          KeychainHelper.shared.save(data, service: "user-key", account: "accessToken")
+                        let data = Data(accessToken.utf8)
+                        KeychainHelper.shared.save(data, service: "user-key", account: "accessToken")
                     }
                     if let refreshToken = refreshTokenOp {
-                          let data = Data(refreshToken.utf8)
-                          KeychainHelper.shared.save(data, service: "user-key", account: "refreshToken")
+                        let data = Data(refreshToken.utf8)
+                        KeychainHelper.shared.save(data, service: "user-key", account: "refreshToken")
                     }
-                 
+                    
                     isLogin = true
-                   
+                    
                 case .failure( _):
-                        
+                    
                     isLogin = false
                     
                 }
@@ -55,13 +55,13 @@ class LoginViewModel {
                 self.delegate?.loginResponseGet(isLogin: isLogin)
             })
         }
-       
+        
     }    
     
     func changeLoading() {
         isLoading = !isLoading
         if isLoading == true {
-          
+            
         }
     }
 }

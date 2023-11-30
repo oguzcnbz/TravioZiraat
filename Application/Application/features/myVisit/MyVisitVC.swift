@@ -18,7 +18,7 @@ class MyVisitVC: UIViewController {
     }()
     
     private lazy var collectionView:UICollectionView = {
-       
+        
         let lay = makeCollectionViewLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: lay)
         
@@ -35,14 +35,14 @@ class MyVisitVC: UIViewController {
     // MARK: -- Private Methods
     
     func getData() {
-            visitViewModel.visitsGet()
-            visitViewModel.transferData = { [weak self] () in
-                let obj = self?.visitViewModel.visitPlaces
-                self?.visits = obj ?? []
-                self?.collectionView.reloadData()
-            }
-        showResult()
+        visitViewModel.visitsGet()
+        visitViewModel.transferData = { [weak self] () in
+            let obj = self?.visitViewModel.visitPlaces
+            self?.visits = obj ?? []
+            self?.collectionView.reloadData()
         }
+        showResult()
+    }
     
     
     func showResult(){
@@ -75,7 +75,7 @@ class MyVisitVC: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
-       
+        
         setNavigationItems(leftBarButton: false, rightBarButton: nil, title: "My Visits")
         setupLayout()
     }
@@ -116,7 +116,7 @@ extension MyVisitVC:UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MyVisitsCell
         let object = visits[indexPath.row]
         cell.configure(object:object)
-       
+        
         return cell
     }
     
@@ -136,8 +136,8 @@ extension MyVisitVC {
         
         UICollectionViewCompositionalLayout {
             [weak self] sectionIndex, environment in
-         
-                return self?.makeListLayoutSection()
+            
+            return self?.makeListLayoutSection()
         }
     }
     
@@ -145,14 +145,14 @@ extension MyVisitVC {
     
     func makeListLayoutSection() -> NSCollectionLayoutSection {
         
-
+        
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         
         let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.57))
         let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [item] )
-       
+        
         
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
         layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 45, leading: 16, bottom: 0, trailing: 16)

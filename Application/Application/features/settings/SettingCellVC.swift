@@ -46,7 +46,7 @@ class SettingCell: UICollectionViewCell{
         self.contentView.layer.shadowOpacity = 0.15
         self.contentView.layer.shadowRadius = 20
         self.contentView.layer.cornerRadius = 16
-       
+        
         self.contentView.backgroundColor = ColorStyle.background.color
         self.contentView.addSubviews(sttngscell)
         sttngscell.addSubviews(vector,sttngsLbl,vector2)

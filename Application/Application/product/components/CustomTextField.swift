@@ -4,16 +4,16 @@ import SnapKit
 
 class CustomTextField: UIView {
     
-     init(labelText: String, textFieldPlaceholder: String) {
-            super.init(frame: CGRect.zero)
-            setupAndLayout(labelText: labelText, textFieldPlaceholder: textFieldPlaceholder)
-        }
-        
-        required init?(coder: NSCoder) {
-            super.init(coder: coder)
-            setupAndLayout(labelText: "", textFieldPlaceholder: "")
-        }
-        
+    init(labelText: String, textFieldPlaceholder: String) {
+        super.init(frame: CGRect.zero)
+        setupAndLayout(labelText: labelText, textFieldPlaceholder: textFieldPlaceholder)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupAndLayout(labelText: "", textFieldPlaceholder: "")
+    }
+    
     
     private lazy var defaultStackView: UIStackView = {
         let stack = UIStackView()
@@ -23,7 +23,7 @@ class CustomTextField: UIView {
         stack.layer.borderColor = UIColor.black.cgColor
         stack.layer.shadowOpacity = 0.15
         stack.layer.shadowRadius = 20
-    
+        
         return stack
     }()
     
@@ -34,8 +34,8 @@ class CustomTextField: UIView {
         lbl.numberOfLines = 1
         return lbl
     }()
-   
-     lazy var defaultTextField: UITextField = {
+    
+    lazy var defaultTextField: UITextField = {
         let txt = UITextField()
         txt.font = FontStyle.sh3.font
         txt.textColor = ColorStyle.darkgray.color
@@ -51,25 +51,25 @@ class CustomTextField: UIView {
         defaultLabel.text = labelText
         defaultTextField.placeholder = textFieldPlaceholder
         
-           defaultStackView.snp.makeConstraints { sv in
-               sv.top.equalToSuperview()
-               sv.bottom.equalToSuperview()
-               sv.leading.equalToSuperview()
-               sv.trailing.equalToSuperview()
-           }
-           
-           defaultLabel.snp.makeConstraints { lbl in
-               lbl.leading.equalTo(defaultStackView.snp.leading).offset(12)
-               lbl .trailing.equalTo(defaultStackView.snp.trailing).offset(0)
-               lbl.top.equalTo(defaultStackView.snp.top).offset(8)
-               lbl.height.equalTo(21)
-           }
-           
-           defaultTextField.snp.makeConstraints { tf in
-               tf.leading.equalTo(defaultStackView.snp.leading).offset(12)
-               tf.trailing.equalTo(defaultStackView.snp.trailing).offset(-50)
-               tf.top.equalTo(defaultLabel.snp.bottom).offset(8)
-               tf.height.equalTo(18)
-           }
-       }
+        defaultStackView.snp.makeConstraints { sv in
+            sv.top.equalToSuperview()
+            sv.bottom.equalToSuperview()
+            sv.leading.equalToSuperview()
+            sv.trailing.equalToSuperview()
+        }
+        
+        defaultLabel.snp.makeConstraints { lbl in
+            lbl.leading.equalTo(defaultStackView.snp.leading).offset(12)
+            lbl .trailing.equalTo(defaultStackView.snp.trailing).offset(0)
+            lbl.top.equalTo(defaultStackView.snp.top).offset(8)
+            lbl.height.equalTo(21)
+        }
+        
+        defaultTextField.snp.makeConstraints { tf in
+            tf.leading.equalTo(defaultStackView.snp.leading).offset(12)
+            tf.trailing.equalTo(defaultStackView.snp.trailing).offset(-50)
+            tf.top.equalTo(defaultLabel.snp.bottom).offset(8)
+            tf.height.equalTo(18)
+        }
+    }
 }

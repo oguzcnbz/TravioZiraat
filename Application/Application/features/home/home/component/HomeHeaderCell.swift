@@ -4,7 +4,7 @@ import SnapKit
 
 class HomeHeaderCell: UICollectionReusableView {
     static let reuseIdentifier = "title-supplementary-reuse-identifier"
-      
+    
     var closure:(()->Void)?
     
     private lazy var stkRowPlaces:UIStackView = {
@@ -21,13 +21,13 @@ class HomeHeaderCell: UICollectionReusableView {
     }()
     
     private lazy var spacer:UIView  = {
-         let spacer = UIView()
+        let spacer = UIView()
         spacer.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return spacer
     }()
     
     private lazy var btnPlaces:UIButton = {
-      let  button =  UIButton(type: .system)
+        let  button =  UIButton(type: .system)
         button.setTitle("See All", for: .normal)
         button.tintColor = ColorStyle.blueRaspberry.color
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
@@ -37,7 +37,7 @@ class HomeHeaderCell: UICollectionReusableView {
     @objc func buttonTapped(){
         closure?()
     }
-   
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -54,7 +54,7 @@ class HomeHeaderCell: UICollectionReusableView {
     }
     
     private func setupLayout(){
-
+        
         
         stkRowPlaces.snp.makeConstraints({ lbl in
             lbl.top.equalToSuperview().offset(12)

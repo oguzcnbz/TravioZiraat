@@ -4,7 +4,7 @@ import SnapKit
 class HelpAndSupportVC: UIViewController {
     
     var cells:[HelpAndSupportModel] = []
-   var helpSupportModel = HelpSupportViewModel()
+    var helpSupportModel = HelpSupportViewModel()
     
     //MARK: -- Components
     
@@ -34,18 +34,18 @@ class HelpAndSupportVC: UIViewController {
         return tw
     }()
     
-   
+    
     //MARK: -- Life Cycles
     
     override func viewDidLoad() {
         super.viewDidLoad()
         cells = helpSupportModel.getArr()
-       setupViews()
+        setupViews()
         
         
-
+        
     }
-
+    
     //MARK: -- Setup
     
     func setupViews() {
@@ -65,28 +65,28 @@ class HelpAndSupportVC: UIViewController {
     
     //MARK: -- Layout
     
-      func setupLayout(){
-          
-          mainStackView.snp.makeConstraints { v in
-              v.leading.equalToSuperview()
-              v.trailing.equalToSuperview()
-              v.bottom.equalToSuperview()
-              v.height.equalToSuperview().multipliedBy(0.82)
-          }
-          
-          faqLbl.snp.makeConstraints({lbl in
-              lbl.top.equalToSuperview().offset(44)
-              lbl.leading.equalToSuperview().offset(24)
-          })
-
-          tableView.snp.makeConstraints({cv in
-              cv.leading.equalToSuperview()
-              cv.trailing.equalToSuperview()
-              cv.top.equalToSuperview()
-              cv.bottom.equalToSuperview()
-          })
-
+    func setupLayout(){
+        
+        mainStackView.snp.makeConstraints { v in
+            v.leading.equalToSuperview()
+            v.trailing.equalToSuperview()
+            v.bottom.equalToSuperview()
+            v.height.equalToSuperview().multipliedBy(0.82)
         }
+        
+        faqLbl.snp.makeConstraints({lbl in
+            lbl.top.equalToSuperview().offset(44)
+            lbl.leading.equalToSuperview().offset(24)
+        })
+        
+        tableView.snp.makeConstraints({cv in
+            cv.leading.equalToSuperview()
+            cv.trailing.equalToSuperview()
+            cv.top.equalToSuperview()
+            cv.bottom.equalToSuperview()
+        })
+        
+    }
 }
 
 //MARK: -- Extensions
@@ -106,7 +106,7 @@ extension HelpAndSupportVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         cells.count
     }
-
+    
 }
 
 extension HelpAndSupportVC: UITableViewDelegate {
@@ -123,10 +123,10 @@ extension HelpAndSupportVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         cells[indexPath.row].isExpanded.toggle()
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
-  
+    
 }

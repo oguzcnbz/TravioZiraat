@@ -11,7 +11,7 @@ class EditProfileViewModel {
     }
     var showAlertClosure: (((String,String)) -> Void)?
     var transferProfilData: (() -> ())?
-        
+    
     func getProfilData(){ 
         
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .profileGet, callback: { (result:Result<ProfileModel,Error>) in
@@ -24,28 +24,28 @@ class EditProfileViewModel {
                     
                     strDate = dateHelper.convertDateToString(date)
                 }
-            
+                
                 obj.createdAt = strDate
                 self.profilModel = obj
-
+                
             case .failure(let error):
                 self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
         })
     }
     
-
+    
     func profileUploadImage (profileImg: UIImage,full_name:String,email:String,pp_url:String,isDone: @escaping (Bool) -> Void) {
         let imglArr:[UIImage] = [profileImg]
-
+        
         NetworkingHelper.shared.uplodImageFromRemote(urlRequest: .uploadImage(images: imglArr)) { (result:Result<UploadImageResponse,Error>)in
             switch result {
             case .success(let success):
                 if let imageUrls = success.urls {
                     self.changeProfile(full_name: full_name, email: email, pp_url:imageUrls.first ?? "", isDone: isDone)
                 }
-
-            
+                
+                
             case .failure(let error):
                 self.showAlertClosure?((title:"Error",message:error.localizedDescription))
             }
@@ -72,7 +72,7 @@ class EditProfileViewModel {
                 
             case .failure(let error):
                 self.showAlertClosure?((title:"Error",message:error.localizedDescription))
-
+                
             }
         })
     }

@@ -8,11 +8,11 @@ class MapAddPlaceViewModel {
     func addPlace(imageArray: [UIImage?],model:PlacePostModel,hasUploded: @escaping () -> Void) {
         if isLoading == false {
             changeLoading()
-        
+            
             let filterImg = imageArray.compactMap(({ $0 }))
             
             if filterImg.count > 0 {
-
+                
                 NetworkingHelper.shared.uplodImageFromRemote(urlRequest: .uploadImage(images: filterImg)) { (result:Result<UploadImageResponse,Error>)in
                     switch result {
                     case .success(let success):
@@ -20,13 +20,13 @@ class MapAddPlaceViewModel {
                             self.placeCreate(model: model, imgUrl: imageUrls.first!) { placeId in
                                 imageUrls.forEach({
                                     imgUrl in
-                                        self.galleryImageUrlAdd(placeId: placeId, imgUrl: imgUrl)
+                                    self.galleryImageUrlAdd(placeId: placeId, imgUrl: imgUrl)
                                     
                                 }
                                 )
                                 hasUploded()
                                 
-                                 }
+                            }
                         }
                         self.showAlertClosure?((title:"Message",message:"Place saved successfully."))
                     case .failure(let error):
@@ -51,7 +51,7 @@ class MapAddPlaceViewModel {
         
         if isLoading == false {
             NetworkingHelper.shared.getDataFromRemote(urlRequest: .placePost(params: params)) {  (result:Result<ResponseMessageModel,Error>) in
-               
+                
                 switch result {
                 case .success(let success):
                     callback(success.message)

@@ -4,7 +4,7 @@ import SnapKit
 
 
 class MyAddedPlacesVC: UIViewController {
-   
+    
     //MARK: -- Properties
     
     let placeDetailVC = PlaceDetailVC()
@@ -13,7 +13,7 @@ class MyAddedPlacesVC: UIViewController {
     
     //MARK: -- Components
     private lazy var collectionView:UICollectionView = {
-       
+        
         let lay = makeCollectionViewLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: lay)
         
@@ -61,7 +61,7 @@ class MyAddedPlacesVC: UIViewController {
         }
         collectionView.reloadData()
     }
-
+    
     
     @objc func rightbartapped(){
         self.navigationController?.popViewController(animated: true)
@@ -73,12 +73,12 @@ class MyAddedPlacesVC: UIViewController {
         myAddedPlacesViewModel.myAddedPlacesGet()
         myAddedPlacesViewModel.transferData = { [weak self] () in
             let obj = self?.myAddedPlacesViewModel.myaddedplaces
-                self?.myAddedPlaces = obj ?? []
-                self?.collectionView.reloadData()
-            }
-        showResult()
+            self?.myAddedPlaces = obj ?? []
+            self?.collectionView.reloadData()
         }
-
+        showResult()
+    }
+    
     func showResult(){
         myAddedPlacesViewModel.showAlertClosure = {message in
             self.resultAlert(title: message.0, message: message.1)
@@ -99,13 +99,13 @@ class MyAddedPlacesVC: UIViewController {
         self.view.addSubview(mainStackView)
         mainStackView.addSubviews(sortButton,collectionView)
         setNavigationItems(leftBarButton: true, rightBarButton: nil, title: "My Added Places")
-      
+        
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         
         setupLayout()
-
+        
     }
     
     //MARK: -- Layout
@@ -132,7 +132,7 @@ class MyAddedPlacesVC: UIViewController {
         
         mainStackView.bringSubviewToFront(sortButton)
     }
-  
+    
 }
 
 //MARK: -- Extensions
@@ -171,23 +171,23 @@ extension MyAddedPlacesVC {
         
         UICollectionViewCompositionalLayout {
             [weak self] sectionIndex, environment in
-         
-                return self?.makeListLayoutSection()
-        
+            
+            return self?.makeListLayoutSection()
+            
         }
     }
     
     
     func makeListLayoutSection() -> NSCollectionLayoutSection {
         
-
+        
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         
         let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.125))
         let layoutGroup = NSCollectionLayoutGroup.vertical(layoutSize: layoutGroupSize, subitems: [item] )
-       
+        
         
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
         layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 70, leading: 24, bottom: 0, trailing: 22)

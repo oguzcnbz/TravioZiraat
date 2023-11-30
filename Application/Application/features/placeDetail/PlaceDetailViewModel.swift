@@ -29,8 +29,8 @@ class PlaceDetailViewModel {
     }
     func visitPost(placeId:String?,visitedAt:String?){
         
-       let params = ["place_id": placeId, "visited_at": visitedAt]
-      
+        let params = ["place_id": placeId, "visited_at": visitedAt]
+        
         let parameters: [String: Any] = params.compactMapValues { $0 }
         
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitPost(params: parameters), callback: { (result:Result<Response,Error>) in
@@ -44,7 +44,7 @@ class PlaceDetailViewModel {
     }
     
     func visitDelete(placeId: String){
-                
+        
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitDelete(placeId: placeId), callback: { (result:Result<Response,Error>) in
             switch result {
             case .success(let obj):
@@ -58,7 +58,7 @@ class PlaceDetailViewModel {
     var checkclosure: ((String)->Void)?
     
     func visitByPlaceIdCheck(placeId: String){
-                
+        
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .visitByPlaceIdCheck(placeId: placeId), callback: { (result:Result<Response,Error>) in
             switch result {
             case .success(let obj):
@@ -69,5 +69,5 @@ class PlaceDetailViewModel {
         })
         
     }
-
+    
 }

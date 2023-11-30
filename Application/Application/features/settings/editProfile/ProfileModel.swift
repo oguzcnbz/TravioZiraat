@@ -4,7 +4,7 @@ import Foundation
 struct ProfileModel: Codable {
     var fullName, email, role, ppURL: String?
     var createdAt: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case fullName = "full_name"
         case email, role

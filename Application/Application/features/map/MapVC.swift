@@ -55,47 +55,47 @@ class MapVC: UIViewController {
     
     @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == .began {
-          
+            
             let touchPoint = gestureRecognizer.location(in: mapView)
             let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
             let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-
+            
             
             let mapAddPlaceVC = MapAddPlaceVC()
             CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
-                 if let placemark = placemarks?.first {
+                if let placemark = placemarks?.first {
                     if let country = placemark.country, let city = placemark.locality {
                         let address = "\(country), \(city)"
-                                           
+                        
                         mapAddPlaceVC.latitude = location.coordinate.latitude
                         mapAddPlaceVC.longitude = location.coordinate.longitude
                         mapAddPlaceVC.countryCity.defaultTextField.text = address
                         
-                    
-                       self.present(mapAddPlaceVC, animated: true, completion: nil)
+                        
+                        self.present(mapAddPlaceVC, animated: true, completion: nil)
                     }
                 }
             }
-           mapAddPlaceVC.hasMapAdedclosure =  {
-               
-                           let newAnnotation = CustomAnnotation(coordinate: coordinate, title: mapAddPlaceVC.placeName.defaultTextField.text, subtitle: mapAddPlaceVC.countryCity.defaultTextField.text)
-               self.mapView.addAnnotation(newAnnotation)
-               self.getData()
-           }
-
+            mapAddPlaceVC.hasMapAdedclosure =  {
+                
+                let newAnnotation = CustomAnnotation(coordinate: coordinate, title: mapAddPlaceVC.placeName.defaultTextField.text, subtitle: mapAddPlaceVC.countryCity.defaultTextField.text)
+                self.mapView.addAnnotation(newAnnotation)
+                self.getData()
+            }
+            
         }
     }
     
     private func getData() {
-            mapViewModel.getAllPlace()
-            mapViewModel.transferData = { [weak self] () in
-                self?.addPinsToMap(array: [])
-                let obj = self?.mapViewModel.allPlace
-                self?.places = obj ?? []
-                self?.collectionView.reloadData()
-                self?.addPinsToMap(array: self!.places)
-            }
-            showResult()
+        mapViewModel.getAllPlace()
+        mapViewModel.transferData = { [weak self] () in
+            self?.addPinsToMap(array: [])
+            let obj = self?.mapViewModel.allPlace
+            self?.places = obj ?? []
+            self?.collectionView.reloadData()
+            self?.addPinsToMap(array: self!.places)
+        }
+        showResult()
     }
     
     func showResult(){
@@ -114,7 +114,7 @@ class MapVC: UIViewController {
     }
     
     //MARK: -- Setup
-
+    
     private func setupViews() {
         view.addSubviews(mapView, collectionView)
         mapView.addGestureRecognizer(longPressGesture)
@@ -123,7 +123,7 @@ class MapVC: UIViewController {
     }
     
     //MARK: -- Layout
-
+    
     private func setupLayout() {
         collectionView.snp.makeConstraints { cv in
             cv.leading.equalToSuperview()

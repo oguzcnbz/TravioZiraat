@@ -5,7 +5,7 @@ import SnapKit
 
 class HomeVC: UIViewController {
     static let sectionHeaderElementKind = "section-header-element-kind"
-
+    
     //MARK: -- Properties
     
     lazy var homeViewModel: HomeViewModel = {
@@ -35,24 +35,24 @@ class HomeVC: UIViewController {
         iv.image = #imageLiteral(resourceName: "homeLogo")
         return iv
     }()
-
+    
     private lazy var collectionView:UICollectionView = {
-
+        
         let lay = makeCollectionViewLayout()
-
+        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: lay)
         cv.backgroundColor = .clear
         cv.register(HomeCell.self, forCellWithReuseIdentifier: "cell")
-     
+        
         cv.register(HomeHeaderCell.self,
                     forSupplementaryViewOfKind: HomeVC.sectionHeaderElementKind,
                     withReuseIdentifier: HomeHeaderCell.reuseIdentifier)
-       
+        
         cv.dataSource = self
         cv.delegate = self
         return cv
     }()
-   
+    
     //MARK: -- Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +66,7 @@ class HomeVC: UIViewController {
         getUserPlaceData ()
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-
+    
     //MARK: -- Private Methods
     private func getHomeDatas () {
         group.enter()
@@ -90,12 +90,12 @@ class HomeVC: UIViewController {
     
     
     private func getPopulerPlaceData (){
-    
+        
         homeViewModel.getPopulerPlaceParam()
         homeViewModel.transferPopulerData = { [weak self] () in
             let obj = self?.homeViewModel.populerPlace
             self?.populerArr = obj ?? []
-           self?.collectionView.reloadData()
+            self?.collectionView.reloadData()
         }
     }
     
@@ -134,11 +134,11 @@ class HomeVC: UIViewController {
     //MARK: -- Layout
     
     func setupLayout() {
-       
+        
         logoImageView.topToSuperview(offset: 60)
         logoImageView.leadingToSuperview(offset: 20)
         logoImageView.height(24)
-       
+        
         containerView.edgesToSuperview(excluding: .top)
         containerView.heightToSuperview(multiplier: 0.82)
         
@@ -244,24 +244,24 @@ extension HomeVC:UICollectionViewDataSource {
 
 extension HomeVC:UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            var selectedPlace: Place
-            if indexPath.section == 0 {
-                selectedPlace = populerArr[indexPath.row]
-                let vc = PlaceDetailVC()
-                vc.placeModel = selectedPlace
-                self.navigationController?.pushViewController(vc, animated: true)
-            } else if indexPath.section == 1 {
-                selectedPlace = lastArr[indexPath.row]
-                let vc = PlaceDetailVC()
-                vc.placeModel = selectedPlace
-                self.navigationController?.pushViewController(vc, animated: true)
-            } else {
-                selectedPlace = userArr[indexPath.row]
-                let vc = PlaceDetailVC()
-                vc.placeModel = selectedPlace
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+        var selectedPlace: Place
+        if indexPath.section == 0 {
+            selectedPlace = populerArr[indexPath.row]
+            let vc = PlaceDetailVC()
+            vc.placeModel = selectedPlace
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else if indexPath.section == 1 {
+            selectedPlace = lastArr[indexPath.row]
+            let vc = PlaceDetailVC()
+            vc.placeModel = selectedPlace
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            selectedPlace = userArr[indexPath.row]
+            let vc = PlaceDetailVC()
+            vc.placeModel = selectedPlace
+            self.navigationController?.pushViewController(vc, animated: true)
         }
+    }
 }
 
 extension HomeVC {
@@ -276,7 +276,7 @@ extension HomeVC {
     }
     
     func makeSliderLayoutSection() -> NSCollectionLayoutSection {
-    
+        
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 10)
@@ -288,7 +288,7 @@ extension HomeVC {
         layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 0)
         
         let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                     heightDimension: .estimated(44))
+                                                      heightDimension: .estimated(44))
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerFooterSize,
             elementKind: HomeVC.sectionHeaderElementKind, alignment: .top)

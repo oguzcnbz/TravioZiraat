@@ -21,46 +21,46 @@ class SignUpViewModel {
             
             
             guard let fullName = fullName, let email = email, let password = password else {
-            delegate?.signUpResponseGet(isSignUp: false, message: "Invalid input data")
-            return
-        }
-
-        let params = ["full_name": fullName, "email": email, "password": password]
-
-        NetworkingHelper.shared.getDataFromRemote(urlRequest: .userRegister(params: params)) { (result: Result<ResponseMessageModel, Error>) in
-            self.changeLoading()
-            switch result {
-               
-            case .success(let success):
-                let status = success.status
-                let isSuccess = (status == "success")
-                
-                lazy var loginViewModel: LoginViewModel = LoginViewModel()
-                self.delegate?.signUpResponseGet(isSignUp: isSuccess, message: success.message)
-                loginViewModel.loginUser(email: email, password: password)
-                
-                
-            case .failure(let error):
-                
-                var errMessage = error.localizedDescription
-                switch error.localizedDescription{
-                case "Response status code was unacceptable: 500.":
-                    errMessage = "User with that email already exists"
-                case "Response status code was unacceptable: 400.":
-                    errMessage = error.localizedDescription
-                default:
-                    errMessage = ""
-                    
-                    self.delegate?.signUpResponseGet(isSignUp: false, message: errMessage)
-                }
+                delegate?.signUpResponseGet(isSignUp: false, message: "Invalid input data")
+                return
             }
-       
+            
+            let params = ["full_name": fullName, "email": email, "password": password]
+            
+            NetworkingHelper.shared.getDataFromRemote(urlRequest: .userRegister(params: params)) { (result: Result<ResponseMessageModel, Error>) in
+                self.changeLoading()
+                switch result {
+                    
+                case .success(let success):
+                    let status = success.status
+                    let isSuccess = (status == "success")
+                    
+                    lazy var loginViewModel: LoginViewModel = LoginViewModel()
+                    self.delegate?.signUpResponseGet(isSignUp: isSuccess, message: success.message)
+                    loginViewModel.loginUser(email: email, password: password)
+                    
+                    
+                case .failure(let error):
+                    
+                    var errMessage = error.localizedDescription
+                    switch error.localizedDescription{
+                    case "Response status code was unacceptable: 500.":
+                        errMessage = "User with that email already exists"
+                    case "Response status code was unacceptable: 400.":
+                        errMessage = error.localizedDescription
+                    default:
+                        errMessage = ""
+                        
+                        self.delegate?.signUpResponseGet(isSignUp: false, message: errMessage)
+                    }
+                }
                 
+                
+            }
         }
     }
-}
     func changeLoading() {
         isLoading = !isLoading
     }
-
+    
 }

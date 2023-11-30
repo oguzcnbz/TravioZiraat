@@ -13,7 +13,7 @@ class MyAddedPlacesViewModel{
     var transferData: (()->())?
     
     func myAddedPlacesGet(){
-       
+        
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .placeAllUserGet, callback: { (result:Result<PlacesModelDatas,Error>) in
             switch result {
             case .success(let obj):

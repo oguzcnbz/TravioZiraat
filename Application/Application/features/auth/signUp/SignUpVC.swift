@@ -37,7 +37,7 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     lazy var SignUpViewModel: SignUpViewModel = {
         return Application.SignUpViewModel()
     }()
-        
+    
     private lazy var lblSignUp: UILabel = {
         let lbl = UILabel()
         lbl.textColor = ColorStyle.white.color
@@ -54,7 +54,7 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     }()
     
     //MARK: -- Component Actions
-
+    
     @objc func btnSignTapped() {
         if updateSignUpButtonState(){
             showLoadingIndicator()
@@ -71,17 +71,17 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
     
     func signUpResponseGet(isSignUp: Bool, message: String) {
         hideLoadingIndicator()
-            
-            if isSignUp == false {
-                                    showAlert(title: "Registration Failed", message: message)
-            }
-            if isSignUp == true {
-                
-                let vc = MainTabbar()
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+        
+        if isSignUp == false {
+            showAlert(title: "Registration Failed", message: message)
         }
-
+        if isSignUp == true {
+            
+            let vc = MainTabbar()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     
     func showAlert(title:String,message:String) {
         
@@ -171,35 +171,35 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
 //MARK: -- Extensions
 
 extension SignUpVC {
-
+    
     var isPasswordValid: Bool {
-            return passwordStackView.defaultTextField.text?.count ?? 0 >= 6
-        }
-        
-        var isUsernameValid: Bool {
-            return usernameStackView.defaultTextField.text?.count ?? 0 >= 6
-        }
-        
-        var isPasswordConfirmed: Bool {
-            return passwordStackView.defaultTextField.text == passwordConfirmStackView.defaultTextField.text
-        }
-        
-        var isAllFieldsFilled: Bool {
-            return usernameStackView.defaultTextField.hasText &&
-                   emailStackView.defaultTextField.hasText &&
-                   passwordStackView.defaultTextField.hasText &&
-                   passwordConfirmStackView.defaultTextField.hasText
-        }
+        return passwordStackView.defaultTextField.text?.count ?? 0 >= 6
+    }
+    
+    var isUsernameValid: Bool {
+        return usernameStackView.defaultTextField.text?.count ?? 0 >= 6
+    }
+    
+    var isPasswordConfirmed: Bool {
+        return passwordStackView.defaultTextField.text == passwordConfirmStackView.defaultTextField.text
+    }
+    
+    var isAllFieldsFilled: Bool {
+        return usernameStackView.defaultTextField.hasText &&
+        emailStackView.defaultTextField.hasText &&
+        passwordStackView.defaultTextField.hasText &&
+        passwordConfirmStackView.defaultTextField.hasText
+    }
     
     
     func setupSignUpButton() {
-            
-            let textFields = [usernameStackView.defaultTextField, emailStackView.defaultTextField, passwordStackView.defaultTextField, passwordConfirmStackView.defaultTextField]
-            textFields.forEach {
-                $0.addTarget(self, action: #selector(updateBtnColor), for: .editingChanged)
-            }
         
+        let textFields = [usernameStackView.defaultTextField, emailStackView.defaultTextField, passwordStackView.defaultTextField, passwordConfirmStackView.defaultTextField]
+        textFields.forEach {
+            $0.addTarget(self, action: #selector(updateBtnColor), for: .editingChanged)
         }
+        
+    }
     
     @objc func updateSignUpButtonState()->Bool{
         

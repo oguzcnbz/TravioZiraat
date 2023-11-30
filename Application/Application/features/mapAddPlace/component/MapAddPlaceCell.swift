@@ -40,10 +40,10 @@ class MapAddPlaceCell: UICollectionViewCell {
         self.contentView.isUserInteractionEnabled = true
         
     }
-   
+    
     @objc private func cellTapped() {
         showChooseSourceTypeAlertController()
-        }
+    }
     
     private func setupViews(){
         self.contentView.backgroundColor = ColorStyle.white.color
@@ -83,7 +83,7 @@ class MapAddPlaceCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
 }
 extension MapAddPlaceCell: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func showChooseSourceTypeAlertController() {
@@ -98,7 +98,7 @@ extension MapAddPlaceCell: UIImagePickerControllerDelegate, UINavigationControll
                 self.delegate?.ShowAlert(title: "Error", message: "You have not granted access to the library. You can change it from the settings.")
             }
         }
-       
+        
         let cameraAction = UIAlertAction(title: "Take a New Photo", style: .default) { (action) in
             if vcSS.cameraPermissionStatus == .authorized {
                 self.showImagePickerController(sourceType: .camera)
@@ -107,7 +107,7 @@ extension MapAddPlaceCell: UIImagePickerControllerDelegate, UINavigationControll
                 self.delegate?.ShowAlert(title: "Error", message: "You have not granted access to the camera. You can change it from the settings.")
             }
         }
-    
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         AlertSImagePicker.showAlert(style: .actionSheet, title: nil, message: nil, actions:[photoLibraryAction,cameraAction,cancelAction] , completion: nil)
@@ -119,7 +119,7 @@ extension MapAddPlaceCell: UIImagePickerControllerDelegate, UINavigationControll
         imagePickerController.allowsEditing = true
         imagePickerController.sourceType = sourceType
         UIViewController.topViewController()?.present(imagePickerController, animated: true, completion: nil)
-
+        
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -139,24 +139,24 @@ extension MapAddPlaceCell: UIImagePickerControllerDelegate, UINavigationControll
 
 extension UIViewController {
     class func topViewController(controller: UIViewController? = UIApplication.shared.connectedScenes
-                                .compactMap { $0 as? UIWindowScene }
-                                .flatMap { $0.windows }
-                                .first(where: { $0.isKeyWindow })?.rootViewController) -> UIViewController? {
-        
-        if let navigationController = controller as? UINavigationController {
-            return topViewController(controller: navigationController.visibleViewController)
-        }
-        
-        if let tabController = controller as? UITabBarController {
-            if let selected = tabController.selectedViewController {
-                return topViewController(controller: selected)
+        .compactMap { $0 as? UIWindowScene }
+        .flatMap { $0.windows }
+        .first(where: { $0.isKeyWindow })?.rootViewController) -> UIViewController? {
+            
+            if let navigationController = controller as? UINavigationController {
+                return topViewController(controller: navigationController.visibleViewController)
             }
+            
+            if let tabController = controller as? UITabBarController {
+                if let selected = tabController.selectedViewController {
+                    return topViewController(controller: selected)
+                }
+            }
+            
+            if let presented = controller?.presentedViewController {
+                return topViewController(controller: presented)
+            }
+            
+            return controller
         }
-        
-        if let presented = controller?.presentedViewController {
-            return topViewController(controller: presented)
-        }
-        
-        return controller
-    }
 }

@@ -34,7 +34,7 @@ class SettingUserCell: UICollectionViewCell{
         iv.layer.masksToBounds = true
         return iv
     }()
-   
+    
     
     @objc func editProfilefunc(){
         closure?()

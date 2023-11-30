@@ -14,7 +14,7 @@ class MapViewModel{
     var transferData: (()->())?
     
     func getAllPlace(){
-       
+        
         NetworkingHelper.shared.getDataFromRemote(urlRequest: .placeAllGet, callback: { (result:Result<PlacesModelDatas,Error>) in
             switch result {
             case .success(let obj):
