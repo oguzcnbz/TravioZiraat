@@ -87,6 +87,7 @@ class MapVC: UIViewController {
     }
     
     private func getData() {
+        showLoadingIndicator()
         mapViewModel.getAllPlace()
         mapViewModel.transferData = { [weak self] () in
             self?.addPinsToMap(array: [])
@@ -94,6 +95,7 @@ class MapVC: UIViewController {
             self?.places = obj ?? []
             self?.collectionView.reloadData()
             self?.addPinsToMap(array: self!.places)
+            self?.hideLoadingIndicator()
         }
         showResult()
     }

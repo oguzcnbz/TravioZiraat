@@ -120,7 +120,7 @@ class MapAddPlaceVC: UIViewController {
             self.dismiss(animated: true)
         }))
         
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: false, completion: nil)
     }
     
     func showResult(){

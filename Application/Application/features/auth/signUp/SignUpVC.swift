@@ -86,7 +86,7 @@ class SignUpVC: UIViewController,SignUpResponseDelegate {
 
             
             onCompletion?(emailStackView.defaultTextField.text!, passwordStackView.defaultTextField.text!)
-                  navigationController?.popViewController(animated: true)
+                  navigationController?.popViewController(animated: false)
            // let vc = MainTabbar()
            // self.navigationController?.pushViewController(vc, animated: true)
         }
